@@ -4,5 +4,7 @@
     "source.fixAll.eslint": "explicit"
   },
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "stylelint.config": null,
+  "stylelint.validate": ["postcss", "typescript", "typescriptreact", "js"]
 }
