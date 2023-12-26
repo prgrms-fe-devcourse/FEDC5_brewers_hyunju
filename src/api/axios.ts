@@ -12,10 +12,11 @@ export const request = async (config: AxiosRequestConfig) => {
       ...config,
     });
 
-    if (response.status >= 200 && response.status <= 299) return response.data;
-    else {
+    if (response.status < 200 || response.status > 299) {
       throw new Error(ERROR_MESSAGES.API_REQUEST_ERROR);
     }
+
+    return response.data;
   } catch (e) {
     if (e instanceof Error) {
       console.error(e.message);
