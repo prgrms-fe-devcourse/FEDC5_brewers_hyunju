@@ -8,8 +8,8 @@ export const axiosInstance = axios.create({
 export const request = async (config: AxiosRequestConfig) => {
   try {
     const response = await axiosInstance.request({
-      ...config,
       headers: { 'Content-Type': 'application/json' },
+      ...config,
     });
 
     if (response.status >= 200 && response.status <= 299) return response.data;
