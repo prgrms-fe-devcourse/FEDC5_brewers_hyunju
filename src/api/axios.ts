@@ -16,7 +16,11 @@ export const request = async (config: AxiosRequestConfig) => {
     else {
       throw new Error(ERROR_MESSAGES.API_REQUEST_ERROR);
     }
-  } catch (error: unknown) {
-    console.error(error);
+  } catch (e) {
+    if (e instanceof Error) {
+      console.error(e.message);
+    } else {
+      console.error(e);
+    }
   }
 };
