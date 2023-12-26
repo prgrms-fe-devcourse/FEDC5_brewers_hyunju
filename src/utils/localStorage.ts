@@ -1,9 +1,9 @@
 const storage = window.localStorage;
 
-export const getItem = <T>(key: string, defualtValue: T) => {
+export const getItem = <T>(key: string, defaultValue: T) => {
   try {
     const storedValue = storage.getItem(key);
-    return storedValue ? JSON.parse(storedValue) : defualtValue;
+    return storedValue ? JSON.parse(storedValue) : defaultValue;
   } catch (e) {
     if (e instanceof Error) {
       console.error(e.message);
