@@ -8,24 +8,24 @@ export interface UserType {
   posts: PostType[];
   likes: LikeType[];
   comments: string[];
-  followers: [];
-  following: [
-    {
-      _id: string;
-      user: string;
-      follower: string;
-      createdAt: string;
-      updatedAt: string;
-      __v: 0;
-    },
-  ];
-  notifications: Notification[];
+  followers: FollowInfoType[];
+  following: FollowInfoType[];
+  notifications: NotificationType[];
   messages: MessageType[];
   _id: string;
   fullName: string;
   email: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface FollowInfoType {
+  _id: string;
+  user: string;
+  follower: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
 }
 
 export interface ChannelType {
@@ -40,7 +40,7 @@ export interface ChannelType {
 
 export interface PostType {
   likes: LikeType[];
-  comments: Comment[];
+  comments: CommentType[];
   _id: string;
   image?: string;
   imagePublicId?: string;
@@ -73,9 +73,9 @@ export interface NotificationType {
   _id: string;
   author: UserType;
   user: UserType | string;
-  post?: string; // 포스트 id
+  post: string | null; // 포스트 id
   follow?: string; // 사용자 id
-  comment?: Comment;
+  comment?: CommentType;
   message?: string; // 메시지 id
   createdAt: string;
   updatedAt: string;
