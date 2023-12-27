@@ -1,11 +1,11 @@
 import { LikeType } from '~/types/common';
 
-export interface createLikeRequestType {
+export interface CreateLikeRequestType {
   postId: string;
 }
-export type createLikeResponseType = LikeType;
+export type CreateLikeResponseType = LikeType;
 
-export interface deleteLikeRequestType {
+export interface DeleteLikeRequestType {
   id: string;
 }
-export type deleteLikeResponseType = LikeType;
+export type DeleteLikeResponseType = LikeType;

@@ -1,5 +1,5 @@
 import { ChannelType } from '~/types/common';
 
-export type getChannelsResponseType = ChannelType[];
+export type GetChannelsResponseType = ChannelType[];
 
-export type getChannelInfoResponseType = ChannelType;
+export type GetChannelInfoResponseType = ChannelType;

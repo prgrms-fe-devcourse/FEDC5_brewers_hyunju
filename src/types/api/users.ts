@@ -1,12 +1,12 @@
 import { UserType } from '~/types/common';
-import { rangeTemplateType } from './common';
+import { RangeTemplateType } from './common';
 
-export interface getUsersRequestType extends rangeTemplateType {}
-export type getUsersResponseType = UserType[];
+export interface GetUsersRequestType extends RangeTemplateType {}
+export type GetUsersResponseType = UserType[];
 
-export type onlineUsersResponseType = UserType[];
+export type OnlineUsersResponseType = UserType[];
 
-export type getUserResponseType = UserType;
+export type GetUserResponseType = UserType;
 
-export type uploadPhotoRequestType = FormData;
-export type uploadPhotoResponseType = UserType;
+export type UploadPhotoRequestType = FormData;
+export type UploadPhotoResponseType = UserType;

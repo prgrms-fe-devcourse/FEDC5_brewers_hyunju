@@ -1,19 +1,19 @@
 import { PostType } from '~/types/common';
-import { rangeTemplateType } from './common';
+import { RangeTemplateType } from './common';
 
-export interface getChannelPostsRequestType extends rangeTemplateType {}
-export type getChannelPostsResponseType = PostType[];
+export interface GetChannelPostsRequestType extends RangeTemplateType {}
+export type GetChannelPostsResponseType = PostType[];
 
-export interface getUserPostsRequestType extends rangeTemplateType {}
-export type getUserPostsResponseType = PostType[];
+export interface GetUserPostsRequestType extends RangeTemplateType {}
+export type GetUserPostsResponseType = PostType[];
 
-export type createPostRequestType = FormData;
+export type CreatePostRequestType = FormData;
 
-export type getPostDetailResponseType = PostType;
+export type GetPostDetailResponseType = PostType;
 
-export type updatePostRequestType = FormData;
-export type updatePostResponseType = PostType;
+export type UpdatePostRequestType = FormData;
+export type UpdatePostResponseType = PostType;
 
-export interface deletePostRequestType {
+export interface DeletePostRequestType {
   id: string;
 }

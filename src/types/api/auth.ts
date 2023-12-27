@@ -1,23 +1,23 @@
 import { UserType } from '~/types/common';
 
-export interface loginRequestType {
+export interface LoginRequestType {
   email: string;
   password: string;
 }
 
-export interface loginResponseType {
+export interface LoginResponseType {
   user: UserType;
   token: string;
 }
 
-export interface signupRequestType {
+export interface SignupRequestType {
   email: string;
   fullName: string;
   password: string;
 }
-export interface signupResponseType {
+export interface SignupResponseType {
   user: UserType;
   token: string;
 }
 
-export type authUserResponseType = UserType;
+export type AuthUserResponseType = UserType;

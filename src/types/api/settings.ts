@@ -1,11 +1,11 @@
 import { UserType } from '~/types/common';
 
-export interface updateUserRequestType {
+export interface UpdateUserRequestType {
   fullName: string;
   username: string;
 }
-export type updateUserResponseType = UserType;
+export type UpdateUserResponseType = UserType;
 
-export interface updatePasswordRequestType {
+export interface UpdatePasswordRequestType {
   password: string;
 }
