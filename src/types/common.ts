@@ -81,6 +81,23 @@ export interface NotificationType {
   updatedAt: string;
 }
 
+export interface FollowType {
+  _id: string;
+  user: string; // 사용자 id
+  follower: string; // 사용자 id
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ConversationType {
+  _id: string[];
+  message: string;
+  sender: UserType;
+  receiver: UserType;
+  seen: boolean;
+  createdAt: string;
+}
+
 export interface MessageType {
   _id: string;
   message: string;
