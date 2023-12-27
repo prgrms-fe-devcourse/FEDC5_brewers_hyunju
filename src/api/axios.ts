@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { ERROR_MESSAGES } from '~/constants/error';
+import { API } from '~/constants/message';
 
 export const axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
@@ -13,7 +13,7 @@ export const request = async (config: AxiosRequestConfig) => {
     });
 
     if (response.status < 200 || response.status > 299) {
-      throw new Error(ERROR_MESSAGES.API_REQUEST_ERROR);
+      throw new Error(API.REQUEST_ERROR);
     }
 
     return response.data;
