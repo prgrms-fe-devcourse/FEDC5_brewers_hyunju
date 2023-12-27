@@ -1,7 +1,7 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, AxiosInstance, AxiosResponse } from 'axios';
 import { API } from '~/constants/message';
 
-export const axiosInstance = axios.create({
+const axiosInstance: AxiosInstance = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
 });
 
@@ -25,3 +25,29 @@ export const request = async (config: AxiosRequestConfig) => {
     }
   }
 };
+
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const accessToken: string | null = localStorage.getItem('accessToken');
+
+    if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
+
+    return config;
+  },
+  (e) => {
+    console.error(e);
+    return Promise.reject(e);
+  }
+);
+
+axiosInstance.interceptors.response.use(
+  (response: AxiosResponse) => {
+    return response;
+  },
+  (e) => {
+    console.error(e);
+    return Promise.reject(e);
+  }
+);
+
+export default axiosInstance;
