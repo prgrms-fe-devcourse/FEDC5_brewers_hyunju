@@ -1,14 +1,14 @@
 import { CommentType } from '~/types/common';
 
-export interface createCommentRequestType {
+export interface CreateCommentRequestType {
   comment: string;
   postId: string;
 }
 
-export type createCommentResponseType = CommentType;
+export type CreateCommentResponseType = CommentType;
 
-export interface deleteCommentRequestType {
+export interface DeleteCommentRequestType {
   id: string;
 }
 
-export type deleteCommentResponseType = CommentType;
+export type DeleteCommentResponseType = CommentType;

@@ -1,13 +1,13 @@
 import { FollowType } from '~/types/common';
 
-export interface createFollowRequestType {
+export interface CreateFollowRequestType {
   userId: string;
 }
 
-export type createFollowResponseType = FollowType;
+export type CreateFollowResponseType = FollowType;
 
-export interface deleteFollowRequestType {
+export interface DeleteFollowRequestType {
   id: string;
 }
 
-export type deleteCommentReponseType = FollowType;
+export type DeleteCommentResponseType = FollowType;

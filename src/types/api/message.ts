@@ -1,20 +1,20 @@
 import { ConversationType, MessageType } from '~/types/common';
 
-export type getUserListsResponseType = ConversationType[];
+export type GetMessageUserListsResponseType = ConversationType[];
 
-export interface getMessageListsRequestType {
+export interface GetMessageListsRequestType {
   userId: string;
 }
 
-export type getMessageListsResponseType = MessageType[];
+export type GetMessageListsResponseType = MessageType[];
 
-export interface sendMessageRequestType {
+export interface SendMessageRequestType {
   message: string;
   receiver: string;
 }
 
-export type sendMessageResponseType = MessageType;
+export type SendMessageResponseType = MessageType;
 
-export interface updateMessageSeenRequestType {
+export interface UpdateMessageSeenRequestType {
   sender: string;
 }

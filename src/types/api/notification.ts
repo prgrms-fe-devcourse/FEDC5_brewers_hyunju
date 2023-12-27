@@ -1,12 +1,12 @@
 import { NotificationType } from '~/types/common';
 
-export type getNotificationListType = NotificationType[];
+export type GetNotificationListResponseType = NotificationType[];
 
-export interface createNotificationRequestType {
+export interface CreateNotificationRequestType {
   notificationType: 'COMMENT' | 'FOLLOW' | 'LIKE' | 'MESSAGE';
   notificationTypeId: string;
   userId: string;
   postId: string | null;
 }
 
-export type createNotificationResponseType = NotificationType;
+export type CreateNotificationResponseType = NotificationType;

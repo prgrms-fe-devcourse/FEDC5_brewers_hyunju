@@ -1,5 +1,5 @@
 import { UserType, PostType } from '~/types/common';
 
-export type searchUserResponseType = UserType[];
+export type SearchUserResponseType = UserType[];
 
-export type searchTotalResponseType = (UserType | PostType)[];
+export type SearchTotalResponseType = (UserType | PostType)[];
