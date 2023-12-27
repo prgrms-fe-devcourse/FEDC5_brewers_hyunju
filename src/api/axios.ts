@@ -1,4 +1,8 @@
-import axios, { AxiosRequestConfig, AxiosInstance, AxiosResponse } from 'axios';
+import axios, {
+  AxiosRequestConfig,
+  AxiosInstance,
+  InternalAxiosRequestConfig,
+} from 'axios';
 import { API } from '~/constants/message';
 
 const axiosInstance: AxiosInstance = axios.create({
@@ -17,36 +21,33 @@ export const request = async (config: AxiosRequestConfig) => {
     }
 
     return response.data;
-  } catch (e) {
+  } catch (e: unknown) {
     if (e instanceof Error) {
       console.error(e.message);
     } else {
-      console.error(e);
+      console.error('api/axios: 알 수 없는 에러가 발생했습니다. (request)');
     }
   }
 };
 
 axiosInstance.interceptors.request.use(
-  (config) => {
+  (
+    config: InternalAxiosRequestConfig
+  ): Promise<InternalAxiosRequestConfig> | InternalAxiosRequestConfig => {
     const accessToken: string | null = localStorage.getItem('accessToken');
+
+    config.headers = config.headers || {};
 
     if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
 
     return config;
   },
-  (e) => {
-    console.error(e);
-    return Promise.reject(e);
-  }
-);
-
-axiosInstance.interceptors.response.use(
-  (response: AxiosResponse) => {
-    return response;
-  },
-  (e) => {
-    console.error(e);
-    return Promise.reject(e);
+  (e: unknown) => {
+    if (e instanceof Error) {
+      console.error(e.message);
+    } else {
+      console.error('api/axios: 알 수 없는 에러가 발생했습니다. (interceptor)');
+    }
   }
 );
 
