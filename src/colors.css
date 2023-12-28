@@ -1,0 +1,116 @@
+:root {
+  --adaptive50: rgb(255, 255, 255);
+  --adaptive100: rgb(250, 250, 250);
+  --adaptive200: rgb(245, 245, 245);
+  --adaptive300: rgb(212, 212, 212);
+  --adaptive400: rgb(163, 163, 163);
+  --adaptive500: rgb(115, 115, 115);
+  --adaptive600: rgb(82, 82, 82);
+  --adaptive700: rgb(49, 49, 49);
+  --adaptive800: rgb(31, 31, 31);
+  --adaptive900: rgb(23, 23, 23);
+  --adaptive950: rgb(12, 12, 12);
+
+  --adaptiveOpacity50: rgba(23, 23, 23, 0.02);
+  --adaptiveOpacity100: rgba(23, 23, 23, 0.05);
+  --adaptiveOpacity200: rgba(23, 23, 23, 0.1);
+  --adaptiveOpacity300: rgba(23, 23, 23, 0.18);
+  --adaptiveOpacity400: rgba(23, 23, 23, 0.31);
+  --adaptiveOpacity500: rgba(23, 23, 23, 0.46);
+  --adaptiveOpacity600: rgba(23, 23, 23, 0.58);
+  --adaptiveOpacity700: rgba(23, 23, 23, 0.7);
+  --adaptiveOpacity800: rgba(23, 23, 23, 0.8);
+  --adaptiveOpacity900: rgba(23, 23, 23, 0.91);
+  --adaptiveOpacity950: rgba(23, 23, 23, 0.95);
+
+  --whiteOpacity50: rgba(255, 255, 255, 0.05);
+  --whiteOpacity100: rgba(255, 255, 255, 0.11);
+  --whiteOpacity200: rgba(255, 255, 255, 0.19);
+  --whiteOpacity300: rgba(255, 255, 255, 0.27);
+  --whiteOpacity400: rgba(255, 255, 255, 0.36);
+  --whiteOpacity500: rgba(255, 255, 255, 0.47);
+  --whiteOpacity600: rgba(255, 255, 255, 0.6);
+  --whiteOpacity700: rgba(255, 255, 255, 0.75);
+  --whiteOpacity800: rgba(255, 255, 255, 0.89);
+  --whiteOpacity900: rgba(255, 255, 255, 0.973);
+  --whiteOpacity950: rgba(255, 255, 255, 1);
+
+  --blackOpacity50: rgba(23, 23, 23, 0.02);
+  --blackOpacity100: rgba(23, 23, 23, 0.05);
+  --blackOpacity200: rgba(23, 23, 23, 0.1);
+  --blackOpacity300: rgba(23, 23, 23, 0.18);
+  --blackOpacity400: rgba(23, 23, 23, 0.31);
+  --blackOpacity500: rgba(23, 23, 23, 0.46);
+  --blackOpacity600: rgba(23, 23, 23, 0.58);
+  --blackOpacity700: rgba(23, 23, 23, 0.7);
+  --blackOpacity800: rgba(23, 23, 23, 0.8);
+  --blackOpacity900: rgba(23, 23, 23, 0.87);
+  --blackOpacity950: rgba(23, 23, 23, 0.91);
+
+  --red50: rgb(254, 244, 243);
+  --red100: rgb(253, 229, 227);
+  --red200: rgb(252, 209, 205);
+  --red300: rgb(249, 176, 170);
+  --red400: rgb(245, 132, 122);
+  --red500: rgb(234, 92, 79);
+  --red600: rgb(214, 64, 51);
+  --red700: rgb(180, 51, 39);
+  --red800: rgb(149, 44, 35);
+  --red900: rgb(124, 43, 36);
+  --red950: rgb(67, 17, 13);
+
+  --green50: rgb(246, 253, 249);
+  --green100: rgb(235, 249, 241);
+  --green200: rgb(214, 243, 228);
+  --green300: rgb(176, 232, 206);
+  --green400: rgb(116, 215, 176);
+  --green500: rgb(5, 205, 143);
+  --green600: rgb(4, 182, 127);
+  --green700: rgb(4, 158, 111);
+  --green800: rgb(3, 138, 97);
+  --green900: rgb(15, 125, 91);
+  --green950: rgb(2, 87, 60);
+
+  --blue50: rgb(220, 239, 255);
+  --blue100: rgb(203, 232, 255);
+  --blue200: rgb(182, 222, 255);
+  --blue300: rgb(149, 209, 255);
+  --blue400: rgb(100, 186, 255);
+  --blue500: rgb(56, 157, 255);
+  --blue600: rgb(5, 145, 255);
+  --blue700: rgb(0, 97, 211);
+  --blue800: rgb(0, 83, 177);
+  --blue900: rgb(0, 69, 143);
+  --blue950: rgb(13, 60, 95);
+
+  --primaryColor: rgb(254, 147, 56);
+  --secondaryColor: var(--blue500);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --adaptive50: rgb(23, 23, 23);
+    --adaptive100: rgb(31, 31, 31);
+    --adaptive200: rgb(49, 49, 49);
+    --adaptive300: rgb(82, 82, 82);
+    --adaptive400: rgb(115, 115, 115);
+    --adaptive500: rgb(163, 163, 163);
+    --adaptive600: rgb(212, 212, 212);
+    --adaptive700: rgb(228, 228, 228);
+    --adaptive800: rgb(236, 236, 236);
+    --adaptive900: rgb(241, 241, 241);
+    --adaptive950: rgb(255, 255, 255);
+
+    --adaptiveOpacity50: rgba(255, 255, 255, 0.02);
+    --adaptiveOpacity100: rgba(255, 255, 255, 0.05);
+    --adaptiveOpacity200: rgba(255, 255, 255, 0.1);
+    --adaptiveOpacity300: rgba(255, 255, 255, 0.18);
+    --adaptiveOpacity400: rgba(255, 255, 255, 0.31);
+    --adaptiveOpacity500: rgba(255, 255, 255, 0.46);
+    --adaptiveOpacity600: rgba(255, 255, 255, 0.58);
+    --adaptiveOpacity700: rgba(255, 255, 255, 0.7);
+    --adaptiveOpacity800: rgba(255, 255, 255, 0.8);
+    --adaptiveOpacity900: rgba(255, 255, 255, 0.91);
+    --adaptiveOpacity950: rgba(255, 255, 255, 0.95);
+  }
+}
