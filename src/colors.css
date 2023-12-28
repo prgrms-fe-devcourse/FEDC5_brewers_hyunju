@@ -20,20 +20,20 @@
   --adaptiveOpacity600: rgba(23, 23, 23, 0.58);
   --adaptiveOpacity700: rgba(23, 23, 23, 0.7);
   --adaptiveOpacity800: rgba(23, 23, 23, 0.8);
-  --adaptiveOpacity900: rgba(23, 23, 23, 0.91);
-  --adaptiveOpacity950: rgba(23, 23, 23, 0.95);
+  --adaptiveOpacity900: rgba(23, 23, 23, 0.87);
+  --adaptiveOpacity950: rgba(23, 23, 23, 0.91);
 
-  --whiteOpacity50: rgba(255, 255, 255, 0.05);
-  --whiteOpacity100: rgba(255, 255, 255, 0.11);
-  --whiteOpacity200: rgba(255, 255, 255, 0.19);
-  --whiteOpacity300: rgba(255, 255, 255, 0.27);
-  --whiteOpacity400: rgba(255, 255, 255, 0.36);
-  --whiteOpacity500: rgba(255, 255, 255, 0.47);
-  --whiteOpacity600: rgba(255, 255, 255, 0.6);
-  --whiteOpacity700: rgba(255, 255, 255, 0.75);
-  --whiteOpacity800: rgba(255, 255, 255, 0.89);
-  --whiteOpacity900: rgba(255, 255, 255, 0.973);
-  --whiteOpacity950: rgba(255, 255, 255, 1);
+  --whiteOpacity50: rgba(255, 255, 255, 0.02);
+  --whiteOpacity100: rgba(255, 255, 255, 0.05);
+  --whiteOpacity200: rgba(255, 255, 255, 0.1);
+  --whiteOpacity300: rgba(255, 255, 255, 0.18);
+  --whiteOpacity400: rgba(255, 255, 255, 0.31);
+  --whiteOpacity500: rgba(255, 255, 255, 0.46);
+  --whiteOpacity600: rgba(255, 255, 255, 0.58);
+  --whiteOpacity700: rgba(255, 255, 255, 0.7);
+  --whiteOpacity800: rgba(255, 255, 255, 0.8);
+  --whiteOpacity900: rgba(255, 255, 255, 0.87);
+  --whiteOpacity950: rgba(255, 255, 255, 0.91);
 
   --blackOpacity50: rgba(23, 23, 23, 0.02);
   --blackOpacity100: rgba(23, 23, 23, 0.05);
@@ -110,7 +110,7 @@
     --adaptiveOpacity600: rgba(255, 255, 255, 0.58);
     --adaptiveOpacity700: rgba(255, 255, 255, 0.7);
     --adaptiveOpacity800: rgba(255, 255, 255, 0.8);
-    --adaptiveOpacity900: rgba(255, 255, 255, 0.91);
-    --adaptiveOpacity950: rgba(255, 255, 255, 0.95);
+    --adaptiveOpacity900: rgba(255, 255, 255, 0.87);
+    --adaptiveOpacity950: rgba(255, 255, 255, 0.91);
   }
 }
