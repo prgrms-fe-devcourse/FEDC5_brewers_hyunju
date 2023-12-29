@@ -19,7 +19,7 @@ export const useDeleteComment = ({ id }: DeleteCommentRequestType) => {
     const userToken = getItem<string | null>('userToken', null);
     try {
       const response = await request({
-        method: 'DELETE',
+        method: 'delete',
         url: DELETE_COMMENT_URL,
         headers: {
           ...(userToken ? { Authorization: `Bearer ${userToken}` } : {}),

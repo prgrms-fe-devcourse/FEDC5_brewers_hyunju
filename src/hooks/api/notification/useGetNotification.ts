@@ -18,7 +18,7 @@ export const useGetNotification = () => {
     const userToken = getItem<string | null>('userToken', null);
     try {
       const response = await request({
-        method: 'GET',
+        method: 'get',
         url: NOTIFICATION_GET_URL,
         headers: {
           ...(userToken ? { Authorization: `Bearer ${userToken}` } : {}),

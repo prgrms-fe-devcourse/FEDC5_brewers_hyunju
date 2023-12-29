@@ -22,7 +22,7 @@ export const useCreateComment = ({
     const userToken = getItem<string | null>('userToken', null);
     try {
       const response = await request({
-        method: 'POST',
+        method: 'post',
         url: CREATE_COMMENT_URL,
         headers: {
           ...(userToken ? { Authorization: `Bearer ${userToken}` } : {}),

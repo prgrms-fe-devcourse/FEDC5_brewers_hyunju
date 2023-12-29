@@ -18,7 +18,7 @@ export const useSearchAll = (query: string) => {
     setStatus('loading');
     try {
       const response = await request({
-        method: 'GET',
+        method: 'get',
         url: SEARCH_ALL_URL,
         headers: {
           ...(userToken ? { Authorization: `Bearer ${userToken}` } : {}),

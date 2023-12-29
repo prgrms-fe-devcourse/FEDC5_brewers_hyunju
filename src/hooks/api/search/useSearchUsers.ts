@@ -18,7 +18,7 @@ export const useSearchUsers = (query: string) => {
     setStatus('loading');
     try {
       const response = await request({
-        method: 'GET',
+        method: 'get',
         url: SEARCH_USERS_URL,
         headers: {
           ...(userToken ? { Authorization: `Bearer ${userToken}` } : {}),
