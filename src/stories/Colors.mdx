@@ -1,0 +1,130 @@
+import { Meta, ColorPalette, ColorItem } from '@storybook/blocks';
+import './../colors.css';
+
+<Meta title='Colors' />
+
+<ColorPalette>
+  <ColorItem
+    title='primaryColor'
+    subtitle='Primary Color'
+    colors={{
+      primaryColor: getComputedStyle(document.documentElement).getPropertyValue(
+        `--primaryColor`
+      ),
+    }}
+  />
+  <ColorItem
+    title='secondaryColor'
+    subtitle='Secondary Color'
+    colors={{
+      secondaryColor: getComputedStyle(
+        document.documentElement
+      ).getPropertyValue(`--secondaryColor`),
+    }}
+  />
+  <ColorItem
+    title='adaptive'
+    subtitle='Adaptvie'
+    colors={[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].reduce(
+      (obj, step) => {
+        return {
+          ...obj,
+          [step]: getComputedStyle(document.documentElement).getPropertyValue(
+            `--adaptive${step}`
+          ),
+        };
+      },
+      {}
+    )}
+  />
+  <ColorItem
+    title='adaptiveOpacity'
+    subtitle='Adaptvie Opacity'
+    colors={[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].reduce(
+      (obj, step) => {
+        return {
+          ...obj,
+          [step]: getComputedStyle(document.documentElement).getPropertyValue(
+            `--adaptiveOpacity${step}`
+          ),
+        };
+      },
+      {}
+    )}
+  />
+  <ColorItem
+    title='whiteOpacity'
+    subtitle='White Opacity'
+    colors={[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].reduce(
+      (obj, step) => {
+        return {
+          ...obj,
+          [step]: getComputedStyle(document.documentElement).getPropertyValue(
+            `--whiteOpacity${step}`
+          ),
+        };
+      },
+      {}
+    )}
+  />
+  <ColorItem
+    title='blackOpacity'
+    subtitle='Black Opacity'
+    colors={[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].reduce(
+      (obj, step) => {
+        return {
+          ...obj,
+          [step]: getComputedStyle(document.documentElement).getPropertyValue(
+            `--blackOpacity${step}`
+          ),
+        };
+      },
+      {}
+    )}
+  />
+  <ColorItem
+    title='red'
+    subtitle='Red'
+    colors={[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].reduce(
+      (obj, step) => {
+        return {
+          ...obj,
+          [step]: getComputedStyle(document.documentElement).getPropertyValue(
+            `--red${step}`
+          ),
+        };
+      },
+      {}
+    )}
+  />
+  <ColorItem
+    title='green'
+    subtitle='Green'
+    colors={[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].reduce(
+      (obj, step) => {
+        return {
+          ...obj,
+          [step]: getComputedStyle(document.documentElement).getPropertyValue(
+            `--green${step}`
+          ),
+        };
+      },
+      {}
+    )}
+  />
+  <ColorItem
+    title='blue'
+    subtitle='Blue'
+    colors={[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].reduce(
+      (obj, step) => {
+        return {
+          ...obj,
+          [step]: getComputedStyle(document.documentElement).getPropertyValue(
+            `--blue${step}`
+          ),
+        };
+      },
+      {}
+    )}
+  />
+</ColorPalette>
