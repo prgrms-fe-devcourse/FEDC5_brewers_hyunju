@@ -29,7 +29,7 @@ export const useDeleteComment = ({ id }: DeleteCommentRequestType) => {
       setData(response.data);
       setStatus('success');
     } catch (e: unknown) {
-      handleError(e, `Comment (deleteComment / ${id})`); // handleError 함수를 사용하여 에러 처리
+      handleError(e, `Comment (deleteComment / ${id})`);
       setStatus('error');
     }
   };
