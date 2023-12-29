@@ -26,11 +26,11 @@ import './../colors.css';
     title='adaptive'
     subtitle='Adaptvie'
     colors={[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].reduce(
-      (acc, num) => {
+      (obj, step) => {
         return {
-          ...acc,
-          [num]: getComputedStyle(document.documentElement).getPropertyValue(
-            `--adaptive${num}`
+          ...obj,
+          [step]: getComputedStyle(document.documentElement).getPropertyValue(
+            `--adaptive${step}`
           ),
         };
       },
@@ -41,11 +41,11 @@ import './../colors.css';
     title='adaptiveOpacity'
     subtitle='Adaptvie Opacity'
     colors={[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].reduce(
-      (acc, num) => {
+      (obj, step) => {
         return {
-          ...acc,
-          [num]: getComputedStyle(document.documentElement).getPropertyValue(
-            `--adaptiveOpacity${num}`
+          ...obj,
+          [step]: getComputedStyle(document.documentElement).getPropertyValue(
+            `--adaptiveOpacity${step}`
           ),
         };
       },
@@ -56,11 +56,11 @@ import './../colors.css';
     title='whiteOpacity'
     subtitle='White Opacity'
     colors={[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].reduce(
-      (acc, num) => {
+      (obj, step) => {
         return {
-          ...acc,
-          [num]: getComputedStyle(document.documentElement).getPropertyValue(
-            `--whiteOpacity${num}`
+          ...obj,
+          [step]: getComputedStyle(document.documentElement).getPropertyValue(
+            `--whiteOpacity${step}`
           ),
         };
       },
@@ -71,11 +71,11 @@ import './../colors.css';
     title='blackOpacity'
     subtitle='Black Opacity'
     colors={[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].reduce(
-      (acc, num) => {
+      (obj, step) => {
         return {
-          ...acc,
-          [num]: getComputedStyle(document.documentElement).getPropertyValue(
-            `--blackOpacity${num}`
+          ...obj,
+          [step]: getComputedStyle(document.documentElement).getPropertyValue(
+            `--blackOpacity${step}`
           ),
         };
       },
@@ -86,11 +86,11 @@ import './../colors.css';
     title='red'
     subtitle='Red'
     colors={[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].reduce(
-      (acc, num) => {
+      (obj, step) => {
         return {
-          ...acc,
-          [num]: getComputedStyle(document.documentElement).getPropertyValue(
-            `--red${num}`
+          ...obj,
+          [step]: getComputedStyle(document.documentElement).getPropertyValue(
+            `--red${step}`
           ),
         };
       },
@@ -101,11 +101,11 @@ import './../colors.css';
     title='green'
     subtitle='Green'
     colors={[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].reduce(
-      (acc, num) => {
+      (obj, step) => {
         return {
-          ...acc,
-          [num]: getComputedStyle(document.documentElement).getPropertyValue(
-            `--green${num}`
+          ...obj,
+          [step]: getComputedStyle(document.documentElement).getPropertyValue(
+            `--green${step}`
           ),
         };
       },
@@ -116,11 +116,11 @@ import './../colors.css';
     title='blue'
     subtitle='Blue'
     colors={[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].reduce(
-      (acc, num) => {
+      (obj, step) => {
         return {
-          ...acc,
-          [num]: getComputedStyle(document.documentElement).getPropertyValue(
-            `--blue${num}`
+          ...obj,
+          [step]: getComputedStyle(document.documentElement).getPropertyValue(
+            `--blue${step}`
           ),
         };
       },
