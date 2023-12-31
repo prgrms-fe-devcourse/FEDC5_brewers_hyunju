@@ -1,7 +1,11 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, {
+  AxiosRequestConfig,
+  AxiosInstance,
+  InternalAxiosRequestConfig,
+} from 'axios';
 import { API } from '~/constants/message';
 
-export const axiosInstance = axios.create({
+const axiosInstance: AxiosInstance = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
 });
 
@@ -17,11 +21,34 @@ export const request = async (config: AxiosRequestConfig) => {
     }
 
     return response.data;
-  } catch (e) {
+  } catch (e: unknown) {
     if (e instanceof Error) {
       console.error(e.message);
     } else {
-      console.error(e);
+      console.error('api/axios: 알 수 없는 에러가 발생했습니다. (request)');
     }
   }
 };
+
+axiosInstance.interceptors.request.use(
+  (
+    config: InternalAxiosRequestConfig
+  ): Promise<InternalAxiosRequestConfig> | InternalAxiosRequestConfig => {
+    const accessToken: string | null = localStorage.getItem('accessToken');
+
+    config.headers = config.headers || {};
+
+    if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
+
+    return config;
+  },
+  (e: unknown) => {
+    if (e instanceof Error) {
+      console.error(e.message);
+    } else {
+      console.error('api/axios: 알 수 없는 에러가 발생했습니다. (interceptor)');
+    }
+  }
+);
+
+export default axiosInstance;
