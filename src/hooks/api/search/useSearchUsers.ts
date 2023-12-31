@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { request } from '~/api/axios';
-import { getItem } from '~/utils/localStorage';
 import { handleError } from '~/utils/handleError';
 import { SearchUserResponseType } from '~/types/api/search';
 
@@ -14,15 +13,11 @@ export const useSearchUsers = (query: string) => {
       return;
     }
     const SEARCH_USERS_URL = `/search/users/${encodeURIComponent(query)}`;
-    const userToken = getItem<string | null>('userToken', null);
     setStatus('loading');
     try {
       const response = await request({
         method: 'get',
         url: SEARCH_USERS_URL,
-        headers: {
-          ...(userToken ? { Authorization: `Bearer ${userToken}` } : {}),
-        },
       });
       setUsers(response.data);
       setStatus('success');
