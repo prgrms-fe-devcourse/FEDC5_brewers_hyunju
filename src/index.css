@@ -1,2 +1,7 @@
 @import './reset.css';
 @import './colors.css';
+
+html {
+  background-color: var(--adaptive50);
+  color: var(--adaptive950);
+}
