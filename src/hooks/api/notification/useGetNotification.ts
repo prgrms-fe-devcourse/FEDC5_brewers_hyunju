@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { request } from '~/api/axios';
-import { getItem } from '~/utils/localStorage';
 import { handleError } from '~/utils/handleError';
 import { GetNotificationListResponseType } from '~/types/api/notification';
 
@@ -15,14 +14,10 @@ export const useGetNotification = () => {
 
   const getNotification = async () => {
     setStatus('loading');
-    const userToken = getItem<string | null>('userToken', null);
     try {
       const response = await request({
         method: 'get',
         url: NOTIFICATION_GET_URL,
-        headers: {
-          ...(userToken ? { Authorization: `Bearer ${userToken}` } : {}),
-        },
       });
       setData(response);
       setStatus('success');

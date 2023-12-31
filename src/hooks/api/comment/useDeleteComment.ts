@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { request } from '~/api/axios';
-import { getItem } from '~/utils/localStorage';
 import { handleError } from '~/utils/handleError';
 import {
   DeleteCommentRequestType,
@@ -16,14 +15,10 @@ export const useDeleteComment = ({ id }: DeleteCommentRequestType) => {
 
   const deleteComment = async () => {
     setStatus('loading');
-    const userToken = getItem<string | null>('userToken', null);
     try {
       const response = await request({
         method: 'delete',
         url: DELETE_COMMENT_URL,
-        headers: {
-          ...(userToken ? { Authorization: `Bearer ${userToken}` } : {}),
-        },
         data: { id },
       });
       setData(response.data);

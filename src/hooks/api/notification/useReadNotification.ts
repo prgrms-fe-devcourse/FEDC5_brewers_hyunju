@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { request } from '~/api/axios';
-import { getItem } from '~/utils/localStorage';
 import { handleError } from '~/utils/handleError';
 
 export const useReadNotification = () => {
@@ -12,14 +11,10 @@ export const useReadNotification = () => {
 
   const readNotification = async () => {
     setStatus('loading');
-    const userToken = getItem<string | null>('userToken', null);
     try {
       await request({
         method: 'put',
         url: NOTIFICATION_URL,
-        headers: {
-          ...(userToken ? { Authorization: `Bearer ${userToken}` } : {}),
-        },
       });
       setStatus('success');
     } catch (e: unknown) {

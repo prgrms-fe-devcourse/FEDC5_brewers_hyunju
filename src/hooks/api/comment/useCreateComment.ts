@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { request } from '~/api/axios';
-import { getItem } from '~/utils/localStorage';
 import { handleError } from '~/utils/handleError';
 import {
   CreateCommentRequestType,
@@ -19,14 +18,10 @@ export const useCreateComment = ({
 
   const createComment = async () => {
     setStatus('loading');
-    const userToken = getItem<string | null>('userToken', null);
     try {
       const response = await request({
         method: 'post',
         url: CREATE_COMMENT_URL,
-        headers: {
-          ...(userToken ? { Authorization: `Bearer ${userToken}` } : {}),
-        },
         data: { comment, postId },
       });
       setData(response.data);
