@@ -6,6 +6,6 @@ export default {
     'declaration-property-value-disallowed-list': {
       '/.+/': '/(rgba?|hsla?)(.*)/',
     },
-    'declaration-block-no-redundant-longhand-properties': false,
+    'declaration-block-no-redundant-longhand-properties': null,
   },
 };
