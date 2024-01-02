@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import useIntersectionObserver from '~/hooks/useIntersectionObserver';
+import ColorType from '~/types/design/color';
 
 export type ImageModeType = 'cover' | 'contain' | 'fill';
 export interface ImagePropsType {
@@ -12,7 +13,7 @@ export interface ImagePropsType {
   height: number;
   alt: string;
   mode?: ImageModeType;
-  letterBoxColor?: string;
+  letterBoxColor?: ColorType;
 }
 
 interface ImageStylePropsType {
@@ -70,7 +71,7 @@ const Image = ({
 export default Image;
 
 const LetterBoxDiv = styled.div<{
-  letterBoxColor: string;
+  letterBoxColor: ColorType;
   width: number;
   height: number;
 }>`
