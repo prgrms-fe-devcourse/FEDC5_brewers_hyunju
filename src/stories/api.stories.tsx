@@ -1,26 +1,18 @@
-import { useRequestFn } from '~/api';
-import { LoginResponseType } from '~/types/api/auth';
+import useLogin from '~/hooks/api/auth/useLogin';
 export default {
-  title: 'Hook/api',
+  title: 'Hooks/API',
 };
 
-export const Login = () => {
-  const { request, status, data } = useRequestFn<LoginResponseType>({
-    method: 'post',
-    baseURL: import.meta.env.STORYBOOK_APP_BASE_URL,
-    url: '/login',
-  });
-
+export const UseLogin = () => {
+  const { handleLogin, status, error } = useLogin();
   return (
     <>
       <button
         onClick={(e) => {
           e.preventDefault();
-          request({
-            data: {
-              email: 'admin@programmers.co.kr',
-              password: 'programmers',
-            },
+          handleLogin({
+            email: 'admin@programmers.co.kr',
+            password: 'programmers',
           });
         }}
       >
@@ -29,19 +21,29 @@ export const Login = () => {
       <button
         onClick={(e) => {
           e.preventDefault();
-          request({
-            data: {
-              email: 'adin@programmers.co.kr',
-              password: 'programmers',
-            },
+          handleLogin({
+            email: 'ddmin@programmers.co.kr',
+            password: 'programmers',
           });
         }}
       >
         잘못된 로그인
       </button>
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          handleLogin({
+            email: '',
+            password: 'programmers',
+          });
+        }}
+      >
+        빈 input 로그인
+      </button>
+      {status}
       {status === 'loading' && 'Loading'}
-      {status === 'error' && 'error'}
-      {status === 'success' && <div>{data.token}</div>}
+      {status === 'error' && error}
+      {status === 'success' && <div>Login 완료</div>}
     </>
   );
 };
