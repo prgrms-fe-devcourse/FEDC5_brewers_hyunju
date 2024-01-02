@@ -5,29 +5,35 @@ import {
   FontWeightType,
   LineHeightType,
 } from '~/types/design/font';
-import { Property } from 'csstype';
 import { FONT_SIZE, LINE_HEIGHT } from '~/constants/design';
 
-interface TextPropsType {
+export interface TextPropsType {
   size?: FontSizeType;
   height?: LineHeightType;
   weight?: FontWeightType;
   color?: ColorType;
-  m?: Property.Margin;
-  mx?: Property.MarginLeft;
-  my?: Property.MarginTop;
-  mt?: Property.MarginTop;
-  mb?: Property.MarginBottom;
-  ml?: Property.MarginLeft;
-  mr?: Property.MarginRight;
+  inline?: boolean;
+  m?: number;
+  mx?: number;
+  my?: number;
+  mt?: number;
+  mb?: number;
+  ml?: number;
+  mr?: number;
 }
 
 const Text = styled.p<TextPropsType>`
-  margin: ${(props) => props.m};
-  margin-top: ${(props) => props.mt ?? props.my};
-  margin-right: ${(props) => props.mr ?? props.mx};
-  margin-bottom: ${(props) => props.mb ?? props.my};
-  margin-left: ${(props) => props.ml ?? props.mx};
+  display: ${({ inline }) => (inline ? 'inline' : undefined)};
+
+  margin: ${({ m }) => (m ? `${m}rem` : undefined)};
+  margin-top: ${({ mt, my }) =>
+    mt ? `${mt}rem` : my ? `${my}rem` : undefined};
+  margin-right: ${({ mr, mx }) =>
+    mr ? `${mr}rem` : mx ? `${mx}rem` : undefined};
+  margin-bottom: ${({ mb, my }) =>
+    mb ? `${mb}rem` : my ? `${my}rem` : undefined};
+  margin-left: ${({ ml, mx }) =>
+    ml ? `${ml}rem` : mx ? `${mx}rem` : undefined};
 
   color: ${(props) => `var(${props.color ?? '--adaptive950'})`};
   font-weight: ${(props) => props.weight ?? '400'};

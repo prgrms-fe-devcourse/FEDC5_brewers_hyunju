@@ -1,28 +1,31 @@
 import styled from 'styled-components';
 import ContainerSizeType from '~/types/design/container';
-import { Property } from 'csstype';
 import { CONTAINER_SIZE } from '~/constants/design';
 
-interface ContainerPropsType {
+export interface ContainerPropsType {
   maxWidth: ContainerSizeType;
-  p?: Property.Padding;
-  px?: Property.PaddingLeft;
-  py?: Property.PaddingTop;
-  pt?: Property.PaddingTop;
-  pb?: Property.PaddingBottom;
-  pl?: Property.PaddingLeft;
-  pr?: Property.PaddingRight;
+  p?: number;
+  px?: number;
+  py?: number;
+  pt?: number;
+  pb?: number;
+  pl?: number;
+  pr?: number;
 }
 
 const Container = styled.div<ContainerPropsType>`
   width: 100%;
   max-width: ${(props) => CONTAINER_SIZE[props.maxWidth]};
   margin: 0 auto;
-  padding: ${(props) => props.p ?? '1rem'};
-  padding-top: ${(props) => props.pt ?? props.py};
-  padding-right: ${(props) => props.pr ?? props.px};
-  padding-bottom: ${(props) => props.pb ?? props.py};
-  padding-left: ${(props) => props.pl ?? props.px};
+  padding: ${({ p }) => (p ? `${p}rem` : '1rem')};
+  padding-top: ${({ pt, py }) =>
+    pt ? `${pt}rem` : py ? `${py}rem` : undefined};
+  padding-right: ${({ pr, px }) =>
+    pr ? `${pr}rem` : px ? `${px}rem` : undefined};
+  padding-bottom: ${({ pb, py }) =>
+    pb ? `${pb}rem` : py ? `${py}rem` : undefined};
+  padding-left: ${({ pl, px }) =>
+    pl ? `${pl}rem` : px ? `${px}rem` : undefined};
 
   background-color: var(--adaptive50);
 

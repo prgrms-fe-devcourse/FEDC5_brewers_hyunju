@@ -1,27 +1,29 @@
 import styled from 'styled-components';
 import { Property } from 'csstype';
 
-interface FlexPropsType {
+export interface FlexPropsType {
   direction?: Property.FlexDirection;
   wrap?: Property.FlexWrap;
   alignContent?: Property.AlignContent;
   alignItems?: Property.AlignItems;
   justifyContent?: Property.JustifyContent;
-  gap?: Property.Gap;
-  m?: Property.Margin;
-  mx?: Property.MarginLeft;
-  my?: Property.MarginTop;
-  mt?: Property.MarginTop;
-  mb?: Property.MarginBottom;
-  ml?: Property.MarginLeft;
-  mr?: Property.MarginRight;
-  p?: Property.Padding;
-  px?: Property.PaddingLeft;
-  py?: Property.PaddingTop;
-  pt?: Property.PaddingTop;
-  pb?: Property.PaddingBottom;
-  pl?: Property.PaddingLeft;
-  pr?: Property.PaddingRight;
+  gap?: number;
+  rowGap?: number;
+  columnGap?: number;
+  m?: number;
+  mx?: number;
+  my?: number;
+  mt?: number;
+  mb?: number;
+  ml?: number;
+  mr?: number;
+  p?: number;
+  px?: number;
+  py?: number;
+  pt?: number;
+  pb?: number;
+  pl?: number;
+  pr?: number;
 }
 
 const Flex = styled.div<FlexPropsType>`
@@ -32,18 +34,29 @@ const Flex = styled.div<FlexPropsType>`
   align-items: ${(props) => props.alignItems};
   justify-content: ${(props) => props.justifyContent};
 
-  margin: ${(props) => props.m};
-  margin-top: ${(props) => props.mt ?? props.my};
-  margin-right: ${(props) => props.mr ?? props.mx};
-  margin-bottom: ${(props) => props.mb ?? props.my};
-  margin-left: ${(props) => props.ml ?? props.mx};
-  padding: ${(props) => props.p};
-  padding-top: ${(props) => props.pt ?? props.py};
-  padding-right: ${(props) => props.pr ?? props.px};
-  padding-bottom: ${(props) => props.pb ?? props.py};
-  padding-left: ${(props) => props.pl ?? props.px};
+  margin: ${({ m }) => (m ? `${m}rem` : undefined)};
+  margin-top: ${({ mt, my }) =>
+    mt ? `${mt}rem` : my ? `${my}rem` : undefined};
+  margin-right: ${({ mr, mx }) =>
+    mr ? `${mr}rem` : mx ? `${mx}rem` : undefined};
+  margin-bottom: ${({ mb, my }) =>
+    mb ? `${mb}rem` : my ? `${my}rem` : undefined};
+  margin-left: ${({ ml, mx }) =>
+    ml ? `${ml}rem` : mx ? `${mx}rem` : undefined};
+  padding: ${({ p }) => (p ? `${p}rem` : undefined)};
+  padding-top: ${({ pt, py }) =>
+    pt ? `${pt}rem` : py ? `${py}rem` : undefined};
+  padding-right: ${({ pr, px }) =>
+    pr ? `${pr}rem` : px ? `${px}rem` : undefined};
+  padding-bottom: ${({ pb, py }) =>
+    pb ? `${pb}rem` : py ? `${py}rem` : undefined};
+  padding-left: ${({ pl, px }) =>
+    pl ? `${pl}rem` : px ? `${px}rem` : undefined};
 
-  gap: ${(props) => props.gap};
+  column-gap: ${({ gap, columnGap }) =>
+    columnGap ? `${columnGap}rem` : gap ? `${gap}rem` : undefined};
+  row-gap: ${({ gap, rowGap }) =>
+    rowGap ? `${rowGap}rem` : gap ? `${gap}rem` : undefined};
 `;
 
 export default Flex;
