@@ -1,9 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-const LOAD_IMG_EVENT_TYPE = 'loadImage';
 
-const useImage = (lazy: boolean, threshold: number) => {
+const useIntersectionObserver = <T extends HTMLElement>(
+  customEventType: string,
+  lazy: boolean,
+  threshold: number
+) => {
   const [loaded, setLoaded] = useState(false);
-  const imgRef = useRef<HTMLImageElement>(null);
+  const targetRef = useRef<T>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   const onIntersection: IntersectionObserverCallback = useCallback(
@@ -11,7 +14,7 @@ const useImage = (lazy: boolean, threshold: number) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           io.unobserve(entry.target);
-          entry.target.dispatchEvent(new CustomEvent(LOAD_IMG_EVENT_TYPE));
+          entry.target.dispatchEvent(new CustomEvent(customEventType));
         }
       });
     },
@@ -24,16 +27,16 @@ const useImage = (lazy: boolean, threshold: number) => {
       return;
     }
 
-    const handleLoadImage = () => setLoaded(true);
+    const handleLoad = () => setLoaded(true);
 
-    const imgElement = imgRef.current;
-    imgElement &&
-      imgElement.addEventListener(LOAD_IMG_EVENT_TYPE, handleLoadImage);
+    const targetElement = targetRef.current;
+    targetElement &&
+      targetElement.addEventListener(customEventType, handleLoad);
     return () => {
-      imgElement &&
-        imgElement.removeEventListener(LOAD_IMG_EVENT_TYPE, handleLoadImage);
+      targetElement &&
+        targetElement.removeEventListener(customEventType, handleLoad);
     };
-  }, [lazy]);
+  }, [lazy, customEventType]);
 
   useEffect(() => {
     if (!lazy) return;
@@ -41,10 +44,10 @@ const useImage = (lazy: boolean, threshold: number) => {
     observerRef.current = new IntersectionObserver(onIntersection, {
       threshold,
     });
-    imgRef.current && observerRef.current.observe(imgRef.current);
+    targetRef.current && observerRef.current.observe(targetRef.current);
   }, [lazy, threshold, onIntersection]);
 
-  return { loaded, imgRef };
+  return { loaded, targetRef };
 };
 
-export default useImage;
+export default useIntersectionObserver;

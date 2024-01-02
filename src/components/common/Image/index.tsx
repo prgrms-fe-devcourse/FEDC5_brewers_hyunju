@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import useImage from '~/hooks/useImage';
+import useIntersectionObserver from '~/hooks/useIntersectionObserver';
 
 export type ImageModeType = 'cover' | 'contain' | 'fill';
 export interface ImagePropsType {
@@ -29,12 +29,16 @@ const Image = ({
   alt,
   mode,
 }: ImagePropsType) => {
-  const { loaded, imgRef } = useImage(lazy ? lazy : false, threshold);
+  const { loaded, targetRef } = useIntersectionObserver<HTMLImageElement>(
+    'imageLoad',
+    lazy ? lazy : false,
+    threshold
+  );
   const handleImageError = (
     e: React.SyntheticEvent<HTMLImageElement, Event>
   ) => {
-    if (imgRef.current) {
-      imgRef.current.src = placeholder;
+    if (targetRef.current) {
+      targetRef.current.src = placeholder;
     } else {
       e.currentTarget.src = placeholder;
     }
@@ -43,7 +47,7 @@ const Image = ({
     <ImageStyled
       width={width}
       height={height}
-      ref={imgRef}
+      ref={targetRef}
       src={loaded ? src : placeholder}
       alt={alt}
       block={block}
