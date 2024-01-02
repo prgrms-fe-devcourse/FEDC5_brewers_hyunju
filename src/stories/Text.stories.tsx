@@ -1,5 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import Text from '~/components/common/Text';
+import Text, { TextPropsType } from '~/components/common/Text';
 import {
   COLOR,
   FONT_SIZE_UNIT,
@@ -7,15 +6,9 @@ import {
   LINE_HEIGHT_UNIT,
 } from '~/constants/design';
 
-const meta: Meta<typeof Text> = {
+export default {
+  title: 'Component/Text',
   component: Text,
-};
-
-export default meta;
-
-type Story = StoryObj<typeof Text>;
-
-export const Primary: Story = {
   argTypes: {
     size: {
       control: 'inline-radio',
@@ -24,20 +17,26 @@ export const Primary: Story = {
     height: { control: 'inline-radio', options: LINE_HEIGHT_UNIT },
     weight: { control: 'inline-radio', options: FONT_WEIGHT_UNIT },
     color: { control: 'select', options: COLOR },
+    inline: { control: 'boolean' },
     children: { control: 'text' },
-    m: { control: 'text' },
-    mx: { control: 'text' },
-    my: { control: 'text' },
-    mt: { control: 'text' },
-    mb: { control: 'text' },
-    ml: { control: 'text' },
-    mr: { control: 'text' },
+    m: { control: 'number' },
+    mx: { control: 'number' },
+    my: { control: 'number' },
+    mt: { control: 'number' },
+    mb: { control: 'number' },
+    ml: { control: 'number' },
+    mr: { control: 'number' },
   },
   args: {
     size: 'md',
     height: 100,
     weight: 400,
     color: '--blue500',
+    inline: false,
     children: '테스트',
   },
+};
+
+export const Primary = (args: TextPropsType) => {
+  return <Text {...args} />;
 };
