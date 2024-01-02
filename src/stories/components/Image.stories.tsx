@@ -23,17 +23,20 @@ export default {
       control: { type: 'number' },
     },
     width: {
-      control: { type: 'range', min: 200, max: 600 },
+      control: { type: 'range', min: 2.5, max: 40 },
     },
     height: {
-      control: { type: 'range', min: 200, max: 600 },
+      control: { type: 'range', min: 2.5, max: 40 },
     },
     alt: {
-      control: 'string',
+      control: 'text',
     },
     mode: {
       options: ['cover', 'fill', 'contain'],
       control: { type: 'inline-radio' },
+    },
+    letterBoxColor: {
+      control: 'text',
     },
   },
   args: {
@@ -41,9 +44,9 @@ export default {
     block: false,
     src: 'https://picsum.photos/200',
     threshold: 0.5,
-    width: 200,
-    height: 200,
-    mode: 'cover',
+    width: 2.5,
+    height: 2.5,
+    mode: 'contain',
   },
 };
 
