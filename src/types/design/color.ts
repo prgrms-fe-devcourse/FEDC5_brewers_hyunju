@@ -1,4 +1,6 @@
 type ColorType =
+  | '--primaryColor'
+  | '--secondaryColor'
   | '--adaptive50'
   | '--adaptive100'
   | '--adaptive200'

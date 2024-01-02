@@ -7,6 +7,8 @@ import {
 } from '~/types/design/font';
 
 export const COLOR: ColorType[] = [
+  '--primaryColor',
+  '--secondaryColor',
   '--adaptive50',
   '--adaptive100',
   '--adaptive200',
