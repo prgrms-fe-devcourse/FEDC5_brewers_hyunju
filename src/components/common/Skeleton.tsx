@@ -42,11 +42,11 @@ const Skeleton = styled.div<SkeletonPropsType>`
 
   width: ${(props) =>
     props.circle
-      ? `calc((${props.width ?? '10rem'} + ${props.height ?? '1rem'}) / 2)`
+      ? `max(${props.width ?? '10rem'}, ${props.height ?? '1rem'})`
       : props.width ?? '10rem'};
   height: ${(props) =>
     props.circle
-      ? `calc((${props.width ?? '10rem'} + ${props.height ?? '1rem'}) / 2)`
+      ? `max(${props.width ?? '10rem'}, ${props.height ?? '1rem'})`
       : props.height ?? '1rem'};
   margin: ${(props) => props.m};
   margin-top: ${(props) => props.mt ?? props.my};
@@ -60,7 +60,7 @@ const Skeleton = styled.div<SkeletonPropsType>`
   padding-left: ${(props) => props.pl ?? props.px};
   border-radius: ${(props) =>
     props.circle
-      ? `calc((${props.width ?? '10rem'} + ${props.height ?? '1rem'}) / 4)`
+      ? `calc(max(${props.width ?? '10rem'}, ${props.height ?? '1rem'}) / 2)`
       : '0.125rem'};
 
   background-color: var(--adaptive300);
