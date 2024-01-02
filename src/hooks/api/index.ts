@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { AxiosRequestConfig } from 'axios';
-import axiosInstance from './axios';
+import axiosInstance from '~/api/axios';
 import { API } from '~/constants/message';
 
 type OptionalConfig = Partial<
@@ -22,7 +22,7 @@ export function useRequestFn<T>(config: AxiosRequestConfig) {
     'stale' | 'loading' | 'error' | 'success'
   >('stale');
   const [data, setData] = useState<T>(null as T);
-
+  const [error, setError] = useState<string | null>(null);
   const request = useCallback(
     async (optionalConfig?: OptionalConfig) => {
       try {
@@ -43,13 +43,17 @@ export function useRequestFn<T>(config: AxiosRequestConfig) {
         setStatus('error');
         if (e instanceof Error) {
           console.error(e.message);
+          setError(e.message);
         } else {
-          console.error('api/axios: 알 수 없는 에러가 발생했습니다. (request)');
+          const customErrorMessage =
+            'api/axios: 알 수 없는 에러가 발생했습니다. (request)';
+          console.error(customErrorMessage);
+          setError(customErrorMessage);
         }
       }
     },
     [config]
   );
 
-  return { status, data, request };
+  return { status, data, error, request };
 }
