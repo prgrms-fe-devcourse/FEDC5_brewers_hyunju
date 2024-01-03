@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import CircleLoading from '~/components/loading/CircleLoading';
 
 const meta: Meta<typeof CircleLoading> = {
-  title: 'Components/Common/CircleLoading',
+  title: 'Component/CircleLoading',
   component: CircleLoading,
   tags: ['autodocs'],
   argTypes: {},
