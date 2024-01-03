@@ -5,6 +5,7 @@ import {
   FontWeightType,
   LineHeightType,
 } from '~/types/design/font';
+import { LogoUnitType, LogoVarType } from '~/types/design/logo';
 
 export const COLOR: ColorType[] = [
   '--primaryColor',
@@ -132,4 +133,37 @@ export const CONTAINER_SIZE: { [K in ContainerSizeType]: string } = {
   md: '48rem',
   lg: '64rem',
   xl: '80rem',
+};
+
+export const LOGO_SIZE: {
+  [K in LogoVarType]: LogoUnitType;
+} = {
+  normal: {
+    sm: {
+      width: '9.375rem',
+      height: 'auto',
+    },
+    md: {
+      width: '15.625rem',
+      height: 'auto',
+    },
+    lg: {
+      width: '25rem',
+      height: 'auto',
+    },
+  },
+  simple: {
+    sm: {
+      width: 'auto',
+      height: '1.875rem',
+    },
+    md: {
+      width: 'auto',
+      height: '3.125rem',
+    },
+    lg: {
+      width: 'auto',
+      height: '4.875rem',
+    },
+  },
 };
