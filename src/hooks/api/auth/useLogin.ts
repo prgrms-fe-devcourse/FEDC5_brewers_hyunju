@@ -2,6 +2,7 @@ import { useRequestFn } from '~/hooks/api';
 import { AUTH } from '~/constants/message';
 import { LoginRequestType, LoginResponseType } from '~/types/api/auth';
 import { setItem } from '~/utils/localStorage';
+import { handleError } from '~/utils/handleError';
 
 const useLogin = () => {
   const { request, status, data, error } = useRequestFn<LoginResponseType>({
@@ -23,11 +24,7 @@ const useLogin = () => {
         setItem('accessToken', data.token);
       }
     } catch (e) {
-      if (e instanceof Error) {
-        console.error(e.message);
-      } else {
-        console.error('api/auth/login: 알 수 없는 에러가 발생했습니다.');
-      }
+      handleError(e, 'api/auth/login');
     }
   };
 
