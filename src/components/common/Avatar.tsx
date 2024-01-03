@@ -28,7 +28,7 @@ const Avatar = ({
 }: AvatarPropsType) => {
   return (
     <AvatarWrapper
-      size={AVATAR_SIZE[size]}
+      size={size}
       hoverColor={hoverColor}
       onClick={handleClick}
     >
@@ -49,16 +49,22 @@ const Avatar = ({
 
 export default Avatar;
 
-const AvatarWrapper = styled.div<{ size: string; hoverColor: ColorType }>`
+const AvatarWrapper = styled.div<{
+  size: AvatarSizeType;
+  hoverColor: ColorType;
+}>`
   overflow: hidden;
 
-  width: ${({ size }) => size};
-  height: ${({ size }) => size};
-  border: 0.125rem solid var(--adaptive600);
+  width: ${({ size }) => AVATAR_SIZE[size]};
+  height: ${({ size }) => AVATAR_SIZE[size]};
+  border: ${({ size }) =>
+    size === 'sm'
+      ? `0.125rem solid var(--adaptive600)`
+      : `0.25rem solid var(--adaptive600)`};
   border-radius: 50%;
 
   cursor: pointer;
-  transition: all 0.2s ease-out;
+  transition: border-color 0.2s ease-out;
 
   &:hover {
     border-color: ${({ hoverColor }) => `var(${hoverColor})`};
