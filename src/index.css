@@ -2,6 +2,24 @@
 @import './colors.css';
 
 html {
-  background-color: var(--adaptive50);
+  background-color: var(--adaptive100);
   color: var(--adaptive950);
+}
+
+body {
+  font-family:
+    'SUIT Variable',
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    Roboto,
+    'Helvetica Neue',
+    'Segoe UI',
+    'Apple SD Gothic Neo',
+    'Noto Sans KR',
+    'Malgun Gothic',
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol',
+    sans-serif;
 }

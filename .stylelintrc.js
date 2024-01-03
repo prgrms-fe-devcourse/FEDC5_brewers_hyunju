@@ -7,5 +7,6 @@ export default {
       '/.+/': '/(rgba?|hsla?)(.*)/',
     },
     'declaration-block-no-redundant-longhand-properties': null,
+    'custom-property-pattern': null,
   },
 };
