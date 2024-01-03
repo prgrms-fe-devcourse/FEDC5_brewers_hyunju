@@ -4,6 +4,7 @@ import ColorType from '~/types/design/color';
 interface CircleLoadingPropsType {
   size?: number;
   time?: number;
+  strokeWidth?: number;
   primaryColor?: ColorType;
   secondaryColor?: ColorType;
 }
@@ -11,6 +12,7 @@ interface CircleLoadingPropsType {
 const CircleLoading = ({
   size = 7.5,
   time = 2,
+  strokeWidth = 12,
   primaryColor = '--primaryColor' as ColorType,
   secondaryColor = '--adaptive300' as ColorType,
 }: CircleLoadingPropsType) => {
@@ -19,6 +21,7 @@ const CircleLoading = ({
   const circleRadius = convertedSize / 4;
   const primaryColorBarRatio = (circleRadius * 2 * Math.PI) / 5;
   const secondaryColorBarRatio = ((circleRadius * 2 * Math.PI) / 5) * 4;
+  const newStrokeWidth = strokeWidth < 0 ? 0 : strokeWidth;
 
   const rotateBar = keyframes`
     100% {
@@ -44,7 +47,7 @@ const CircleLoading = ({
           cx={circleRadius * 2}
           cy={circleRadius * 2}
           r={circleRadius}
-          stroke-width='12'
+          stroke-width={newStrokeWidth}
           fill='none'
           style={{ stroke: `var(${secondaryColor})` }}
         />
@@ -52,7 +55,7 @@ const CircleLoading = ({
           cx={circleRadius * 2}
           cy={circleRadius * 2}
           r={circleRadius}
-          stroke-width='12'
+          stroke-width={newStrokeWidth}
           fill='none'
           style={{ stroke: `var(${primaryColor})` }}
           stroke-dasharray={`${primaryColorBarRatio} ${secondaryColorBarRatio}`}
