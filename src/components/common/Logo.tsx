@@ -14,6 +14,7 @@ const Logo = ({ handleClick, type, size }: LogoPropsType) => {
       onClick={handleClick}
       className='logo'
     >
+      {/* TODO: 47-Feat 머지 후 Image 컴포넌트로 교체*/}
       {/* <Image
         width={LOGO_SIZE[size].width}
         height={}
