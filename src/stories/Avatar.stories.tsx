@@ -44,11 +44,11 @@ export default {
   },
 };
 
-export const Small = (args: AvatarPropsType) => {
+export const Default = (args: AvatarPropsType) => {
   return <Avatar {...args} />;
 };
 
-export const Lazy = (args: AvatarPropsType) => {
+export const LazyTest = (args: AvatarPropsType) => {
   return (
     <div>
       {Array.from(new Array(20), (_, k) => k).map(() => (
