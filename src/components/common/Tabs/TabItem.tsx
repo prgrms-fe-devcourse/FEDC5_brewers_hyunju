@@ -1,0 +1,87 @@
+import { useContext, ReactNode } from 'react';
+import {
+  TabsActionContext,
+  TabsStyleContext,
+  TabsValueContext,
+} from './TabsProvider';
+import Text from '~/components/common/Text';
+import styled from 'styled-components';
+import { FontSizeType } from '~/types/design/font';
+import { FONT_SIZE_UNIT } from '~/constants/design';
+
+export interface TabItemPropsType {
+  id: number;
+  disabled?: boolean;
+  icon?: ReactNode;
+  text?: string;
+  handleClick?: () => void;
+}
+const TabItem = ({
+  id,
+  disabled,
+  text,
+  icon,
+  handleClick,
+}: TabItemPropsType) => {
+  const valueContext = useContext(TabsValueContext);
+  const setSelectedId = useContext(TabsActionContext);
+  const { fontSize, fontWeight } = useContext(TabsStyleContext);
+  const selected = valueContext ? valueContext.selectedId === id : false;
+
+  const mergeHandleClick = () => {
+    if (!setSelectedId || (valueContext && valueContext.selectedId === id)) {
+      return;
+    }
+    setSelectedId(id);
+    handleClick && handleClick();
+  };
+  return (
+    <TabItemStyle
+      selected={selected}
+      disabled={disabled}
+      onClick={mergeHandleClick}
+      fontSize={fontSize}
+    >
+      {icon && icon}
+      {text && (
+        <HoverText
+          selected={selected}
+          size={fontSize}
+          weight={fontWeight}
+          color={selected ? '--primaryColor' : '--adaptive400'}
+        >
+          {text}
+        </HoverText>
+      )}
+    </TabItemStyle>
+  );
+};
+
+export default TabItem;
+
+const TabItemStyle = styled.button<{
+  selected: boolean;
+  fontSize: FontSizeType;
+}>`
+  min-width: 3.125rem;
+  padding: 0.125rem;
+  border: none;
+  border-bottom: ${({ selected }) =>
+    selected ? 'solid var(--primaryColor)' : 'solid var(--transparent)'};
+  border-width: ${({ fontSize }) =>
+    FONT_SIZE_UNIT.findIndex((unit) => unit === fontSize) >= 2
+      ? '0.1875rem'
+      : '0.125rem'};
+
+  background-color: transparent;
+
+  cursor: pointer;
+`;
+
+const HoverText = styled(Text)<{ selected: boolean }>`
+  transition: 0.2s color ease-in;
+
+  &:hover {
+    color: ${({ selected }) => !selected && 'var(--adaptive950)'};
+  }
+`;
