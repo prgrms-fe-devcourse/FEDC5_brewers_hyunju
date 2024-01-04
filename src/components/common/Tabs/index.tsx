@@ -4,19 +4,19 @@ import TabItem from './TabItem';
 import TabsProvider from './TabsProvider';
 
 export interface TabsPropsType {
-  isFull: boolean;
+  isFull?: boolean;
   children: React.ReactNode;
-  gap: number;
-  fontSize: FontSizeType;
-  fontWeight: FontWeightType;
+  gap?: number;
+  fontSize?: FontSizeType;
+  fontWeight?: FontWeightType;
 }
 
 const Tabs = ({
-  isFull,
+  isFull = true,
   children,
-  gap,
-  fontSize,
-  fontWeight,
+  gap = 1,
+  fontSize = 'lg',
+  fontWeight = 400,
 }: TabsPropsType) => {
   return (
     <TabsProvider

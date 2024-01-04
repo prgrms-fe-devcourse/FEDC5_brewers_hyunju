@@ -1,14 +1,10 @@
 import { ReactNode, useContext } from 'react';
 import Flex from '~/components/common/Flex';
 import Container from '~/components/common/Container';
-import { FontSizeType, FontWeightType } from '~/types/design/font';
 import { TabsStyleContext } from './TabsProvider';
 
 interface TabHeaderProps {
   children: ReactNode;
-  weight?: FontWeightType;
-  fontSize?: FontSizeType;
-  gap?: number;
 }
 const TabHeader = ({ children }: TabHeaderProps) => {
   const { gap, isFull } = useContext(TabsStyleContext);

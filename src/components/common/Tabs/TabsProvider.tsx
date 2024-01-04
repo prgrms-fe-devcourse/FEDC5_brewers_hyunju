@@ -20,13 +20,16 @@ export const TabsStyleContext = createContext<{
   isFull: false,
 });
 
+type TabsProviderPropsType = {
+  [K in keyof TabsPropsType]-?: TabsPropsType[K];
+};
 const TabsProvider = ({
   isFull,
   children,
   gap,
   fontSize,
   fontWeight,
-}: TabsPropsType) => {
+}: TabsProviderPropsType) => {
   const [selectedId, setSelectedId] = useState(0);
 
   return (
