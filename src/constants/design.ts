@@ -1,3 +1,4 @@
+import { AvatarSizeType } from '~/types/design/avatar';
 import ColorType from '~/types/design/color';
 import ContainerSizeType from '~/types/design/container';
 import {
@@ -135,4 +136,11 @@ export const CONTAINER_SIZE: { [K in ContainerSizeType]: string } = {
   md: '48rem',
   lg: '64rem',
   xl: '80rem',
+};
+
+export const AVATAR_SIZE_UNIT: AvatarSizeType[] = ['sm', 'lg'];
+
+export const AVATAR_SIZE: { [K in AvatarSizeType]: string } = {
+  sm: '2.5rem',
+  lg: '9.375rem',
 };
