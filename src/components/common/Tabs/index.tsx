@@ -2,6 +2,7 @@ import { FontSizeType, FontWeightType } from '~/types/design/font';
 import TabHeader from './TabHeader';
 import TabItem from './TabItem';
 import TabsProvider from './TabsProvider';
+import TabBody from './TabBody';
 
 export interface TabsPropsType {
   isFull?: boolean;
@@ -35,4 +36,5 @@ const Tabs = ({
 
 Tabs.Item = TabItem;
 Tabs.Header = TabHeader;
+Tabs.Body = TabBody;
 export default Tabs;

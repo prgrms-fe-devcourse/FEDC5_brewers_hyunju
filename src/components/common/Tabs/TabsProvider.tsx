@@ -2,9 +2,9 @@ import { createContext, useState } from 'react';
 import { FontSizeType, FontWeightType } from '~/types/design/font';
 import { TabsPropsType } from '.';
 
-export const TabsValueContext = createContext<
-  { selectedId: number } | undefined
->(undefined);
+export const TabsValueContext = createContext<{ selectedId: number }>({
+  selectedId: 0,
+});
 export const TabsActionContext = createContext<
   React.Dispatch<React.SetStateAction<number>> | undefined
 >(undefined);
