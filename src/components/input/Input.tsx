@@ -3,6 +3,8 @@ import Text from '~/components/common/Text';
 import Flex from '~/components/common/Flex';
 import ColorType from '~/types/design/color';
 import Container from '../common/Container';
+import { FontSizeType } from '~/types/design/font';
+import { FONT_SIZE } from '~/constants/design';
 
 export interface InputPropsType {
   width?: number;
@@ -21,8 +23,8 @@ interface BorderPropsType {
 }
 
 interface InputFieldPropsType {
-  width?: number;
   iconSize: number;
+  inputFontSize: FontSizeType;
 }
 
 const InputField = styled.input<InputFieldPropsType>`
@@ -30,10 +32,11 @@ const InputField = styled.input<InputFieldPropsType>`
   padding: 0;
   outline: none;
   border: 0;
+
+  font-size: ${(props) => FONT_SIZE[props.inputFontSize || 'sm']};
 `;
 
 const Border = styled.div<BorderPropsType>`
-  width: 25rem;
   height: fit-content;
   padding: 0.75rem;
   border: 0.0625rem solid var(--adaptive900);
@@ -47,52 +50,69 @@ const Input = ({
   placeholder,
   message,
   messageColor,
-  // highlightColor = '--primaryColor',
   // handleBlur, //TODO
   children,
 }: InputPropsType) => {
   const iconSize = children ? 1 : 0;
+  const gap = 0.75;
+  const labelFontSize = 'sm' as FontSizeType;
+  const inputFontSize = 'lg' as FontSizeType;
+  const messageFontSize = 'sm' as FontSizeType;
 
   //TODO
   const onHandleBlur = () => {};
 
   return (
-    <Flex direction='column'>
-      <Border>
-        <Flex direction='column'>
-          <Text>{label}</Text>
-          <Flex>
-            {children ? (
-              <Container
-                maxWidth='sm'
-                style={{
-                  display: 'inline-block',
-                  width: `${iconSize}rem`,
-                  height: `${iconSize}rem`,
-                  margin: 0,
-                  padding: 0,
-                }}
-              >
-                {children}
-              </Container>
-            ) : null}
-            <InputField
-              width={width}
-              iconSize={iconSize}
-              type={type}
-              placeholder={placeholder}
-              onBlur={onHandleBlur}
-            />
+    <Container maxWidth='sm'>
+      <Flex direction='column'>
+        <Border>
+          <Flex
+            direction='column'
+            gap={0.25}
+          >
+            {label ? <Text size={labelFontSize}>{label}</Text> : null}
+            <Flex
+              gap={gap}
+              alignItems='center'
+            >
+              {children ? (
+                <Container
+                  maxWidth='sm'
+                  style={{
+                    display: 'inline-block',
+                    width: `${iconSize}rem`,
+                    height: `${iconSize}rem`,
+                    margin: 0,
+                    padding: 0,
+                  }}
+                >
+                  {children}
+                </Container>
+              ) : null}
+              <InputField
+                width={width}
+                iconSize={iconSize}
+                type={type}
+                placeholder={placeholder}
+                onBlur={onHandleBlur}
+                inputFontSize={inputFontSize}
+              />
+            </Flex>
           </Flex>
-        </Flex>
-      </Border>
-      <Container
-        maxWidth='md'
-        style={{ padding: ' 0 0.75rem' }}
-      >
-        <Text color={messageColor}>{message}</Text>
-      </Container>
-    </Flex>
+        </Border>
+        <Container
+          maxWidth='md'
+          style={{ padding: ' 0 0 0 0.75rem', margin: 0 }}
+        >
+          <Text
+            size={messageFontSize}
+            color={messageColor}
+          >
+            {message}
+          </Text>
+        </Container>
+      </Flex>
+    </Container>
   );
 };
 export default Input;
