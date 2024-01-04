@@ -3,7 +3,7 @@ type ColorType =
   | '--secondaryColor'
   | '--white'
   | '--black'
-  | '--ransparent'
+  | '--transparent'
   | '--adaptive50'
   | '--adaptive100'
   | '--adaptive200'
