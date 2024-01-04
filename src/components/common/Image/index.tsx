@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import useIntersectionObserver from '~/hooks/useIntersectionObserver';
 import ColorType from '~/types/design/color';
+import { handleSizeUnit } from '~/utils/handleSizeUnit';
 
 export type ImageModeType = 'cover' | 'contain' | 'fill';
 export interface ImagePropsType {
@@ -9,8 +10,8 @@ export interface ImagePropsType {
   placeholder?: string;
   src?: string;
   block?: boolean;
-  width: number;
-  height: number;
+  width: number | string;
+  height: number | string;
   alt: string;
   mode?: ImageModeType;
   letterBoxColor?: ColorType;
@@ -19,8 +20,8 @@ export interface ImagePropsType {
 interface ImageStylePropsType {
   block?: boolean;
   mode: ImageModeType;
-  width: number;
-  height: number;
+  width: string;
+  height: string;
 }
 const Image = ({
   lazy,
@@ -55,8 +56,8 @@ const Image = ({
       height={height}
     >
       <ImageStyled
-        width={width}
-        height={height}
+        width={handleSizeUnit(width)}
+        height={handleSizeUnit(height)}
         ref={targetRef}
         src={loaded ? src : placeholder}
         alt={alt}
@@ -72,11 +73,11 @@ export default Image;
 
 const LetterBoxDiv = styled.div<{
   letterBoxColor: ColorType;
-  width: number;
-  height: number;
+  width: number | string;
+  height: number | string;
 }>`
-  width: ${({ width }) => `${width}rem`};
-  height: ${({ height }) => `${height}rem`};
+  width: ${({ width }) => handleSizeUnit(width)};
+  height: ${({ height }) => handleSizeUnit(height)};
 
   background-color: ${({ letterBoxColor }) => `var(${letterBoxColor})`};
 
@@ -85,8 +86,8 @@ const LetterBoxDiv = styled.div<{
 const ImageStyled = styled.img<ImageStylePropsType>`
   display: ${({ block }) => (block ? 'block' : undefined)};
 
-  width: ${({ width }) => `${width}rem`};
-  height: ${({ height }) => `${height}rem`};
+  width: ${({ width }) => handleSizeUnit(width)};
+  height: ${({ height }) => handleSizeUnit(height)};
 
   object-fit: ${({ mode }) => mode};
 `;
