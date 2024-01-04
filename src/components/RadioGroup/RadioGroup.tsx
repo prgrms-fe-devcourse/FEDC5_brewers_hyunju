@@ -1,34 +1,54 @@
-import { ReactNode } from 'react';
+import React, { useState } from 'react';
 import Container from '~/components/common/Container';
 import Flex from '~/components/common/Flex';
-import Text from '~/components/common/Text';
+import Radio from './Radio';
 
 export interface RadioGroupPropsType {
-  labels?: string[];
-  children: ReactNode;
+  options: { label: string; value: string }[];
+  defaultValue?: string;
+  disabled?: boolean;
+  onChange?: (value: string) => void;
 }
 
-function RadioGroup({ labels, children }: RadioGroupPropsType) {
+const RadioGroup: React.FC<RadioGroupPropsType> = ({
+  options,
+  defaultValue,
+  disabled,
+  onChange,
+}) => {
+  const [selectedValue, setSelectedValue] = useState<string | undefined>(
+    defaultValue
+  );
+
+  const handleRadioChange = (value: string) => {
+    setSelectedValue(value);
+    if (onChange) {
+      onChange(value);
+    }
+  };
+
   return (
     <Container maxWidth='sm'>
       <Flex
-        direction='column'
         justifyContent='space-between'
-        style={{ width: '33rem', height: '4.5rem' }}
+        alignItems='flex-start'
+        style={{ padding: '0  0.25rem' }}
       >
-        <Flex
-          justifyContent='space-between'
-          alignItems='center'
-          style={{ padding: '0  0.25rem' }}
-        >
-          {children}
-        </Flex>
-        <Flex justifyContent='space-between'>
-          {labels ? labels.map((label) => <Text>{label}</Text>) : ''}
-        </Flex>
+        {options.map((option) => (
+          <Radio
+            key={option.value}
+            value={option.value}
+            name='radioGroup'
+            checked={selectedValue === option.value}
+            disabled={disabled}
+            onChange={() => handleRadioChange(option.value)}
+          >
+            {option.label}
+          </Radio>
+        ))}
       </Flex>
     </Container>
   );
-}
+};
 
 export default RadioGroup;

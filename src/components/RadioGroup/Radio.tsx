@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import Flex from '~/components/common/Flex';
+import Text from '~/components/common/Text';
 
 export interface RadioPropsType {
   children?: string;
@@ -7,6 +9,7 @@ export interface RadioPropsType {
   defaultChecked?: boolean;
   disabled?: boolean;
   checked?: boolean;
+  onChange: () => void;
 }
 
 const RadioButtonInput = styled.input`
@@ -18,10 +21,10 @@ const RadioButtonInput = styled.input`
   width: 2.5rem;
   height: 2.5rem;
   outline: none;
-  border: 3px solid var(--radioGray);
+  border: 3px solid var(--adaptive500);
   border-radius: 50%;
 
-  color: var(--radioGray);
+  color: var(--adaptive500);
 
   appearance: none;
 
@@ -53,9 +56,15 @@ const Radio = ({
   defaultChecked,
   disabled,
   checked,
+  onChange,
 }: RadioPropsType) => {
   return (
-    <label>
+    <Flex
+      as='fieldset'
+      direction='column'
+      alignItems='center'
+      gap={1}
+    >
       <RadioButtonInput
         type='radio'
         value={value}
@@ -63,9 +72,10 @@ const Radio = ({
         defaultChecked={defaultChecked}
         disabled={disabled}
         checked={checked}
+        onChange={onChange}
       ></RadioButtonInput>
-      {children}
-    </label>
+      <Text as='label'>{children}</Text>
+    </Flex>
   );
 };
 
