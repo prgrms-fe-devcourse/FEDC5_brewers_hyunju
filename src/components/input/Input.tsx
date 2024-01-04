@@ -2,29 +2,32 @@ import styled from 'styled-components';
 import Text from '~/components/common/Text';
 import Flex from '~/components/common/Flex';
 import ColorType from '~/types/design/color';
-import { FontSizeType, FontWeightType } from '~/types/design/font';
+import Container from '../common/Container';
 
-interface InputPropsType {
+export interface InputPropsType {
+  width?: number;
   label?: string;
-  labelFontSize: FontSizeType;
-  labelFontWeight: FontWeightType;
+  type?: string;
   placeholder?: string;
-  errorMessage?: string;
-  errorMessageFontColor?: ColorType;
-  errorMessageFontSize?: FontSizeType;
-  errorFontWeight: FontWeightType;
-  labelFontColor?: ColorType;
-  borderColor?: ColorType;
-  backgroundColor?: ColorType;
+  message?: string;
+  messageColor?: ColorType;
   // highlightColor?: ColorType;
   // handleBlur?: () => void;
+  children?: React.ReactNode;
 }
 
 interface BorderPropsType {
   borderColor?: ColorType;
 }
 
-const InputField = styled.input`
+interface InputFieldPropsType {
+  width?: number;
+  iconSize: number;
+}
+
+const InputField = styled.input<InputFieldPropsType>`
+  width: calc(100% - ${(props) => props.iconSize}rem - 0.25rem);
+  padding: 0;
   outline: none;
   border: 0;
 `;
@@ -33,54 +36,62 @@ const Border = styled.div<BorderPropsType>`
   width: 25rem;
   height: fit-content;
   padding: 0.75rem;
-  border: 0.0625rem solid
-    ${({ borderColor }) =>
-      borderColor ? `var(${borderColor})` : 'var(--adaptive900)'};
+  border: 0.0625rem solid var(--adaptive900);
   border-radius: 1rem;
 `;
 
 const Input = ({
+  width,
   label,
-  labelFontSize = 'sm',
-  labelFontWeight = 400,
+  type = 'text',
   placeholder,
-  errorMessage,
-  errorMessageFontColor = '--red600',
-  errorMessageFontSize = 'sm',
-  errorFontWeight = 400,
-  labelFontColor = '--adaptive900',
-  borderColor,
+  message,
+  messageColor,
   // highlightColor = '--primaryColor',
   // handleBlur, //TODO
+  children,
 }: InputPropsType) => {
+  const iconSize = children ? 1 : 0;
+
   //TODO
   const onHandleBlur = () => {};
 
   return (
     <Flex direction='column'>
-      <Border borderColor={borderColor}>
+      <Border>
         <Flex direction='column'>
-          <Text
-            weight={labelFontWeight}
-            size={labelFontSize}
-            color={labelFontColor}
-          >
-            {label}
-          </Text>
-          <InputField
-            type='text'
-            placeholder={placeholder}
-            onBlur={onHandleBlur}
-          />
+          <Text>{label}</Text>
+          <Flex>
+            {children ? (
+              <Container
+                maxWidth='sm'
+                style={{
+                  display: 'inline-block',
+                  width: `${iconSize}rem`,
+                  height: `${iconSize}rem`,
+                  margin: 0,
+                  padding: 0,
+                }}
+              >
+                {children}
+              </Container>
+            ) : null}
+            <InputField
+              width={width}
+              iconSize={iconSize}
+              type={type}
+              placeholder={placeholder}
+              onBlur={onHandleBlur}
+            />
+          </Flex>
         </Flex>
       </Border>
-      <Text
-        color={errorMessageFontColor}
-        weight={errorFontWeight}
-        size={errorMessageFontSize}
+      <Container
+        maxWidth='md'
+        style={{ padding: ' 0 0.75rem' }}
       >
-        {errorMessage}
-      </Text>
+        <Text color={messageColor}>{message}</Text>
+      </Container>
     </Flex>
   );
 };
