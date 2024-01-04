@@ -37,12 +37,18 @@ const LogoWrapper = styled.div`
   width: fit-content;
   height: fit-content;
   padding: 3px;
+  border-radius: 0.25rem;
 
   cursor: pointer;
-  transition: 0.2s opacity ease-in;
+
+  transition: 0.2s background-color ease-in;
+
+  /* transition: 0.2s opacity ease-in; */
 
   &:hover {
-    opacity: 0.8;
+    background-color: var(--adaptive300);
+
+    /* opacity: 0.7; */
   }
 `;
 const ImageStyled = styled.img`
