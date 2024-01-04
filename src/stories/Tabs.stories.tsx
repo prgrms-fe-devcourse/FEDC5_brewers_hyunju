@@ -33,6 +33,21 @@ export const Default = (args: TabsPropsType) => {
             id={2}
           />
         </Tabs.Header>
+        <Tabs.Body id={0}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ut
+          mauris et nisl fringilla tempor. Vestibulum maximus tellus ut augue
+          imperdiet convallis eu mollis mauris. Vestibulum quis arcu placerat,
+          pulvinar diam sit amet, dapibus lacus. Sed sollicitudin nulla varius
+          risus laoreet fringilla. Cras enim sem, pretium a turpis in, eleifend
+          viverra neque. Etiam sit amet tristique nisl, id varius velit. Nunc
+          risus lorem, feugiat vitae dapibus vel, sodales commodo dui. Nulla
+          sagittis rutrum semper. Sed semper turpis quis euismod laoreet. Mauris
+          suscipit magna malesuada felis pulvinar fermentum. Proin consectetur
+          finibus diam ut dictum. Nulla porta metus ut ante pretium, eu viverra
+          neque congue. Cras a erat sed justo iaculis fringilla sed ultricies
+          justo. Duis sed ornare mauris. Nullam sed mi pharetra, condimentum
+          ante nec, luctus massa. Ut vel semper urna, ut sollicitudin metus.
+        </Tabs.Body>
       </Tabs>
     </Box>
   );
