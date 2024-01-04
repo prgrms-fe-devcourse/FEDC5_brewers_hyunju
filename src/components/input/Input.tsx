@@ -1,9 +1,10 @@
-import styled from 'styled-components';
+import { useCallback, useRef, useState } from 'react';
+import Container from '../common/Container';
 import Text from '~/components/common/Text';
 import Flex from '~/components/common/Flex';
 import ColorType from '~/types/design/color';
-import Container from '../common/Container';
 import { FontSizeType } from '~/types/design/font';
+import styled from 'styled-components';
 import { FONT_SIZE } from '~/constants/design';
 
 export interface InputPropsType {
@@ -13,13 +14,13 @@ export interface InputPropsType {
   placeholder?: string;
   message?: string;
   messageColor?: ColorType;
-  // highlightColor?: ColorType;
-  // handleBlur?: () => void;
+  onBlur?: (text: string) => boolean;
+  onChange: (text: string) => void;
   children?: React.ReactNode;
 }
 
 interface BorderPropsType {
-  borderColor?: ColorType;
+  isError?: boolean;
 }
 
 interface InputFieldPropsType {
@@ -39,7 +40,8 @@ const InputField = styled.input<InputFieldPropsType>`
 const Border = styled.div<BorderPropsType>`
   height: fit-content;
   padding: 0.75rem;
-  border: 0.0625rem solid var(--adaptive900);
+  border: 0.0625rem solid
+    ${(props) => `var(${props.isError ? '--red600' : '--adaptive900'})`};
   border-radius: 1rem;
 `;
 
@@ -50,22 +52,55 @@ const Input = ({
   placeholder,
   message,
   messageColor,
-  // handleBlur, //TODO
+  onBlur,
+  onChange,
   children,
 }: InputPropsType) => {
-  const iconSize = children ? 1 : 0;
-  const gap = 0.75;
+  const [isError, setIsError] = useState(false);
+  const ref = useRef<HTMLInputElement | null>(null);
+  let timer: ReturnType<typeof setTimeout>;
+
   const labelFontSize = 'sm' as FontSizeType;
   const inputFontSize = 'lg' as FontSizeType;
   const messageFontSize = 'sm' as FontSizeType;
 
-  //TODO
-  const onHandleBlur = () => {};
+  const iconSize = children ? 1 : 0;
+  const gap = 0.75;
+
+  const handleBlur = useCallback(() => {
+    if (onBlur === undefined) {
+      return;
+    }
+    if (ref.current === null) {
+      return;
+    }
+    console.log(ref.current.value, 'blur');
+    const isAvailable = onBlur(ref.current.value);
+
+    setIsError(!isAvailable);
+  }, [onBlur]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+
+    debouncing(value);
+  };
+
+  const debouncing = (inputValue: string) => {
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(() => {
+      if (onChange !== undefined) {
+        onChange(inputValue);
+      }
+    }, 500);
+  };
 
   return (
     <Container maxWidth='sm'>
       <Flex direction='column'>
-        <Border>
+        <Border isError={isError}>
           <Flex
             direction='column'
             gap={0.25}
@@ -94,8 +129,10 @@ const Input = ({
                 iconSize={iconSize}
                 type={type}
                 placeholder={placeholder}
-                onBlur={onHandleBlur}
+                onBlur={handleBlur}
                 inputFontSize={inputFontSize}
+                onChange={handleChange}
+                ref={ref}
               />
             </Flex>
           </Flex>
@@ -104,12 +141,14 @@ const Input = ({
           maxWidth='md'
           style={{ padding: ' 0 0 0 0.75rem', margin: 0 }}
         >
-          <Text
-            size={messageFontSize}
-            color={messageColor}
-          >
-            {message}
-          </Text>
+          {isError ? (
+            <Text
+              size={messageFontSize}
+              color={messageColor}
+            >
+              {message}
+            </Text>
+          ) : null}
         </Container>
       </Flex>
     </Container>
