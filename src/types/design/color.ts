@@ -1,6 +1,9 @@
 type ColorType =
   | '--primaryColor'
   | '--secondaryColor'
+  | '--white'
+  | '--black'
+  | '--ransparent'
   | '--adaptive50'
   | '--adaptive100'
   | '--adaptive200'
