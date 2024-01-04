@@ -5,6 +5,7 @@ import { Property } from 'csstype';
 import { FontSizeType, FontWeightType } from '~/types/design/font';
 import ContainerSizeType from '~/types/design/container';
 import styled from 'styled-components';
+import Avatar from '../common/Avatar';
 
 interface PostCommentListItemPropsType {
   userName: string;
@@ -16,14 +17,11 @@ interface PostCommentListItemPropsType {
   messageWeight?: FontWeightType;
   avatar?: string;
   width?: ContainerSizeType;
+  handleClick: () => void;
 }
 
 interface SpacerPropsType {
   padding: Property.Padding;
-}
-
-interface AvatarPropsType {
-  avatar?: string;
 }
 
 const PostCommentListItem = ({
@@ -36,42 +34,14 @@ const PostCommentListItem = ({
   messageWeight = 400,
   avatar = '',
   width = 'sm',
+  handleClick,
 }: PostCommentListItemPropsType) => {
-  const avatarSize = '3.5rem';
   const TextContainer = styled.div`
     width: calc(100% - 3.5rem - 0.75rem);
   `;
 
   const Spacer = styled.div<SpacerPropsType>`
     padding: ${(props) => `${props.padding}rem`};
-  `;
-
-  const AvatarContainer = styled.div`
-    overflow: hidden;
-
-    width: ${avatarSize};
-    height: ${avatarSize};
-    border-radius: 100%;
-  `;
-
-  const Avatar = styled.img<AvatarPropsType>`
-    width: ${avatarSize};
-    height: ${avatarSize};
-
-    background-color: var(--adaptive300);
-
-    alt: 'avatar';
-
-    src: ${(props) => props.avatar};
-  `;
-
-  const AvatarDefault = styled.div`
-    width: ${avatarSize};
-    height: ${avatarSize};
-
-    background-color: var(--adaptive300);
-
-    alt: 'avatar';
   `;
 
   return (
@@ -82,15 +52,11 @@ const PostCommentListItem = ({
           alignItems='start'
           gap={0.75}
         >
-          {avatar ? (
-            <AvatarContainer>
-              <Avatar avatar={avatar} />
-            </AvatarContainer>
-          ) : (
-            <AvatarContainer>
-              <AvatarDefault />
-            </AvatarContainer>
-          )}
+          <Avatar
+            src={avatar}
+            size='sm'
+            handleClick={handleClick}
+          />
           <TextContainer>
             <Flex
               direction='column'
