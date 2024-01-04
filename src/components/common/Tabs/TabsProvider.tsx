@@ -29,8 +29,9 @@ const TabsProvider = ({
   gap,
   fontSize,
   fontWeight,
+  defaultId,
 }: TabsProviderPropsType) => {
-  const [selectedId, setSelectedId] = useState(0);
+  const [selectedId, setSelectedId] = useState(defaultId);
 
   return (
     <TabsActionContext.Provider value={setSelectedId}>

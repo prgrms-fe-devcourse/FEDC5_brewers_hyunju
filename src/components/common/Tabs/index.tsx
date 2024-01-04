@@ -9,6 +9,7 @@ export interface TabsPropsType {
   gap?: number;
   fontSize?: FontSizeType;
   fontWeight?: FontWeightType;
+  defaultId?: number;
 }
 
 const Tabs = ({
@@ -17,6 +18,7 @@ const Tabs = ({
   gap = 1,
   fontSize = 'lg',
   fontWeight = 400,
+  defaultId = 0,
 }: TabsPropsType) => {
   return (
     <TabsProvider
@@ -24,6 +26,7 @@ const Tabs = ({
       gap={gap}
       fontSize={fontSize}
       fontWeight={fontWeight}
+      defaultId={defaultId}
     >
       {children}
     </TabsProvider>

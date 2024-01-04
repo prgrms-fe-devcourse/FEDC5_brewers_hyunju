@@ -37,16 +37,16 @@ const TabItem = ({
   };
   return (
     <TabItemStyle
-      selected={selected}
+      $selected={selected}
       disabled={disabled}
       onClick={mergeHandleClick}
-      fontSize={fontSize}
-      isFull={isFull}
+      $fontSize={fontSize}
+      $isFull={isFull}
     >
       {icon && icon}
       {text && (
         <HoverText
-          selected={selected}
+          $selected={selected}
           size={fontSize}
           weight={fontWeight}
           color={selected ? '--primaryColor' : '--adaptive400'}
@@ -61,20 +61,20 @@ const TabItem = ({
 export default TabItem;
 
 const TabItemStyle = styled.button<{
-  selected: boolean;
-  isFull: boolean;
-  fontSize: FontSizeType;
+  $selected: boolean;
+  $isFull: boolean;
+  $fontSize: FontSizeType;
 }>`
-  flex-grow: ${({ isFull }) => (isFull ? '1' : '0')};
+  flex-grow: ${({ $isFull }) => ($isFull ? '1' : '0')};
 
   min-width: 2.5rem;
   padding: 0.125rem;
   padding-bottom: 0.3125rem;
   border: none;
-  border-bottom: ${({ selected }) =>
-    selected ? 'solid var(--primaryColor)' : 'solid var(--transparent)'};
-  border-width: ${({ fontSize }) =>
-    FONT_SIZE_UNIT.findIndex((unit) => unit === fontSize) >= 2
+  border-bottom: ${({ $selected }) =>
+    $selected ? 'solid var(--primaryColor)' : 'solid var(--transparent)'};
+  border-width: ${({ $fontSize }) =>
+    FONT_SIZE_UNIT.findIndex((unit) => unit === $fontSize) >= 2
       ? '0.1875rem'
       : '0.125rem'};
 
@@ -84,10 +84,10 @@ const TabItemStyle = styled.button<{
   transition: 0.2s border-color ease-in;
 `;
 
-const HoverText = styled(Text)<{ selected: boolean }>`
+const HoverText = styled(Text)<{ $selected: boolean }>`
   transition: 0.2s color ease-in;
 
   &:hover {
-    color: ${({ selected }) => !selected && 'var(--adaptive950)'};
+    color: ${({ $selected }) => !$selected && 'var(--adaptive950)'};
   }
 `;
