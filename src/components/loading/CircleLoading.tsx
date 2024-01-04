@@ -1,5 +1,6 @@
-import styled, { keyframes } from 'styled-components';
+import Container from '../common/Container';
 import ColorType from '~/types/design/color';
+import styled, { keyframes } from 'styled-components';
 
 interface CircleLoadingPropsType {
   size?: number;
@@ -8,6 +9,24 @@ interface CircleLoadingPropsType {
   primaryColor?: ColorType;
   secondaryColor?: ColorType;
 }
+
+interface AnimationPropsType {
+  time: number;
+}
+
+const rotateBar = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+`;
+
+const Animation = styled.div<AnimationPropsType>`
+  animation: ${rotateBar} ${({ time }) => time}s linear infinite;
+`;
 
 const CircleLoading = ({
   size = 7.5,
@@ -23,45 +42,37 @@ const CircleLoading = ({
   const secondaryColorBarRatio = ((circleRadius * 2 * Math.PI) / 5) * 4;
   const newStrokeWidth = strokeWidth < 0 ? 0 : strokeWidth;
 
-  const rotateBar = keyframes`
-    100% {
-        transform: rotate(360deg);
-}
-  `;
-
-  const Container = styled.div`
-    width: ${newSize}rem;
-    height: ${newSize}rem;
-
-    animation: ${rotateBar} ${time}s linear infinite;
-  `;
-
   return (
-    <Container>
-      <svg
-        width={convertedSize}
-        height={convertedSize}
-        viewBox={`0 0 ${convertedSize} ${convertedSize}`}
-      >
-        <circle
-          cx={circleRadius * 2}
-          cy={circleRadius * 2}
-          r={circleRadius}
-          stroke-width={newStrokeWidth}
-          fill='none'
-          style={{ stroke: `var(${secondaryColor})` }}
-        />
-        <circle
-          cx={circleRadius * 2}
-          cy={circleRadius * 2}
-          r={circleRadius}
-          stroke-width={newStrokeWidth}
-          fill='none'
-          style={{ stroke: `var(${primaryColor})` }}
-          stroke-dasharray={`${primaryColorBarRatio} ${secondaryColorBarRatio}`}
-          stroke-linecap='round'
-        />
-      </svg>
+    <Container
+      maxWidth={'sm'}
+      style={{ width: `${newSize}rem`, height: `${newSize}rem` }}
+    >
+      <Animation time={time}>
+        <svg
+          width={convertedSize}
+          height={convertedSize}
+          viewBox={`0 0 ${convertedSize} ${convertedSize}`}
+        >
+          <circle
+            cx={circleRadius * 2}
+            cy={circleRadius * 2}
+            r={circleRadius}
+            stroke-width={newStrokeWidth}
+            fill='none'
+            style={{ stroke: `var(${secondaryColor})` }}
+          />
+          <circle
+            cx={circleRadius * 2}
+            cy={circleRadius * 2}
+            r={circleRadius}
+            stroke-width={newStrokeWidth}
+            fill='none'
+            style={{ stroke: `var(${primaryColor})` }}
+            stroke-dasharray={`${primaryColorBarRatio} ${secondaryColorBarRatio}`}
+            stroke-linecap='round'
+          />
+        </svg>
+      </Animation>
     </Container>
   );
 };
