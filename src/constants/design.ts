@@ -1,3 +1,4 @@
+import { ButtonSizeType, ButtonVariantType } from '~/types/design/button';
 import { AvatarSizeType } from '~/types/design/avatar';
 import ColorType from '~/types/design/color';
 import ContainerSizeType from '~/types/design/container';
@@ -12,7 +13,7 @@ export const COLOR: ColorType[] = [
   '--secondaryColor',
   '--white',
   '--black',
-  '--ransparent',
+  '--transparent',
   '--adaptive50',
   '--adaptive100',
   '--adaptive200',
@@ -137,6 +138,15 @@ export const CONTAINER_SIZE: { [K in ContainerSizeType]: string } = {
   lg: '64rem',
   xl: '80rem',
 };
+
+
+export const BUTTON_VARIANT: ButtonVariantType[] = [
+  'filled',
+  'outlined',
+  'text',
+];
+
+export const BUTTON_SIZE_UNIT: ButtonSizeType[] = ['sm', 'md', 'lg'];
 
 export const AVATAR_SIZE_UNIT: AvatarSizeType[] = ['sm', 'lg'];
 
