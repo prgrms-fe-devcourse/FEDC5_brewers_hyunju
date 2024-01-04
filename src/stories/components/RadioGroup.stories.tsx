@@ -1,4 +1,3 @@
-// import Radio from '~/components/RadioGroup/Radio';
 import RadioGroup, {
   RadioGroupPropsType,
 } from '~/components/RadioGroup/RadioGroup';
@@ -7,14 +6,6 @@ export default {
   title: 'Component/RadioGroup',
   component: RadioGroup,
   argTypes: {
-    // labels: {
-    //   type: { name: 'array' },
-    //   description: 'label 문자열로 이루어진 배열',
-    //   control: {
-    //     type: 'array',
-    //     separator: ',',
-    //   },
-    // },
     options: {
       type: { name: 'array' },
       control: {
