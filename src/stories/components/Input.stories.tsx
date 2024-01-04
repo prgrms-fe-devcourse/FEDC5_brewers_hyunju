@@ -1,4 +1,5 @@
 import { IconSearch } from '@tabler/icons-react';
+import { useState } from 'react';
 import Input, { InputPropsType } from '~/components/input/Input';
 import { COLOR } from '~/constants/design';
 
@@ -23,17 +24,35 @@ export default {
 };
 
 export const Standard = (args: InputPropsType) => {
+  const [, setText] = useState('');
+
+  const onChange = (inputText: string) => {
+    setText(inputText);
+  };
+
   return (
     <div>
-      <Input {...args}></Input>
+      <Input
+        {...args}
+        onBlur={(text) => text === '111'}
+        onChange={onChange}
+      ></Input>
     </div>
   );
 };
 
 export const Search = () => {
+  const [, setText] = useState('');
+
+  const onChange = (inputText: string) => {
+    setText(inputText);
+  };
   return (
     <div>
-      <Input placeholder='placeholder'>
+      <Input
+        onChange={onChange}
+        placeholder='placeholder'
+      >
         <IconSearch
           size={16}
           stroke={3}
@@ -44,9 +63,18 @@ export const Search = () => {
 };
 
 export const Post = () => {
+  const [, setText] = useState('');
+
+  const onChange = (inputText: string) => {
+    setText(inputText);
+  };
+
   return (
     <div>
-      <Input label='label text'></Input>
+      <Input
+        onChange={onChange}
+        label='label text'
+      ></Input>
     </div>
   );
 };
