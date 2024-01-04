@@ -21,8 +21,8 @@ export const Default = (args: DropDownPropsType) => {
 
 Default.args = {
   list: [
-    { title: '수정하기', href: '#1' },
-    { title: '삭제하기', href: '#2' },
+    { title: '수정하기', action: 'put' },
+    { title: '삭제하기', action: 'delete' },
   ],
   isDropped: true,
 };

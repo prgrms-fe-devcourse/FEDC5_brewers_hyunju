@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 export interface DropDownListItemType {
   title: string;
-  href: string;
+  action: string;
 }
 
 export interface DropDownPropsType {
@@ -15,7 +15,17 @@ interface DropDownMenuProps {
   isDropped: boolean;
 }
 
-const DropDown = ({ isDropped, list, handleClick }: DropDownPropsType) => {
+const DropDown = ({
+  isDropped,
+  list,
+  onDropDownItemClick,
+}: DropDownPropsType) => {
+  const handleClick = (actionType: string) => {
+    if (onDropDownItemClick) {
+      onDropDownItemClick(actionType);
+    }
+  };
+
   return (
     <DropDownContainer>
       <DropDownContent isDropped={isDropped}>
@@ -23,7 +33,7 @@ const DropDown = ({ isDropped, list, handleClick }: DropDownPropsType) => {
           {list.map((item) => (
             <DropDownLi
               key={item.title}
-              onClick={() => handleClick(item.href)}
+              onClick={() => handleClick(item.action)}
             >
               {item.title}
             </DropDownLi>
@@ -55,17 +65,17 @@ const DropDownContent = styled.div<DropDownMenuProps>`
   visibility: hidden;
   transform: translate(-50%, -20px);
   transition:
-    opacity 0.4s ease,
-    transform 0.4s ease,
+    opacity 0.4s ease-in-out,
+    transform 0.4s ease-in-out,
     visibility 0.4s;
-  z-index: 9;
+  z-index: 10;
 
   ${({ isDropped }) =>
     isDropped &&
     css`
       opacity: 1;
       visibility: visible;
-      transform: translate(-50%, 0);
+      transform: translate(-50%, 1.25rem);
       left: 50%;
     `};
 `;
