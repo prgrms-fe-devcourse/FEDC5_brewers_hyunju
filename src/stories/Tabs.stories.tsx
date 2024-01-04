@@ -11,6 +11,7 @@ export default {
     gap: { control: 'number' },
     fontSize: { control: 'select', options: FONT_SIZE_UNIT },
     fontWeight: { control: 'select', options: FONT_WEIGHT_UNIT },
+    defaultId: { control: 'number' },
   },
   args: {},
 };
