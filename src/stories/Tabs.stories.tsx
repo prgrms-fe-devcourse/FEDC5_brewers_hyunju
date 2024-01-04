@@ -48,6 +48,8 @@ export const Default = (args: TabsPropsType) => {
           justo. Duis sed ornare mauris. Nullam sed mi pharetra, condimentum
           ante nec, luctus massa. Ut vel semper urna, ut sollicitudin metus.
         </Tabs.Body>
+        <Tabs.Body id={1}>HI:SLJDKF:LSJDFK</Tabs.Body>
+        <Tabs.Body id={2}>3333333333</Tabs.Body>
       </Tabs>
     </Box>
   );
