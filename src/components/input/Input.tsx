@@ -5,7 +5,7 @@ import Flex from '~/components/common/Flex';
 import ColorType from '~/types/design/color';
 import { FontSizeType, FontWeightType } from '~/types/design/font';
 
-interface InputType {
+interface InputPropsType {
   label?: string;
   labelFontSize: FontSizeType;
   labelFontWeight: FontWeightType;
@@ -38,12 +38,7 @@ const Input = ({
   borderColor = '--adaptive900',
   // highlightColor = '--primaryColor',
   // handleBlur, //TODO
-}: InputType) => {
-  const InputField = styled.input`
-    outline: none;
-    border: 0;
-  `;
-
+}: InputPropsType) => {
   //TODO
   const onHandleBlur = () => {};
 
