@@ -1,27 +1,48 @@
 import styled, { keyframes } from 'styled-components';
-import { Property } from 'csstype';
 
 export interface SkeletonPropsType {
-  width?: Property.Width;
-  height?: Property.Height;
+  width?: number;
+  height?: number;
   circle?: boolean;
   animation?: boolean;
   inline?: boolean;
-  p?: Property.Padding;
-  px?: Property.PaddingLeft;
-  py?: Property.PaddingTop;
-  pt?: Property.PaddingTop;
-  pb?: Property.PaddingBottom;
-  pl?: Property.PaddingLeft;
-  pr?: Property.PaddingRight;
-  m?: Property.Margin;
-  mx?: Property.MarginLeft;
-  my?: Property.MarginTop;
-  mt?: Property.MarginTop;
-  mb?: Property.MarginBottom;
-  ml?: Property.MarginLeft;
-  mr?: Property.MarginRight;
+  m?: number;
+  mx?: number;
+  my?: number;
+  mt?: number;
+  mb?: number;
+  ml?: number;
+  mr?: number;
+  p?: number;
+  px?: number;
+  py?: number;
+  pt?: number;
+  pb?: number;
+  pl?: number;
+  pr?: number;
 }
+
+const propKeys = [
+  'width',
+  'height',
+  'circle',
+  'animation',
+  'inline',
+  'm',
+  'mx',
+  'my',
+  'mt',
+  'mb',
+  'ml',
+  'mr',
+  'p',
+  'px',
+  'py',
+  'pt',
+  'pb',
+  'pl',
+  'pr',
+];
 
 const wave = keyframes`
   0% {
@@ -37,31 +58,34 @@ const wave = keyframes`
   }
 `;
 
-const Skeleton = styled.div<SkeletonPropsType>`
+const Skeleton = styled('div').withConfig({
+  shouldForwardProp: (prop) => !propKeys.includes(prop),
+})<SkeletonPropsType>`
   display: ${(props) => (props.inline ? 'inline-block' : 'block')};
 
-  width: ${(props) =>
-    props.circle
-      ? `max(${props.width ?? '10rem'}, ${props.height ?? '1rem'})`
-      : props.width ?? '10rem'};
-  height: ${(props) =>
-    props.circle
-      ? `max(${props.width ?? '10rem'}, ${props.height ?? '1rem'})`
-      : props.height ?? '1rem'};
-  margin: ${(props) => props.m};
-  margin-top: ${(props) => props.mt ?? props.my};
-  margin-right: ${(props) => props.mr ?? props.mx};
-  margin-bottom: ${(props) => props.mb ?? props.my};
-  margin-left: ${(props) => props.ml ?? props.mx};
-  padding: ${(props) => props.p};
-  padding-top: ${(props) => props.pt ?? props.py};
-  padding-right: ${(props) => props.pr ?? props.px};
-  padding-bottom: ${(props) => props.pb ?? props.py};
-  padding-left: ${(props) => props.pl ?? props.px};
-  border-radius: ${(props) =>
-    props.circle
-      ? `calc(max(${props.width ?? '10rem'}, ${props.height ?? '1rem'}) / 2)`
-      : '0.125rem'};
+  width: ${({ width = 10, height = 1, circle }) =>
+    circle ? `${Math.max(width, height)}rem` : `${width}rem`};
+  height: ${({ width = 10, height = 1, circle }) =>
+    circle ? `${Math.max(width, height)}rem` : `${height}rem`};
+  margin: ${({ m }) => (m ? `${m}rem` : undefined)};
+  margin-top: ${({ mt, my }) =>
+    mt ? `${mt}rem` : my ? `${my}rem` : undefined};
+  margin-right: ${({ mr, mx }) =>
+    mr ? `${mr}rem` : mx ? `${mx}rem` : undefined};
+  margin-bottom: ${({ mb, my }) =>
+    mb ? `${mb}rem` : my ? `${my}rem` : undefined};
+  margin-left: ${({ ml, mx }) =>
+    ml ? `${ml}rem` : mx ? `${mx}rem` : undefined};
+  padding: ${({ p }) => (p ? `${p}rem` : undefined)};
+  padding-top: ${({ pt, py }) =>
+    pt ? `${pt}rem` : py ? `${py}rem` : undefined};
+  padding-right: ${({ pr, px }) =>
+    pr ? `${pr}rem` : px ? `${px}rem` : undefined};
+  padding-bottom: ${({ pb, py }) =>
+    pb ? `${pb}rem` : py ? `${py}rem` : undefined};
+  padding-left: ${({ pl, px }) =>
+    pl ? `${pl}rem` : px ? `${px}rem` : undefined};
+  border-radius: ${({ circle }) => (circle ? '50%' : '0.125rem')};
 
   background-color: var(--adaptive300);
 
