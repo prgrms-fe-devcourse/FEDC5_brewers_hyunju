@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Property } from 'csstype';
 import Text from '~/components/common/Text';
 import Flex from '~/components/common/Flex';
 import ColorType from '~/types/design/color';
@@ -21,9 +20,24 @@ interface InputPropsType {
   // handleBlur?: () => void;
 }
 
-interface SpacerPropsType {
-  padding: Property.Padding;
+interface BorderPropsType {
+  borderColor?: ColorType;
 }
+
+const InputField = styled.input`
+  outline: none;
+  border: 0;
+`;
+
+const Border = styled.div<BorderPropsType>`
+  width: 25rem;
+  height: fit-content;
+  padding: 0.75rem;
+  border: 0.0625rem solid
+    ${({ borderColor }) =>
+      borderColor ? `var(${borderColor})` : 'var(--adaptive900)'};
+  border-radius: 1rem;
+`;
 
 const Input = ({
   label,
@@ -35,53 +49,38 @@ const Input = ({
   errorMessageFontSize = 'sm',
   errorFontWeight = 400,
   labelFontColor = '--adaptive900',
-  borderColor = '--adaptive900',
+  borderColor,
   // highlightColor = '--primaryColor',
   // handleBlur, //TODO
 }: InputPropsType) => {
   //TODO
   const onHandleBlur = () => {};
 
-  const Border = styled.div`
-    width: 25rem;
-    height: fit-content;
-    border: 0.0625rem solid var(${borderColor});
-    border-radius: 1rem;
-  `;
-
-  const Spacer = styled.div<SpacerPropsType>`
-    padding: ${(props) => `${props.padding}`};
-  `;
-
   return (
     <Flex direction='column'>
-      <Border>
-        <Spacer padding={'0.75rem'}>
-          <Flex direction='column'>
-            <Text
-              weight={labelFontWeight}
-              size={labelFontSize}
-              color={labelFontColor}
-            >
-              {label}
-            </Text>
-            <InputField
-              type='text'
-              placeholder={placeholder}
-              onBlur={onHandleBlur}
-            />
-          </Flex>
-        </Spacer>
+      <Border borderColor={borderColor}>
+        <Flex direction='column'>
+          <Text
+            weight={labelFontWeight}
+            size={labelFontSize}
+            color={labelFontColor}
+          >
+            {label}
+          </Text>
+          <InputField
+            type='text'
+            placeholder={placeholder}
+            onBlur={onHandleBlur}
+          />
+        </Flex>
       </Border>
-      <Spacer padding={'0 0.75rem'}>
-        <Text
-          color={errorMessageFontColor}
-          weight={errorFontWeight}
-          size={errorMessageFontSize}
-        >
-          {errorMessage}
-        </Text>
-      </Spacer>
+      <Text
+        color={errorMessageFontColor}
+        weight={errorFontWeight}
+        size={errorMessageFontSize}
+      >
+        {errorMessage}
+      </Text>
     </Flex>
   );
 };
