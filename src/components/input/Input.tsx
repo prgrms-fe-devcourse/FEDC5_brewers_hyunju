@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import ColorType from '~/types/design/color';
-import { FontSizeType, FontWeightType } from '~/types/design/font';
 import { Property } from 'csstype';
 import Text from '~/components/common/Text';
 import Flex from '~/components/common/Flex';
+import ColorType from '~/types/design/color';
+import { FontSizeType, FontWeightType } from '~/types/design/font';
 
 interface InputType {
   label?: string;
