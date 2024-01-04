@@ -25,7 +25,7 @@ const TabItem = ({
 }: TabItemPropsType) => {
   const valueContext = useContext(TabsValueContext);
   const setSelectedId = useContext(TabsActionContext);
-  const { fontSize, fontWeight } = useContext(TabsStyleContext);
+  const { fontSize, fontWeight, isFull } = useContext(TabsStyleContext);
   const selected = valueContext ? valueContext.selectedId === id : false;
 
   const mergeHandleClick = () => {
@@ -41,6 +41,7 @@ const TabItem = ({
       disabled={disabled}
       onClick={mergeHandleClick}
       fontSize={fontSize}
+      isFull={isFull}
     >
       {icon && icon}
       {text && (
@@ -61,10 +62,14 @@ export default TabItem;
 
 const TabItemStyle = styled.button<{
   selected: boolean;
+  isFull: boolean;
   fontSize: FontSizeType;
 }>`
-  min-width: 3.125rem;
+  flex-grow: ${({ isFull }) => (isFull ? '1' : '0')};
+
+  min-width: 2.5rem;
   padding: 0.125rem;
+  padding-bottom: 0.3125rem;
   border: none;
   border-bottom: ${({ selected }) =>
     selected ? 'solid var(--primaryColor)' : 'solid var(--transparent)'};
@@ -76,6 +81,7 @@ const TabItemStyle = styled.button<{
   background-color: transparent;
 
   cursor: pointer;
+  transition: 0.2s border-color ease-in;
 `;
 
 const HoverText = styled(Text)<{ selected: boolean }>`

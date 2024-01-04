@@ -11,7 +11,8 @@ interface TabHeaderProps {
   gap?: number;
 }
 const TabHeader = ({ children }: TabHeaderProps) => {
-  const { gap } = useContext(TabsStyleContext);
+  const { gap, isFull } = useContext(TabsStyleContext);
+
   return (
     <Container
       maxWidth='sm'
@@ -24,7 +25,7 @@ const TabHeader = ({ children }: TabHeaderProps) => {
       }}
     >
       <Flex
-        justifyContent='flex-start'
+        justifyContent={isFull ? 'space-evenly' : 'flex-start'}
         gap={gap}
         style={{ boxSizing: 'border-box' }}
       >
