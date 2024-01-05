@@ -72,9 +72,11 @@ const ModalContainer = styled(Container)<{ variant: ModalVariantType }>`
 
   height: ${({ variant }) => (variant === 'simple' ? '15.625rem' : undefined)};
   min-height: 15.625rem;
+  max-height: ${({ variant }) => (variant === 'full' ? '550px' : undefined)};
   border-radius: 0.5rem;
   box-shadow: 0 0.1875rem 0.375rem var(--adaptive300);
 
   box-sizing: border-box;
+  overflow-y: auto;
   transform: translate(-50%, -50%);
 `;
