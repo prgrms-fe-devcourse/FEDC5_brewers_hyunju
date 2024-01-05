@@ -15,8 +15,9 @@ export interface InputPropsType {
   message?: string;
   messageColor?: ColorType;
   onBlur?: (text: string) => boolean;
-  onChange: (text: string) => void;
+  onChange: (text: string, InputName?: string) => void;
   children?: React.ReactNode;
+  InputName?: string;
 }
 
 interface BorderPropsType {
@@ -63,6 +64,7 @@ const Input = ({
   onBlur,
   onChange,
   children,
+  InputName,
 }: InputPropsType) => {
   const [isError, setIsError] = useState(false);
   const ref = useRef<HTMLInputElement | null>(null);
@@ -82,25 +84,24 @@ const Input = ({
     if (ref.current === null) {
       return;
     }
-    console.log(ref.current.value, 'blur');
     const isAvailable = onBlur(ref.current.value);
 
     setIsError(!isAvailable);
   }, [onBlur]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
+    const { name, value } = e.target;
 
-    debouncing(value);
+    debouncing(value, name);
   };
 
-  const debouncing = (inputValue: string) => {
+  const debouncing = (inputValue: string, name: string) => {
     if (timer) {
       clearTimeout(timer);
     }
     timer = setTimeout(() => {
       if (onChange !== undefined) {
-        onChange(inputValue);
+        onChange(inputValue, name);
       }
     }, 500);
   };
@@ -133,6 +134,7 @@ const Input = ({
                 </Container>
               ) : null}
               <InputField
+                name={InputName}
                 width={width}
                 iconSize={iconSize}
                 type={type}
@@ -147,7 +149,7 @@ const Input = ({
         </Border>
         <Container
           maxWidth='md'
-          style={{ padding: ' 0 0 0 0.75rem', margin: 0 }}
+          style={{ padding: ' 0 0 0 0.75rem', margin: 0, width: 'fit-content' }}
         >
           {isError ? (
             <Text
