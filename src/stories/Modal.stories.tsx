@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { IconUfo } from '@tabler/icons-react';
 import Modal from '~/components/common/Modal';
 import Flex from '~/components/common/Flex';
 import Text from '~/components/common/Text';
@@ -17,7 +16,7 @@ export const ModalWithHeader = () => {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <Modal
-      type={'full'}
+      variant={'full'}
       visible={isOpen}
       handleClose={() => setIsOpen(false)}
     >
@@ -26,7 +25,34 @@ export const ModalWithHeader = () => {
           text='기본 모달'
           handleClose={() => setIsOpen(false)}
         />
-        <IconUfo stroke={4} />
+        {/* <IconUfo stroke={4} /> */}
+        <Modal.Body>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
+          lobortis sodales luctus. Duis arcu ipsum, imperdiet sed massa vitae,
+          suscipit scelerisque odio. Pellentesque vel pretium mi. Mauris vel dui
+          lacus. Suspendisse laoreet ultricies eros, a feugiat sem vulputate ut.
+          Proin aliquam, mi ullamcorper dapibus condimentum, mi purus pulvinar
+          velit, ut convallis mauris eros at velit. Vivamus volutpat suscipit
+          viverra. Mauris ultrices, elit at viverra pulvinar, neque urna
+          vulputate turpis, quis egestas massa elit ac augue. Duis at tortor
+          odio. Fusce ut nulla orci. Etiam ac finibus orci. Vivamus commodo
+          tellus mi, dapibus ultrices enim suscipit at. Ut nec dolor quis sem
+          accumsan tincidunt. Quisque finibus sapien odio, non porttitor diam
+          aliquam non. Maecenas et nunc vel nisi tempor iaculis id id sapien.
+          Quisque et libero sapien. Lorem ipsum dolor sit amet, consectetur
+          adipiscing elit. Pellentesque lobortis sodales luctus. Duis arcu
+          ipsum, imperdiet sed massa vitae, suscipit scelerisque odio.
+          Pellentesque vel pretium mi. Mauris vel dui lacus. Suspendisse laoreet
+          ultricies eros, a feugiat sem vulputate ut. Proin aliquam, mi
+          ullamcorper dapibus condimentum, mi purus pulvinar velit, ut convallis
+          mauris eros at velit. Vivamus volutpat suscipit viverra. Mauris
+          ultrices, elit at viverra pulvinar, neque urna vulputate turpis, quis
+          egestas massa elit ac augue. Duis at tortor odio. Fusce ut nulla orci.
+          Etiam ac finibus orci. Vivamus commodo tellus mi, dapibus ultrices
+          enim suscipit at. Ut nec dolor quis sem accumsan tincidunt. Quisque
+          finibus sapien odio, non porttitor diam aliquam non. Maecenas et nunc
+          vel nisi tempor iaculis id id sapien. Quisque et libero sapien.
+        </Modal.Body>
       </Modal.Page>
     </Modal>
   );
@@ -35,32 +61,34 @@ export const Default = () => {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <Modal
-      type='simple'
+      variant='simple'
       visible={isOpen}
       handleClose={() => setIsOpen(false)}
     >
       <Modal.Page>
-        <StyledFlex
-          direction='column'
-          alignItems='center'
-          justifyContent='space-between'
-        >
-          <Text
-            size='xl'
-            weight={600}
+        <Modal.Body>
+          <StyledFlex
+            direction='column'
+            alignItems='center'
+            justifyContent='space-between'
           >
-            기본 모달입니다
-          </Text>
-          <Button
-            variant='filled'
-            size='md'
-            color='--primaryColor'
-            style={{ width: '100%', padding: '0.75rem' }}
-            onClick={() => setIsOpen(false)}
-          >
-            확인
-          </Button>
-        </StyledFlex>
+            <Text
+              size='xl'
+              weight={600}
+            >
+              기본 모달입니다
+            </Text>
+            <Button
+              variant='filled'
+              size='md'
+              color='--primaryColor'
+              style={{ width: '100%', padding: '0.75rem' }}
+              onClick={() => setIsOpen(false)}
+            >
+              확인
+            </Button>
+          </StyledFlex>
+        </Modal.Body>
       </Modal.Page>
     </Modal>
   );
@@ -68,5 +96,4 @@ export const Default = () => {
 const StyledFlex = styled(Flex)`
   width: 100%;
   height: 100%;
-  margin-bottom: 1rem;
 `;
