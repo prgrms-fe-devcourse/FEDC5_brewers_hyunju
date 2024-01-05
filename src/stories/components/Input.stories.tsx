@@ -15,8 +15,6 @@ export default {
   },
   args: {
     label: 'label text',
-    labelFontSize: 'sm',
-    labelFontWeight: 400,
     placeholder: 'placeholder',
     message: 'message',
     messageColor: '--red600',
