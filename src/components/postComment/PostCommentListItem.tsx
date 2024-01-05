@@ -7,7 +7,7 @@ import ContainerSizeType from '~/types/design/container';
 import styled from 'styled-components';
 import Avatar from '../common/Avatar';
 
-interface PostCommentListItemPropsType {
+export interface PostCommentListItemPropsType {
   userName: string;
   userNameSize?: FontSizeType;
   userNameWeight?: FontWeightType;
@@ -15,7 +15,7 @@ interface PostCommentListItemPropsType {
   message: string;
   messageSize?: FontSizeType;
   messageWeight?: FontWeightType;
-  avatar?: string;
+  avatarSrc?: string;
   width?: ContainerSizeType;
   handleClick: () => void;
 }
@@ -32,7 +32,7 @@ const PostCommentListItem = ({
   message = '',
   messageSize = 'sm',
   messageWeight = 400,
-  avatar = '',
+  avatarSrc = '',
   width = 'sm',
   handleClick,
 }: PostCommentListItemPropsType) => {
@@ -53,7 +53,7 @@ const PostCommentListItem = ({
           gap={0.75}
         >
           <Avatar
-            src={avatar}
+            src={avatarSrc}
             size='sm'
             handleClick={handleClick}
           />
