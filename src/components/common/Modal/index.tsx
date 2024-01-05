@@ -4,14 +4,16 @@ import Container from '../Container';
 import styled from 'styled-components';
 import ModalHeader from './ModalHeader';
 import ModalPage from './ModalPage';
+import ModalBody from './ModalBody';
 
+type ModalVariantType = 'simple' | 'full';
 export interface ModalPropsType {
   visible: boolean;
   handleClose: () => void;
   children: ReactNode;
-  type: 'simple' | 'full';
+  variant: ModalVariantType;
 }
-const Modal = ({ children, visible, handleClose, type }: ModalPropsType) => {
+const Modal = ({ children, visible, handleClose, variant }: ModalPropsType) => {
   const $overlay = useMemo(() => document.createElement('div'), []);
   const $backdrop = useMemo(() => document.createElement('div'), []);
   useEffect(() => {
@@ -33,9 +35,10 @@ const Modal = ({ children, visible, handleClose, type }: ModalPropsType) => {
       {visible &&
         ReactDOM.createPortal(
           <ModalContainer
+            variant={variant}
             maxWidth='sm'
-            p={type === 'simple' ? 3 : 0.1}
-            py={type === 'simple' ? undefined : 0.375}
+            p={variant === 'simple' ? 1 : 0.1}
+            py={variant === 'simple' ? undefined : 0.375}
           >
             {children}
           </ModalContainer>,
@@ -46,7 +49,7 @@ const Modal = ({ children, visible, handleClose, type }: ModalPropsType) => {
 };
 Modal.Page = ModalPage;
 Modal.Header = ModalHeader;
-// Modal.Body = ModalBody;
+Modal.Body = ModalBody;
 export default Modal;
 
 const BackgroundDim = styled.div`
@@ -61,13 +64,14 @@ const BackgroundDim = styled.div`
   background-color: var(--adaptiveOpacity100);
 `;
 
-const ModalContainer = styled(Container)`
+const ModalContainer = styled(Container)<{ variant: ModalVariantType }>`
   position: fixed;
   top: 50%;
   left: 50%;
   z-index: 100;
 
-  height: 15.625rem;
+  height: ${({ variant }) => (variant === 'simple' ? '15.625rem' : undefined)};
+  min-height: 15.625rem;
   border-radius: 0.5rem;
   box-shadow: 0 0.1875rem 0.375rem var(--adaptive300);
 

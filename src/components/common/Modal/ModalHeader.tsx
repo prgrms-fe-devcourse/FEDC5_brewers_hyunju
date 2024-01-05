@@ -1,4 +1,3 @@
-import React from 'react';
 import Flex from '../Flex';
 import Text from '../Text';
 import { IconX } from '@tabler/icons-react';
@@ -44,6 +43,8 @@ const ModalHeader = ({ text, handleClose }: ModalHeaderProps) => {
 export default ModalHeader;
 
 const StyledFlex = styled(Flex)`
-  margin-bottom: 1rem;
+  width: 100%;
   border-bottom: 0.1875rem solid var(--adaptive200);
+
+  box-sizing: border-box;
 `;
