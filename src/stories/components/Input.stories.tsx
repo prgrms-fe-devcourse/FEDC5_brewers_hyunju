@@ -8,9 +8,9 @@ export default {
   component: Input,
   tags: ['autodocs'],
   argTypes: {
-    label: { control: 'string' },
-    placeholder: { control: 'string' },
-    message: { control: 'string' },
+    label: { control: 'text' },
+    placeholder: { control: 'text' },
+    message: { control: 'text' },
     messageColor: { control: 'select', options: COLOR },
   },
   args: {
