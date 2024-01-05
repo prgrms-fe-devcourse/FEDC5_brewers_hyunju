@@ -45,6 +45,14 @@ const Border = styled.div<BorderPropsType>`
   border-radius: 1rem;
 `;
 
+interface PaddingPropsType {
+  height: FontSizeType;
+}
+
+const Padding = styled.div<PaddingPropsType>`
+  height: ${(props) => FONT_SIZE[props.height]};
+`;
+
 const Input = ({
   width,
   label,
@@ -148,7 +156,9 @@ const Input = ({
             >
               {message}
             </Text>
-          ) : null}
+          ) : (
+            <Padding height={messageFontSize} />
+          )}
         </Container>
       </Flex>
     </Container>
