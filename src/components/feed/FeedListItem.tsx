@@ -2,6 +2,7 @@ import Container from '~/components/common/Container';
 import Flex from '~/components/common/Flex';
 import Text from '~/components/common/Text';
 import Image from '~/components/common/Image';
+import Avatar from '~/components/common/Avatar';
 import styled from 'styled-components';
 import FeedFooterItem from './FeedFooterItem';
 
@@ -58,19 +59,13 @@ const FeedListItem = ({
   const handleFeedClick = (feedId: string) => {
     if (onFeedClick) {
       onFeedClick(feedId);
-      alert(feedId);
     }
   };
 
   // 사용자 이미지 클릭 시
-  const handleUserClick = (
-    userId: string,
-    e: React.MouseEvent<HTMLDivElement>
-  ) => {
-    e.stopPropagation();
+  const handleUserClick = () => {
     if (onUserClick) {
       onUserClick(userId);
-      alert(userId);
     }
   };
 
@@ -83,20 +78,14 @@ const FeedListItem = ({
         justifyContent='space-between'
         alignItems='flex-start'
       >
-        <div
-          onClick={(e: React.MouseEvent<HTMLDivElement>) => {
-            handleUserClick(userId, e);
-          }}
-        >
-          <Image
+        <div style={{ flex: '1' }}>
+          <Avatar
             src={profileImage}
-            width={3.5}
-            height={3.5}
-            mode='contain'
-            alt='user profile image'
-          ></Image>
+            size='sm'
+            handleClick={handleUserClick}
+            alt='user image'
+          ></Avatar>
         </div>
-
         <Flex
           direction='column'
           ml={1}
