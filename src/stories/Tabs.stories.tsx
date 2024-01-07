@@ -85,12 +85,7 @@ export const IconTab = (args: TabsPropsType) => {
         <Tabs.Header>
           <Tabs.Item
             id={0}
-            icon={
-              <IconUser
-                color='var(--primaryColor)'
-                stroke={3}
-              />
-            }
+            icon={<IconUser stroke={3} />}
           />
           <Tabs.Item
             text='TAB 2'

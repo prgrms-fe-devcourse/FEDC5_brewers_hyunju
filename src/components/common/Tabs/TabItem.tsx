@@ -49,7 +49,6 @@ const TabItem = ({
           $selected={selected}
           size={fontSize}
           weight={fontWeight}
-          color={selected ? '--primaryColor' : '--adaptive400'}
         >
           {text}
         </HoverText>
@@ -80,14 +79,19 @@ const TabItemStyle = styled.button<{
 
   background-color: transparent;
 
+  color: ${({ $selected }) =>
+    $selected ? 'var(--primaryColor)' : 'var(--adaptive400)'};
+
   cursor: pointer;
   transition: 0.2s border-color ease-in;
-`;
-
-const HoverText = styled(Text)<{ $selected: boolean }>`
-  transition: 0.2s color ease-in;
 
   &:hover {
     color: ${({ $selected }) => !$selected && 'var(--adaptive950)'};
   }
+
+  transition: 0.2s color ease-in;
+`;
+
+const HoverText = styled(Text)<{ $selected: boolean }>`
+  color: inherit;
 `;
