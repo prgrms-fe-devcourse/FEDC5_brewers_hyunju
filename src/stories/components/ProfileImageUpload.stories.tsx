@@ -1,5 +1,5 @@
 import ProfileImageUpload, {
-  ProfileImageUploadPropTypes,
+  ProfileImageUploadPropsType,
 } from '~/components/uploadImage/ProfileImageUpload';
 
 export default {
@@ -12,7 +12,7 @@ export default {
   },
 };
 
-export const Default = (args: ProfileImageUploadPropTypes) => {
+export const Default = (args: ProfileImageUploadPropsType) => {
   return <ProfileImageUpload {...args}></ProfileImageUpload>;
 };
 

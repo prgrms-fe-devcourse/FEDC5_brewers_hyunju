@@ -1,12 +1,11 @@
 import { ChangeEvent, useState } from 'react';
-import styled from 'styled-components';
 import Container from '~/components/common/Container';
 import Flex from '~/components/common/Flex';
 import Text from '~/components/common/Text';
 import Image from '~/components/common/Image';
 import Button from '~/components/common/Button';
 
-export interface ProfileImageUploadPropTypes {
+export interface ProfileImageUploadPropsType {
   currentImageUrl: string;
   onImageChange: (url: string) => void;
   onCancel: () => void;
@@ -16,7 +15,7 @@ const ProfileImageUpload = ({
   currentImageUrl,
   onImageChange,
   onCancel,
-}: ProfileImageUploadPropTypes) => {
+}: ProfileImageUploadPropsType) => {
   const [selectedImage, setSelectedImage] = useState<string | null>(
     currentImageUrl
   );
