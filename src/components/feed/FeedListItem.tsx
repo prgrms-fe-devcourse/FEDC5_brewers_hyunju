@@ -10,7 +10,8 @@ export interface FeedListItemPropTypes {
   userId: string;
   profileImage: string;
   userName: string;
-  date: string;
+  createdAt: string;
+  updatedAt?: string;
   content: string;
   imageUrl?: string;
   likesCount: number;
@@ -31,7 +32,8 @@ const FeedListItem = ({
   userId,
   profileImage,
   userName,
-  date,
+  createdAt,
+  updatedAt,
   content,
   imageUrl,
   likesCount,
@@ -108,7 +110,7 @@ const FeedListItem = ({
             color='--adaptive500'
             style={{ marginBottom: '0.5rem' }}
           >
-            {date}
+            {updatedAt ? `${updatedAt} · 수정됨` : createdAt}
           </Text>
           <Text height={175}>{content}</Text>
           {imageUrl && (

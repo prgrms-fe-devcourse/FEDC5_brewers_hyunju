@@ -25,7 +25,13 @@ export default {
         type: 'text',
       },
     },
-    date: {
+    createdAt: {
+      type: { name: 'string' },
+      control: {
+        type: 'text',
+      },
+    },
+    updatedAt: {
       type: { name: 'string' },
       control: {
         type: 'text',
@@ -67,7 +73,8 @@ Default.args = {
   userId: '123',
   profileImage: 'https://picsum.photos/200',
   userName: '주니모',
-  date: '2024년 1월 4일 오후 10시 26분',
+  createdAt: '2024년 1월 4일 오후 10시 26분',
+  updatedAt: '2024년 1월 7일 오후 7시 04분',
   content: '다그닥 다그닥',
   imageUrl: 'https://picsum.photos/400/200',
   likesCount: 23,

@@ -17,7 +17,7 @@ const FeedFooterItem = ({
   return (
     <Flex
       alignItems='center'
-      ml={1}
+      ml={iconType === 'like' ? 0 : 1}
     >
       {iconType === 'like' ? (
         <IconHeart
