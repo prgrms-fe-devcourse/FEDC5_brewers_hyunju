@@ -42,10 +42,10 @@ const ProfileImageUpload = ({
   return (
     <Container
       maxWidth='md'
+      p={2.75}
       style={{
         width: '35.125rem',
         height: '23.375rem',
-        padding: '2.75rem',
         position: 'relative',
         boxSizing: 'border-box',
         borderRadius: '0.5rem',
@@ -99,7 +99,7 @@ const ProfileImageUpload = ({
           ></Image>
           <Flex
             direction='column'
-            style={{ marginLeft: '1rem' }}
+            ml={1}
           >
             <label htmlFor='profileImageInput'>
               <Button
