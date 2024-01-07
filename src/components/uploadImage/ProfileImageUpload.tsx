@@ -12,25 +12,6 @@ export interface ProfileImageUploadPropTypes {
   onCancel: () => void;
 }
 
-const CancelButton = styled.button`
-  width: 1.5rem;
-  height: 1.5rem;
-  position: absolute;
-  top: 0.625rem;
-  right: 0.625rem;
-  background-color: var(--adaptive100);
-  border: none;
-  text-align: center;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  &:hover {
-    background-color: var(--adaptive300);
-  }
-`;
-
 const ProfileImageUpload = ({
   currentImageUrl,
   onImageChange,
@@ -73,7 +54,29 @@ const ProfileImageUpload = ({
         boxShadow: `0 0.375rem 0.625rem 0 var(--adaptiveOpacity200)`,
       }}
     >
-      <CancelButton onClick={onCancel}>✕</CancelButton>
+      <Button
+        variant='text'
+        size='md'
+        color='--adaptive100'
+        onClick={onCancel}
+        style={{
+          color: 'var(--adaptive500)',
+          width: '1.5rem',
+          height: '1.5rem',
+          position: 'absolute',
+          top: '0.625rem',
+          right: '0.625rem',
+          border: 'none',
+          textAlign: 'center',
+          borderRadius: '50%',
+          cursor: 'pointer',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        ✕
+      </Button>
       <Flex
         direction='column'
         justifyContent='space-between'
