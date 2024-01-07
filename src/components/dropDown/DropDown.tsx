@@ -46,59 +46,68 @@ const DropDown = ({
 
 const DropDownContainer = styled.div`
   position: relative;
+
   max-width: 2.75rem;
   margin: 0 auto;
 `;
 
+const TestStyle = css`
+  visibility: visible;
+  left: 50%;
+
+  opacity: 1;
+  transform: translate(-50%, 1.25rem);
+`;
 const DropDownContent = styled.div<DropDownMenuProps>`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  visibility: hidden;
   position: absolute;
   top: 3.25rem;
   left: 50%;
-  display: flex;
+  z-index: 10;
+
   width: 10.625rem;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 1px;
   border-radius: 0.5rem;
   box-shadow: 0 0.25rem 0.875rem 0 var(--adaptiveOpacity200);
-  visibility: hidden;
+
+  gap: 1px;
+
   transform: translate(-50%, -20px);
   transition:
     opacity 0.4s ease-in-out,
     transform 0.4s ease-in-out,
     visibility 0.4s;
-  z-index: 10;
 
-  ${({ isDropped }) =>
-    isDropped &&
-    css`
-      opacity: 1;
-      visibility: visible;
-      transform: translate(-50%, 1.25rem);
-      left: 50%;
-    `};
+  ${({ isDropped }) => isDropped && TestStyle}
 `;
 
 const DropDownUl = styled.ul`
   width: 100%;
+
   :not(:last-child) {
     border-bottom: 1px solid var(--adaptive300);
   }
+
   :first-child {
     border-radius: 0.5rem 0.5rem 0 0;
   }
+
   :last-child {
     border-radius: 0 0 0.5rem 0.5rem;
   }
 `;
 
 const DropDownLi = styled.li`
-  cursor: pointer;
   display: block;
-  padding: 0.75rem 1rem;
+
   width: 100%;
+  padding: 0.75rem 1rem;
+
   box-sizing: border-box;
+  cursor: pointer;
 
   &:hover {
     background-color: var(--adaptive300);
