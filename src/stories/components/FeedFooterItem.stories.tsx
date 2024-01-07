@@ -6,7 +6,7 @@ export default {
   title: 'Component/FeedFooterItem',
   component: FeedFooterItem,
   argTypes: {
-    iconImg: {
+    iconType: {
       type: { name: 'string' },
       control: {
         type: 'text',
@@ -31,7 +31,7 @@ export const Default = (args: FeedFooterItemPropTypes) => {
 };
 
 Default.args = {
-  iconImg: '',
+  iconType: 'like',
   title: '좋아요',
   count: 34,
 };

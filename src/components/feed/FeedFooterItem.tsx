@@ -1,25 +1,37 @@
 import Flex from '~/components/common/Flex';
-import Image from '~/components/common/Image';
 import Text from '~/components/common/Text';
+import { IconHeart } from '@tabler/icons-react';
+import { IconMessageCircle2 } from '@tabler/icons-react';
 
 export interface FeedFooterItemPropTypes {
-  iconImg: string;
+  iconType: string;
   title: string;
   count: number;
 }
 
-const FeedFooterItem = ({ iconImg, title, count }: FeedFooterItemPropTypes) => {
+const FeedFooterItem = ({
+  iconType,
+  title,
+  count,
+}: FeedFooterItemPropTypes) => {
   return (
     <Flex
       alignItems='center'
       style={{ marginRight: '1rem' }}
     >
-      <Image
-        width={1.125}
-        height={1.125}
-        src={iconImg}
-        alt='icon image'
-      ></Image>
+      {iconType === 'like' ? (
+        <IconHeart
+          width='1.4rem'
+          height='1.4rem'
+          color='var(--adaptive500)'
+        ></IconHeart>
+      ) : (
+        <IconMessageCircle2
+          width='1.4rem'
+          height='1.4rem'
+          color='var(--adaptive500)'
+        ></IconMessageCircle2>
+      )}
       <Text style={{ marginLeft: '0.2rem', color: 'var(--adaptive500)' }}>
         {title}
       </Text>

@@ -123,12 +123,12 @@ const FeedListItem = ({
           <Divider></Divider>
           <Flex>
             <FeedFooterItem
-              iconImg={''}
+              iconType={'like'}
               title='좋아요'
               count={likesCount}
             ></FeedFooterItem>
             <FeedFooterItem
-              iconImg={''}
+              iconType={''}
               title='댓글'
               count={commentsCount}
             ></FeedFooterItem>
