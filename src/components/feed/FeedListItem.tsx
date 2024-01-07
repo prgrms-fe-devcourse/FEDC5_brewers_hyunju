@@ -27,6 +27,19 @@ const Divider = styled.div`
   margin: 1rem 0;
 `;
 
+const FeedItemContainer = styled(Container)`
+  padding: 34px 40px;
+  flex-shrink: 0;
+  background-color: var(-adaptive50);
+  border: 1px solid var(--adaptive200);
+  border-radius: 0.75rem;
+  box-shadow: 0px 4px 4px 0px var(--adaptiveOpacity100);
+  cursor: pointer;
+  &:hover {
+    background-color: var(--adaptive100);
+  }
+`;
+
 const FeedListItem = ({
   id,
   userId,
@@ -62,17 +75,9 @@ const FeedListItem = ({
   };
 
   return (
-    <Container
+    <FeedItemContainer
       maxWidth='md'
       onClick={() => handleFeedClick(id)}
-      style={{
-        padding: '34px 40px',
-        flexShrink: '0',
-        backgroundColor: 'var(-adaptive50)',
-        border: '1px solid var(--adaptive200)',
-        borderRadius: '0.75rem',
-        boxShadow: '0px 4px 4px 0px var(--adaptiveOpacity100)',
-      }}
     >
       <Flex
         justifyContent='space-between'
@@ -137,7 +142,7 @@ const FeedListItem = ({
           </Flex>
         </Flex>
       </Flex>
-    </Container>
+    </FeedItemContainer>
   );
 };
 
