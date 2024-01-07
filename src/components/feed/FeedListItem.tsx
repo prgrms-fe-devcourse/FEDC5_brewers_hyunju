@@ -5,7 +5,7 @@ import Image from '~/components/common/Image';
 import styled from 'styled-components';
 import FeedFooterItem from './FeedFooterItem';
 
-export interface FeedListItemPropTypes {
+export interface FeedListItemPropsType {
   id: string;
   userId: string;
   profileImage: string;
@@ -40,7 +40,7 @@ const FeedListItem = ({
   commentsCount,
   onFeedClick,
   onUserClick,
-}: FeedListItemPropTypes) => {
+}: FeedListItemPropsType) => {
   // 피드 클릭 시
   const handleFeedClick = (feedId: string) => {
     if (onFeedClick) {

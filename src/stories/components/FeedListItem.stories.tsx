@@ -1,5 +1,5 @@
 import FeedListItem, {
-  FeedListItemPropTypes,
+  FeedListItemPropsType,
 } from '~/components/feed/FeedListItem';
 
 export default {
@@ -64,7 +64,7 @@ export default {
   },
 };
 
-export const Default = (args: FeedListItemPropTypes) => {
+export const Default = (args: FeedListItemPropsType) => {
   return <FeedListItem {...args}></FeedListItem>;
 };
 
