@@ -8,7 +8,7 @@ export interface DropDownListItemType {
 export interface DropDownPropsType {
   isDropped: boolean;
   list: DropDownListItemType[];
-  handleClick: (href: string) => void;
+  onDropDownItemClick: (actionType: string) => void;
 }
 
 interface DropDownMenuProps {
