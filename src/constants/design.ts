@@ -139,7 +139,6 @@ export const CONTAINER_SIZE: { [K in ContainerSizeType]: string } = {
   xl: '80rem',
 };
 
-
 export const BUTTON_VARIANT: ButtonVariantType[] = [
   'filled',
   'outlined',
