@@ -70,7 +70,7 @@ const Input = ({
 }: InputPropsType) => {
   const [isError, setIsError] = useState(false);
   const ref = useRef<HTMLInputElement | null>(null);
-  let timer: ReturnType<typeof setTimeout>;
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const labelFontSize = 'sm' as FontSizeType;
   const inputFontSize = 'lg' as FontSizeType;
@@ -98,10 +98,10 @@ const Input = ({
   };
 
   const debouncing = (inputValue: string, name: string) => {
-    if (timer) {
-      clearTimeout(timer);
+    if (timer.current) {
+      clearTimeout(timer.current);
     }
-    timer = setTimeout(() => {
+    timer.current = setTimeout(() => {
       if (onChange !== undefined) {
         onChange(inputValue, name);
       }
