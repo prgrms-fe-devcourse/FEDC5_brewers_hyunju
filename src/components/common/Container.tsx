@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import ContainerSizeType from '~/types/design/container';
 import { CONTAINER_SIZE } from '~/constants/design';
 

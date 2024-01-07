@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import useIntersectionObserver from '~/hooks/useIntersectionObserver';
 import ColorType from '~/types/design/color';
 import { handleSizeUnit } from '~/utils/handleSizeUnit';

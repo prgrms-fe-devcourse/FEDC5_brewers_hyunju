@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import ColorType from '~/types/design/color';
 import {
   FontSizeType,

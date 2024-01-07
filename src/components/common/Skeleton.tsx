@@ -1,5 +1,5 @@
-import styled, { keyframes } from 'styled-components';
-
+import styled from '@emotion/styled';
+import { keyframes } from '@emotion/react';
 export interface SkeletonPropsType {
   width?: number;
   height?: number;
@@ -22,28 +22,6 @@ export interface SkeletonPropsType {
   pr?: number;
 }
 
-const propKeys = [
-  'width',
-  'height',
-  'circle',
-  'animation',
-  'inline',
-  'm',
-  'mx',
-  'my',
-  'mt',
-  'mb',
-  'ml',
-  'mr',
-  'p',
-  'px',
-  'py',
-  'pt',
-  'pb',
-  'pl',
-  'pr',
-];
-
 const wave = keyframes`
   0% {
     opacity: 1;
@@ -58,9 +36,7 @@ const wave = keyframes`
   }
 `;
 
-const Skeleton = styled('div').withConfig({
-  shouldForwardProp: (prop) => !propKeys.includes(prop),
-})<SkeletonPropsType>`
+const Skeleton = styled.div<SkeletonPropsType>`
   display: ${(props) => (props.inline ? 'inline-block' : 'block')};
 
   width: ${({ width = 10, height = 1, circle }) =>
