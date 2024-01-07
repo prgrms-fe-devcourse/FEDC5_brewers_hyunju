@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react';
-import { FontSizeType, FontWeightType } from '~/types/design/font';
 import { TabsPropsType } from '.';
+import { FontSizeType, FontWeightType } from '~/types/design/font';
 
 export const TabsValueContext = createContext<{ selectedId: number }>({
   selectedId: 0,

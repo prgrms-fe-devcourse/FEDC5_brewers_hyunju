@@ -1,9 +1,8 @@
-import { FontSizeType, FontWeightType } from '~/types/design/font';
 import TabHeader from './TabHeader';
 import TabItem from './TabItem';
 import TabsProvider from './TabsProvider';
 import TabBody from './TabBody';
-
+import { FontSizeType, FontWeightType } from '~/types/design/font';
 export interface TabsPropsType {
   isFull?: boolean;
   children: React.ReactNode;

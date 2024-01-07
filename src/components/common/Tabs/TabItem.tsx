@@ -1,11 +1,11 @@
 import { useContext, ReactNode } from 'react';
+import styled from 'styled-components';
 import {
   TabsActionContext,
   TabsStyleContext,
   TabsValueContext,
 } from './TabsProvider';
 import Text from '~/components/common/Text';
-import styled from 'styled-components';
 import { FontSizeType } from '~/types/design/font';
 import { FONT_SIZE_UNIT } from '~/constants/design';
 

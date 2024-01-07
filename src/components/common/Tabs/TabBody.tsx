@@ -1,7 +1,7 @@
 import { useContext, ReactNode } from 'react';
+import styled from 'styled-components';
 import Container from '~/components/common/Container';
 import { TabsValueContext } from './TabsProvider';
-import styled from 'styled-components';
 
 interface TabBodyPropsType {
   id: number;
@@ -10,22 +10,20 @@ interface TabBodyPropsType {
 const TabBody = ({ id, children }: TabBodyPropsType) => {
   const { selectedId } = useContext(TabsValueContext);
 
-  const selected = selectedId === id;
-  return (
+  return selectedId === id ? (
     <AnimatedContainer
       maxWidth='md'
       style={{
         maxWidth: 'none',
         /* stylelint-disable-next-line value-keyword-case */
-        display: selected ? 'block' : 'none',
         boxSizing: 'border-box',
       }}
       color='var(--adaptive950)'
-      className={selected ? 'mounted' : undefined}
+      className={selectedId === id ? 'mounted' : undefined}
     >
       {children}
     </AnimatedContainer>
-  );
+  ) : null;
 };
 
 export default TabBody;
