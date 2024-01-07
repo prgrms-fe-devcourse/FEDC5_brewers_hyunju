@@ -15,7 +15,9 @@ export interface InputPropsType {
   message?: string;
   messageColor?: ColorType;
   onBlur?: (text: string) => boolean;
-  onChange: (text: string, InputName?: string) => void;
+  onChange:
+    | ((text: string, InputName: string) => void)
+    | ((text: string) => void);
   children?: React.ReactNode;
   InputName?: string;
 }
