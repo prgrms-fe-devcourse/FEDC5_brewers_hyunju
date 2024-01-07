@@ -7,13 +7,13 @@ import Button from '~/components/common/Button';
 
 export interface ProfileImageUploadPropsType {
   currentImageUrl: string;
-  onImageChange: (url: string) => void;
+  onSave: (url: string) => void;
   onCancel: () => void;
 }
 
 const ProfileImageUpload = ({
   currentImageUrl,
-  onImageChange,
+  onSave,
   onCancel,
 }: ProfileImageUploadPropsType) => {
   const [selectedImage, setSelectedImage] = useState<string | null>(
@@ -35,7 +35,7 @@ const ProfileImageUpload = ({
 
   const handleSave = () => {
     if (selectedImage) {
-      onImageChange(selectedImage);
+      onSave(selectedImage);
     }
   };
 
