@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 const useDelayUnmount = (isMounted: boolean, delay: number) => {
   const [shouldRender, setShouldRender] = useState(false);
+
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
     if (isMounted && !shouldRender) {
