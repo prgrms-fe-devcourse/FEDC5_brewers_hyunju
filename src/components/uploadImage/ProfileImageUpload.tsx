@@ -17,7 +17,9 @@ const ProfileImageUpload = ({
   onImageChange,
   onCancel,
 }: ProfileImageUploadPropTypes) => {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(
+    currentImageUrl
+  );
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
@@ -29,10 +31,7 @@ const ProfileImageUpload = ({
   };
 
   const handleDelete = () => {
-    // 기본 이미지로 설정?
-    // setSelectedImage(기본이미지값주소)
-    setSelectedImage('https://via.placeholder.com/200X200?text=brewers');
-    // setSelectedImage(null);
+    setSelectedImage(null);
   };
 
   const handleSave = () => {
@@ -96,7 +95,7 @@ const ProfileImageUpload = ({
             block={false}
             width={9.375}
             height={9.375}
-            src={selectedImage || currentImageUrl}
+            src={selectedImage}
             alt='Profile Image'
           ></Image>
           <Flex
