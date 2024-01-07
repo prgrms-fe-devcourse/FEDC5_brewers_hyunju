@@ -92,8 +92,8 @@ const FeedListItem = ({
 
         <Flex
           direction='column'
+          ml={1}
           style={{
-            marginLeft: '1rem',
             width: '43rem',
           }}
         >
