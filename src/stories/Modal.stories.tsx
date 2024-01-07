@@ -9,22 +9,24 @@ export default {
   title: 'Component/Modal',
   component: Modal,
   argTypes: {},
-  args: {},
 };
 
 export const ModalWithHeader = () => {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <Modal
-      variant={'full'}
       visible={isOpen}
       handleClose={() => setIsOpen(false)}
     >
       <Modal.Page>
-        <Modal.Header
-          text='기본 모달'
-          handleClose={() => setIsOpen(false)}
-        />
+        <Modal.Header handleClose={() => setIsOpen(false)}>
+          <Text
+            weight={600}
+            size='lg'
+          >
+            제목
+          </Text>
+        </Modal.Header>
         {/* <IconUfo stroke={4} /> */}
         <Modal.Body>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
@@ -86,7 +88,6 @@ export const Default = () => {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <Modal
-      variant='simple'
       visible={isOpen}
       handleClose={() => setIsOpen(false)}
     >
@@ -96,6 +97,7 @@ export const Default = () => {
             direction='column'
             alignItems='center'
             justifyContent='space-between'
+            style={{ height: '100px' }}
           >
             <Text
               size='xl'
