@@ -6,6 +6,7 @@ import { BUTTON_VARIANT, BUTTON_SIZE_UNIT, COLOR } from '~/constants/design';
 export default {
   title: 'Component/Button',
   component: Button,
+  tags: ['autodocs'],
   argTypes: {
     variant: { control: 'select', options: BUTTON_VARIANT },
     size: { control: 'select', options: BUTTON_SIZE_UNIT },

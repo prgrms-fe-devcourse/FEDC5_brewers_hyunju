@@ -3,6 +3,7 @@ import Skeleton, { SkeletonPropsType } from '~/components/common/Skeleton';
 export default {
   title: 'Component/Skeleton',
   component: Skeleton,
+  tags: ['autodocs'],
   argTypes: {
     width: { control: 'number' },
     height: { control: 'number' },
