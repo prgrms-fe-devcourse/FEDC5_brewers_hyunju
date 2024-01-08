@@ -3,6 +3,7 @@ import { IconUser, IconHome } from '@tabler/icons-react';
 export default {
   title: 'Component/Icon',
   component: [IconUser, IconHome],
+  tags: ['autodocs'],
   argTypes: {
     size: { control: { type: 'number', min: 8, max: 64, step: 1 } },
     color: { control: 'text' },

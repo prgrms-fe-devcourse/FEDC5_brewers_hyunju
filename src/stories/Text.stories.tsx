@@ -9,6 +9,7 @@ import {
 export default {
   title: 'Component/Text',
   component: Text,
+  tags: ['autodocs'],
   argTypes: {
     size: {
       control: 'inline-radio',
