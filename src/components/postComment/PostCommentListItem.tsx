@@ -10,13 +10,14 @@ export interface PostCommentListItemPropsType {
   userName: string;
   userNameSize?: FontSizeType;
   userNameWeight?: FontWeightType;
-  time: string;
   message: string;
   messageSize?: FontSizeType;
   messageWeight?: FontWeightType;
   avatarSrc?: string;
   width?: ContainerSizeType;
   handleClick: () => void;
+  createdAt: string;
+  updatedAt: string;
 }
 
 const AvatarContainer = styled.div`
@@ -27,13 +28,14 @@ const PostCommentListItem = ({
   userName,
   userNameSize = 'sm',
   userNameWeight = 600,
-  time,
   message = '',
   messageSize = 'sm',
   messageWeight = 400,
   avatarSrc = '',
   width = 'sm',
   handleClick,
+  createdAt,
+  updatedAt,
 }: PostCommentListItemPropsType) => {
   return (
     <Container maxWidth={width}>
@@ -65,13 +67,27 @@ const PostCommentListItem = ({
             >
               {userName}
             </Text>
-            <Text
-              size='sm'
-              weight={400}
-              color='--adaptive400'
+            <Flex
+              gap={0.25}
+              alignItems='center'
             >
-              {time}
-            </Text>
+              <Text
+                size='sm'
+                weight={400}
+                color='--adaptive400'
+              >
+                {updatedAt || createdAt}
+              </Text>
+              {updatedAt ? (
+                <Text
+                  size='xs'
+                  weight={400}
+                  color='--adaptive400'
+                >
+                  수정됨
+                </Text>
+              ) : null}
+            </Flex>
           </Flex>
           <Text
             size={messageSize}
