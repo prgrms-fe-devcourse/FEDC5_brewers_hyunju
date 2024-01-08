@@ -11,6 +11,7 @@ export interface ModalPropsType {
   handleClose: () => void;
   children: ReactNode;
 }
+
 const Modal = ({ children, visible, handleClose }: ModalPropsType) => {
   return (
     <>
