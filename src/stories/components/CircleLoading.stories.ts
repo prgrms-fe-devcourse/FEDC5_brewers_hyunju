@@ -17,8 +17,8 @@ export const Standard: Story = {
   args: {
     size: 7.5,
     time: 2,
-    strokeWidth: 12,
-    primaryColor: '--primaryColor',
-    secondaryColor: '--adaptive300',
+    stroke: 12,
+    color: '--primaryColor',
+    backgroundColor: '--adaptive300',
   },
 };
