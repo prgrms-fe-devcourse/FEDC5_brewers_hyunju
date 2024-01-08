@@ -4,6 +4,7 @@ import { COLOR, CONTAINER_SIZE_UNIT } from '~/constants/design';
 export default {
   title: 'Component/Container',
   component: Container,
+  tags: ['autodocs'],
   argTypes: {
     maxWidth: { control: 'inline-radio', options: CONTAINER_SIZE_UNIT },
     children: { control: 'text' },

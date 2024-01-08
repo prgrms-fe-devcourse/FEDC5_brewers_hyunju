@@ -4,6 +4,7 @@ import { COLOR } from '~/constants/design';
 export default {
   title: 'Component/Box',
   component: Box,
+  tags: ['autodocs'],
   argTypes: {
     width: { control: 'number' },
     height: { control: 'number' },
