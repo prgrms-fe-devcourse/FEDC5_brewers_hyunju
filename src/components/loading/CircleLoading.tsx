@@ -5,9 +5,9 @@ import styled, { keyframes } from 'styled-components';
 interface CircleLoadingPropsType {
   size?: number;
   time?: number;
-  strokeWidth?: number;
-  primaryColor?: ColorType;
-  secondaryColor?: ColorType;
+  stroke?: number;
+  color?: ColorType;
+  backgroundColor?: ColorType;
 }
 
 interface AnimationPropsType {
@@ -31,16 +31,16 @@ const Animation = styled.div<AnimationPropsType>`
 const CircleLoading = ({
   size = 7.5,
   time = 2,
-  strokeWidth = 12,
-  primaryColor = '--primaryColor' as ColorType,
-  secondaryColor = '--adaptive300' as ColorType,
+  stroke = 12,
+  color = '--primaryColor' as ColorType,
+  backgroundColor = '--adaptive300' as ColorType,
 }: CircleLoadingPropsType) => {
   const newSize = size < 2 ? 2 : size;
   const convertedSize = newSize * 16;
   const circleRadius = convertedSize / 4;
-  const primaryColorBarRatio = (circleRadius * 2 * Math.PI) / 5;
-  const secondaryColorBarRatio = ((circleRadius * 2 * Math.PI) / 5) * 4;
-  const newStrokeWidth = strokeWidth < 0 ? 0 : strokeWidth;
+  const colorBarRatio = (circleRadius * 2 * Math.PI) / 5;
+  const backgroundColorBarRatio = ((circleRadius * 2 * Math.PI) / 5) * 4;
+  const newStrokeWidth = stroke < 0 ? 0 : stroke;
 
   return (
     <Container
@@ -59,7 +59,7 @@ const CircleLoading = ({
             r={circleRadius}
             stroke-width={newStrokeWidth}
             fill='none'
-            style={{ stroke: `var(${secondaryColor})` }}
+            style={{ stroke: `var(${backgroundColor})` }}
           />
           <circle
             cx={circleRadius * 2}
@@ -67,8 +67,8 @@ const CircleLoading = ({
             r={circleRadius}
             stroke-width={newStrokeWidth}
             fill='none'
-            style={{ stroke: `var(${primaryColor})` }}
-            stroke-dasharray={`${primaryColorBarRatio} ${secondaryColorBarRatio}`}
+            style={{ stroke: `var(${color})` }}
+            stroke-dasharray={`${colorBarRatio} ${backgroundColorBarRatio}`}
             stroke-linecap='round'
           />
         </svg>
