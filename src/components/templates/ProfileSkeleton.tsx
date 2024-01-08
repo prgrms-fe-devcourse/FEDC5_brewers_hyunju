@@ -16,9 +16,10 @@ const ProfileSkeleton = () => {
         >
           프로필
         </Text>
-        <Cover>
-          <ImageSkeleton animation />
-        </Cover>
+        <ImageSkeleton
+          height={14}
+          animation
+        />
         <Flex
           gap={1.5}
           mt={-5}
@@ -102,12 +103,6 @@ const ProfileContainer = styled(Container)`
   gap: 1.5rem;
 `;
 
-const Cover = styled.div`
-  width: 100%;
-  height: 14rem;
-`;
-
 const ImageSkeleton = styled(Skeleton)`
   width: 100%;
-  height: 100%;
 `;

@@ -42,15 +42,14 @@ const ProfileTemplate = ({ user }: ProfileTemplatePropsType) => {
         >
           프로필
         </Text>
-        <Cover alignItems='center'>
-          <Image
-            width='100%'
-            height='auto'
-            src={user?.coverImage}
-            alt={`${user?.fullName}'s cover image`}
-            letterBoxColor='--adaptive300'
-          />
-        </Cover>
+        <Image
+          width='100%'
+          height={14}
+          src={user?.coverImage}
+          alt={`${user?.fullName}'s cover image`}
+          letterBoxColor='--adaptive300'
+          mode='cover'
+        />
         <Flex
           gap={1.5}
           mt={-5}
@@ -142,11 +141,4 @@ const ProfileContainer = styled(Container)`
 
   box-sizing: border-box;
   gap: 1.5rem;
-`;
-
-const Cover = styled(Flex)`
-  width: 100%;
-  height: 14rem;
-
-  overflow-y: hidden;
 `;
