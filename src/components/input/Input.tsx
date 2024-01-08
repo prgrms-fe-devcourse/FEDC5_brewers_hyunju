@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Container from '../common/Container';
 import Text from '~/components/common/Text';
 import Flex from '~/components/common/Flex';
@@ -14,12 +14,13 @@ export interface InputPropsType {
   placeholder?: string;
   message?: string;
   messageColor?: ColorType;
-  onBlur?: (text: string) => boolean;
+  isValidate?: (text: string) => boolean;
   onChange:
     | ((text: string, InputName: string) => void)
     | ((text: string) => void);
   children?: React.ReactNode;
   InputName?: string;
+  inputText?: string;
 }
 
 interface BorderPropsType {
@@ -63,13 +64,13 @@ const Input = ({
   placeholder,
   message,
   messageColor,
-  onBlur,
+  isValidate,
   onChange,
   children,
   InputName,
+  inputText,
 }: InputPropsType) => {
   const [isError, setIsError] = useState(false);
-  const ref = useRef<HTMLInputElement | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const labelFontSize = 'sm' as FontSizeType;
@@ -78,18 +79,6 @@ const Input = ({
 
   const iconSize = children ? 1 : 0;
   const gap = 0.75;
-
-  const handleBlur = useCallback(() => {
-    if (onBlur === undefined) {
-      return;
-    }
-    if (ref.current === null) {
-      return;
-    }
-    const isAvailable = onBlur(ref.current.value);
-
-    setIsError(!isAvailable);
-  }, [onBlur]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -111,6 +100,21 @@ const Input = ({
     }
     timer.current = setTimeout(() => callback(value, name), 500);
   };
+
+  useEffect(() => {
+    if (!inputText) {
+      setIsError(false);
+      return;
+    }
+
+    if (isValidate === undefined) {
+      return;
+    }
+
+    const isAvailable = isValidate(inputText);
+
+    setIsError(!isAvailable);
+  }, [inputText, isValidate]);
 
   return (
     <Container maxWidth='sm'>
@@ -145,10 +149,8 @@ const Input = ({
                 iconSize={iconSize}
                 type={type}
                 placeholder={placeholder}
-                onBlur={handleBlur}
                 inputFontSize={inputFontSize}
                 onChange={handleChange}
-                ref={ref}
               />
             </Flex>
           </Flex>
