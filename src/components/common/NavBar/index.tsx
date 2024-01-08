@@ -4,7 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import Container from '~/components/common/Container';
 import Flex from '~/components/common/Flex';
 import Button from '~/components/common/Button';
-// Tabs 컴포넌트 import 필요
+import Tabs from '~/components/common/Tabs';
+import Logo from '~/components/common/Logo';
 
 export interface NavBarPropsType {
   isLoggedIn: boolean;
@@ -17,16 +18,27 @@ export interface NavItemPropsType {
   children: React.ReactNode;
 }
 
+const Box = styled.div`
+  width: 15rem;
+  padding-bottom: 0.375rem;
+`;
+
 const NavBarItem = styled.li`
   list-style: none;
   text-decoration: none;
-  color: var(--adaptive900);
+  color: var(--adaptive400);
   flex-shrink: 0;
-  padding: 10px 20px;
+  padding: 0.625rem 1.25rem;
   cursor: pointer;
+  font-size: 1rem;
+  font-weight: 400;
 
   &:has(button) {
     padding: 0;
+  }
+
+  &:hover {
+    color: var(--adaptive950);
   }
 `;
 
@@ -46,8 +58,7 @@ const AuthNavItem = ({ isLoggedIn, userName, onLogout }: NavBarPropsType) => (
   <>
     {isLoggedIn ? (
       <>
-        {/* Avatar 컴포넌트 import 필요 */}
-        <NavItem to={'/userName'}>{userName}</NavItem>
+        <NavItem to={`/user/${userName}`}>{userName}</NavItem>
         <NavBarItem
           onClick={onLogout}
           style={{ marginLeft: '1rem' }}
@@ -73,13 +84,14 @@ const NavBar = ({ isLoggedIn, userName, onLogout }: NavBarPropsType) => {
       maxWidth='xl'
       style={{
         maxWidth: '100%',
+        overflow: 'scroll',
         margin: '0',
         width: '100%',
-        height: '80px',
+        height: '5rem',
         display: 'flex',
         justifyContent: 'space-between',
         textDecoration: 'none',
-        padding: '0 60px',
+        padding: '0 3.75rem',
         boxSizing: 'border-box',
       }}
     >
@@ -90,36 +102,47 @@ const NavBar = ({ isLoggedIn, userName, onLogout }: NavBarPropsType) => {
         style={{ flexShrink: '0' }}
       >
         {/* brewers 로고 */}
-        <NavBarItem>Brewers</NavBarItem>
+        <Logo
+          type='normal'
+          size='sm'
+        ></Logo>
         <Flex
           justifyContent='flex-start'
+          ml={1}
           style={{ flexShrink: '0' }}
         >
-          {/* <Tabs {...args}>
-          <Tabs.Header>
-            <Tabs.Item
-              text='홈'
-              id={0}
-              handleClick={() => {
-                handleTabClick('/home');
-              }}
-            />
-            <Tabs.Item
-              text='그룹'
-              id={1}
-              handleClick={() => {
-                handleTabClick('/group');
-              }}
-            />
-            <Tabs.Item
-              text='채팅'
-              id={2}
-              handleClick={() => {
-                handleTabClick('/chat');
-              }}
-            />
-          </Tabs.Header>
-        </Tabs> */}
+          <Box>
+            <Tabs
+              isFull={false}
+              gap={2.5}
+              fontSize='md'
+              fontWeight={400}
+            >
+              <Tabs.Header>
+                <Tabs.Item
+                  text='홈'
+                  id={0}
+                  handleClick={() => {
+                    handleTabClick('/home');
+                  }}
+                />
+                <Tabs.Item
+                  text='그룹'
+                  id={1}
+                  handleClick={() => {
+                    handleTabClick('/group');
+                  }}
+                />
+                <Tabs.Item
+                  text='채팅'
+                  id={2}
+                  handleClick={() => {
+                    handleTabClick('/chat');
+                  }}
+                />
+              </Tabs.Header>
+            </Tabs>
+          </Box>
         </Flex>
       </Flex>
       {/* Nav 오른쪽 부분 (포스트작성, 검색, 로그인)*/}
@@ -133,7 +156,7 @@ const NavBar = ({ isLoggedIn, userName, onLogout }: NavBarPropsType) => {
             variant='outlined'
             size='md'
             color='--primaryColor'
-            style={{ width: '120px', height: '50px' }}
+            style={{ width: '7.5rem', height: '3.125rem' }}
           >
             포스트 작성
           </Button>
@@ -141,7 +164,7 @@ const NavBar = ({ isLoggedIn, userName, onLogout }: NavBarPropsType) => {
         <NavItem to='/search'>검색</NavItem>
         <AuthNavItem
           isLoggedIn={isLoggedIn}
-          userName={`/user/${userName}`}
+          userName={userName}
           onLogout={onLogout}
         ></AuthNavItem>
       </Flex>
