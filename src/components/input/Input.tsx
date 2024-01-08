@@ -94,18 +94,22 @@ const Input = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    debouncing(value, name);
+    if (onChange !== undefined) {
+      debouncing(onChange, value, name);
+    }
   };
 
-  const debouncing = (inputValue: string, name: string) => {
+  const debouncing = (
+    callback:
+      | ((text: string, InputName: string) => void)
+      | ((text: string) => void),
+    value: string,
+    name: string
+  ) => {
     if (timer.current) {
       clearTimeout(timer.current);
     }
-    timer.current = setTimeout(() => {
-      if (onChange !== undefined) {
-        onChange(inputValue, name);
-      }
-    }, 500);
+    timer.current = setTimeout(() => callback(value, name), 500);
   };
 
   return (
