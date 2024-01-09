@@ -15,12 +15,5 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
-    'no-restricted-imports': [
-      'error',
-      {
-        name: 'styled-components',
-        message: "\n'@emotion/styled'를 사용해주세요.",
-      },
-    ],
   },
 };
