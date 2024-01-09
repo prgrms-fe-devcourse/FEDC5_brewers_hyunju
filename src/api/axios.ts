@@ -2,7 +2,7 @@ import axios, { AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 import { getItem } from '~/utils/localStorage';
 
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: import.meta.env.APP_BASE_URL,
+  baseURL: import.meta.env.VITE_APP_BASE_URL,
 });
 
 axiosInstance.interceptors.request.use(
