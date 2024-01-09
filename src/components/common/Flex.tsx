@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { Property } from 'csstype';
 import { CommonStyle, CommonStylePropsType } from './CommonStyle';
 

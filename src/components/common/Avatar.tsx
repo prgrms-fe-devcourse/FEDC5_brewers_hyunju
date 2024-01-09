@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import Image, { ImageModeType } from './Image';
 import { AvatarSizeType } from '~/types/design/avatar';
 import { AVATAR_SIZE } from '~/constants/design';

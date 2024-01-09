@@ -1,4 +1,5 @@
-import styled, { keyframes } from 'styled-components';
+import styled from '@emotion/styled';
+import { keyframes } from '@emotion/react';
 import { CommonStyle, CommonStylePropsType } from './CommonStyle';
 import { handleSize } from '~/utils/handleResponsiveStyle';
 import { CONTAINER_SIZE } from '~/constants/design';
@@ -25,7 +26,7 @@ const wave = keyframes`
 
 const Skeleton = styled.div<SkeletonPropsType>`
   ${CommonStyle}
-
+  
   display: ${(props) => (props.inline ? 'inline-block' : 'block')};
 
   width: ${({ width = 10, height = 1, circle }) =>
