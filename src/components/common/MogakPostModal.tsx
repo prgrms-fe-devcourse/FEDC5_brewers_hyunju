@@ -1,25 +1,22 @@
-import React from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { IconPhoto } from '@tabler/icons-react';
-import { postModalState } from '~/atoms/postModalState';
+import { mogakPostOpenState, postModalState } from '~/atoms/postModalState';
 import ContentEditableDiv from '~/components/ContentEditableDiv';
 import Input from '~/components/input/Input';
 import Text from './Text';
 import Modal from './Modal';
 import Button from './Button';
 import Flex from './Flex';
-import usePostContent from '~/hooks/usePostContent';
+import PostButton from '../PostButton';
 
 const MogakPostModal = () => {
   const setPostModalData = useSetRecoilState(postModalState);
-
-  const { content, handleBlur, handleInput } = usePostContent();
+  const isOpen = useRecoilValue(mogakPostOpenState);
 
   return (
     <Modal
-      // {postModalData.isOpen && postModalData.type === 'review'}
-      visible
+      visible={isOpen}
       handleClose={() =>
         setPostModalData((prev) => ({ ...prev, isOpen: false }))
       }
@@ -85,10 +82,7 @@ const MogakPostModal = () => {
               onChange={() => {}}
             />
           </Wrapper>
-          <ContentEditableDiv
-            handleBlur={handleBlur}
-            handleInput={handleInput}
-          />
+          <ContentEditableDiv />
         </Modal.Body>
         <Modal.Footer>
           <Button
@@ -98,15 +92,7 @@ const MogakPostModal = () => {
           >
             <IconPhoto size={30} />
           </Button>
-          <RoundButton
-            disabled={content ? false : true}
-            variant='filled'
-            color='--primaryColor'
-            size='md'
-            onClick={() => alert(`${content}`)}
-          >
-            작성
-          </RoundButton>
+          <PostButton />
         </Modal.Footer>
       </Modal.Page>
     </Modal>
@@ -114,9 +100,7 @@ const MogakPostModal = () => {
 };
 
 export default MogakPostModal;
-const RoundButton = styled(Button)`
-  border-radius: 40px;
-`;
+
 const Wrapper = styled.div`
   box-sizing: border-box;
 `;

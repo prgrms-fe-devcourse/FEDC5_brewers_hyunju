@@ -1,14 +1,9 @@
-import React from 'react';
 import styled from 'styled-components';
+import usePostContent from '~/hooks/usePostContent';
 
-interface ContentEditableDivPropsType {
-  handleBlur: () => void;
-  handleInput: (e: React.FormEvent) => void;
-}
-const ContentEditableDiv = ({
-  handleBlur,
-  handleInput,
-}: ContentEditableDivPropsType) => {
+const ContentEditableDiv = () => {
+  const { handleBlur, handleInput } = usePostContent();
+
   return (
     <ContentWrapper>
       <Content

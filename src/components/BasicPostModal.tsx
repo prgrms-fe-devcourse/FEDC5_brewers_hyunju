@@ -1,40 +1,22 @@
-import { useState, useCallback } from 'react';
-import { useSetRecoilState } from 'recoil';
-import sanitizeHtml from 'sanitize-html';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { IconPhoto } from '@tabler/icons-react';
-import styled from 'styled-components';
 import Modal from '~/components/common/Modal';
 import Text from '~/components/common/Text';
 import Avatar from '~/components/common/Avatar';
 import Flex from '~/components/common/Flex';
 import Button from '~/components/common/Button';
-import { postModalState } from '~/atoms/postModalState';
+import { basicPostOpenState, postModalState } from '~/atoms/postModalState';
+import ContentEditableDiv from './ContentEditableDiv';
+import PostButton from './PostButton';
 
 // TODO: 렌더링 최적화, contentEditable XSS 보호
 const BasicPostModal = () => {
   const setPostModal = useSetRecoilState(postModalState);
-  const [content, setContent] = useState('');
-
-  const sanitize = useCallback((html: string) => {
-    const sanitizeConfig = {
-      allowedTags: ['p', 'div'],
-      allowedAttributes: { a: ['href'] },
-    };
-
-    return sanitizeHtml(html, sanitizeConfig);
-  }, []);
-
-  const handleBlur = useCallback(() => {
-    setContent((prev) => sanitize(prev));
-  }, [sanitize]);
-
-  const handleInput = useCallback((e: React.FormEvent) => {
-    setContent(e.currentTarget.innerHTML);
-  }, []);
+  const isOpen = useRecoilValue(basicPostOpenState);
   return (
     <Modal
       handleClose={() => setPostModal((prev) => ({ ...prev, isOpen: false }))}
-      visible
+      visible={isOpen}
     >
       <Modal.Page>
         <Modal.Header
@@ -60,14 +42,7 @@ const BasicPostModal = () => {
                 handleClick={() => console.log('클릭')}
               />
             </div>
-            <ContentWrapper>
-              <Content
-                contentEditable
-                spellCheck
-                onBlur={handleBlur}
-                onInput={handleInput}
-              />
-            </ContentWrapper>
+            <ContentEditableDiv />
           </Flex>
         </Modal.Body>
         <Modal.Footer>
@@ -78,15 +53,7 @@ const BasicPostModal = () => {
           >
             <IconPhoto size={30} />
           </Button>
-          <RoundButton
-            disabled={content ? false : true}
-            variant='filled'
-            color='--primaryColor'
-            size='md'
-            onClick={() => alert(`${content}`)}
-          >
-            작성
-          </RoundButton>
+          <PostButton />
         </Modal.Footer>
       </Modal.Page>
     </Modal>
@@ -94,36 +61,3 @@ const BasicPostModal = () => {
 };
 
 export default BasicPostModal;
-
-const ContentWrapper = styled.div`
-  flex: 1;
-  width: 100%;
-`;
-const Content = styled.div`
-  display: block;
-
-  height: 100%;
-  outline: none;
-
-  background-color: var(--transparent);
-
-  color: var(--adaptive950);
-  font-size: 1.25rem;
-  line-height: 40px;
-  white-space: pre-wrap;
-
-  font-family: inherit;
-  user-select: text;
-  word-break: break-word;
-
-  &:empty {
-    &::before {
-      color: var(--adaptive400);
-      content: '오늘의 카공은 어떠신가요?';
-    }
-  }
-`;
-
-const RoundButton = styled(Button)`
-  border-radius: 40px;
-`;

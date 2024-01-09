@@ -1,8 +1,10 @@
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
+import { useSetRecoilState } from 'recoil';
 import sanitizeHtml from 'sanitize-html';
+import { postModalState } from '~/atoms/postModalState';
 
 const usePostContent = () => {
-  const [content, setContent] = useState('');
+  const setPostModal = useSetRecoilState(postModalState);
 
   const sanitize = useCallback((html: string) => {
     const sanitizeConfig = {
@@ -14,14 +16,17 @@ const usePostContent = () => {
   }, []);
 
   const handleBlur = useCallback(() => {
-    setContent((prev) => sanitize(prev));
-  }, [sanitize]);
+    setPostModal((prev) => ({ ...prev, content: sanitize(prev.content) }));
+  }, [sanitize, setPostModal]);
 
-  const handleInput = useCallback((e: React.FormEvent) => {
-    setContent(e.currentTarget.innerHTML);
-  }, []);
+  const handleInput = useCallback(
+    (e: React.FormEvent) => {
+      setPostModal((prev) => ({ ...prev, content: e.currentTarget.innerHTML }));
+    },
+    [setPostModal]
+  );
 
-  return { content, handleBlur, handleInput };
+  return { handleBlur, handleInput };
 };
 
 export default usePostContent;

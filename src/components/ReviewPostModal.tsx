@@ -1,23 +1,19 @@
-import { useSetRecoilState } from 'recoil';
-import styled from 'styled-components';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { IconPhoto } from '@tabler/icons-react';
-import { postModalState } from '~/atoms/postModalState';
+import { postModalState, reviewPostOpenState } from '~/atoms/postModalState';
 import Modal from '~/components/common/Modal';
 import Text from '~/components/common/Text';
 import ReviewForm from './ReviewForm';
 import Button from '~/components/common/Button';
 import ContentEditableDiv from './ContentEditableDiv';
-import usePostContent from '~/hooks/usePostContent';
+import PostButton from './PostButton';
 
-// TODO: usePostContent를 ContentEditableDiv 안으로 넣기
 const ReviewPostModal = () => {
   const setPostModalData = useSetRecoilState(postModalState);
-  // const [postModalData, setPostModalData] = useRecoilState(postModalState);
-  const { content, handleBlur, handleInput } = usePostContent();
+  const isOpen = useRecoilValue(reviewPostOpenState);
   return (
     <Modal
-      // {postModalData.isOpen && postModalData.type === 'review'}
-      visible
+      visible={isOpen}
       handleClose={() =>
         setPostModalData((prev) => ({ ...prev, isOpen: false }))
       }
@@ -37,10 +33,7 @@ const ReviewPostModal = () => {
         </Modal.Header>
         <Modal.Body>
           <ReviewForm />
-          <ContentEditableDiv
-            handleBlur={handleBlur}
-            handleInput={handleInput}
-          />
+          <ContentEditableDiv />
         </Modal.Body>
         <Modal.Footer>
           <Button
@@ -50,15 +43,7 @@ const ReviewPostModal = () => {
           >
             <IconPhoto size={30} />
           </Button>
-          <RoundButton
-            disabled={content ? false : true}
-            variant='filled'
-            color='--primaryColor'
-            size='md'
-            onClick={() => alert(`${content}`)}
-          >
-            작성
-          </RoundButton>
+          <PostButton />
         </Modal.Footer>
       </Modal.Page>
     </Modal>
@@ -66,7 +51,3 @@ const ReviewPostModal = () => {
 };
 
 export default ReviewPostModal;
-
-const RoundButton = styled(Button)`
-  border-radius: 40px;
-`;
