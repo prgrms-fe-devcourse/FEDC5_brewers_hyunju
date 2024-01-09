@@ -1,15 +1,15 @@
 import React from 'react';
 import { useSetRecoilState } from 'recoil';
+import styled from 'styled-components';
+import { IconPhoto } from '@tabler/icons-react';
 import { postModalState } from '~/atoms/postModalState';
-import usePostContent from '~/hooks/usePostContent';
+import ContentEditableDiv from '~/components/ContentEditableDiv';
+import Input from '~/components/input/Input';
 import Text from './Text';
 import Modal from './Modal';
-import ContentEditableDiv from '../ContentEditableDiv';
-import { IconPhoto } from '@tabler/icons-react';
 import Button from './Button';
-import styled from 'styled-components';
-import Input from '../input/Input';
 import Flex from './Flex';
+import usePostContent from '~/hooks/usePostContent';
 
 const MogakPostModal = () => {
   const setPostModalData = useSetRecoilState(postModalState);
