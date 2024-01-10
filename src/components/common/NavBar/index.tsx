@@ -24,14 +24,17 @@ const Box = styled.div`
 `;
 
 const NavBarItem = styled.li`
+  flex-shrink: 0;
+
+  padding: 0.625rem 1.25rem;
+
+  color: var(--adaptive400);
+  font-weight: 400;
+  font-size: 1rem;
+
+  cursor: pointer;
   list-style: none;
   text-decoration: none;
-  color: var(--adaptive400);
-  flex-shrink: 0;
-  padding: 0.625rem 1.25rem;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 400;
 
   &:has(button) {
     padding: 0;

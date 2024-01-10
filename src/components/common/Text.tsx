@@ -16,15 +16,17 @@ export interface TextPropsType extends CommonStylePropsType {
   inline?: boolean;
 }
 
-const Text = styled.p<TextPropsType>`
+const Text = styled.p(
+  (props: TextPropsType) => `
   ${CommonStyle}
 
-  display: ${({ inline }) => (inline ? 'inline' : undefined)};
+  display: ${props.inline ? 'inline' : undefined};
 
-  color: ${(props) => `var(${props.color ?? '--adaptive950'})`};
-  font-weight: ${(props) => props.weight ?? '400'};
-  font-size: ${(props) => FONT_SIZE[props.size ?? 'md']};
-  line-height: ${({ lineHeight }) => LINE_HEIGHT[lineHeight ?? 100]};
-`;
+  color: ${`var(${props.color ?? '--adaptive950'})`};
+  font-weight: ${props.weight ?? '400'};
+  font-size: ${FONT_SIZE[props.size ?? 'md']};
+  line-height: ${LINE_HEIGHT[props.lineHeight ?? 100]};
+`
+);
 
 export default Text;
