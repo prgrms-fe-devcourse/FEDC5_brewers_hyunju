@@ -1,18 +1,19 @@
-import React from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { postModalContentState } from '~/atoms/postModalState';
+import { isPostEmptyState, postModalState } from '~/atoms/postModalState';
 import Button from './common/Button';
 
 const PostButton = () => {
-  const content = useRecoilValue(postModalContentState);
+  // const content = useRecoilValue(postModalContentState);
+  const isEmpty = useRecoilValue(isPostEmptyState);
+  const state = useRecoilValue(postModalState);
   return (
     <RoundButton
-      disabled={content ? false : true}
+      disabled={isEmpty ? true : false}
       variant='filled'
       color='--primaryColor'
       size='md'
-      onClick={() => alert(`${content}`)}
+      onClick={() => console.log(state)}
     >
       작성
     </RoundButton>

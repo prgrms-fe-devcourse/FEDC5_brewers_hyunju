@@ -1,15 +1,16 @@
-import React from 'react';
-import RadioGroup from './RadioGroup/RadioGroup';
-import styled from 'styled-components';
-import Flex from './common/Flex';
-import Tabs from './common/Tabs';
-import Text from './common/Text';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   IconArmchair,
   IconPlug,
   IconUsers,
   IconVolume,
 } from '@tabler/icons-react';
+import styled from 'styled-components';
+import RadioGroup from './RadioGroup/RadioGroup';
+import Flex from './common/Flex';
+import Tabs from './common/Tabs';
+import Text from './common/Text';
+import { postModalState, reviewFormState } from '~/atoms/postModalState';
 
 const RADIO_GROUP_CONFIG = [
   { label: '별로에요', value: '1' },
@@ -32,6 +33,8 @@ const FORM_BODY = [
   '자리가 편한가요?',
 ];
 const ReviewForm = () => {
+  const setPostModal = useSetRecoilState(postModalState);
+  const reviewForm = useRecoilValue(reviewFormState);
   return (
     <StyledFlex direction='column'>
       <Tabs>
@@ -52,7 +55,19 @@ const ReviewForm = () => {
             >
               {body}
             </Text>
-            <RadioGroup options={RADIO_GROUP_CONFIG} />
+            <RadioGroup
+              defaultValue={reviewForm[id]}
+              options={RADIO_GROUP_CONFIG}
+              onChange={(value) =>
+                setPostModal((prev) => ({
+                  ...prev,
+                  reviewForm: prev.reviewForm.map((original, idx) => {
+                    if (id === idx) return value;
+                    return original;
+                  }),
+                }))
+              }
+            />
           </Tabs.Body>
         ))}
       </Tabs>

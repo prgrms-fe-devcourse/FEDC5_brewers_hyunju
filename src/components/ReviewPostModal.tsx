@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { IconPhoto } from '@tabler/icons-react';
 import { postModalState, reviewPostOpenState } from '~/atoms/postModalState';
@@ -9,21 +10,24 @@ import ContentEditableDiv from './ContentEditableDiv';
 import PostButton from './PostButton';
 
 const ReviewPostModal = () => {
-  const setPostModalData = useSetRecoilState(postModalState);
+  const setPostModal = useSetRecoilState(postModalState);
   const isOpen = useRecoilValue(reviewPostOpenState);
+  const handleClose = useCallback(() => {
+    setPostModal({
+      type: 'basic',
+      isOpen: false,
+      content: '',
+      reviewForm: [undefined, undefined, undefined, undefined],
+      mogakForm: {},
+    });
+  }, [setPostModal]);
   return (
     <Modal
       visible={isOpen}
-      handleClose={() =>
-        setPostModalData((prev) => ({ ...prev, isOpen: false }))
-      }
+      handleClose={handleClose}
     >
       <Modal.Page>
-        <Modal.Header
-          handleClose={() =>
-            setPostModalData((prev) => ({ ...prev, isOpen: false }))
-          }
-        >
+        <Modal.Header handleClose={handleClose}>
           <Text
             size='xl'
             weight={600}
