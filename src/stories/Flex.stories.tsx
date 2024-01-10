@@ -4,6 +4,7 @@ import Flex, { FlexPropsType } from '~/components/common/Flex';
 export default {
   title: 'Component/Flex',
   component: Flex,
+  tags: ['autodocs'],
   argTypes: {
     direction: { control: 'select', options: ['row', 'column'] },
     wrap: { control: 'select', options: ['wrap', 'nowrap'] },
@@ -58,6 +59,9 @@ export default {
     gap: { control: 'number' },
     rowGap: { control: 'number' },
     columnGap: { control: 'number' },
+    grow: { control: 'number' },
+    shrink: { control: 'number' },
+    basis: { control: 'number' },
     m: { control: 'number' },
     mx: { control: 'number' },
     my: { control: 'number' },

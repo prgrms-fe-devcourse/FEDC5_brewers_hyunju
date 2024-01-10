@@ -55,10 +55,7 @@ const LoginForm = () => {
             InputName='password'
             type='password'
           />
-          <Container
-            maxWidth='md'
-            style={{ width: 'fit-content' }}
-          >
+          <Container maxWidth='sm'>
             <Flex
               direction='column'
               gap={1}
