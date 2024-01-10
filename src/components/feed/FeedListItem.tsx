@@ -3,7 +3,7 @@ import Flex from '~/components/common/Flex';
 import Text from '~/components/common/Text';
 import Image from '~/components/common/Image';
 import Avatar from '~/components/common/Avatar';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import FeedFooterItem from './FeedFooterItem';
 
 export interface FeedListItemPropsType {
@@ -28,7 +28,7 @@ const Divider = styled.div`
   margin: 1rem 0;
 `;
 
-const FeedItemContainer = styled(Container)`
+export const FeedItemContainer = styled(Container)`
   padding: 34px 40px;
   flex-shrink: 0;
   background-color: var(-adaptive50);
@@ -78,7 +78,7 @@ const FeedListItem = ({
         justifyContent='space-between'
         alignItems='flex-start'
       >
-        <div style={{ flex: '1' }}>
+        <div>
           <Avatar
             src={profileImage}
             size='sm'
@@ -90,7 +90,7 @@ const FeedListItem = ({
           direction='column'
           ml={1}
           style={{
-            width: '43rem',
+            width: '44rem',
           }}
         >
           <Text
