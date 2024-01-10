@@ -4,7 +4,7 @@ import Text from '~/components/common/Text';
 import Flex from '~/components/common/Flex';
 import ColorType from '~/types/design/color';
 import { FontSizeType } from '~/types/design/font';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { FONT_SIZE } from '~/constants/design';
 
 export interface InputPropsType {
@@ -32,8 +32,9 @@ interface InputFieldPropsType {
   inputFontSize: FontSizeType;
 }
 
-const InputField = styled.input<InputFieldPropsType>`
-  width: calc(100% - ${(props) => props.iconSize}rem - 0.25rem);
+const InputField = styled.input(
+  (props: InputFieldPropsType) => `
+  width: calc(100% - ${props.iconSize}rem - 0.25rem);
   padding: 0;
   outline: none;
   border: 0;
@@ -41,24 +42,29 @@ const InputField = styled.input<InputFieldPropsType>`
   background-color: transparent;
 
   color: var(--adaptive900);
-  font-size: ${(props) => FONT_SIZE[props.inputFontSize || 'sm']};
-`;
+  font-size: ${FONT_SIZE[props.inputFontSize || 'sm']};
+`
+);
 
-const Border = styled.div<BorderPropsType>`
+const Border = styled.div(
+  (props: BorderPropsType) => `
   height: fit-content;
   padding: 0.75rem;
   border: 0.0625rem solid
-    ${(props) => `var(${props.isError ? '--red600' : '--adaptive900'})`};
+    ${`var(${props.isError ? '--red600' : '--adaptive900'})`};
   border-radius: 1rem;
-`;
+`
+);
 
 interface PaddingPropsType {
   height: FontSizeType;
 }
 
-const Padding = styled.div<PaddingPropsType>`
-  height: ${(props) => FONT_SIZE[props.height]};
-`;
+const Padding = styled.div(
+  (props: PaddingPropsType) => `
+  height: ${FONT_SIZE[props.height]};
+`
+);
 
 const Input = ({
   width,
