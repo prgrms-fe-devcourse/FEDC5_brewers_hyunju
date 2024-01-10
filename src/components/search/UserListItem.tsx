@@ -17,7 +17,7 @@ const UserListItem = ({
   const navigation = useNavigate();
   const handleAvatarClick = useCallback(() => {
     navigation(`/profile/${userId}`);
-  }, [userId]);
+  }, [userId, navigation]);
   return (
     <ListItem>
       <ListItem.Avatar
