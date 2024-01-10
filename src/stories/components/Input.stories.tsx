@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { IconSearch } from '@tabler/icons-react';
 import Input, { InputPropsType } from '~/components/input/Input';
-import { regex } from '~/utils/regex';
+import { testRegex } from '~/utils/regex';
 import { COLOR } from '~/constants/design';
 import { INPUT } from '~/constants/regex';
 
@@ -31,7 +31,7 @@ export const Standard = (args: InputPropsType) => {
   };
 
   const validation = (text: string) => {
-    return regex(text, INPUT.EMAIL);
+    return testRegex(text, INPUT.EMAIL);
   };
 
   return (

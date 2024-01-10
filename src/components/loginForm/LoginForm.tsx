@@ -4,7 +4,7 @@ import Container from '../common/Container';
 import Flex from '../common/Flex';
 import Input from '../input/Input';
 import Text from '../common/Text';
-import { regex } from '~/utils/regex';
+import { testRegex } from '~/utils/regex';
 import { INPUT } from '~/constants/regex';
 
 const LoginForm = () => {
@@ -27,7 +27,7 @@ const LoginForm = () => {
   };
 
   const validation = (text: string) => {
-    return regex(text, INPUT.EMAIL);
+    return testRegex(text, INPUT.EMAIL);
   };
 
   return (
