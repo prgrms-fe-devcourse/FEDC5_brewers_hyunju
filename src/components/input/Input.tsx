@@ -161,21 +161,27 @@ const Input = ({
             </Flex>
           </Flex>
         </Border>
-        <Container
-          maxWidth='md'
-          style={{ padding: ' 0 0 0 0.75rem', margin: 0, width: 'fit-content' }}
-        >
-          {isError ? (
-            <Text
-              size={messageFontSize}
-              color={messageColor}
-            >
-              {message}
-            </Text>
-          ) : (
-            <Padding height={messageFontSize} />
-          )}
-        </Container>
+        {message && (
+          <Container
+            maxWidth='md'
+            style={{
+              padding: ' 0 0 0 0.75rem',
+              margin: 0,
+              width: 'fit-content',
+            }}
+          >
+            {isError ? (
+              <Text
+                size={messageFontSize}
+                color={messageColor}
+              >
+                {message}
+              </Text>
+            ) : (
+              <Padding height={messageFontSize} />
+            )}
+          </Container>
+        )}
       </Flex>
     </Container>
   );
