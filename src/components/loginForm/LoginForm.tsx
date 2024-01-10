@@ -26,7 +26,7 @@ const LoginForm = () => {
     alert('onClick');
   };
 
-  const validation = (text: string) => {
+  const validateInput = (text: string) => {
     return testRegex(text, INPUT.EMAIL);
   };
 
@@ -49,7 +49,7 @@ const LoginForm = () => {
             message='올바르지 않은 이메일 형식이에요'
             messageColor='--red600'
             onChange={onChange}
-            isValidate={(text) => validation(text)}
+            isValidate={(text) => validateInput(text)}
             InputName='email'
             inputText={userLoginInfo.email}
           />

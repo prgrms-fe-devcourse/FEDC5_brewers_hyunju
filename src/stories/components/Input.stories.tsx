@@ -30,7 +30,7 @@ export const Standard = (args: InputPropsType) => {
     setText(inputText);
   };
 
-  const validation = (text: string) => {
+  const validateInput = (text: string) => {
     return testRegex(text, INPUT.EMAIL);
   };
 
@@ -39,7 +39,7 @@ export const Standard = (args: InputPropsType) => {
       <Input
         {...args}
         inputText={text}
-        isValidate={(text) => validation(text)}
+        isValidate={(text) => validateInput(text)}
         onChange={onChange}
       ></Input>
     </div>
