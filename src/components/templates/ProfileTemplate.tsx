@@ -6,24 +6,51 @@ import Flex from '../common/Flex';
 import Avatar from '../common/Avatar';
 import Image from '../common/Image';
 import Button from '../common/Button';
-import { IconMessage, IconUserMinus, IconUserPlus } from '@tabler/icons-react';
-import { PostType, UserType } from '~/types/common';
+import {
+  IconMessage,
+  IconUserMinus,
+  IconUserPlus,
+  IconUsers,
+} from '@tabler/icons-react';
+import { UserType } from '~/types/common';
+import { OptionalConfig } from '~/hooks/api';
 
 export interface ProfileTemplatePropsType {
-  user?: UserType;
-  posts?: PostType[];
+  user: UserType;
+  auth?: UserType;
+  actions: {
+    requestUser: (config?: OptionalConfig) => Promise<void>;
+    createFollow: (config?: OptionalConfig) => Promise<void>;
+    deleteFollow: (config?: OptionalConfig) => Promise<void>;
+  };
 }
 
-const ProfileTemplate = ({ user }: ProfileTemplatePropsType) => {
+const ProfileTemplate = ({ user, auth, actions }: ProfileTemplatePropsType) => {
   const isMe = useMemo(() => {
-    // 전역 상태에 담겨있는 정보와 profile 비교
-    return true;
-  }, []);
+    return user._id === auth?._id;
+  }, [user, auth]);
 
-  const isFollow = useMemo(() => {
-    // user followers에 내가 포함되어있는지 확인
-    return false;
-  }, []);
+  const myFollow = useMemo(() => {
+    return user.followers.find((follow) => follow.follower === auth?._id);
+  }, [user, auth]);
+
+  const handleFollow = async () => {
+    if (myFollow) {
+      await actions.deleteFollow({
+        data: {
+          id: myFollow._id,
+        },
+      });
+    } else {
+      await actions.createFollow({
+        data: {
+          userId: user._id,
+        },
+      });
+    }
+
+    actions.requestUser();
+  };
 
   const handlerProfileClick = () => {
     if (isMe) {
@@ -45,8 +72,8 @@ const ProfileTemplate = ({ user }: ProfileTemplatePropsType) => {
         <Image
           width='100%'
           height={14}
-          src={user?.coverImage}
-          alt={`${user?.fullName}'s cover image`}
+          src={user.coverImage}
+          alt={`${user.fullName}'s cover image`}
           letterBoxColor='--adaptive300'
           mode='cover'
         />
@@ -56,7 +83,7 @@ const ProfileTemplate = ({ user }: ProfileTemplatePropsType) => {
           px={1}
         >
           <Avatar
-            src={user?.image}
+            src={user.image}
             size='lg'
             handleClick={handlerProfileClick}
           />
@@ -69,19 +96,19 @@ const ProfileTemplate = ({ user }: ProfileTemplatePropsType) => {
               weight={800}
               height={175}
             >
-              텍스트
+              {user.fullName}
             </Text>
             <Text
               height={150}
               weight={600}
             >
-              텍스트
+              {user.email}
             </Text>
             <Text
               height={150}
               weight={600}
             >
-              텍스트
+              {user.role}
             </Text>
           </Flex>
         </Flex>
@@ -89,42 +116,82 @@ const ProfileTemplate = ({ user }: ProfileTemplatePropsType) => {
           gap={1}
           px={1}
         >
-          <Button
-            variant='filled'
-            size='lg'
-            color='--primaryColor'
-            leftItem={
-              isFollow ? (
-                <IconUserPlus
+          {isMe ? (
+            <Button
+              variant='filled'
+              size='lg'
+              color='--primaryColor'
+              leftItem={
+                <IconUsers
                   size={18}
                   stroke={2.5}
                 />
-              ) : (
-                <IconUserMinus
+              }
+              onClick={() => alert('my follower list')}
+            >
+              팔로워
+            </Button>
+          ) : (
+            <Button
+              variant='filled'
+              size='lg'
+              color='--primaryColor'
+              leftItem={
+                myFollow ? (
+                  <IconUserMinus
+                    size={18}
+                    stroke={2.5}
+                  />
+                ) : (
+                  <IconUserPlus
+                    size={18}
+                    stroke={2.5}
+                  />
+                )
+              }
+              onClick={handleFollow}
+            >
+              {myFollow ? '팔로우 해제' : '팔로우'}
+            </Button>
+          )}
+          {isMe ? (
+            <Button
+              variant='outlined'
+              size='lg'
+              color='--adaptive400'
+              leftItem={
+                <IconUsers
                   size={18}
                   stroke={2.5}
                 />
-              )
-            }
-          >
-            팔로우
-          </Button>
-          <Button
-            variant='outlined'
-            size='lg'
-            color='--adaptive400'
-            leftItem={
-              <IconMessage
-                size={18}
-                stroke={2.5}
-              />
-            }
-          >
-            메시지
-          </Button>
+              }
+              onClick={() => alert('my following list')}
+            >
+              팔로잉
+            </Button>
+          ) : (
+            <Button
+              variant='outlined'
+              size='lg'
+              color='--adaptive400'
+              leftItem={
+                <IconMessage
+                  size={18}
+                  stroke={2.5}
+                />
+              }
+              disabled
+            >
+              메시지
+            </Button>
+          )}
         </Flex>
       </ProfileContainer>
-      {/* posts.map(el => <FeedListItem />) */}
+      <PostContainer maxWidth='md'>
+        {user.posts.map((el) => (
+          <div>{el._id}</div>
+        ))}
+      </PostContainer>
     </>
   );
 };
@@ -141,4 +208,8 @@ const ProfileContainer = styled(Container)`
 
   box-sizing: border-box;
   gap: 1.5rem;
+`;
+
+const PostContainer = styled(Container)`
+  background-color: var(--transparent);
 `;
