@@ -2,15 +2,17 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Container from './common/Container';
 import Text from './common/Text';
-import { PostType, UserType } from '~/types/common';
 import SearchBar from './search/SearchBar';
+import UserList from './search/UserList';
+import { PostType } from '~/types/common';
+import { UserListItemPropsType } from './search/UserListItem';
 
 export interface SearchTemplatePropsType {
-  users?: UserType[];
+  users?: UserListItemPropsType[];
   posts?: PostType[];
 }
 
-const SearchTemplate = () => {
+const SearchTemplate = ({ users }: SearchTemplatePropsType) => {
   return (
     <SearchContainer maxWidth='md'>
       <Text
@@ -20,6 +22,7 @@ const SearchTemplate = () => {
         검색
       </Text>
       <SearchBar />
+      <UserList users={users} />
     </SearchContainer>
   );
 };
