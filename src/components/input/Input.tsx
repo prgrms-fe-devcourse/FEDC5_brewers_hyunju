@@ -38,6 +38,9 @@ const InputField = styled.input<InputFieldPropsType>`
   outline: none;
   border: 0;
 
+  background-color: transparent;
+
+  color: var(--adaptive900);
   font-size: ${(props) => FONT_SIZE[props.inputFontSize || 'sm']};
 `;
 
