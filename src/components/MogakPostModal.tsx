@@ -65,7 +65,7 @@ const MogakPostModal = () => {
               />
               <DateInput
                 type='time'
-                data-placeholder='시간 선택'
+                data-placeholder='시작 시간'
                 required
                 aria-required
                 onChange={(e) => {
@@ -78,7 +78,7 @@ const MogakPostModal = () => {
               />
               <DateInput
                 type='time'
-                data-placeholder='시간 선택'
+                data-placeholder='종료 시간'
                 required
                 aria-required
                 onChange={(e) => {
