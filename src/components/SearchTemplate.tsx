@@ -4,6 +4,7 @@ import Container from './common/Container';
 import Text from './common/Text';
 import SearchBar from './search/SearchBar';
 import UserList from './search/UserList';
+import Tabs from './common/Tabs';
 import { PostType } from '~/types/common';
 import { UserListItemPropsType } from './search/UserListItem';
 
@@ -22,7 +23,26 @@ const SearchTemplate = ({ users }: SearchTemplatePropsType) => {
         검색
       </Text>
       <SearchBar />
-      <UserList users={users} />
+      <Tabs
+        isFull={false}
+        gap={2}
+        fontSize='md'
+      >
+        <Tabs.Header>
+          <Tabs.Item
+            text='통합 검색'
+            id={0}
+          />
+          <Tabs.Item
+            text='사용자 검색'
+            id={1}
+          />
+        </Tabs.Header>
+        <Tabs.Body id={0}>통합검색</Tabs.Body>
+        <Tabs.Body id={1}>
+          <UserList users={users} />
+        </Tabs.Body>
+      </Tabs>
     </SearchContainer>
   );
 };
