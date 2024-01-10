@@ -2,7 +2,7 @@ import { useSetRecoilState } from 'recoil';
 import { postModalState } from './atoms/postModalState';
 import ReviewPostModal from './components/ReviewPostModal';
 import BasicPostModal from './components/BasicPostModal';
-import MogakPostModal from './components/common/MogakPostModal';
+import MogakPostModal from './components/MogakPostModal';
 
 const Test = () => {
   const setPostModalOpen = useSetRecoilState(postModalState);

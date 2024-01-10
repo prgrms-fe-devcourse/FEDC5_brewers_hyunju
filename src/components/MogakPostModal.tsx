@@ -1,32 +1,36 @@
+import { useCallback } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { IconPhoto } from '@tabler/icons-react';
 import { mogakPostOpenState, postModalState } from '~/atoms/postModalState';
 import ContentEditableDiv from '~/components/ContentEditableDiv';
 import Input from '~/components/input/Input';
-import Text from './Text';
-import Modal from './Modal';
-import Button from './Button';
-import Flex from './Flex';
-import PostButton from '../PostButton';
+import Text from './common/Text';
+import Modal from './common/Modal';
+import Button from './common/Button';
+import Flex from './common/Flex';
+import PostButton from './PostButton';
 
 const MogakPostModal = () => {
-  const setPostModalData = useSetRecoilState(postModalState);
+  const setPostModal = useSetRecoilState(postModalState);
   const isOpen = useRecoilValue(mogakPostOpenState);
+  const handleClose = useCallback(() => {
+    setPostModal({
+      type: 'basic',
+      isOpen: false,
+      content: '',
+      reviewForm: [undefined, undefined, undefined, undefined],
+      mogakForm: {},
+    });
+  }, [setPostModal]);
 
   return (
     <Modal
       visible={isOpen}
-      handleClose={() =>
-        setPostModalData((prev) => ({ ...prev, isOpen: false }))
-      }
+      handleClose={handleClose}
     >
       <Modal.Page>
-        <Modal.Header
-          handleClose={() =>
-            setPostModalData((prev) => ({ ...prev, isOpen: false }))
-          }
-        >
+        <Modal.Header handleClose={handleClose}>
           <Text
             size='xl'
             weight={600}
@@ -51,18 +55,39 @@ const MogakPostModal = () => {
                 data-placeholder='날짜 선택'
                 required
                 aria-required
+                onChange={(e) => {
+                  e.preventDefault();
+                  setPostModal((prev) => ({
+                    ...prev,
+                    mogakForm: { ...prev.mogakForm, date: e.target.value },
+                  }));
+                }}
               />
               <DateInput
                 type='time'
                 data-placeholder='시간 선택'
                 required
                 aria-required
+                onChange={(e) => {
+                  e.preventDefault();
+                  setPostModal((prev) => ({
+                    ...prev,
+                    mogakForm: { ...prev.mogakForm, startTime: e.target.value },
+                  }));
+                }}
               />
               <DateInput
                 type='time'
                 data-placeholder='시간 선택'
                 required
                 aria-required
+                onChange={(e) => {
+                  e.preventDefault();
+                  setPostModal((prev) => ({
+                    ...prev,
+                    mogakForm: { ...prev.mogakForm, endTime: e.target.value },
+                  }));
+                }}
               />
             </StyledFlex>
           </Wrapper>
@@ -75,11 +100,21 @@ const MogakPostModal = () => {
             </Text>
             <Input
               placeholder='장소 이름이 무엇인가요?'
-              onChange={() => {}}
+              onChange={(e) => {
+                setPostModal((prev) => ({
+                  ...prev,
+                  mogakForm: { ...prev.mogakForm, placeName: e },
+                }));
+              }}
             />
             <Input
               placeholder='주소가 어떻게 되나요?'
-              onChange={() => {}}
+              onChange={(e) => {
+                setPostModal((prev) => ({
+                  ...prev,
+                  mogakForm: { ...prev.mogakForm, address: e },
+                }));
+              }}
             />
           </Wrapper>
           <ContentEditableDiv />
