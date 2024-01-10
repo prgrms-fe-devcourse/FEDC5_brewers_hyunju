@@ -117,7 +117,10 @@ const Input = ({
   }, [inputText, isValidate]);
 
   return (
-    <Container maxWidth='sm'>
+    <Container
+      maxWidth='sm'
+      style={{ padding: 0 }}
+    >
       <Flex direction='column'>
         <Border isError={isError}>
           <Flex
