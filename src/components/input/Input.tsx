@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import Container from '../common/Container';
+import styled from '@emotion/styled';
+import Container from '~/components/common/Container';
 import Text from '~/components/common/Text';
 import Flex from '~/components/common/Flex';
 import ColorType from '~/types/design/color';
 import { FontSizeType } from '~/types/design/font';
-import styled from '@emotion/styled';
 import { FONT_SIZE } from '~/constants/design';
 
 export interface InputPropsType {

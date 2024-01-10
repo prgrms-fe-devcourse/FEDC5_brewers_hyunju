@@ -1,53 +1,46 @@
 import React, { ReactNode } from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import ColorType from '~/types/design/color';
 import { ButtonSizeType, ButtonVariantType } from '~/types/design/button';
 import { FONT_SIZE, FONT_SIZE_UNIT } from '~/constants/design';
+import { CommonStyle, CommonStylePropsType } from './CommonStyle';
 
-export interface ButtonPropsType {
+export interface ButtonPropsType extends CommonStylePropsType {
   variant: ButtonVariantType;
   size: ButtonSizeType;
   color: ColorType;
   leftItem?: ReactNode;
   rightItem?: ReactNode;
-  m?: number;
-  mx?: number;
-  my?: number;
-  mt?: number;
-  mb?: number;
-  ml?: number;
-  mr?: number;
 }
 
-const StyledButton = styled.button<ButtonPropsType>`
+const StyledButton = styled.button(
+  (props: ButtonPropsType) => `
+  ${CommonStyle}
+  
   display: flex;
   align-items: center;
   justify-content: center;
 
-  margin: ${({ m }) => (m ? `${m}rem` : undefined)};
-  margin-top: ${({ mt, my }) =>
-    mt ? `${mt}rem` : my ? `${my}rem` : undefined};
-  margin-right: ${({ mr, mx }) =>
-    mr ? `${mr}rem` : mx ? `${mx}rem` : undefined};
-  margin-bottom: ${({ mb, my }) =>
-    mb ? `${mb}rem` : my ? `${my}rem` : undefined};
-  margin-left: ${({ ml, mx }) =>
-    ml ? `${ml}rem` : mx ? `${mx}rem` : undefined};
   padding: 0.5em 1em;
   border: 0.125rem solid;
   border-radius: 0.25rem;
 
-  background-color: ${({ variant, color }) =>
-    variant === 'filled' ? `var(${color})` : 'var(--transparent)'};
+  background-color: ${
+    props.variant === 'filled' ? `var(${props.color})` : 'var(--transparent)'
+  };
 
-  color: ${({ variant, color }) =>
-    variant === 'filled' ? 'var(--white)' : `var(${color})`};
+  color: ${props.variant === 'filled' ? 'var(--white)' : `var(${props.color})`};
   font-weight: 600;
-  font-size: ${({ size }) =>
-    FONT_SIZE[FONT_SIZE_UNIT.find((_, i, arr) => arr[i + 1] === size) ?? size]};
+  font-size: ${
+    FONT_SIZE[
+      FONT_SIZE_UNIT.find((_, i, arr) => arr[i + 1] === props.size) ??
+        props.size
+    ]
+  };
 
-  border-color: ${({ variant, color }) =>
-    variant === 'outlined' ? `var(${color})` : 'var(--transparent)'};
+  border-color: ${
+    props.variant === 'outlined' ? `var(${props.color})` : 'var(--transparent)'
+  };
 
   box-sizing: border-box;
 
@@ -58,24 +51,28 @@ const StyledButton = styled.button<ButtonPropsType>`
   transition-property: filter, background-color;
 
   &:disabled {
-    background-color: ${({ variant }) =>
-      variant === 'filled' ? 'var(--adaptive200)' : 'var(--transparent)'};
+    background-color: ${
+      props.variant === 'filled' ? 'var(--adaptive200)' : 'var(--transparent)'
+    };
 
     color: var(--adaptive400);
 
-    border-color: ${({ variant }) =>
-      variant === 'outlined' ? 'var(--adaptive300)' : 'var(--transparent)'};
+    border-color: ${
+      props.variant === 'outlined' ? 'var(--adaptive300)' : 'var(--transparent)'
+    };
 
     cursor: not-allowed;
   }
 
   &:enabled:hover {
-    ${({ variant }) =>
-      variant === 'filled'
+    ${
+      props.variant === 'filled'
         ? `filter: saturate(0.8);`
-        : `background-color: var(--adaptive200);`}
+        : `background-color: var(--adaptive200);`
+    }
   }
-`;
+`
+);
 
 const Button: React.FC<React.ComponentProps<typeof StyledButton>> = ({
   ...args
