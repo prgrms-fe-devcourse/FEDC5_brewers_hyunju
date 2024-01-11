@@ -1,9 +1,9 @@
+import styled from 'styled-components';
 import Container from '~/components/common/Container';
 import Flex from '~/components/common/Flex';
 import Text from '~/components/common/Text';
 import Image from '~/components/common/Image';
 import Avatar from '~/components/common/Avatar';
-import styled from 'styled-components';
 import FeedFooterItem from './FeedFooterItem';
 
 export interface FeedListItemPropsType {
@@ -21,7 +21,7 @@ export interface FeedListItemPropsType {
   onUserClick: (userId: string) => void;
 }
 
-const Divider = styled.div`
+export const Divider = styled.div`
   width: 100%;
   height: 1px;
   margin: 1rem 0;
@@ -29,7 +29,7 @@ const Divider = styled.div`
   background-color: var(--adaptive400);
 `;
 
-const FeedItemContainer = styled(Container)`
+export const FeedItemContainer = styled(Container)`
   flex-shrink: 0;
 
   padding: 1rem 1.5rem;

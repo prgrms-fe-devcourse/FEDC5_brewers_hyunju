@@ -1,7 +1,6 @@
+import { IconHeart, IconMessageCircle2 } from '@tabler/icons-react';
 import Flex from '~/components/common/Flex';
 import Text from '~/components/common/Text';
-import { IconHeart } from '@tabler/icons-react';
-import { IconMessageCircle2 } from '@tabler/icons-react';
 
 export interface FeedFooterItemPropTypes {
   iconType: string;
