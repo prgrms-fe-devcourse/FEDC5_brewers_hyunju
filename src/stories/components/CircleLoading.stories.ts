@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
 import CircleLoading from '~/components/loading/CircleLoading';
 
 const meta: Meta<typeof CircleLoading> = {

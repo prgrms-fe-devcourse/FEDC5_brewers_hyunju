@@ -3,36 +3,23 @@ import styled from '@emotion/styled';
 import ColorType from '~/types/design/color';
 import { ButtonSizeType, ButtonVariantType } from '~/types/design/button';
 import { FONT_SIZE, FONT_SIZE_UNIT } from '~/constants/design';
+import { CommonStyle, CommonStylePropsType } from './CommonStyle';
 
-export interface ButtonPropsType {
+export interface ButtonPropsType extends CommonStylePropsType {
   variant: ButtonVariantType;
   size: ButtonSizeType;
   color: ColorType;
   leftItem?: ReactNode;
   rightItem?: ReactNode;
-  m?: number;
-  mx?: number;
-  my?: number;
-  mt?: number;
-  mb?: number;
-  ml?: number;
-  mr?: number;
 }
 
 const StyledButton = styled.button<ButtonPropsType>`
+  ${CommonStyle}
+
   display: flex;
   align-items: center;
   justify-content: center;
 
-  margin: ${({ m }) => (m ? `${m}rem` : undefined)};
-  margin-top: ${({ mt, my }) =>
-    mt ? `${mt}rem` : my ? `${my}rem` : undefined};
-  margin-right: ${({ mr, mx }) =>
-    mr ? `${mr}rem` : mx ? `${mx}rem` : undefined};
-  margin-bottom: ${({ mb, my }) =>
-    mb ? `${mb}rem` : my ? `${my}rem` : undefined};
-  margin-left: ${({ ml, mx }) =>
-    ml ? `${ml}rem` : mx ? `${mx}rem` : undefined};
   padding: 0.5em 1em;
   border: 0.125rem solid;
   border-radius: 0.25rem;

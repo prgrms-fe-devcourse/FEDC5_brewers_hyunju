@@ -1,6 +1,7 @@
 import Container from '../common/Container';
 import ColorType from '~/types/design/color';
-import styled, { keyframes } from 'styled-components';
+import styled from '@emotion/styled';
+import { keyframes } from '@emotion/react';
 
 interface CircleLoadingPropsType {
   size?: number;

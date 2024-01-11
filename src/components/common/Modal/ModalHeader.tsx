@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { IconX } from '@tabler/icons-react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import Flex from '~/components/common/Flex';
 import Button from '~/components/common/Button';
 

@@ -3,7 +3,7 @@ import Modal from '~/components/common/Modal';
 import Flex from '~/components/common/Flex';
 import Text from '~/components/common/Text';
 import Button from '~/components/common/Button';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 export default {
   title: 'Component/Modal',
