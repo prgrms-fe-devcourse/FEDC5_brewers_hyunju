@@ -13,32 +13,20 @@ export interface FlexPropsType extends CommonStylePropsType {
   columnGap?: number;
 }
 
-const Flex = styled.div(
-  (props: FlexPropsType) => `
+const Flex = styled.div<FlexPropsType>`
   ${CommonStyle}
 
   display: flex;
-  flex-direction: ${props.direction};
-  flex-wrap: ${props.wrap};
-  align-content: ${props.alignContent};
-  align-items: ${props.alignItems};
-  justify-content: ${props.justifyContent};
+  flex-direction: ${({ direction }) => direction};
+  flex-wrap: ${({ wrap }) => wrap};
+  align-content: ${({ alignContent }) => alignContent};
+  align-items: ${({ alignItems }) => alignItems};
+  justify-content: ${({ justifyContent }) => justifyContent};
 
-  column-gap: ${
-    props.columnGap
-      ? `${props.columnGap}rem`
-      : props.gap
-        ? `${props.gap}rem`
-        : undefined
-  };
-  row-gap: ${
-    props.rowGap
-      ? `${props.rowGap}rem`
-      : props.gap
-        ? `${props.gap}rem`
-        : undefined
-  };
-`
-);
+  column-gap: ${({ gap, columnGap }) =>
+    columnGap ? `${columnGap}rem` : gap ? `${gap}rem` : undefined};
+  row-gap: ${({ gap, rowGap }) =>
+    rowGap ? `${rowGap}rem` : gap ? `${gap}rem` : undefined};
+`;
 
 export default Flex;
