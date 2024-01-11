@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css } from '@emotion/react';
 import {
   handleVariable,
   handleValue,
@@ -37,179 +37,146 @@ export interface CommonStylePropsType {
   basis?: number | ResponsiveStyleType<number>;
 }
 
-export const CommonStyle = css<CommonStylePropsType>`
-  flex-basis: ${({ basis }) => handleValue(basis, 'base')};
-  flex-grow: ${({ grow }) => handleValue(grow, 'base')};
-  flex-shrink: ${({ shrink }) => handleValue(shrink, 'base')};
+export const CommonStyle = (props: CommonStylePropsType) => css`
+  flex-basis: ${handleValue(props.basis, 'base')};
+  flex-grow: ${handleValue(props.grow, 'base')};
+  flex-shrink: ${handleValue(props.shrink, 'base')};
 
-  width: ${({ width }) => handleSize(width, 'base')};
-  height: ${({ height }) => handleSize(height, 'base')};
-  min-width: ${({ minWidth }) => handleSize(minWidth, 'base')};
-  min-height: ${({ minHeight }) => handleSize(minHeight, 'base')};
-  max-width: ${({ maxWidth }) => handleSize(maxWidth, 'base')};
-  max-height: ${({ maxHeight }) => handleSize(maxHeight, 'base')};
-  margin: ${({ m }) => handleSize(m, 'base')};
-  margin-top: ${({ my, mt }) =>
-    handleSize(mt, 'base') ?? handleSize(my, 'base')};
-  margin-right: ${({ mx, mr }) =>
-    handleSize(mr, 'base') ?? handleSize(mx, 'base')};
-  margin-bottom: ${({ my, mb }) =>
-    handleSize(mb, 'base') ?? handleSize(my, 'base')};
-  margin-left: ${({ mx, ml }) =>
-    handleSize(ml, 'base') ?? handleSize(mx, 'base')};
-  padding: ${({ p }) => handleSize(p, 'base')};
-  padding-top: ${({ py, pt }) =>
-    handleSize(pt, 'base') ?? handleSize(py, 'base')};
-  padding-right: ${({ px, pr }) =>
-    handleSize(pr, 'base') ?? handleSize(px, 'base')};
-  padding-bottom: ${({ py, pb }) =>
-    handleSize(pb, 'base') ?? handleSize(py, 'base')};
-  padding-left: ${({ px, pl }) =>
-    handleSize(pl, 'base') ?? handleSize(px, 'base')};
+  width: ${handleSize(props.width, 'base')};
+  height: ${handleSize(props.height, 'base')};
+  min-width: ${handleSize(props.minWidth, 'base')};
+  min-height: ${handleSize(props.minHeight, 'base')};
+  max-width: ${handleSize(props.maxWidth, 'base')};
+  max-height: ${handleSize(props.maxHeight, 'base')};
+  margin: ${handleSize(props.m, 'base')};
+  margin-top: ${handleSize(props.mt, 'base') ?? handleSize(props.my, 'base')};
+  margin-right: ${handleSize(props.mr, 'base') ?? handleSize(props.mx, 'base')};
+  margin-bottom: ${handleSize(props.mb, 'base') ??
+  handleSize(props.my, 'base')};
+  margin-left: ${handleSize(props.ml, 'base') ?? handleSize(props.mx, 'base')};
+  padding: ${handleSize(props.p, 'base')};
+  padding-top: ${handleSize(props.pt, 'base') ?? handleSize(props.py, 'base')};
+  padding-right: ${handleSize(props.pr, 'base') ??
+  handleSize(props.px, 'base')};
+  padding-bottom: ${handleSize(props.pb, 'base') ??
+  handleSize(props.py, 'base')};
+  padding-left: ${handleSize(props.pl, 'base') ?? handleSize(props.px, 'base')};
 
-  background-color: ${({ bgColor }) => handleVariable(bgColor, 'base')};
+  background-color: ${handleVariable(props.bgColor, 'base')};
 
-  color: ${({ color }) => handleVariable(color, 'base')};
+  color: ${handleVariable(props.color, 'base')};
 
-  opacity: ${({ opacity }) => handleValue(opacity, 'base')};
+  opacity: ${handleValue(props.opacity, 'base')};
 
   @media screen and (width <= ${CONTAINER_SIZE['sm']}) {
-    flex-basis: ${({ basis }) => handleValue(basis, 'sm')};
-    flex-grow: ${({ grow }) => handleValue(grow, 'sm')};
-    flex-shrink: ${({ shrink }) => handleValue(shrink, 'sm')};
+    flex-basis: ${handleValue(props.basis, 'sm')};
+    flex-grow: ${handleValue(props.grow, 'sm')};
+    flex-shrink: ${handleValue(props.shrink, 'sm')};
 
-    width: ${({ width }) => handleSize(width, 'sm')};
-    height: ${({ height }) => handleSize(height, 'sm')};
-    min-width: ${({ minWidth }) => handleSize(minWidth, 'sm')};
-    min-height: ${({ minHeight }) => handleSize(minHeight, 'sm')};
-    max-width: ${({ maxWidth }) => handleSize(maxWidth, 'sm')};
-    max-height: ${({ maxHeight }) => handleSize(maxHeight, 'sm')};
-    margin-top: ${({ my, mt }) => handleSize(mt, 'sm') ?? handleSize(my, 'sm')};
-    margin-right: ${({ mx, mr }) =>
-      handleSize(mr, 'sm') ?? handleSize(mx, 'sm')};
-    margin-bottom: ${({ my, mb }) =>
-      handleSize(mb, 'sm') ?? handleSize(my, 'sm')};
-    margin-left: ${({ mx, ml }) =>
-      handleSize(ml, 'sm') ?? handleSize(mx, 'sm')};
-    padding: ${({ p }) => handleSize(p, 'sm')};
-    padding-top: ${({ py, pt }) =>
-      handleSize(pt, 'sm') ?? handleSize(py, 'sm')};
-    padding-right: ${({ px, pr }) =>
-      handleSize(pr, 'sm') ?? handleSize(px, 'sm')};
-    padding-bottom: ${({ py, pb }) =>
-      handleSize(pb, 'sm') ?? handleSize(py, 'sm')};
-    padding-left: ${({ px, pl }) =>
-      handleSize(pl, 'sm') ?? handleSize(px, 'sm')};
+    width: ${handleSize(props.width, 'sm')};
+    height: ${handleSize(props.height, 'sm')};
+    min-width: ${handleSize(props.minWidth, 'sm')};
+    min-height: ${handleSize(props.minHeight, 'sm')};
+    max-width: ${handleSize(props.maxWidth, 'sm')};
+    max-height: ${handleSize(props.maxHeight, 'sm')};
+    margin-top: ${handleSize(props.mt, 'sm') ?? handleSize(props.my, 'sm')};
+    margin-right: ${handleSize(props.mr, 'sm') ?? handleSize(props.mx, 'sm')};
+    margin-bottom: ${handleSize(props.mb, 'sm') ?? handleSize(props.my, 'sm')};
+    margin-left: ${handleSize(props.ml, 'sm') ?? handleSize(props.mx, 'sm')};
+    padding: ${handleSize(props.p, 'sm')};
+    padding-top: ${handleSize(props.pt, 'sm') ?? handleSize(props.py, 'sm')};
+    padding-right: ${handleSize(props.pr, 'sm') ?? handleSize(props.px, 'sm')};
+    padding-bottom: ${handleSize(props.pb, 'sm') ?? handleSize(props.py, 'sm')};
+    padding-left: ${handleSize(props.pl, 'sm') ?? handleSize(props.px, 'sm')};
 
-    background-color: ${({ bgColor }) => handleVariable(bgColor, 'sm')};
+    background-color: ${handleVariable(props.bgColor, 'sm')};
 
-    color: ${({ color }) => handleVariable(color, 'sm')};
+    color: ${handleVariable(props.color, 'sm')};
 
-    opacity: ${({ opacity }) => handleValue(opacity, 'sm')};
+    opacity: ${handleValue(props.opacity, 'sm')};
   }
 
   @media screen and (width > ${CONTAINER_SIZE['sm']}) {
-    flex-basis: ${({ basis }) => handleValue(basis, 'md')};
-    flex-grow: ${({ grow }) => handleValue(grow, 'md')};
-    flex-shrink: ${({ shrink }) => handleValue(shrink, 'md')};
+    flex-basis: ${handleValue(props.basis, 'md')};
+    flex-grow: ${handleValue(props.grow, 'md')};
+    flex-shrink: ${handleValue(props.shrink, 'md')};
 
-    width: ${({ width }) => handleSize(width, 'md')};
-    height: ${({ height }) => handleSize(height, 'md')};
-    min-width: ${({ minWidth }) => handleSize(minWidth, 'md')};
-    min-height: ${({ minHeight }) => handleSize(minHeight, 'md')};
-    max-width: ${({ maxWidth }) => handleSize(maxWidth, 'md')};
-    max-height: ${({ maxHeight }) => handleSize(maxHeight, 'md')};
-    margin-top: ${({ my, mt }) => handleSize(mt, 'md') ?? handleSize(my, 'md')};
-    margin-right: ${({ mx, mr }) =>
-      handleSize(mr, 'md') ?? handleSize(mx, 'md')};
-    margin-bottom: ${({ my, mb }) =>
-      handleSize(mb, 'md') ?? handleSize(my, 'md')};
-    margin-left: ${({ mx, ml }) =>
-      handleSize(ml, 'md') ?? handleSize(mx, 'md')};
-    padding: ${({ p }) => handleSize(p, 'md')};
-    padding-top: ${({ py, pt }) =>
-      handleSize(pt, 'md') ?? handleSize(py, 'md')};
-    padding-right: ${({ px, pr }) =>
-      handleSize(pr, 'md') ?? handleSize(px, 'md')};
-    padding-bottom: ${({ py, pb }) =>
-      handleSize(pb, 'md') ?? handleSize(py, 'md')};
-    padding-left: ${({ px, pl }) =>
-      handleSize(pl, 'md') ?? handleSize(px, 'md')};
+    width: ${handleSize(props.width, 'md')};
+    height: ${handleSize(props.height, 'md')};
+    min-width: ${handleSize(props.minWidth, 'md')};
+    min-height: ${handleSize(props.minHeight, 'md')};
+    max-width: ${handleSize(props.maxWidth, 'md')};
+    max-height: ${handleSize(props.maxHeight, 'md')};
+    margin-top: ${handleSize(props.mt, 'md') ?? handleSize(props.my, 'md')};
+    margin-right: ${handleSize(props.mr, 'md') ?? handleSize(props.mx, 'md')};
+    margin-bottom: ${handleSize(props.mb, 'md') ?? handleSize(props.my, 'md')};
+    margin-left: ${handleSize(props.ml, 'md') ?? handleSize(props.mx, 'md')};
+    padding: ${handleSize(props.p, 'md')};
+    padding-top: ${handleSize(props.pt, 'md') ?? handleSize(props.py, 'md')};
+    padding-right: ${handleSize(props.pr, 'md') ?? handleSize(props.px, 'md')};
+    padding-bottom: ${handleSize(props.pb, 'md') ?? handleSize(props.py, 'md')};
+    padding-left: ${handleSize(props.pl, 'md') ?? handleSize(props.px, 'md')};
 
-    background-color: ${({ bgColor }) => handleVariable(bgColor, 'md')};
+    background-color: ${handleVariable(props.bgColor, 'md')};
 
-    color: ${({ color }) => handleVariable(color, 'md')};
+    color: ${handleVariable(props.color, 'md')};
 
-    opacity: ${({ opacity }) => handleValue(opacity, 'md')};
+    opacity: ${handleValue(props.opacity, 'md')};
   }
 
   @media screen and (width > ${CONTAINER_SIZE['md']}) {
-    flex-basis: ${({ basis }) => handleValue(basis, 'lg')};
-    flex-grow: ${({ grow }) => handleValue(grow, 'lg')};
-    flex-shrink: ${({ shrink }) => handleValue(shrink, 'lg')};
+    flex-basis: ${handleValue(props.basis, 'lg')};
+    flex-grow: ${handleValue(props.grow, 'lg')};
+    flex-shrink: ${handleValue(props.shrink, 'lg')};
 
-    width: ${({ width }) => handleSize(width, 'lg')};
-    height: ${({ height }) => handleSize(height, 'lg')};
-    min-width: ${({ minWidth }) => handleSize(minWidth, 'lg')};
-    min-height: ${({ minHeight }) => handleSize(minHeight, 'lg')};
-    max-width: ${({ maxWidth }) => handleSize(maxWidth, 'lg')};
-    max-height: ${({ maxHeight }) => handleSize(maxHeight, 'lg')};
-    margin-top: ${({ my, mt }) => handleSize(mt, 'lg') ?? handleSize(my, 'lg')};
-    margin-right: ${({ mx, mr }) =>
-      handleSize(mr, 'lg') ?? handleSize(mx, 'lg')};
-    margin-bottom: ${({ my, mb }) =>
-      handleSize(mb, 'lg') ?? handleSize(my, 'lg')};
-    margin-left: ${({ mx, ml }) =>
-      handleSize(ml, 'lg') ?? handleSize(mx, 'lg')};
-    padding: ${({ p }) => handleSize(p, 'lg')};
-    padding-top: ${({ py, pt }) =>
-      handleSize(pt, 'lg') ?? handleSize(py, 'lg')};
-    padding-right: ${({ px, pr }) =>
-      handleSize(pr, 'lg') ?? handleSize(px, 'lg')};
-    padding-bottom: ${({ py, pb }) =>
-      handleSize(pb, 'lg') ?? handleSize(py, 'lg')};
-    padding-left: ${({ px, pl }) =>
-      handleSize(pl, 'lg') ?? handleSize(px, 'lg')};
+    width: ${handleSize(props.width, 'lg')};
+    height: ${handleSize(props.height, 'lg')};
+    min-width: ${handleSize(props.minWidth, 'lg')};
+    min-height: ${handleSize(props.minHeight, 'lg')};
+    max-width: ${handleSize(props.maxWidth, 'lg')};
+    max-height: ${handleSize(props.maxHeight, 'lg')};
+    margin-top: ${handleSize(props.mt, 'lg') ?? handleSize(props.my, 'lg')};
+    margin-right: ${handleSize(props.mr, 'lg') ?? handleSize(props.mx, 'lg')};
+    margin-bottom: ${handleSize(props.mb, 'lg') ?? handleSize(props.my, 'lg')};
+    margin-left: ${handleSize(props.ml, 'lg') ?? handleSize(props.mx, 'lg')};
+    padding: ${handleSize(props.p, 'lg')};
+    padding-top: ${handleSize(props.pt, 'lg') ?? handleSize(props.py, 'lg')};
+    padding-right: ${handleSize(props.pr, 'lg') ?? handleSize(props.px, 'lg')};
+    padding-bottom: ${handleSize(props.pb, 'lg') ?? handleSize(props.py, 'lg')};
+    padding-left: ${handleSize(props.pl, 'lg') ?? handleSize(props.px, 'lg')};
 
-    background-color: ${({ bgColor }) => handleVariable(bgColor, 'lg')};
+    background-color: ${handleVariable(props.bgColor, 'lg')};
 
-    color: ${({ color }) => handleVariable(color, 'lg')};
+    color: ${handleVariable(props.color, 'lg')};
 
-    opacity: ${({ opacity }) => handleValue(opacity, 'lg')};
+    opacity: ${handleValue(props.opacity, 'lg')};
   }
 
   @media screen and (width > ${CONTAINER_SIZE['lg']}) {
-    flex-basis: ${({ basis }) => handleValue(basis, 'xl')};
-    flex-grow: ${({ grow }) => handleValue(grow, 'xl')};
-    flex-shrink: ${({ shrink }) => handleValue(shrink, 'xl')};
+    flex-basis: ${handleValue(props.basis, 'xl')};
+    flex-grow: ${handleValue(props.grow, 'xl')};
+    flex-shrink: ${handleValue(props.shrink, 'xl')};
 
-    width: ${({ width }) => handleSize(width, 'xl')};
-    height: ${({ height }) => handleSize(height, 'xl')};
-    min-width: ${({ minWidth }) => handleSize(minWidth, 'xl')};
-    min-height: ${({ minHeight }) => handleSize(minHeight, 'xl')};
-    max-width: ${({ maxWidth }) => handleSize(maxWidth, 'xl')};
-    max-height: ${({ maxHeight }) => handleSize(maxHeight, 'xl')};
-    margin-top: ${({ my, mt }) => handleSize(mt, 'xl') ?? handleSize(my, 'xl')};
-    margin-right: ${({ mx, mr }) =>
-      handleSize(mr, 'xl') ?? handleSize(mx, 'xl')};
-    margin-bottom: ${({ my, mb }) =>
-      handleSize(mb, 'xl') ?? handleSize(my, 'xl')};
-    margin-left: ${({ mx, ml }) =>
-      handleSize(ml, 'xl') ?? handleSize(mx, 'xl')};
-    padding: ${({ p }) => handleSize(p, 'xl')};
-    padding-top: ${({ py, pt }) =>
-      handleSize(pt, 'xl') ?? handleSize(py, 'xl')};
-    padding-right: ${({ px, pr }) =>
-      handleSize(pr, 'xl') ?? handleSize(px, 'xl')};
-    padding-bottom: ${({ py, pb }) =>
-      handleSize(pb, 'xl') ?? handleSize(py, 'xl')};
-    padding-left: ${({ px, pl }) =>
-      handleSize(pl, 'xl') ?? handleSize(px, 'xl')};
+    width: ${handleSize(props.width, 'xl')};
+    height: ${handleSize(props.height, 'xl')};
+    min-width: ${handleSize(props.minWidth, 'xl')};
+    min-height: ${handleSize(props.minHeight, 'xl')};
+    max-width: ${handleSize(props.maxWidth, 'xl')};
+    max-height: ${handleSize(props.maxHeight, 'xl')};
+    margin-top: ${handleSize(props.mt, 'xl') ?? handleSize(props.my, 'xl')};
+    margin-right: ${handleSize(props.mr, 'xl') ?? handleSize(props.mx, 'xl')};
+    margin-bottom: ${handleSize(props.mb, 'xl') ?? handleSize(props.my, 'xl')};
+    margin-left: ${handleSize(props.ml, 'xl') ?? handleSize(props.mx, 'xl')};
+    padding: ${handleSize(props.p, 'xl')};
+    padding-top: ${handleSize(props.pt, 'xl') ?? handleSize(props.py, 'xl')};
+    padding-right: ${handleSize(props.pr, 'xl') ?? handleSize(props.px, 'xl')};
+    padding-bottom: ${handleSize(props.pb, 'xl') ?? handleSize(props.py, 'xl')};
+    padding-left: ${handleSize(props.pl, 'xl') ?? handleSize(props.px, 'xl')};
 
-    background-color: ${({ bgColor }) => handleVariable(bgColor, 'xl')};
+    background-color: ${handleVariable(props.bgColor, 'xl')};
 
-    color: ${({ color }) => handleVariable(color, 'xl')};
+    color: ${handleVariable(props.color, 'xl')};
 
-    opacity: ${({ opacity }) => handleValue(opacity, 'xl')};
+    opacity: ${handleValue(props.opacity, 'xl')};
   }
 `;

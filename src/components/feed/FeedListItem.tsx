@@ -3,7 +3,7 @@ import Flex from '~/components/common/Flex';
 import Text from '~/components/common/Text';
 import Image from '~/components/common/Image';
 import Avatar from '~/components/common/Avatar';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import FeedFooterItem from './FeedFooterItem';
 
 export interface FeedListItemPropsType {

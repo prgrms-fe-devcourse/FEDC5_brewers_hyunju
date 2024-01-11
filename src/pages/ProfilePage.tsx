@@ -12,7 +12,6 @@ import useUploadPhoto from '~/hooks/api/users/useUploadPhoto';
 const ProfilePage = () => {
   const { userId } = useParams();
 
-
   const {
     status: userStatus,
     data: userData,
@@ -35,7 +34,7 @@ const ProfilePage = () => {
     // eslint-disable-next-line
   }, [userId]);
 
-  if (userStatus === 'success' && userData)
+  if (userStatus === 'success' && userData) {
     return (
       <ProfileTemplate
         user={userData}
@@ -43,8 +42,11 @@ const ProfilePage = () => {
         actions={{ requestUser, createFollow, deleteFollow, uploadPhoto }}
       />
     );
-  else if (userStatus === 'error') return <Text>Error</Text>;
-  else return <ProfileSkeleton />;
+  } else if (userStatus === 'error') {
+    return <Text>Error</Text>;
+  } else {
+    return <ProfileSkeleton />;
+  }
 };
 
 export default ProfilePage;

@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import {
   IconMessage,
   IconUserMinus,
@@ -68,7 +68,6 @@ const ProfileTemplate = ({ user, auth, actions }: ProfileTemplatePropsType) => {
     if (isMe) {
       setIsShowUpload(true);
     } else {
-      // alert('large profile image');
       setIsShowProfile(true);
     }
   };
@@ -197,18 +196,18 @@ const ProfileTemplate = ({ user, auth, actions }: ProfileTemplatePropsType) => {
             <Text
               size='2xl'
               weight={800}
-              height={175}
+              lineHeight={175}
             >
               {user.fullName}
             </Text>
             <Text
-              height={150}
+              lineHeight={150}
               weight={600}
             >
               {user.email}
             </Text>
             <Text
-              height={150}
+              lineHeight={150}
               weight={600}
             >
               {user.role}
