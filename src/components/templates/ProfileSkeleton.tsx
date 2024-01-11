@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import Container from '../common/Container';
 import Text from '../common/Text';
 import Flex from '../common/Flex';

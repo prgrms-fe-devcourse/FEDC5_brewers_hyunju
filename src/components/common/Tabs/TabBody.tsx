@@ -1,5 +1,5 @@
 import { useContext, ReactNode } from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import Container from '~/components/common/Container';
 import { TabsValueContext } from './TabsProvider';
 
@@ -18,7 +18,7 @@ const TabBody = ({ id, children }: TabBodyPropsType) => {
         /* stylelint-disable-next-line value-keyword-case */
         boxSizing: 'border-box',
       }}
-      color='var(--adaptive950)'
+      color='--adaptive950'
       className={selectedId === id ? 'mounted' : undefined}
     >
       {children}
