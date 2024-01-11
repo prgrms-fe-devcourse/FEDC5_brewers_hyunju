@@ -12,6 +12,7 @@ import useUploadPhoto from '~/hooks/api/users/useUploadPhoto';
 const ProfilePage = () => {
   const { userId } = useParams();
 
+
   const {
     status: userStatus,
     data: userData,

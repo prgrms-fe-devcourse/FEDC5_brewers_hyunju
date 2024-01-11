@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import useIntersectionObserver from '~/hooks/useIntersectionObserver';
 import ColorType from '~/types/design/color';
 import { handleSizeUnit } from '~/utils/handleSizeUnit';
@@ -12,6 +12,7 @@ export interface ImagePropsType {
   block?: boolean;
   width: number | string;
   height: number | string;
+  ratio?: number | string;
   alt: string;
   mode?: ImageModeType;
   letterBoxColor?: ColorType;
@@ -20,14 +21,13 @@ export interface ImagePropsType {
 interface ImageStylePropsType {
   block?: boolean;
   mode: ImageModeType;
-  width: string;
-  height: string;
 }
 const Image = ({
   lazy,
   threshold = 0.5,
   width,
   height,
+  ratio,
   placeholder = `https://via.placeholder.com/200X200?text=brewers`,
   src = placeholder,
   block,
@@ -51,17 +51,16 @@ const Image = ({
   };
   return (
     <LetterBoxDiv
+      block={block}
       letterBoxColor={letterBoxColor}
       width={width}
       height={height}
+      ratio={ratio}
     >
       <ImageStyled
-        width={handleSizeUnit(width)}
-        height={handleSizeUnit(height)}
         ref={targetRef}
         src={loaded ? src : placeholder}
         alt={alt}
-        block={block}
         mode={mode}
         onError={handleImageError}
       />
@@ -72,22 +71,29 @@ const Image = ({
 export default Image;
 
 const LetterBoxDiv = styled.div<{
+  block?: boolean;
   letterBoxColor: ColorType;
   width: number | string;
-  height: number | string;
+  height?: number | string;
+  ratio?: number | string;
 }>`
+  display: ${({ block }) => (block ? undefined : 'inline-block')};
+
   width: ${({ width }) => handleSizeUnit(width)};
-  height: ${({ height }) => handleSizeUnit(height)};
+  ${({ ratio, height }) =>
+    ratio
+      ? `aspect-ratio: ${ratio};`
+      : height && `height: ${handleSizeUnit(height)};`}
 
   background-color: ${({ letterBoxColor }) => `var(${letterBoxColor})`};
 
   box-sizing: border-box;
 `;
 const ImageStyled = styled.img<ImageStylePropsType>`
-  display: ${({ block }) => (block ? 'block' : undefined)};
+  display: block;
 
-  width: ${({ width }) => handleSizeUnit(width)};
-  height: ${({ height }) => handleSizeUnit(height)};
+  width: 100%;
+  height: 100%;
 
   object-fit: ${({ mode }) => mode};
 `;

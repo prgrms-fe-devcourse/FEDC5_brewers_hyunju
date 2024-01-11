@@ -34,7 +34,7 @@ const ProfileImageUpload = ({
     });
     return file;
   }, []);
-
+  
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
 
@@ -68,7 +68,7 @@ const ProfileImageUpload = ({
   };
 
   return (
-    <Flex
+<Flex
       p={2}
       direction='column'
       gap={2}

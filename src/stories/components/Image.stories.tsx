@@ -28,6 +28,9 @@ export default {
     height: {
       control: { type: 'range', min: 2.5, max: 40 },
     },
+    ratio: {
+      control: 'text',
+    },
     alt: {
       control: 'text',
     },
