@@ -1,161 +1,170 @@
-import { ChangeEvent, useState } from 'react';
-import Container from '~/components/common/Container';
+import { ChangeEvent, useMemo, useRef, useState } from 'react';
+import styled from 'styled-components';
+import axios from 'axios';
 import Flex from '~/components/common/Flex';
-import Text from '~/components/common/Text';
 import Image from '~/components/common/Image';
 import Button from '~/components/common/Button';
+import Text from '~/components/common/Text';
 
 export interface ProfileImageUploadPropsType {
   currentImageUrl: string;
-  onSave: (url: string) => void;
+  onSave: (file: File) => void;
   onCancel: () => void;
+  disabled?: boolean;
 }
 
 const ProfileImageUpload = ({
   currentImageUrl,
   onSave,
   onCancel,
+  disabled,
 }: ProfileImageUploadPropsType) => {
-  const [selectedImage, setSelectedImage] = useState<string | null>(
+  const formRef = useRef<HTMLFormElement | null>(null);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [preivewUrl, setPreivewUrl] = useState<string | undefined>(
     currentImageUrl
   );
+
+  const defaultImage = useMemo(async () => {
+    const res = await axios({ url: '/img/200X200.png', responseType: 'blob' });
+    const file = new File([res.data], '200X200.png', {
+      type: 'image/png',
+    });
+    return file;
+  }, []);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
 
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setSelectedImage(imageUrl);
+      setPreivewUrl(URL.createObjectURL(file));
+      setSelectedFile(file);
     }
   };
 
+  const handleClickUpload = () => {
+    formRef.current?.file.click();
+  };
+
   const handleDelete = () => {
-    setSelectedImage(null);
+    formRef.current?.reset();
+    setPreivewUrl(currentImageUrl);
+    setSelectedFile(null);
+  };
+
+  const handleDefaultImage = async () => {
+    setPreivewUrl('/img/200X200.png');
+    setIsLoading(true);
+    setSelectedFile(await defaultImage);
+    setIsLoading(false);
   };
 
   const handleSave = () => {
-    if (selectedImage) {
-      onSave(selectedImage);
+    if (selectedFile) {
+      onSave(selectedFile);
     }
   };
 
   return (
-    <Container
-      maxWidth='md'
-      p={2.75}
-      style={{
-        width: '35.125rem',
-        height: '23.375rem',
-        position: 'relative',
-        boxSizing: 'border-box',
-        borderRadius: '0.5rem',
-        boxShadow: `0 0.375rem 0.625rem 0 var(--adaptiveOpacity200)`,
-      }}
+    <Flex
+      p={2}
+      direction='column'
+      gap={2}
     >
-      <Button
-        variant='text'
-        size='md'
-        color='--adaptive100'
-        onClick={onCancel}
-        style={{
-          color: 'var(--adaptive500)',
-          width: '1.5rem',
-          height: '1.5rem',
-          position: 'absolute',
-          top: '0.625rem',
-          right: '0.625rem',
-          border: 'none',
-          textAlign: 'center',
-          borderRadius: '50%',
-          cursor: 'pointer',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
+      <HiddenForm
+        ref={formRef}
+        onChange={(e) => console.log(e)}
       >
-        ✕
-      </Button>
-      <Flex
-        direction='column'
-        justifyContent='space-between'
-        style={{
-          width: '100%',
-          height: '100%',
-        }}
+        <input
+          type='file'
+          name='file'
+          onChange={handleFileChange}
+          hidden
+        />
+      </HiddenForm>
+      <Text
+        size='xl'
+        weight={800}
       >
-        <Text
-          size='xl'
-          weight={600}
-        >
-          프로필 이미지 변경
-        </Text>
-        <Flex>
-          <Image
-            block={false}
-            width={9.375}
-            height={9.375}
-            src={selectedImage}
-            alt='Profile Image'
-          ></Image>
-          <Flex
-            direction='column'
-            ml={1}
-          >
-            <label htmlFor='profileImageInput'>
-              <Button
-                variant='outlined'
-                size='md'
-                color='--primaryColor'
-                as='span'
-                style={{ height: '2.125rem', width: '9.875rem' }}
-              >
-                사진 업로드
-              </Button>
-              <input
-                type='file'
-                id='profileImageInput'
-                name='profileImageInput'
-                onChange={handleFileChange}
-                style={{ display: 'none' }}
-              />
-            </label>
-
-            <Button
-              variant='text'
-              size='md'
-              color='--secondaryColor'
-              onClick={handleDelete}
-            >
-              사진 삭제
-            </Button>
-          </Flex>
-        </Flex>
+        프로필 이미지 변경
+      </Text>
+      <Flex gap={2}>
+        <Image
+          width={10}
+          height={10}
+          src={preivewUrl}
+          alt='Profile Image'
+          letterBoxColor='--transparent'
+        />
         <Flex
-          justifyContent='space-between'
-          style={{ height: '4rem' }}
+          direction='column'
+          gap={1}
+          ml={1}
         >
-          <Button
-            variant='outlined'
-            size='md'
-            color='--primaryColor'
-            onClick={onCancel}
-            style={{ height: '100%', width: '48%' }}
-          >
-            취소
-          </Button>
           <Button
             variant='filled'
             size='md'
             color='--primaryColor'
-            onClick={handleSave}
-            style={{ height: '100%', width: '48%' }}
+            style={{ padding: '0.5rem 2rem' }}
+            onClick={handleClickUpload}
+            disabled={disabled || isLoading}
           >
-            저장
+            이미지 선택
+          </Button>
+          <Button
+            variant='text'
+            size='md'
+            color='--secondaryColor'
+            onClick={handleDelete}
+            disabled={disabled || isLoading}
+          >
+            선택 취소
+          </Button>
+          <Button
+            variant='text'
+            size='md'
+            color='--secondaryColor'
+            onClick={handleDefaultImage}
+            disabled={disabled || isLoading}
+          >
+            기본 프로필
           </Button>
         </Flex>
       </Flex>
-    </Container>
+      <Flex
+        justifyContent='space-between'
+        style={{ height: '4rem' }}
+        gap={1}
+      >
+        <Button
+          variant='outlined'
+          size='lg'
+          color='--primaryColor'
+          onClick={onCancel}
+          style={{ flexGrow: '1' }}
+          disabled={disabled || isLoading}
+        >
+          취소
+        </Button>
+        <Button
+          variant='filled'
+          size='lg'
+          color='--primaryColor'
+          onClick={handleSave}
+          style={{ flexGrow: '1' }}
+          disabled={disabled || isLoading || !selectedFile}
+        >
+          저장
+        </Button>
+      </Flex>
+    </Flex>
   );
 };
+
+const HiddenForm = styled.form`
+  display: none;
+`;
 
 export default ProfileImageUpload;
