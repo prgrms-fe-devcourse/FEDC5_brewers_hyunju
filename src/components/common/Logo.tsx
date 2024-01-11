@@ -1,7 +1,7 @@
+import styled from '@emotion/styled';
 import LogoNormal from '~/assets/logo-normal.svg';
 import LogoSimple from '~/assets/logo-simple.svg';
 import { LOGO_SIZE } from '~/constants/design';
-import styled from 'styled-components';
 import Image from './Image';
 
 export interface LogoPropsType {

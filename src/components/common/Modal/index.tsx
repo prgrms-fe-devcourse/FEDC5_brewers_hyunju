@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useMemo } from 'react';
 import ReactDOM from 'react-dom';
+import styled from '@emotion/styled';
 import Container from '../Container';
-import styled from 'styled-components';
 import ModalHeader from './ModalHeader';
 import ModalPage from './ModalPage';
 import ModalBody from './ModalBody';

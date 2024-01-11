@@ -3,7 +3,7 @@ import { AxiosRequestConfig } from 'axios';
 import axiosInstance from '~/api/axios';
 import { API } from '~/constants/message';
 
-type OptionalConfig = Partial<
+export type OptionalConfig = Partial<
   Pick<AxiosRequestConfig, 'data' | 'headers' | 'params'>
 >;
 

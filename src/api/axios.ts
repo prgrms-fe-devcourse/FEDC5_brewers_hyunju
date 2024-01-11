@@ -10,7 +10,6 @@ axiosInstance.interceptors.request.use(
     config: InternalAxiosRequestConfig
   ): Promise<InternalAxiosRequestConfig> | InternalAxiosRequestConfig => {
     const accessToken: string | null = getItem('accessToken', null);
-
     config.headers = config.headers || {};
 
     if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
