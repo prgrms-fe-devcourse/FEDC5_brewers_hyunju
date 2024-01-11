@@ -1,10 +1,12 @@
+import FeedListSkeleton from '~/components/FeedListSkeleton';
+import UserListSkeleton from '~/components/UserListSkeleton';
 import SearchTemplate, {
   SearchTemplatePropsType,
 } from '~/components/SearchTemplate';
 
 export default {
   title: 'Template/Search',
-  component: [SearchTemplate],
+  component: [SearchTemplate, FeedListSkeleton, UserListSkeleton],
   argTypes: {},
   args: {
     users: Array.from(Array(20)).map((_, idx) => {
@@ -43,4 +45,12 @@ export default {
 
 export const Template = (args: SearchTemplatePropsType) => {
   return <SearchTemplate {...args} />;
+};
+
+export const FeedSkeleton = () => {
+  return <FeedListSkeleton />;
+};
+
+export const UserSkeleton = () => {
+  return <UserListSkeleton />;
 };

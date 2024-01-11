@@ -16,6 +16,7 @@ const UserListItemSkeleton = () => {
         <Skeleton
           width={2.5}
           circle={true}
+          animation
         />
         <Skeleton
           animation
