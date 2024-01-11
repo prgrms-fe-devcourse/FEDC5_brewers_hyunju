@@ -4,6 +4,8 @@ import Container from '../common/Container';
 import Flex from '../common/Flex';
 import Input from '../input/Input';
 import Text from '../common/Text';
+import { testRegex } from '~/utils/regex';
+import { INPUT } from '~/constants/regex';
 
 const LoginForm = () => {
   const [userLoginInfo, setUserLoginInfo] = useState({
@@ -24,7 +26,9 @@ const LoginForm = () => {
     alert('onClick');
   };
 
-  const onBlur = (text: string) => text === 'example';
+  const validateInput = (text: string) => {
+    return testRegex(text, INPUT.EMAIL);
+  };
 
   return (
     <Container maxWidth='md'>
@@ -45,8 +49,9 @@ const LoginForm = () => {
             message='올바르지 않은 이메일 형식이에요'
             messageColor='--red600'
             onChange={onChange}
-            onBlur={onBlur}
+            isValidate={(text) => validateInput(text)}
             InputName='email'
+            inputText={userLoginInfo.email}
           />
           <Input
             label='비밀번호'
@@ -54,8 +59,12 @@ const LoginForm = () => {
             onChange={onChange}
             InputName='password'
             type='password'
+            inputText={userLoginInfo.password}
           />
-          <Container maxWidth='sm'>
+          <Container
+            maxWidth='md'
+            style={{ width: 'fit-content' }}
+          >
             <Flex
               direction='column'
               gap={1}
