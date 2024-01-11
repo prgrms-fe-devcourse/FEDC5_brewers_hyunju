@@ -1,96 +1,124 @@
-import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import Box from '../common/Box';
 import Button from '../common/Button';
 import Container from '../common/Container';
+import CircleLoading from '../loading/CircleLoading';
 import Flex from '../common/Flex';
 import Input from '../input/Input';
-import Text from '../common/Text';
+
 import { testRegex } from '~/utils/regex';
+
 import { INPUT } from '~/constants/regex';
 
-const LoginForm = () => {
-  const [userLoginInfo, setUserLoginInfo] = useState({
-    email: '',
-    password: '',
-  });
-
-  const onChange = (text: string, InputName: string) => {
-    setUserLoginInfo({ ...userLoginInfo, [InputName]: text });
+interface LoginFormProps {
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  onChange: (text: string, InputName: string) => void;
+  status: 'stale' | 'loading' | 'error' | 'success';
+  error: string | null;
+  children: React.ReactNode;
+  userLoginInfo: {
+    [key: string]: string;
   };
-
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    alert('onSubmit');
+  userLoginInfoIsError: {
+    [key: string]: boolean;
   };
+}
+
+const LoginForm = ({
+  onSubmit,
+  onChange,
+  status,
+  userLoginInfo,
+  userLoginInfoIsError,
+  children,
+}: LoginFormProps) => {
+  const navigate = useNavigate();
 
   const onClick = () => {
-    alert('onClick');
+    navigate('/signup');
+  };
+
+  const isValidate = (text: string, inputName: 'email') => {
+    const inputValue = userLoginInfo[inputName];
+
+    if (!inputValue) return '';
+    return validateInput(inputValue) ? '' : text;
   };
 
   const validateInput = (text: string) => {
     return testRegex(text, INPUT.EMAIL);
   };
 
+  const emailErrorMessage = () => {
+    return userLoginInfoIsError.email
+      ? '이메일을 입력해주세요'
+      : isValidate('올바르지 않은 이메일 형식이에요', 'email');
+  };
+
   return (
-    <Container maxWidth='md'>
-      <form onSubmit={onSubmit}>
-        <Flex direction='column'>
-          <Container maxWidth='sm'>
-            <Text
-              size='lg'
-              color='--adaptive900'
-            >
-              로그인
-            </Text>
-          </Container>
+    <form onSubmit={onSubmit}>
+      <Flex
+        direction='column'
+        gap={1}
+      >
+        <Box>
           <Input
             label='이메일'
-            type='email'
+            type='text'
             placeholder='example@gmail.com'
-            message='올바르지 않은 이메일 형식이에요'
+            message={emailErrorMessage()}
             messageColor='--red600'
             onChange={onChange}
-            isValidate={(text) => validateInput(text)}
             InputName='email'
-            inputText={userLoginInfo.email}
           />
+          {!emailErrorMessage() && <Box style={{ height: '0.875rem' }}></Box>}
+        </Box>
+        <Box>
           <Input
             label='비밀번호'
             placeholder='비밀번호를 입력해주세요'
             onChange={onChange}
             InputName='password'
+            messageColor='--red600'
+            message={
+              userLoginInfoIsError.password ? '비밀번호를 입력해 주세요' : ''
+            }
             type='password'
-            inputText={userLoginInfo.password}
           />
-          <Container
-            maxWidth='md'
-            style={{ width: 'fit-content' }}
+          {!userLoginInfoIsError.password && (
+            <Box style={{ height: '0.875rem' }}></Box>
+          )}
+        </Box>
+        {children}
+        <Container maxWidth='sm'>
+          <Flex
+            direction='column'
+            gap={1}
           >
-            <Flex
-              direction='column'
-              gap={1}
+            <Button
+              size='lg'
+              variant='filled'
+              color='--primaryColor'
+              type='submit'
+              style={{ height: '3rem' }}
             >
-              <Button
-                size='lg'
-                variant='filled'
-                color='--primaryColor'
-                type='submit'
-              >
-                로그인
-              </Button>
-              <Button
-                size='lg'
-                variant='outlined'
-                color='--primaryColor'
-                type='button'
-                onClick={onClick}
-              >
-                가입하기
-              </Button>
-            </Flex>
-          </Container>
-        </Flex>
-      </form>
-    </Container>
+              {status === 'loading' ? <CircleLoading size={1} /> : '로그인'}
+            </Button>
+            <Button
+              size='lg'
+              variant='outlined'
+              color='--primaryColor'
+              type='button'
+              style={{ height: '3rem' }}
+              onClick={onClick}
+            >
+              가입하기
+            </Button>
+          </Flex>
+        </Container>
+      </Flex>
+    </form>
   );
 };
 
