@@ -7,12 +7,24 @@ import UserProfileBox from './UserProfileBox';
 
 interface ListItemPropsType {
   children: ReactNode;
+  handleClick?: () => void;
+  gap?: number;
+  justifyContent?: string;
 }
-const ListItem = ({ children }: ListItemPropsType) => {
+const ListItem = ({
+  children,
+  handleClick,
+  gap,
+  justifyContent,
+}: ListItemPropsType) => {
   return (
     <StyledFlex
       alignItems='center'
       p={1}
+      gap={gap}
+      onClick={handleClick && handleClick}
+      justifyContent={justifyContent}
+      style={handleClick ? { cursor: 'pointer' } : { cursor: 'default' }}
     >
       {children}
     </StyledFlex>
