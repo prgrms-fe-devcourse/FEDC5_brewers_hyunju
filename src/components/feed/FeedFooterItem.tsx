@@ -15,10 +15,7 @@ const FeedFooterItem = ({
   count,
 }: FeedFooterItemPropTypes) => {
   return (
-    <Flex
-      alignItems='center'
-      ml={iconType === 'like' ? 0 : 1}
-    >
+    <Flex alignItems='center'>
       {iconType === 'like' ? (
         <IconHeart
           width='1.4rem'
@@ -32,11 +29,17 @@ const FeedFooterItem = ({
           color='var(--adaptive500)'
         ></IconMessageCircle2>
       )}
-      <Text style={{ marginLeft: '0.2rem', color: 'var(--adaptive500)' }}>
+      <Text
+        size='sm'
+        style={{ marginLeft: '0.2rem', color: 'var(--adaptive500)' }}
+      >
         {title}
       </Text>
-      <Text style={{ marginLeft: '0.4rem', color: 'var(--adaptive500)' }}>
-        {count}개
+      <Text
+        size='sm'
+        style={{ marginLeft: '0.25rem', color: 'var(--adaptive500)' }}
+      >
+        {count}
       </Text>
     </Flex>
   );

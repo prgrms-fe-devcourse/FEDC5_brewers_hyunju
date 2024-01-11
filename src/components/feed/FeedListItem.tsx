@@ -32,12 +32,16 @@ const Divider = styled.div`
 const FeedItemContainer = styled(Container)`
   flex-shrink: 0;
 
-  padding: 34px 40px;
+  padding: 1rem 1.5rem;
   border: 1px solid var(--adaptive200);
-  border-radius: 0.75rem;
-  box-shadow: 0 4px 4px 0 var(--adaptiveOpacity100);
+
+  /* border-radius: 0.75rem; */
+
+  /* box-shadow: 0 4px 4px 0 var(--adaptiveOpacity100); */
 
   background-color: var(-adaptive50);
+
+  box-sizing: border-box;
 
   cursor: pointer;
 
@@ -82,6 +86,7 @@ const FeedListItem = ({
       <Flex
         justifyContent='space-between'
         alignItems='flex-start'
+        gap={1}
       >
         <div style={{ flex: '1' }}>
           <Avatar
@@ -93,7 +98,6 @@ const FeedListItem = ({
         </div>
         <Flex
           direction='column'
-          ml={1}
           style={{
             width: '43rem',
           }}
@@ -101,17 +105,18 @@ const FeedListItem = ({
           <Text
             size='lg'
             weight={600}
-            style={{ marginTop: '0.2rem', marginBottom: '1rem' }}
+            style={{ marginTop: '0.2rem', marginBottom: '0.2rem' }}
           >
             {userName}
           </Text>
           <Text
+            size='xs'
             color='--adaptive500'
-            style={{ marginBottom: '0.5rem' }}
+            style={{ marginBottom: '1rem' }}
           >
             {updatedAt ? `${updatedAt} · 수정됨` : createdAt}
           </Text>
-          <Text height={175}>{content}</Text>
+          <Text style={{ marginBottom: '1rem' }}>{content}</Text>
           {imageUrl && (
             <Image
               src={imageUrl}
@@ -122,7 +127,7 @@ const FeedListItem = ({
             ></Image>
           )}
           <Divider></Divider>
-          <Flex>
+          <Flex gap={1.5}>
             <FeedFooterItem
               iconType={'like'}
               title='좋아요'
