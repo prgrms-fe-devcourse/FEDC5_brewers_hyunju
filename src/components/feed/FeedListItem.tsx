@@ -3,7 +3,7 @@ import Flex from '~/components/common/Flex';
 import Text from '~/components/common/Text';
 import Image from '~/components/common/Image';
 import Avatar from '~/components/common/Avatar';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import FeedFooterItem from './FeedFooterItem';
 
 export interface FeedListItemPropsType {
@@ -24,18 +24,23 @@ export interface FeedListItemPropsType {
 const Divider = styled.div`
   width: 100%;
   height: 1px;
-  background-color: var(--adaptive400);
   margin: 1rem 0;
+
+  background-color: var(--adaptive400);
 `;
 
 const FeedItemContainer = styled(Container)`
-  padding: 34px 40px;
   flex-shrink: 0;
-  background-color: var(-adaptive50);
+
+  padding: 34px 40px;
   border: 1px solid var(--adaptive200);
   border-radius: 0.75rem;
-  box-shadow: 0px 4px 4px 0px var(--adaptiveOpacity100);
+  box-shadow: 0 4px 4px 0 var(--adaptiveOpacity100);
+
+  background-color: var(-adaptive50);
+
   cursor: pointer;
+
   &:hover {
     background-color: var(--adaptive100);
   }
