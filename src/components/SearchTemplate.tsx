@@ -5,15 +5,15 @@ import Text from './common/Text';
 import SearchBar from './search/SearchBar';
 import UserList from './search/UserList';
 import Tabs from './common/Tabs';
-import { PostType } from '~/types/common';
 import { UserListItemPropsType } from './search/UserListItem';
+import FeedListItem, { FeedListItemPropsType } from './feed/FeedListItem';
 
 export interface SearchTemplatePropsType {
   users?: UserListItemPropsType[];
-  posts?: PostType[];
+  posts?: FeedListItemPropsType[];
 }
 
-const SearchTemplate = ({ users }: SearchTemplatePropsType) => {
+const SearchTemplate = ({ users, posts }: SearchTemplatePropsType) => {
   return (
     <SearchContainer maxWidth='md'>
       <Text
@@ -27,6 +27,7 @@ const SearchTemplate = ({ users }: SearchTemplatePropsType) => {
         isFull={false}
         gap={2}
         fontSize='md'
+        fontWeight={600}
       >
         <Tabs.Header>
           <Tabs.Item
@@ -38,7 +39,25 @@ const SearchTemplate = ({ users }: SearchTemplatePropsType) => {
             id={1}
           />
         </Tabs.Header>
-        <Tabs.Body id={0}>통합검색</Tabs.Body>
+        <Tabs.Body id={0}>
+          {posts &&
+            posts.map((post) => (
+              <FeedListItem
+                id={post.id}
+                userId={post.userId}
+                profileImage={post.profileImage}
+                userName={post.userName}
+                createdAt={post.createdAt}
+                updatedAt={post.updatedAt}
+                content={post.content}
+                likesCount={post.likesCount}
+                commentsCount={post.commentsCount}
+                onFeedClick={() => {}}
+                onUserClick={() => {}}
+                imageUrl={post.imageUrl}
+              />
+            ))}
+        </Tabs.Body>
         <Tabs.Body id={1}>
           <UserList users={users} />
         </Tabs.Body>
