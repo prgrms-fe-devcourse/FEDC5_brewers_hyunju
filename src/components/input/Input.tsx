@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import Container from '~/components/common/Container';
-import Text from '~/components/common/Text';
 import Flex from '~/components/common/Flex';
+import Text from '~/components/common/Text';
 import ColorType from '~/types/design/color';
 import { FontSizeType } from '~/types/design/font';
 import { FONT_SIZE } from '~/constants/design';
@@ -73,15 +72,10 @@ const Input = ({
   placeholder,
   message,
   messageColor,
-  isValidate,
   onChange,
   children,
   InputName,
-  inputText,
 }: InputPropsType) => {
-  const [isError, setIsError] = useState(false);
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
   const labelFontSize = 'sm' as FontSizeType;
   const inputFontSize = 'lg' as FontSizeType;
   const messageFontSize = 'sm' as FontSizeType;
@@ -93,37 +87,9 @@ const Input = ({
     const { name, value } = e.target;
 
     if (onChange !== undefined) {
-      debouncing(onChange, value, name);
+      onChange(value, name);
     }
   };
-
-  const debouncing = (
-    callback:
-      | ((text: string, InputName: string) => void)
-      | ((text: string) => void),
-    value: string,
-    name: string
-  ) => {
-    if (timer.current) {
-      clearTimeout(timer.current);
-    }
-    timer.current = setTimeout(() => callback(value, name), 500);
-  };
-
-  useEffect(() => {
-    if (!inputText) {
-      setIsError(false);
-      return;
-    }
-
-    if (isValidate === undefined) {
-      return;
-    }
-
-    const isAvailable = isValidate(inputText);
-
-    setIsError(!isAvailable);
-  }, [inputText, isValidate]);
 
   return (
     <Container
@@ -131,7 +97,7 @@ const Input = ({
       style={{ padding: 0 }}
     >
       <Flex direction='column'>
-        <Border isError={isError}>
+        <Border isError={!!message}>
           <Flex
             direction='column'
             gap={0.25}
@@ -176,7 +142,7 @@ const Input = ({
               width: 'fit-content',
             }}
           >
-            {isError ? (
+            {message ? (
               <Text
                 size={messageFontSize}
                 color={messageColor}
