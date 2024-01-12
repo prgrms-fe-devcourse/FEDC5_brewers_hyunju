@@ -51,6 +51,17 @@ export interface PostType {
   updatedAt: string;
 }
 
+export interface PostSimpleType {
+  likes: LikeType[]; // 확인 필요
+  comments: CommentType[]; // 확인 필요
+  _id: string;
+  title: string;
+  channel: string;
+  author: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface LikeType {
   _id: string;
   user: string; // 사용자 id
