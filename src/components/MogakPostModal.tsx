@@ -1,15 +1,15 @@
 import { useCallback } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { IconPhoto } from '@tabler/icons-react';
-import { mogakPostOpenState, postModalState } from '~/atoms/postModalState';
 import ContentEditableDiv from '~/components/ContentEditableDiv';
-import Input from '~/components/input/Input';
+// import Input from '~/components/input/Input';
 import Text from './common/Text';
 import Modal from './common/Modal';
 import Button from './common/Button';
 import Flex from './common/Flex';
 import PostButton from './PostButton';
+import { mogakPostOpenState, postModalState } from '~/atoms/postModalState';
 
 const MogakPostModal = () => {
   const setPostModal = useSetRecoilState(postModalState);
@@ -19,7 +19,7 @@ const MogakPostModal = () => {
       type: 'basic',
       isOpen: false,
       content: '',
-      reviewForm: [undefined, undefined, undefined, undefined],
+      reviewForm: {},
       mogakForm: {},
     });
   }, [setPostModal]);
@@ -98,21 +98,21 @@ const MogakPostModal = () => {
             >
               어디서 모이나요?
             </Text>
-            <Input
+            <input
               placeholder='장소 이름이 무엇인가요?'
-              onChange={(e) => {
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setPostModal((prev) => ({
                   ...prev,
-                  mogakForm: { ...prev.mogakForm, placeName: e },
+                  mogakForm: { ...prev.mogakForm, placeName: e.target.value },
                 }));
               }}
             />
-            <Input
+            <input
               placeholder='주소가 어떻게 되나요?'
-              onChange={(e) => {
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setPostModal((prev) => ({
                   ...prev,
-                  mogakForm: { ...prev.mogakForm, address: e },
+                  mogakForm: { ...prev.mogakForm, address: e.target.value },
                 }));
               }}
             />

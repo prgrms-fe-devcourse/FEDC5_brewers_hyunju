@@ -13,7 +13,10 @@ const PostButton = () => {
       variant='filled'
       color='--primaryColor'
       size='md'
-      onClick={() => console.log(state)}
+      onClick={() => {
+        console.log(state);
+        // TODO: POST 작성 api 연결
+      }}
     >
       작성
     </RoundButton>

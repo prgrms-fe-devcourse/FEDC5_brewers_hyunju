@@ -19,7 +19,7 @@ const BasicPostModal = () => {
       type: 'basic',
       isOpen: false,
       content: '',
-      reviewForm: [undefined, undefined, undefined, undefined],
+      reviewForm: {},
       mogakForm: {},
     });
   }, [setPostModal]);

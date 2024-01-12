@@ -17,24 +17,24 @@ const RADIO_GROUP_CONFIG = [
   { label: '', value: '2' },
   { label: '잘 모르겠어요', value: '3' },
   { label: '', value: '4' },
-  { label: '쾌적했어요', value: '5' },
+  { label: '좋아요', value: '5' },
 ];
-
-const FORM_ICONS = [
+const FORM_ICONS = Object.freeze([
   <IconPlug />,
   <IconVolume />,
   <IconUsers />,
   <IconArmchair />,
-];
-const FORM_CONFIG: {
+]);
+const FORM_CONFIG: readonly {
   key: 'plugs' | 'quiet' | 'crowded' | 'seat';
   description: string;
-}[] = [
+}[] = Object.freeze([
   { key: 'plugs', description: '자리에 콘센트는 충분하나요?' },
   { key: 'quiet', description: '공부하기에 조용한가요?' },
   { key: 'crowded', description: '사람이 많은가요?' },
   { key: 'seat', description: '자리가 편한가요?' },
-];
+]);
+
 const ReviewForm = () => {
   const setPostModal = useSetRecoilState(postModalState);
   const reviewForm = useRecoilValue(reviewFormState);
@@ -42,18 +42,19 @@ const ReviewForm = () => {
     <StyledFlex direction='column'>
       <Tabs>
         <Tabs.Header>
-          {FORM_ICONS.map((icon, id) => (
+          {FORM_ICONS.map((icon, idx) => (
             <Tabs.Item
-              id={id}
-              key={id}
+              id={idx}
+              key={idx}
               icon={icon}
             />
           ))}
         </Tabs.Header>
-        {FORM_CONFIG.map(({ key, description }, id) => (
+
+        {FORM_CONFIG.map(({ key, description }, idx) => (
           <Tabs.Body
-            id={id}
-            key={id}
+            id={idx}
+            key={key}
           >
             <Text
               size='lg'
@@ -65,6 +66,7 @@ const ReviewForm = () => {
             <RadioGroup
               defaultValue={reviewForm[key]}
               options={RADIO_GROUP_CONFIG}
+              name={key}
               onChange={(value) =>
                 setPostModal((prev) => ({
                   ...prev,
