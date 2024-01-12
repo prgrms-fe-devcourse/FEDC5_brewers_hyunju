@@ -1,15 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import { useSetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 
 import LoginTemplate from '~/components/templates/LoginTemplate';
 
 import useLogin from '~/hooks/api/auth/useLogin';
 
-import loginState from '~/recoil/login/atoms';
-
 const LoginPage = () => {
-  const setLoginState = useSetRecoilState(loginState);
   const navigate = useNavigate();
 
   const [userLoginInfo, setUserLoginInfo] = useState({
@@ -66,7 +62,6 @@ const LoginPage = () => {
   useEffect(() => {
     switch (status) {
       case 'success':
-        setLoginState(true);
         navigate('/');
         break;
       case 'error':
@@ -75,7 +70,7 @@ const LoginPage = () => {
       default:
         break;
     }
-  }, [status, navigate, setLoginState]);
+  }, [status, navigate]);
 
   return (
     <LoginTemplate
