@@ -15,19 +15,19 @@ const UserListItem = ({
   isFollowing,
 }: UserListItemPropsType) => {
   const navigation = useNavigate();
-  const handleAvatarClick = useCallback(() => {
+  const handleClick = useCallback(() => {
     navigation(`/profile/${userId}`);
   }, [userId, navigation]);
   return (
     <ListItem>
       <ListItem.Avatar
         size='sm'
-        handleClick={handleAvatarClick}
+        handleClick={handleClick}
         src={userImage}
       />
       <ListItem.ProfileBox
         userName={userName}
-        handleClick={handleAvatarClick}
+        handleClick={handleClick}
       />
       <ListItem.FollowButton isFollowing={isFollowing} />
     </ListItem>
