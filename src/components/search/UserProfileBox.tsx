@@ -1,12 +1,13 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import Flex from '~/components/common/Flex';
 import Text from '~/components/common/Text';
 
 export interface UserProfileBoxPropsType {
   userName: string;
+  handleClick: () => void;
 }
-const UserProfileBox = ({ userName }: UserProfileBoxPropsType) => {
+const UserProfileBox = ({ userName, handleClick }: UserProfileBoxPropsType) => {
   return (
     <StyledFlex
       direction='column'
@@ -16,6 +17,8 @@ const UserProfileBox = ({ userName }: UserProfileBoxPropsType) => {
         color='--adaptive950'
         weight={600}
         size='sm'
+        style={{ cursor: 'pointer' }}
+        onClick={handleClick}
       >
         {userName}
       </Text>

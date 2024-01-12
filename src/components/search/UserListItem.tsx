@@ -25,7 +25,10 @@ const UserListItem = ({
         handleClick={handleAvatarClick}
         src={userImage}
       />
-      <ListItem.ProfileBox userName={userName} />
+      <ListItem.ProfileBox
+        userName={userName}
+        handleClick={handleAvatarClick}
+      />
       <ListItem.FollowButton isFollowing={isFollowing} />
     </ListItem>
   );
