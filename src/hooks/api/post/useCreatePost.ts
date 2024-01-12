@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import request from '~/api/axios';
 import { handleError } from '~/utils/handleError';
-import { CreatePostResponseType, CustomPostType } from '~/types/api/posts';
+import { CreatePostResponseType } from '~/types/api/posts';
+import { CustomPostContentType } from '~/types/common';
 import { CHANNEL_ID } from '~/constants/post';
 
 export const useCreatePost = () => {
@@ -11,7 +12,7 @@ export const useCreatePost = () => {
   const [post, setPost] = useState<CreatePostResponseType | null>(null);
   const CREATE_POST_URL = '/posts/create';
 
-  const createPost = async (post: CustomPostType, image?: File) => {
+  const createPost = async (post: CustomPostContentType, image?: File) => {
     setStatus('loading');
     try {
       const formData = new FormData();

@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import request from '~/api/axios';
 import { handleError } from '~/utils/handleError';
-import { UpdatePostResponseType, CustomPostType } from '~/types/api/posts';
+import { UpdatePostResponseType } from '~/types/api/posts';
+import { CustomPostContentType } from '~/types/common';
 import { CHANNEL_ID } from '~/constants/post';
 
 export const useUpdatePost = () => {
@@ -13,7 +14,7 @@ export const useUpdatePost = () => {
 
   const updatePost = async (
     postId: string,
-    post: CustomPostType,
+    post: CustomPostContentType,
     image?: File,
     toDeleteImageId?: string
   ) => {
