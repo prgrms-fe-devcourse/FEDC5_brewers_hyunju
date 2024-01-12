@@ -9,40 +9,44 @@ export interface FollowButtonPropsType {
 }
 const FollowButton = ({ isFollowing }: FollowButtonPropsType) => {
   const [hover, setHover] = useState(false);
+  const [isFollow, setIsFollow] = useState(isFollowing);
   const handleClick = useCallback(() => {
     console.log('click');
-    if (isFollowing) {
+    if (isFollow) {
+      setIsFollow(false);
+      // TODO: modal => unfollow 하겠습니까? [확인] [취소]
       // TODO: unfollow api
     } else {
+      setIsFollow(true);
       // TODO: follow api
     }
-  }, [isFollowing]);
+  }, [isFollow]);
   return (
     <RoundButton
       size='md'
-      variant={isFollowing ? 'outlined' : 'filled'}
+      variant={isFollow ? 'outlined' : 'filled'}
       color='--adaptive950'
       p={1}
       onMouseEnter={() => {
-        if (!isFollowing) return;
+        if (!isFollow) return;
         setHover(true);
       }}
       onMouseOut={() => {
-        if (!isFollowing) return;
+        if (!isFollow) return;
         setHover(false);
       }}
-      hoverColor={isFollowing && hover ? '--red600' : '--adaptive950'}
+      hoverColor={isFollow && hover ? '--red600' : '--adaptive950'}
       onClick={handleClick}
     >
       <Text
         size='md'
         weight={600}
         color={
-          isFollowing ? (hover ? '--red600' : '--adaptive950') : '--adaptive50'
+          isFollow ? (hover ? '--red600' : '--adaptive950') : '--adaptive50'
         }
         style={{ pointerEvents: 'none' }}
       >
-        {isFollowing ? (hover ? 'Unfollow' : 'Following') : 'Follow'}
+        {isFollow ? (hover ? 'Unfollow' : 'Following') : 'Follow'}
       </Text>
     </RoundButton>
   );
@@ -59,6 +63,6 @@ const RoundButton = styled(Button)(
   
   color: var(--adaptive50);
 
-  border-color: ${props.hoverColor ? `var(${props.hoverColor})` : undefined}
+  border-color: ${props.hoverColor ? `var(${props.hoverColor})` : undefined};
 `
 );

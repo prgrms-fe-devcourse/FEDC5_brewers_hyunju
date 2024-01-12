@@ -45,8 +45,10 @@ export const FeedItemContainer = styled(Container)`
 
   cursor: pointer;
 
+  transition: 0.2s background-color ease-in;
+
   &:hover {
-    background-color: var(--adaptive100);
+    background-color: var(--adaptive200);
   }
 `;
 
