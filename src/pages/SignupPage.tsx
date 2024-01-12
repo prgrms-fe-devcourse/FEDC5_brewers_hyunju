@@ -1,10 +1,13 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import SignupTemplate from '~/components/templates/SignupTemplate';
 
 import useSignup from '~/hooks/api/signup/useSignup';
 
 const SignupPage = () => {
+  const navigate = useNavigate();
+
   const [userSignupInfo, setUserSignupInfo] = useState({
     fullName: '',
     email: '',
@@ -91,6 +94,19 @@ const SignupPage = () => {
       });
     }
   };
+
+  useEffect(() => {
+    switch (status) {
+      case 'success':
+        navigate('/');
+        break;
+      case 'error':
+        setFormErrorMessage('다른 이메일을 입력해 주세요');
+        break;
+      default:
+        break;
+    }
+  }, [status, navigate]);
 
   return (
     <SignupTemplate
