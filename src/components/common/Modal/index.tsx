@@ -1,33 +1,24 @@
-import { ReactNode, useEffect, useMemo } from 'react';
+import { ReactNode } from 'react';
 import ReactDOM from 'react-dom';
 import styled from '@emotion/styled';
 import Container from '../Container';
 import ModalHeader from './ModalHeader';
 import ModalPage from './ModalPage';
 import ModalBody from './ModalBody';
+import ModalFooter from './ModalFooter';
 export interface ModalPropsType {
   visible: boolean;
   handleClose: () => void;
   children: ReactNode;
 }
-const Modal = ({ children, visible, handleClose }: ModalPropsType) => {
-  const $overlay = useMemo(() => document.createElement('div'), []);
-  const $backdrop = useMemo(() => document.createElement('div'), []);
-  useEffect(() => {
-    document.body.appendChild($overlay);
-    document.body.appendChild($backdrop);
-    return () => {
-      document.body.removeChild($overlay);
-      document.body.removeChild($backdrop);
-    };
-  }, [$overlay, $backdrop]);
 
+const Modal = ({ children, visible, handleClose }: ModalPropsType) => {
   return (
     <>
       {visible &&
         ReactDOM.createPortal(
           <BackgroundDim onClick={handleClose}></BackgroundDim>,
-          $backdrop
+          document.body
         )}
       {visible &&
         ReactDOM.createPortal(
@@ -37,7 +28,7 @@ const Modal = ({ children, visible, handleClose }: ModalPropsType) => {
           >
             {children}
           </ModalContainer>,
-          $overlay
+          document.body
         )}
     </>
   );
@@ -45,6 +36,7 @@ const Modal = ({ children, visible, handleClose }: ModalPropsType) => {
 Modal.Page = ModalPage;
 Modal.Header = ModalHeader;
 Modal.Body = ModalBody;
+Modal.Footer = ModalFooter;
 export default Modal;
 
 const BackgroundDim = styled.div`
