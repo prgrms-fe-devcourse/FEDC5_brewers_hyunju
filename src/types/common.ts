@@ -60,7 +60,6 @@ export interface PostType {
   updatedAt: string;
 }
 
-
 export interface PostSimpleType {
   likes: LikeType[]; // 확인 필요
   comments: CommentType[]; // 확인 필요
@@ -70,6 +69,7 @@ export interface PostSimpleType {
   author: string;
   createdAt: string;
   updatedAt: string;
+}
 
 export interface BasicPostType extends PostType {
   title: {
