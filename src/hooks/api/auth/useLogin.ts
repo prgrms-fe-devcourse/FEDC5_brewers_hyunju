@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useRequestFn } from '~/hooks/api';
 import { AUTH } from '~/constants/message';
 import { LoginRequestType, LoginResponseType } from '~/types/api/auth';
@@ -20,13 +21,18 @@ const useLogin = () => {
       }
 
       await request({ data: loginRequest });
-      if (status === 'success' && data.token) {
-        setItem('accessToken', data.token);
-      }
     } catch (e) {
       handleError(e, 'api/auth/login');
     }
   };
+
+  useEffect(() => {
+    if (status === 'success' && data.token) {
+      setItem('accessToken', data.token);
+      return;
+    }
+    setItem('accessToken', '');
+  }, [status, data]);
 
   return { handleLogin, status, error };
 };
