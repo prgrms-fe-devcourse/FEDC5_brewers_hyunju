@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { request } from '~/api/axios';
+import request from '~/api/axios';
 import { handleError } from '~/utils/handleError';
 import { SearchTotalResponseType } from '~/types/api/search';
 
@@ -15,7 +15,7 @@ export const useSearchAll = (query: string) => {
     const SEARCH_ALL_URL = `/search/all/${encodeURIComponent(query)}`;
     setStatus('loading');
     try {
-      const response = await request({
+      const response = await request<SearchTotalResponseType>({
         method: 'get',
         url: SEARCH_ALL_URL,
       });
