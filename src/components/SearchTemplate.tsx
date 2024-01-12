@@ -10,10 +10,10 @@ import FeedListItem, { FeedListItemPropsType } from './feed/FeedListItem';
 
 export interface SearchTemplatePropsType {
   users?: UserListItemPropsType[];
-  posts?: FeedListItemPropsType[];
+  postList?: FeedListItemPropsType[];
 }
 
-const SearchTemplate = ({ users, posts }: SearchTemplatePropsType) => {
+const SearchTemplate = ({ users, postList }: SearchTemplatePropsType) => {
   return (
     <SearchContainer maxWidth='md'>
       <Text
@@ -40,8 +40,8 @@ const SearchTemplate = ({ users, posts }: SearchTemplatePropsType) => {
           />
         </Tabs.Header>
         <Tabs.Body id={0}>
-          {posts &&
-            posts.map((post) => (
+          {postList &&
+            postList.map((post) => (
               <FeedListItem
                 id={post.id}
                 userId={post.userId}
