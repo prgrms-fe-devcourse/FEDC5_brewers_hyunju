@@ -57,9 +57,10 @@ const ReviewForm = () => {
             key={key}
           >
             <Text
-              size='lg'
+              size='xl'
               weight={600}
               color='--adaptive400'
+              m={1}
             >
               {description}
             </Text>
