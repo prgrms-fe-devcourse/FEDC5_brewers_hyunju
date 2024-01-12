@@ -9,12 +9,14 @@ import Input from '../input/Input';
 
 import { testRegex } from '~/utils/regex';
 
+import ResponseStatusType from '~/types/api/status';
+
 import { INPUT } from '~/constants/regex';
 
 interface LoginFormProps {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   onChange: (text: string, InputName: string) => void;
-  status: 'stale' | 'loading' | 'error' | 'success';
+  status: ResponseStatusType;
   error: string | null;
   children: React.ReactNode;
   userLoginInfo: {
