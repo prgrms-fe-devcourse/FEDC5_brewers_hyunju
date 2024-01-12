@@ -4,10 +4,12 @@ import Flex from '../common/Flex';
 import Text from '../common/Text';
 import LoginForm from '../loginForm/LoginForm';
 
+import ResponseStatusType from '~/types/api/status';
+
 interface LoginTemplateProps {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   onChange: (text: string, InputName: string) => void;
-  status: 'stale' | 'loading' | 'error' | 'success';
+  status: ResponseStatusType;
   error: string | null;
   userLoginInfo: {
     [key: string]: string;
