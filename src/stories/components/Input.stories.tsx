@@ -1,7 +1,9 @@
-import { IconSearch } from '@tabler/icons-react';
 import { useState } from 'react';
+import { IconSearch } from '@tabler/icons-react';
 import Input, { InputPropsType } from '~/components/input/Input';
+import { testRegex } from '~/utils/regex';
 import { COLOR } from '~/constants/design';
+import { INPUT } from '~/constants/regex';
 
 export default {
   title: 'Component/Input',
@@ -22,17 +24,22 @@ export default {
 };
 
 export const Standard = (args: InputPropsType) => {
-  const [, setText] = useState('');
+  const [text, setText] = useState('');
 
   const onChange = (inputText: string) => {
     setText(inputText);
+  };
+
+  const validateInput = (text: string) => {
+    return testRegex(text, INPUT.EMAIL);
   };
 
   return (
     <div>
       <Input
         {...args}
-        onBlur={(text) => text === '111'}
+        inputText={text}
+        isValidate={(text) => validateInput(text)}
         onChange={onChange}
       ></Input>
     </div>
@@ -40,7 +47,7 @@ export const Standard = (args: InputPropsType) => {
 };
 
 export const Search = () => {
-  const [, setText] = useState('');
+  const [text, setText] = useState('');
 
   const onChange = (inputText: string) => {
     setText(inputText);
@@ -48,6 +55,7 @@ export const Search = () => {
   return (
     <div>
       <Input
+        inputText={text}
         onChange={onChange}
         placeholder='placeholder'
       >
@@ -61,7 +69,7 @@ export const Search = () => {
 };
 
 export const Post = () => {
-  const [, setText] = useState('');
+  const [text, setText] = useState('');
 
   const onChange = (inputText: string) => {
     setText(inputText);
@@ -70,6 +78,7 @@ export const Post = () => {
   return (
     <div>
       <Input
+        inputText={text}
         onChange={onChange}
         label='label text'
       ></Input>

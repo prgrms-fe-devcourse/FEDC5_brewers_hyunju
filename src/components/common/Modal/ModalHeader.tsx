@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { IconX } from '@tabler/icons-react';
-import Button from '~/components/common/Button';
 import Flex from '~/components/common/Flex';
+import Button from '~/components/common/Button';
 
 interface ModalHeaderPropsType {
   children: ReactNode;
