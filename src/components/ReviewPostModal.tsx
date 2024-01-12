@@ -1,13 +1,13 @@
 import { useCallback } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { IconPhoto } from '@tabler/icons-react';
-import { postModalState, reviewPostOpenState } from '~/atoms/postModalState';
 import Modal from '~/components/common/Modal';
 import Text from '~/components/common/Text';
 import ReviewForm from './ReviewForm';
 import Button from '~/components/common/Button';
 import ContentEditableDiv from './ContentEditableDiv';
 import PostButton from './PostButton';
+import { postModalState, reviewPostOpenState } from '~/atoms/postModalState';
 
 const ReviewPostModal = () => {
   const setPostModal = useSetRecoilState(postModalState);
@@ -17,7 +17,7 @@ const ReviewPostModal = () => {
       type: 'basic',
       isOpen: false,
       content: '',
-      reviewForm: [undefined, undefined, undefined, undefined],
+      reviewForm: {},
       mogakForm: {},
     });
   }, [setPostModal]);

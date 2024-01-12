@@ -1,11 +1,11 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+import styled from '@emotion/styled';
 import {
   IconArmchair,
   IconPlug,
   IconUsers,
   IconVolume,
 } from '@tabler/icons-react';
-import styled from 'styled-components';
 import RadioGroup from './RadioGroup/RadioGroup';
 import Flex from './common/Flex';
 import Tabs from './common/Tabs';
@@ -26,11 +26,14 @@ const FORM_ICONS = [
   <IconUsers />,
   <IconArmchair />,
 ];
-const FORM_BODY = [
-  '자리에 콘센트는 충분하나요?',
-  '공부하기에 조용한가요?',
-  '사람이 많은가요?',
-  '자리가 편한가요?',
+const FORM_CONFIG: {
+  key: 'plugs' | 'quiet' | 'crowded' | 'seat';
+  description: string;
+}[] = [
+  { key: 'plugs', description: '자리에 콘센트는 충분하나요?' },
+  { key: 'quiet', description: '공부하기에 조용한가요?' },
+  { key: 'crowded', description: '사람이 많은가요?' },
+  { key: 'seat', description: '자리가 편한가요?' },
 ];
 const ReviewForm = () => {
   const setPostModal = useSetRecoilState(postModalState);
@@ -42,29 +45,33 @@ const ReviewForm = () => {
           {FORM_ICONS.map((icon, id) => (
             <Tabs.Item
               id={id}
+              key={id}
               icon={icon}
             />
           ))}
         </Tabs.Header>
-        {FORM_BODY.map((body, id) => (
-          <Tabs.Body id={id}>
+        {FORM_CONFIG.map(({ key, description }, id) => (
+          <Tabs.Body
+            id={id}
+            key={id}
+          >
             <Text
               size='lg'
               weight={600}
               color='--adaptive400'
             >
-              {body}
+              {description}
             </Text>
             <RadioGroup
-              defaultValue={reviewForm[id]}
+              defaultValue={reviewForm[key]}
               options={RADIO_GROUP_CONFIG}
               onChange={(value) =>
                 setPostModal((prev) => ({
                   ...prev,
-                  reviewForm: prev.reviewForm.map((original, idx) => {
-                    if (id === idx) return value;
-                    return original;
-                  }),
+                  reviewForm: {
+                    ...prev.reviewForm,
+                    [key]: value,
+                  },
                 }))
               }
             />

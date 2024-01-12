@@ -1,25 +1,32 @@
 import { atom, selector } from 'recoil';
 
 type PostModalType = 'basic' | 'review' | 'mogakco';
+export interface ReviewFormType {
+  plugs?: string;
+  quiet?: string;
+  crowded?: string;
+  seat?: string;
+}
+export interface MogakFormType {
+  date?: string;
+  startTime?: string;
+  endTime?: string;
+  placeName?: string;
+  address?: string;
+}
 export const postModalState = atom<{
   type: PostModalType;
   isOpen: boolean;
   content: string;
-  reviewForm: (string | undefined)[];
-  mogakForm: {
-    date?: string;
-    startTime?: string;
-    endTime?: string;
-    placeName?: string;
-    address?: string;
-  };
+  reviewForm: ReviewFormType;
+  mogakForm: MogakFormType;
 }>({
   key: 'PostModal',
   default: {
     type: 'basic',
     isOpen: false,
     content: '',
-    reviewForm: [undefined, undefined, undefined, undefined],
+    reviewForm: {},
     mogakForm: {},
   },
 });
@@ -65,7 +72,7 @@ export const isPostEmptyState = selector({
     const postModal = get(postModalState);
     return (
       postModal.content === '' &&
-      postModal.reviewForm.every((val) => val === undefined) &&
+      Object.entries(postModal.reviewForm).length === 0 &&
       !postModal.mogakForm.address &&
       !postModal.mogakForm.placeName &&
       !postModal.mogakForm.date &&
