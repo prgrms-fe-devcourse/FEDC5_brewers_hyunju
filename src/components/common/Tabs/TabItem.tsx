@@ -37,11 +37,11 @@ const TabItem = ({
   };
   return (
     <TabItemStyle
-      $selected={selected}
+      selected={selected}
       disabled={disabled}
       onClick={mergeHandleClick}
-      $fontSize={fontSize}
-      $isFull={isFull}
+      fontSize={fontSize}
+      isFull={isFull}
     >
       {icon && icon}
       {text && (
@@ -59,38 +59,45 @@ const TabItem = ({
 
 export default TabItem;
 
-const TabItemStyle = styled.button<{
-  $selected: boolean;
-  $isFull: boolean;
-  $fontSize: FontSizeType;
-}>`
-  flex-grow: ${({ $isFull }) => ($isFull ? '1' : '0')};
+const TabItemStyle = styled.button(
+  ({
+    isFull,
+    selected,
+    fontSize,
+  }: {
+    isFull: boolean;
+    selected: boolean;
+    fontSize: FontSizeType;
+  }) => `
+  flex-grow: ${isFull ? '1' : '0'};
 
   min-width: 2.5rem;
   padding: 0.125rem;
   padding-bottom: 0.3125rem;
   border: none;
-  border-bottom: ${({ $selected }) =>
-    $selected ? 'solid var(--primaryColor)' : 'solid var(--transparent)'};
-  border-width: ${({ $fontSize }) =>
-    FONT_SIZE_UNIT.findIndex((unit) => unit === $fontSize) >= 2
+  border-bottom: ${
+    selected ? 'solid var(--primaryColor)' : 'solid var(--transparent)'
+  };
+  border-width: ${
+    FONT_SIZE_UNIT.findIndex((unit) => unit === fontSize) >= 2
       ? '0.1875rem'
-      : '0.125rem'};
+      : '0.125rem'
+  };
 
   background-color: transparent;
 
-  color: ${({ $selected }) =>
-    $selected ? 'var(--primaryColor)' : 'var(--adaptive400)'};
+  color: ${selected ? 'var(--primaryColor)' : 'var(--adaptive400)'};
 
   cursor: pointer;
   transition: 0.2s border-color ease-in;
 
   &:hover {
-    color: ${({ $selected }) => !$selected && 'var(--adaptive950)'};
+    color: ${!selected && 'var(--adaptive950)'};
   }
 
   transition: 0.2s color ease-in;
-`;
+`
+);
 
 const HoverText = styled(Text)<{ $selected: boolean }>`
   color: inherit;
