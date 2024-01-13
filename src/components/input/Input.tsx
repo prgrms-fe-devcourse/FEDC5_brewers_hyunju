@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 
+import Box from '~/components/common/Box';
 import Container from '~/components/common/Container';
 import Flex from '~/components/common/Flex';
 import Text from '~/components/common/Text';
@@ -8,7 +9,6 @@ import ColorType from '~/types/design/color';
 import { FontSizeType } from '~/types/design/font';
 
 import { FONT_SIZE } from '~/constants/design';
-import Box from '../common/Box';
 
 export interface InputPropsType {
   width?: number;
