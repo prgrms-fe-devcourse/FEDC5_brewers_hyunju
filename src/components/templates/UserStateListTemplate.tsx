@@ -1,9 +1,12 @@
+import { useState } from 'react';
+
 import styled from '@emotion/styled';
 
 import Container from '~/components/common/Container';
 import Flex from '~/components/common/Flex';
 import UserStateListItem from '~/components/userListItem/UserStateListItem';
 import Text from '~/components/common/Text';
+import Button from '~/components/common/Button';
 import CircleLoading from '~/components/loading/CircleLoading';
 
 import { UserType } from '~/types/common';
@@ -44,6 +47,12 @@ const UserStateListTemplate = ({
   offlineUserList,
   status,
 }: UserStateListTemplatePropsType) => {
+  const [more, setMore] = useState(false);
+
+  const onClick = () => {
+    setMore(!more);
+  };
+
   return (
     <Container maxWidth='sm'>
       <ContentDiv>
@@ -89,14 +98,34 @@ const UserStateListTemplate = ({
             >
               오프라인
             </Text>
-            {offlineUserList?.map((user) => (
-              <UserStateListItem
-                key={user._id}
-                fullName={user.fullName}
-                src={user.image}
-                isOnline={user.isOnline}
-              />
-            ))}
+            <Button
+              variant={'text'}
+              size={'sm'}
+              onClick={onClick}
+              color={'--adaptive400'}
+              style={{ padding: 0 }}
+            >
+              {!more ? '더보기' : '닫기'}
+            </Button>
+            {more && (
+              <Flex
+                direction='column'
+                gap={0.25}
+              >
+                {status === 'loading' ? (
+                  <CircleLoading size={1} />
+                ) : (
+                  offlineUserList?.map((user) => (
+                    <UserStateListItem
+                      key={user._id}
+                      fullName={user.fullName}
+                      src={user.image}
+                      isOnline={user.isOnline}
+                    />
+                  ))
+                )}
+              </Flex>
+            )}
           </Flex>
         </Flex>
       </ContentDiv>
