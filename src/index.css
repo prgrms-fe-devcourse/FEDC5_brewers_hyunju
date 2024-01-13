@@ -2,6 +2,118 @@
 @import './colors.css';
 
 html {
-  background-color: var(--adaptive50);
+  background-color: var(--adaptive100);
   color: var(--adaptive950);
+}
+
+body {
+  font-family:
+    'SUIT Variable',
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    Roboto,
+    'Helvetica Neue',
+    'Segoe UI',
+    'Apple SD Gothic Neo',
+    'Noto Sans KR',
+    'Malgun Gothic',
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol',
+    sans-serif;
+}
+
+input[type='date'] {
+  position: relative;
+  width: 80px;
+  height: 48px;
+  padding: 0 8px 0 8px;
+  /* background: url(assets/calendar.svg) no-repeat right 8px center / 20px auto; */
+  border: 1px solid var(--adaptive400);
+  border-radius: 12px;
+
+  font-family:
+    'SUIT Variable',
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    Roboto,
+    'Helvetica Neue',
+    'Segoe UI',
+    'Apple SD Gothic Neo',
+    'Noto Sans KR',
+    'Malgun Gothic',
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol',
+    sans-serif;
+}
+input[type='date']::-webkit-clear-button,
+input[type='date']::-webkit-inner-spin-button {
+  display: none;
+}
+input[type='date']::-webkit-calendar-picker-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  color: transparent;
+  cursor: pointer;
+}
+input[type='date']::before {
+  content: attr(data-placeholder);
+  width: 100%;
+}
+input[type='date']:valid::before {
+  display: none;
+}
+
+input[type='time'] {
+  position: relative;
+  width: 80px;
+  height: 48px;
+  padding: 0 8px 0 8px;
+  /* background: url(assets/clock.svg) no-repeat right 8px center / 20px auto; */
+  border: 1px solid var(--adaptive400);
+  border-radius: 12px;
+
+  font-family:
+    'SUIT Variable',
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    Roboto,
+    'Helvetica Neue',
+    'Segoe UI',
+    'Apple SD Gothic Neo',
+    'Noto Sans KR',
+    'Malgun Gothic',
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol',
+    sans-serif;
+}
+input[type='time']::-webkit-clear-button,
+input[type='time']::-webkit-inner-spin-button {
+  display: none;
+}
+input[type='time']::-webkit-calendar-picker-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  color: transparent;
+  cursor: pointer;
+}
+input[type='time']::before {
+  content: attr(data-placeholder);
+  width: 100%;
+}
+input[type='time']:valid::before {
+  display: none;
 }
