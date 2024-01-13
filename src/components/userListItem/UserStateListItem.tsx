@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 
-import Container from '../common/Container';
-import Image from '../common/Image';
-import Text from '../common/Text';
-import Flex from '../common/Flex';
+import Container from '~/components/common/Container';
+import Image from '~/components/common/Image';
+import Text from '~/components/common/Text';
+import Flex from '~/components/common/Flex';
 
 import ColorType from '~/types/design/color';
 
