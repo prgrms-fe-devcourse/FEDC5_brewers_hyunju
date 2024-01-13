@@ -68,6 +68,7 @@ const SignupForm = ({
           <Box>
             <Input
               label='사용자 이름'
+              placeholder='프롱이'
               message={
                 userSignupInfoIsError.fullName
                   ? '사용자 이름을 입력해 주세요'
@@ -113,6 +114,7 @@ const SignupForm = ({
           <Box>
             <Input
               label='비밀번호 확인'
+              placeholder='비밀번호를 입력해주세요'
               message={passwordErrorMessage()}
               messageColor='--red600'
               onChange={onChange}
