@@ -8,6 +8,7 @@ import ColorType from '~/types/design/color';
 import { FontSizeType } from '~/types/design/font';
 
 import { FONT_SIZE } from '~/constants/design';
+import Box from '../common/Box';
 
 export interface InputPropsType {
   width?: number;
@@ -55,16 +56,6 @@ const Border = styled.div(
   border: 0.0625rem solid
     ${`var(${props.isError ? '--red600' : '--adaptive900'})`};
   border-radius: 1rem;
-`
-);
-
-interface PaddingPropsType {
-  height: FontSizeType;
-}
-
-const Padding = styled.div(
-  (props: PaddingPropsType) => `
-  height: ${FONT_SIZE[props.height]};
 `
 );
 
@@ -136,7 +127,7 @@ const Input = ({
             </Flex>
           </Flex>
         </Border>
-        {message && (
+        {message ? (
           <Container
             maxWidth='md'
             style={{
@@ -145,17 +136,15 @@ const Input = ({
               width: 'fit-content',
             }}
           >
-            {message ? (
-              <Text
-                size={messageFontSize}
-                color={messageColor}
-              >
-                {message}
-              </Text>
-            ) : (
-              <Padding height={messageFontSize} />
-            )}
+            <Text
+              size={messageFontSize}
+              color={messageColor}
+            >
+              {message}
+            </Text>
           </Container>
+        ) : (
+          <Box height={0.875}></Box>
         )}
       </Flex>
     </Container>
