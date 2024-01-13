@@ -90,7 +90,7 @@ const FeedListItem = ({
         alignItems='flex-start'
         gap={1}
       >
-        <div style={{ flex: '1' }}>
+        <div>
           <Avatar
             src={profileImage}
             size='sm'
@@ -101,7 +101,7 @@ const FeedListItem = ({
         <Flex
           direction='column'
           style={{
-            width: '43rem',
+            width: '44rem',
           }}
         >
           <Text
