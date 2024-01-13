@@ -74,7 +74,6 @@ const LoginForm = ({
             onChange={onChange}
             InputName='email'
           />
-          {!emailErrorMessage() && <Box style={{ height: '0.875rem' }}></Box>}
         </Box>
         <Box>
           <Input
@@ -88,9 +87,6 @@ const LoginForm = ({
             }
             type='password'
           />
-          {!userLoginInfoIsError.password && (
-            <Box style={{ height: '0.875rem' }}></Box>
-          )}
         </Box>
         {children}
         <Container maxWidth='sm'>
