@@ -1,10 +1,9 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import Avatar from '~/components/common/Avatar';
 import Button from '~/components/common/Button';
+import Image from '../common/Image';
 import Flex from '~/components/common/Flex';
-import FeedContentEditable from '~/components/feed/FeedContentEditable';
-import useFeedContent from '~/hooks/useFeedContent';
 import Container from '~/components/common/Container';
 
 export interface FeedListInputPropsType {
@@ -26,15 +25,51 @@ const FeedListInputContainer = styled(Container)`
   box-sizing: border-box;
 `;
 
-const FeedListInput = ({ userId, profileImage }: FeedListInputPropsType) => {
-  const { content, removeContent, handleInput } = useFeedContent();
+const FeedListTextarea = styled.textarea`
+  width: 100%;
+  height: 4.875rem;
+  padding-top: 0.625rem;
+  box-sizing: border-box;
+  border: none;
+  font-size: 1rem;
+  resize: none;
 
-  const handleButtonClick = () => {
+  :focus {
+    outline: none;
+  }
+`;
+
+const FeedListInput = ({ userId, profileImage }: FeedListInputPropsType) => {
+  const formRef = useRef<HTMLFormElement | null>(null);
+
+  const [content, setContent] = useState('');
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | undefined>(undefined);
+
+  // '작성' 버튼 클릭시
+  const handleSubmitBtnClick = () => {
     if (content) {
-      alert(content);
-      removeContent();
+      console.log({ content, selectedFile, previewUrl });
+      setContent('');
+      setPreviewUrl(undefined);
+      setSelectedFile(null);
 
       // 데이터 통신
+    }
+  };
+
+  // '사진' 버튼 클릭 시
+  const handleImageBtnClick = () => {
+    formRef.current?.file.click();
+  };
+
+  // 파일 변경 시
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0];
+
+    if (file) {
+      setPreviewUrl(URL.createObjectURL(file));
+      setSelectedFile(file);
     }
   };
 
@@ -61,12 +96,20 @@ const FeedListInput = ({ userId, profileImage }: FeedListInputPropsType) => {
             width: '44rem',
           }}
         >
-          <FeedContentEditable
-            content={content}
-            onChange={(e: ChangeEvent<HTMLDivElement>) => {
-              handleInput(e);
-            }}
-          ></FeedContentEditable>
+          <FeedListTextarea
+            placeholder='무엇을 하고 계신가요?'
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          />
+          {selectedFile && (
+            <Image
+              width={10}
+              height={10}
+              src={previewUrl}
+              alt='Profile Image'
+              letterBoxColor='--transparent'
+            />
+          )}
           <Flex
             mt={1.2}
             style={{ height: '2.75rem' }}
@@ -83,13 +126,22 @@ const FeedListInput = ({ userId, profileImage }: FeedListInputPropsType) => {
             >
               위치
             </Button>
+            <form
+              ref={formRef}
+              onChange={(e) => console.log(e)}
+            >
+              <input
+                type='file'
+                name='file'
+                onChange={handleFileChange}
+                hidden
+              />
+            </form>
             <Button
               variant='outlined'
               size='md'
               color='--primaryColor'
-              onClick={() => {
-                alert('사진');
-              }}
+              onClick={handleImageBtnClick}
               style={{ height: '100%', width: '4.5rem' }}
             >
               사진
@@ -98,7 +150,7 @@ const FeedListInput = ({ userId, profileImage }: FeedListInputPropsType) => {
               variant='filled'
               size='md'
               color='--primaryColor'
-              onClick={() => handleButtonClick()}
+              onClick={handleSubmitBtnClick}
               style={{ height: '100%', width: '4.5rem', marginLeft: 'auto' }}
             >
               작성
