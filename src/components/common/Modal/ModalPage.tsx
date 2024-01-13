@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 interface ModalPagePropsType {
   children: ReactNode;
 }
+
 const ModalPage = ({ children }: ModalPagePropsType) => {
   return <PageWrapper>{children}</PageWrapper>;
 };

@@ -6,6 +6,7 @@ import ProfilePage from './pages/ProfilePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import SearchPage from './pages/SearchPage';
+import Test from './Test';
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,11 @@ const router = createBrowserRouter([
   {
     path: 'profile/:userId',
     element: <ProfilePage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: 'test-modal',
+    element: <Test />,
     errorElement: <ErrorPage />,
   },
 ]);

@@ -44,11 +44,53 @@ export interface PostType {
   _id: string;
   image?: string;
   imagePublicId?: string;
-  title: string;
+  title: {
+    type: PostVariantType;
+    title: string;
+    workingSpot: WorkingSpotType;
+    body:
+      | BasicPostBodyType
+      | MogakPostBodyType
+      | ReviewPostBodyType
+      | SpotPostBodyType;
+  };
   channel: ChannelType;
   author: UserType;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface BasicPostType extends PostType {
+  title: {
+    type: 'common';
+    title: string;
+    workingSpot: WorkingSpotType;
+    body: BasicPostBodyType;
+  };
+}
+export interface ReviewPostType extends PostType {
+  title: {
+    type: 'review';
+    title: string;
+    workingSpot: WorkingSpotType;
+    body: ReviewPostBodyType;
+  };
+}
+export interface MogakPostType extends PostType {
+  title: {
+    type: 'mogak';
+    title: string;
+    workingSpot: WorkingSpotType;
+    body: MogakPostBodyType;
+  };
+}
+export interface SpotPostType extends PostType {
+  title: {
+    type: 'spot';
+    title: string;
+    workingSpot: WorkingSpotType;
+    body: SpotPostBodyType;
+  };
 }
 
 export interface LikeType {
@@ -106,4 +148,38 @@ export interface MessageType {
   seen: boolean;
   createdAt: string;
   updatedAt: string;
+}
+
+export type PostVariantType = 'review' | 'common' | 'mogak' | 'spot';
+export type WorkingSpotType = 'cafe' | 'home' | 'etc';
+
+export interface BasicPostBodyType {
+  text: string;
+}
+export interface MogakPostBodyType {
+  text: string;
+  date: string;
+  startTime: string;
+  endTime: string;
+  location: string;
+  maxCount: number;
+}
+export interface ReviewPostBodyType {
+  text: string;
+  location: string;
+  form: ReviewFormType;
+}
+export interface SpotPostBodyType {
+  spot: WorkingSpotType;
+  text: '';
+}
+export interface ReviewFormType {
+  plugs?: number;
+  crowded?: {
+    day: number;
+    value: number;
+  };
+  quiet?: number;
+  comfortable?: number;
+  bathroom?: number;
 }

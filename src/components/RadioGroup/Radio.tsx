@@ -74,7 +74,12 @@ const Radio = ({
         checked={checked}
         onChange={onChange}
       ></RadioButtonInput>
-      <Text as='label'>{children}</Text>
+      <Text
+        as='label'
+        size='xs'
+      >
+        {children}
+      </Text>
     </Flex>
   );
 };
