@@ -79,9 +79,6 @@ const SignupForm = ({
               InputName='fullName'
               inputText={userSignupInfo.fullName}
             />
-            {!userSignupInfoIsError.fullName && (
-              <Box style={{ height: '0.875rem' }}></Box>
-            )}
           </Box>
           <Box>
             <Input
@@ -93,7 +90,6 @@ const SignupForm = ({
               InputName='email'
               inputText={userSignupInfo.email}
             />
-            {!emailErrorMessage() && <Box style={{ height: '0.875rem' }}></Box>}
           </Box>
           <Box>
             <Input
@@ -107,9 +103,6 @@ const SignupForm = ({
               InputName='password'
               inputText={userSignupInfo.password}
             />
-            {!userSignupInfoIsError.password && (
-              <Box style={{ height: '0.875rem' }}></Box>
-            )}
           </Box>
           <Box>
             <Input
@@ -121,9 +114,6 @@ const SignupForm = ({
               InputName='checkPassword'
               inputText={userSignupInfo.checkPassword}
             />
-            {!passwordErrorMessage() && (
-              <Box style={{ height: '0.875rem' }}></Box>
-            )}
           </Box>
           <Container maxWidth='sm'>
             <Flex
