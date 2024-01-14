@@ -1,7 +1,7 @@
 import Container from '../common/Container';
 import ColorType from '~/types/design/color';
 import styled from '@emotion/styled';
-import { keyframes } from '@emotion/react';
+import { keyframes, css } from '@emotion/react';
 
 interface CircleLoadingPropsType {
   size?: number;
@@ -13,6 +13,8 @@ interface CircleLoadingPropsType {
 
 interface AnimationPropsType {
   time: number;
+  width: number;
+  height: number;
 }
 
 const rotateBar = keyframes`
@@ -25,52 +27,63 @@ const rotateBar = keyframes`
   }
 `;
 
-const Animation = styled.div<AnimationPropsType>`
-  animation: ${rotateBar} ${({ time }) => time}s linear infinite;
-`;
+const Animation = styled.div(
+  (props: AnimationPropsType) => css`
+    width: ${props.width}px;
+    height: ${props.height}px;
+
+    animation: ${rotateBar} ${props.time}s linear infinite;
+  `
+);
 
 const CircleLoading = ({
-  size = 7.5,
+  size = 1,
   time = 2,
-  stroke = 12,
+  stroke = 0.25,
   color = '--primaryColor' as ColorType,
   backgroundColor = '--adaptive300' as ColorType,
 }: CircleLoadingPropsType) => {
-  const newSize = size < 2 ? 2 : size;
+  const newSize = size < 0 ? 0.01 : size;
   const convertedSize = newSize * 16;
-  const circleRadius = convertedSize / 4;
-  const colorBarRatio = (circleRadius * 2 * Math.PI) / 5;
-  const backgroundColorBarRatio = ((circleRadius * 2 * Math.PI) / 5) * 4;
-  const newStrokeWidth = stroke < 0 ? 0 : stroke;
+  const colorBarRatio = (convertedSize * 2 * Math.PI) / 5;
+  const backgroundColorBarRatio = ((convertedSize * 2 * Math.PI) / 5) * 4;
+  const newStrokeWidth = stroke < 0 ? 0 : stroke * 16;
 
   return (
     <Container
       maxWidth={'sm'}
-      style={{ width: `${newSize}rem`, height: `${newSize}rem` }}
+      style={{
+        width: `${(convertedSize + newStrokeWidth) * 2}px`,
+        height: `${(convertedSize + newStrokeWidth) * 2}px`,
+        backgroundColor: 'transparent',
+      }}
     >
-      <Animation time={time}>
+      <Animation
+        time={time}
+        width={(convertedSize + newStrokeWidth) * 2}
+        height={(convertedSize + newStrokeWidth) * 2}
+      >
         <svg
-          width={convertedSize}
-          height={convertedSize}
-          viewBox={`0 0 ${convertedSize} ${convertedSize}`}
+          width={(convertedSize + newStrokeWidth) * 2}
+          height={(convertedSize + newStrokeWidth) * 2}
         >
           <circle
-            cx={circleRadius * 2}
-            cy={circleRadius * 2}
-            r={circleRadius}
-            stroke-width={newStrokeWidth}
+            cx={convertedSize + newStrokeWidth}
+            cy={convertedSize + newStrokeWidth}
+            r={convertedSize}
+            strokeWidth={newStrokeWidth * 2}
             fill='none'
             style={{ stroke: `var(${backgroundColor})` }}
           />
           <circle
-            cx={circleRadius * 2}
-            cy={circleRadius * 2}
-            r={circleRadius}
-            stroke-width={newStrokeWidth}
+            cx={convertedSize + newStrokeWidth}
+            cy={convertedSize + newStrokeWidth}
+            r={convertedSize}
+            strokeWidth={newStrokeWidth * 2}
             fill='none'
             style={{ stroke: `var(${color})` }}
-            stroke-dasharray={`${colorBarRatio} ${backgroundColorBarRatio}`}
-            stroke-linecap='round'
+            strokeDasharray={`${colorBarRatio} ${backgroundColorBarRatio}`}
+            strokeLinecap='round'
           />
         </svg>
       </Animation>

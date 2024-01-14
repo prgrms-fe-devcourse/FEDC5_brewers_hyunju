@@ -14,9 +14,9 @@ type Story = StoryObj<typeof CircleLoading>;
 
 export const Standard: Story = {
   args: {
-    size: 7.5,
+    size: 1,
     time: 2,
-    stroke: 12,
+    stroke: 0.25,
     color: '--primaryColor',
     backgroundColor: '--adaptive300',
   },
