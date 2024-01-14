@@ -1,16 +1,13 @@
 import styled from '@emotion/styled';
 import Post from '~/components/post/Post';
 import { PostType } from '~/types/common';
-import PostCommentListItem, {
-  PostCommentListItemPropsType,
-} from '~/components/postComment/PostCommentListItem';
+import PostCommentListItem from '~/components/postComment/PostCommentListItem';
 import Container from '~/components/common/Container';
 import Text from '~/components/common/Text';
 import { OptionalConfig } from '~/hooks/api';
 
 export interface PostTemplatePropsType {
   post: PostType;
-  postComments: PostCommentListItemPropsType[];
   actions: {
     requestPost: (config?: OptionalConfig) => Promise<void>;
     updatePost: (config?: OptionalConfig) => Promise<void>;
@@ -21,9 +18,11 @@ export interface PostTemplatePropsType {
 const PostContainer = styled(Container)``;
 
 const PostTemplate = ({ post, actions }: PostTemplatePropsType) => {
+  // dropDown 버튼 클릭 시
   const handleDropDownClick = async (action: string) => {
     // if (!auth) return;
 
+    // '수정하기' 클릭 시
     if (action === 'put') {
       await actions.updatePost({
         data: {
@@ -31,17 +30,20 @@ const PostTemplate = ({ post, actions }: PostTemplatePropsType) => {
         },
       });
     } else {
+      // '삭제하기' 클릭 시
       await actions.deletePost({
         data: {
           userId: post._id,
         },
       });
+      // == 다시 post로 돌아가게? navigation?
     }
-    // navigation
     // actions.requestPost();
   };
 
+  // Avatar 클릭 시
   const handleUserClick = () => {
+    // navigation 설정?
     // navigation(post.author._id)
   };
 
@@ -70,7 +72,17 @@ const PostTemplate = ({ post, actions }: PostTemplatePropsType) => {
           onUserClick={handleUserClick}
         />
       )}
-      {/* 댓글 컴포넌트 */}
+      {post.comments &&
+        post.comments.map((comment) => (
+          <PostCommentListItem
+            userName={comment.author.fullName}
+            createdAt={comment.createdAt}
+            avatarSrc={comment.author.image}
+            message={comment.comment}
+            handleClick={handleUserClick}
+            updatedAt={comment.updatedAt}
+          ></PostCommentListItem>
+        ))}
     </PostContainer>
   );
 };
