@@ -1,10 +1,12 @@
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import Avatar from '~/components/common/Avatar';
 import Button from '~/components/common/Button';
 import Image from '../common/Image';
 import Flex from '~/components/common/Flex';
 import Container from '~/components/common/Container';
+import { CustomPostContentType } from '~/types/common';
+// import { useCreatePost } from '~/hooks/api/post/useCreatePost';
 
 export interface FeedListInputPropsType {
   userId: string;
@@ -46,17 +48,34 @@ const FeedListInput = ({ userId, profileImage }: FeedListInputPropsType) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | undefined>(undefined);
 
-  // '작성' 버튼 클릭시
-  const handleSubmitBtnClick = () => {
-    if (content) {
-      console.log({ content, selectedFile, previewUrl });
-      setContent('');
-      setPreviewUrl(undefined);
-      setSelectedFile(null);
+  // const { request: createPost } = useCreatePost();
+  const [postContent, setPostContent] = useState<CustomPostContentType>({});
 
-      // 데이터 통신
+  const resetData = () => {
+    setContent('');
+    setPreviewUrl(undefined);
+    setSelectedFile(null);
+  };
+
+  // '작성' 버튼 클릭시
+  const handleSubmitBtnClick = async () => {
+    if (content) {
+      setPostContent({
+        type: 'common',
+        title: '',
+        workingSpot: 'cafe',
+        body: {
+          text: content,
+        },
+      });
     }
   };
+
+  useEffect(() => {
+    console.log(JSON.stringify(postContent));
+    // createPost(postContent, selectedFile);
+    resetData();
+  }, [postContent]);
 
   // '사진' 버튼 클릭 시
   const handleImageBtnClick = () => {
