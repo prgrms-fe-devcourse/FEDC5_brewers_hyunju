@@ -44,11 +44,78 @@ export interface PostType {
   _id: string;
   image?: string;
   imagePublicId?: string;
-  title: string;
+  title: {
+    type: PostVariantType;
+    title: string;
+    workingSpot: WorkingSpotType;
+    body:
+      | BasicPostBodyType
+      | MogakPostBodyType
+      | ReviewPostBodyType
+      | SpotPostBodyType;
+  };
   channel: ChannelType;
   author: UserType;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface PostSimpleType {
+  likes: LikeType[]; // 확인 필요
+  comments: CommentType[]; // 확인 필요
+  _id: string;
+  title: string;
+  channel: string;
+  author: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface BasicPostContentType {
+  type: 'common';
+  title: string;
+  workingSpot: WorkingSpotType;
+  body: BasicPostBodyType;
+}
+
+export interface ReviewPostContentType {
+  type: 'review';
+  title: string;
+  workingSpot: WorkingSpotType;
+  body: ReviewPostBodyType;
+}
+
+export interface MogakPostContentType {
+  type: 'mogak';
+  title: string;
+  workingSpot: WorkingSpotType;
+  body: MogakPostBodyType;
+}
+
+export interface SpotPostContentType {
+  type: 'spot';
+  title: string;
+  workingSpot: WorkingSpotType;
+  body: SpotPostBodyType;
+}
+
+export type CustomPostContentType =
+  | BasicPostContentType
+  | ReviewPostContentType
+  | MogakPostContentType
+  | SpotPostContentType;
+
+export interface BasicPostType extends PostType {
+  title: BasicPostContentType;
+}
+export interface ReviewPostType extends PostType {
+  title: ReviewPostContentType;
+}
+export interface MogakPostType extends PostType {
+  title: MogakPostContentType;
+}
+export interface SpotPostType extends PostType {
+  title: SpotPostContentType;
 }
 
 export interface LikeType {
@@ -106,4 +173,38 @@ export interface MessageType {
   seen: boolean;
   createdAt: string;
   updatedAt: string;
+}
+
+export type PostVariantType = 'review' | 'common' | 'mogak' | 'spot';
+export type WorkingSpotType = 'cafe' | 'home' | 'etc';
+
+export interface BasicPostBodyType {
+  text: string;
+}
+export interface MogakPostBodyType {
+  text: string;
+  date: string;
+  startTime: string;
+  endTime: string;
+  location: string;
+  maxCount: number;
+}
+export interface ReviewPostBodyType {
+  text: string;
+  location: string;
+  form: ReviewFormType;
+}
+export interface SpotPostBodyType {
+  spot: WorkingSpotType;
+  text: '';
+}
+export interface ReviewFormType {
+  plugs?: number;
+  crowded?: {
+    day: number;
+    value: number;
+  };
+  quiet?: number;
+  comfortable?: number;
+  bathroom?: number;
 }

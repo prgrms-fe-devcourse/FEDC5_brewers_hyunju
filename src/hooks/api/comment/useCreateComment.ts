@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { request } from '~/api/axios';
+import request from '~/api/axios';
 import { handleError } from '~/utils/handleError';
 import {
   CreateCommentRequestType,
@@ -19,7 +19,7 @@ export const useCreateComment = ({
   const createComment = async () => {
     setStatus('loading');
     try {
-      const response = await request({
+      const response = await request<CreateCommentResponseType>({
         method: 'post',
         url: CREATE_COMMENT_URL,
         data: { comment, postId },

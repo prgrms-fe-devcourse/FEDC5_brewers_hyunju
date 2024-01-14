@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { request } from '~/api/axios';
+import request from '~/api/axios';
 import { handleError } from '~/utils/handleError';
 import {
   DeleteCommentRequestType,
@@ -16,7 +16,7 @@ export const useDeleteComment = ({ id }: DeleteCommentRequestType) => {
   const deleteComment = async () => {
     setStatus('loading');
     try {
-      const response = await request({
+      const response = await request<DeleteCommentResponseType>({
         method: 'delete',
         url: DELETE_COMMENT_URL,
         data: { id },

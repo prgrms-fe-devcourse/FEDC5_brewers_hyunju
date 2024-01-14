@@ -22,9 +22,10 @@
 
     "baseUrl": "src",
     "paths": {
-      "~/*": ["*"],
+      "~/*": ["*"]
     }
   },
   "include": ["src"],
+  "exclude": ["src/stories/**/*.stories.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

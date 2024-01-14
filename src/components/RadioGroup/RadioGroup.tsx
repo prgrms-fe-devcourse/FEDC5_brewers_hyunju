@@ -8,6 +8,7 @@ export interface RadioGroupPropsType {
   defaultValue?: string;
   disabled?: boolean;
   onChange?: (value: string) => void;
+  name: string;
 }
 
 const RadioGroup: React.FC<RadioGroupPropsType> = ({
@@ -15,6 +16,7 @@ const RadioGroup: React.FC<RadioGroupPropsType> = ({
   defaultValue,
   disabled,
   onChange,
+  name,
 }) => {
   const [selectedValue, setSelectedValue] = useState<string | undefined>(
     defaultValue
@@ -38,7 +40,7 @@ const RadioGroup: React.FC<RadioGroupPropsType> = ({
           <Radio
             key={option.value}
             value={option.value}
-            name='radioGroup'
+            name={name}
             checked={selectedValue === option.value}
             disabled={disabled}
             onChange={() => handleRadioChange(option.value)}

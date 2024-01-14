@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 
-import Box from '../common/Box';
-import Button from '../common/Button';
-import Container from '../common/Container';
-import CircleLoading from '../loading/CircleLoading';
-import Flex from '../common/Flex';
-import Input from '../input/Input';
+import Box from '~/components/common/Box';
+import Button from '~/components/common/Button';
+import Container from '~/components/common/Container';
+import CircleLoading from '~/components/loading/CircleLoading';
+import Flex from '~/components/common/Flex';
+import Input from '~/components/input/Input';
 
 import { testRegex } from '~/utils/regex';
 
@@ -74,7 +74,6 @@ const LoginForm = ({
             onChange={onChange}
             InputName='email'
           />
-          {!emailErrorMessage() && <Box style={{ height: '0.875rem' }}></Box>}
         </Box>
         <Box>
           <Input
@@ -88,9 +87,6 @@ const LoginForm = ({
             }
             type='password'
           />
-          {!userLoginInfoIsError.password && (
-            <Box style={{ height: '0.875rem' }}></Box>
-          )}
         </Box>
         {children}
         <Container maxWidth='sm'>
