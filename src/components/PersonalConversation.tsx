@@ -13,7 +13,7 @@ const PersonalConversation = ({
   userId,
 }: PersonalConversationPropsType) => {
   const convertTime = (createdAt: string) => {
-    return createdAt;
+    return new Date(createdAt).toLocaleTimeString('ko-KR').slice(0, -3);
   };
 
   return (
