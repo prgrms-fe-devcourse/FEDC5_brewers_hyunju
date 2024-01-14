@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { request } from '~/api/axios';
+import request from '~/api/axios';
 import { handleError } from '~/utils/handleError';
 import { SearchUserResponseType } from '~/types/api/search';
 
@@ -15,7 +15,7 @@ export const useSearchUsers = (query: string) => {
     const SEARCH_USERS_URL = `/search/users/${encodeURIComponent(query)}`;
     setStatus('loading');
     try {
-      const response = await request({
+      const response = await request<SearchUserResponseType>({
         method: 'get',
         url: SEARCH_USERS_URL,
       });

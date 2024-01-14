@@ -1,5 +1,8 @@
+import React from 'react';
 import type { Preview } from '@storybook/react';
+import { RecoilRoot } from 'recoil';
 import '~/index.css';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
 
 const preview: Preview = {
   parameters: {
@@ -16,6 +19,20 @@ const preview: Preview = {
       stylePreview: true,
     },
   },
+  decorators: [
+    (Story) => (
+      <RecoilRoot>
+        <MemoryRouter>
+          <Routes>
+            <Route
+              path='/*'
+              element={<Story />}
+            />
+          </Routes>
+        </MemoryRouter>
+      </RecoilRoot>
+    ),
+  ],
 };
 
 export default preview;
