@@ -1,10 +1,23 @@
+import { useEffect } from 'react';
+import { useSetRecoilState } from 'recoil';
+
 import { useRequestFn } from '~/hooks/api';
-import { AUTH } from '~/constants/message';
-import { LoginRequestType, LoginResponseType } from '~/types/api/auth';
+
+import { loginState } from '~/recoil/login/atoms';
+import { userState } from '~/recoil/login/atoms';
+
 import { setItem } from '~/utils/localStorage';
 import { handleError } from '~/utils/handleError';
 
+import { LoginRequestType, LoginResponseType } from '~/types/api/auth';
+import { UserType } from '~/types/common';
+
+import { AUTH } from '~/constants/message';
+
 const useLogin = () => {
+  const setLoginState = useSetRecoilState(loginState);
+  const setUserState = useSetRecoilState(userState);
+
   const { request, status, data, error } = useRequestFn<LoginResponseType>({
     method: 'post',
     url: '/login',
@@ -20,13 +33,22 @@ const useLogin = () => {
       }
 
       await request({ data: loginRequest });
-      if (status === 'success' && data.token) {
-        setItem('accessToken', data.token);
-      }
     } catch (e) {
       handleError(e, 'api/auth/login');
     }
   };
+
+  useEffect(() => {
+    if (status === 'success' && data.token) {
+      setItem('accessToken', data.token);
+      setUserState(data.user);
+      setLoginState(true);
+      return;
+    }
+    setItem('accessToken', '');
+    setUserState({} as UserType);
+    setLoginState(false);
+  }, [status, data, setUserState, setLoginState]);
 
   return { handleLogin, status, error };
 };
