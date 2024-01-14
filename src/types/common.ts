@@ -60,37 +60,62 @@ export interface PostType {
   updatedAt: string;
 }
 
+export interface PostSimpleType {
+  likes: LikeType[]; // 확인 필요
+  comments: CommentType[]; // 확인 필요
+  _id: string;
+  title: string;
+  channel: string;
+  author: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface BasicPostContentType {
+  type: 'common';
+  title: string;
+  workingSpot: WorkingSpotType;
+  body: BasicPostBodyType;
+}
+
+export interface ReviewPostContentType {
+  type: 'review';
+  title: string;
+  workingSpot: WorkingSpotType;
+  body: ReviewPostBodyType;
+}
+
+export interface MogakPostContentType {
+  type: 'mogak';
+  title: string;
+  workingSpot: WorkingSpotType;
+  body: MogakPostBodyType;
+}
+
+export interface SpotPostContentType {
+  type: 'spot';
+  title: string;
+  workingSpot: WorkingSpotType;
+  body: SpotPostBodyType;
+}
+
+export type CustomPostContentType =
+  | BasicPostContentType
+  | ReviewPostContentType
+  | MogakPostContentType
+  | SpotPostContentType;
+
 export interface BasicPostType extends PostType {
-  title: {
-    type: 'common';
-    title: string;
-    workingSpot: WorkingSpotType;
-    body: BasicPostBodyType;
-  };
+  title: BasicPostContentType;
 }
 export interface ReviewPostType extends PostType {
-  title: {
-    type: 'review';
-    title: string;
-    workingSpot: WorkingSpotType;
-    body: ReviewPostBodyType;
-  };
+  title: ReviewPostContentType;
 }
 export interface MogakPostType extends PostType {
-  title: {
-    type: 'mogak';
-    title: string;
-    workingSpot: WorkingSpotType;
-    body: MogakPostBodyType;
-  };
+  title: MogakPostContentType;
 }
 export interface SpotPostType extends PostType {
-  title: {
-    type: 'spot';
-    title: string;
-    workingSpot: WorkingSpotType;
-    body: SpotPostBodyType;
-  };
+  title: SpotPostContentType;
 }
 
 export interface LikeType {
