@@ -8,8 +8,8 @@ export interface UserType {
   posts: PostType[];
   likes: LikeType[];
   comments: string[];
-  followers: FollowInfoType[];
-  following: FollowInfoType[];
+  followers: string[];
+  following: string[];
   notifications: NotificationType[];
   messages: MessageType[];
   _id: string;
@@ -19,14 +19,15 @@ export interface UserType {
   updatedAt: string;
 }
 
-export interface FollowInfoType {
-  _id: string;
-  user: string;
-  follower: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-}
+// 안 쓰임
+// export interface FollowInfoType {
+//   _id: string;
+//   user: string;
+//   follower: string;
+//   createdAt: string;
+//   updatedAt: string;
+//   __v: number;
+// }
 
 export interface ChannelType {
   authRequired: boolean; // 사용되지 않음
@@ -44,18 +45,19 @@ export interface PostType {
   _id: string;
   image?: string;
   imagePublicId?: string;
-  title: {
-    type: PostVariantType;
-    title: string;
-    workingSpot: WorkingSpotType;
-    body:
-      | BasicPostBodyType
-      | MogakPostBodyType
-      | ReviewPostBodyType
-      | SpotPostBodyType;
-  };
+  title: string;
+  // title: {
+  //   type: PostVariantType;
+  //   title: string;
+  //   workingSpot: WorkingSpotType;
+  //   body:
+  //     | BasicPostBodyType
+  //     | MogakPostBodyType
+  //     | ReviewPostBodyType
+  //     | SpotPostBodyType;
+  // };
   channel: ChannelType;
-  author: UserType;
+  author: string;
   createdAt: string;
   updatedAt: string;
 }

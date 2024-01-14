@@ -92,7 +92,13 @@ const FeedListItem = ({
       >
         <div>
           <Avatar
-            src={profileImage}
+            src={
+              profileImage
+                ? profileImage
+                : status === 'success'
+                  ? data.image
+                  : ''
+            }
             size='sm'
             handleClick={handleUserClick}
             alt='user image'

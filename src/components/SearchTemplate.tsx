@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSearchParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 import Container from './common/Container';
 import Text from './common/Text';
@@ -7,13 +8,21 @@ import UserList from './search/UserList';
 import Tabs from './common/Tabs';
 import { UserListItemPropsType } from './search/UserListItem';
 import FeedListItem, { FeedListItemPropsType } from './feed/FeedListItem';
+import FeedListSkeleton from './FeedListSkeleton';
+import UserListSkeleton from './UserListSkeleton';
 
 export interface SearchTemplatePropsType {
   users?: UserListItemPropsType[];
-  postList?: FeedListItemPropsType[];
+  postList?: Omit<FeedListItemPropsType, 'onFeedClick' | 'onUserClick'>[];
+  status: 'stale' | 'loading' | 'error' | 'success';
 }
 
-const SearchTemplate = ({ users, postList }: SearchTemplatePropsType) => {
+const SearchTemplate = ({
+  users,
+  postList,
+  status,
+}: SearchTemplatePropsType) => {
+  const [, setSearchParams] = useSearchParams();
   return (
     <SearchContainer maxWidth='md'>
       <Text
@@ -33,16 +42,30 @@ const SearchTemplate = ({ users, postList }: SearchTemplatePropsType) => {
           <Tabs.Item
             text='통합 검색'
             id={0}
+            handleClick={() => {
+              setSearchParams((prev) => {
+                prev.set('type', 'all');
+                return prev;
+              });
+            }}
           />
           <Tabs.Item
             text='사용자 검색'
             id={1}
+            handleClick={() => {
+              setSearchParams((prev) => {
+                prev.set('type', 'users');
+                return prev;
+              });
+            }}
           />
         </Tabs.Header>
         <Tabs.Body id={0}>
-          {postList &&
+          {status === 'success' ? (
+            postList &&
             postList.map((post) => (
               <FeedListItem
+                key={post.id}
                 id={post.id}
                 userId={post.userId}
                 profileImage={post.profileImage}
@@ -56,10 +79,21 @@ const SearchTemplate = ({ users, postList }: SearchTemplatePropsType) => {
                 onUserClick={() => {}}
                 imageUrl={post.imageUrl}
               />
-            ))}
+            ))
+          ) : status === 'loading' ? (
+            <FeedListSkeleton />
+          ) : (
+            status === 'error' && <Text>Error</Text>
+          )}
         </Tabs.Body>
         <Tabs.Body id={1}>
-          <UserList users={users} />
+          {status === 'success' ? (
+            <UserList users={users} />
+          ) : status === 'loading' ? (
+            <UserListSkeleton />
+          ) : (
+            status === 'error' && <Text>Error</Text>
+          )}
         </Tabs.Body>
       </Tabs>
     </SearchContainer>
