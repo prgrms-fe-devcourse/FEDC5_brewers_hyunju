@@ -1,21 +1,31 @@
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
-
 import NavBar from './components/common/NavBar';
-
-import { loginState, userState } from './recoil/login/atoms';
+import { useRecoilState } from 'recoil';
+import { userState } from './recoil/login/atoms';
+import { getItem } from './utils/localStorage';
+import axiosInstance from './api/axios';
+import { AuthUserResponseType } from './types/api/auth';
 
 function App() {
-  const [isLoggedin, onLogout] = useRecoilState(loginState);
-  const user = useRecoilValue(userState);
+  const [user, setUser] = useRecoilState(userState);
+
+  useEffect(() => {
+    if (!user) {
+      const accessToken = getItem('accessToken', undefined);
+
+      if (!accessToken) return;
+
+      axiosInstance<AuthUserResponseType>({
+        method: 'get',
+        url: '/auth-user',
+      }).then((res) => setUser(res.data));
+    }
+  }, []);
 
   return (
     <>
-      <NavBar
-        isLoggedIn={isLoggedin}
-        userName={user ? user.fullName : ''}
-        onLogout={() => onLogout(false)}
-      />
+      <NavBar />
       <Outlet />
     </>
   );
