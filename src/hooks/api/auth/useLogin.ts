@@ -1,21 +1,13 @@
 import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
-
 import { useRequestFn } from '~/hooks/api';
-
-import { loginState } from '~/recoil/login/atoms';
 import { userState } from '~/recoil/login/atoms';
-
 import { setItem } from '~/utils/localStorage';
 import { handleError } from '~/utils/handleError';
-
 import { LoginRequestType, LoginResponseType } from '~/types/api/auth';
-import { UserType } from '~/types/common';
-
 import { AUTH } from '~/constants/message';
 
 const useLogin = () => {
-  const setLoginState = useSetRecoilState(loginState);
   const setUserState = useSetRecoilState(userState);
 
   const { request, status, data, error } = useRequestFn<LoginResponseType>({
@@ -42,13 +34,8 @@ const useLogin = () => {
     if (status === 'success' && data.token) {
       setItem('accessToken', data.token);
       setUserState(data.user);
-      setLoginState(true);
-      return;
     }
-    setItem('accessToken', '');
-    setUserState({} as UserType);
-    setLoginState(false);
-  }, [status, data, setUserState, setLoginState]);
+  }, [status, data, setUserState]);
 
   return { handleLogin, status, error };
 };

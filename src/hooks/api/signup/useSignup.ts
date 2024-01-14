@@ -4,16 +4,13 @@ import { useSetRecoilState } from 'recoil';
 import { useRequestFn } from '..';
 
 import { userState } from '~/recoil/login/atoms';
-import { loginState } from '~/recoil/login/atoms';
 
 import { handleError } from '~/utils/handleError';
 import { setItem } from '~/utils/localStorage';
 
 import { SignupRequestType, SignupResponseType } from '~/types/api/auth';
-import { UserType } from '~/types/common';
 
 const useSignup = () => {
-  const setLoginState = useSetRecoilState(loginState);
   const setUserState = useSetRecoilState(userState);
 
   const { request, status, data, error } = useRequestFn<SignupResponseType>({
@@ -33,13 +30,9 @@ const useSignup = () => {
     if (status === 'success' && data.token) {
       setItem('accessToken', data.token);
       setUserState(data.user);
-      setLoginState(true);
       return;
     }
-    setItem('accessToken', '');
-    setUserState({} as UserType);
-    setLoginState(false);
-  }, [status, data, setLoginState, setUserState]);
+  }, [status, data, setUserState]);
 
   return { handleSignup, status, error };
 };

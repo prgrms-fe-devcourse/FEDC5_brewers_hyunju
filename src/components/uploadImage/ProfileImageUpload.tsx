@@ -28,9 +28,12 @@ const ProfileImageUpload = ({
   );
 
   const defaultImage = useMemo(async () => {
-    const res = await axios({ url: '/img/200X200.png', responseType: 'blob' });
-    const file = new File([res.data], '200X200.png', {
-      type: 'image/png',
+    const res = await axios({
+      url: '/img/default_profile.svg',
+      responseType: 'blob',
+    });
+    const file = new File([res.data], 'default_profile.svg', {
+      type: 'image/svg+xml',
     });
     return file;
   }, []);
@@ -55,7 +58,7 @@ const ProfileImageUpload = ({
   };
 
   const handleDefaultImage = async () => {
-    setPreivewUrl('/img/200X200.png');
+    setPreivewUrl('/img/default_profile.svg');
     setIsLoading(true);
     setSelectedFile(await defaultImage);
     setIsLoading(false);
