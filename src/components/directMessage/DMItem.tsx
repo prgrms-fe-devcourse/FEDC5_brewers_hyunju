@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Text from '~/components/common/Text';
 import Flex from '~/components/common/Flex';
 import Image from '~/components/common/Image';
+import useMessageSeen from '~/hooks/api/conversation/useMessageSeen';
 
 interface DMItemPropsType {
   userName: string;
@@ -73,6 +74,9 @@ const DMItem = ({
   seen,
   userId,
 }: DMItemPropsType) => {
+  const { handleMessageSeen } = useMessageSeen();
+  const navigate = useNavigate();
+
   const messageSize = size === 'md' ? 'sm' : 'md';
 
   return (
@@ -96,11 +100,14 @@ const DMItem = ({
               />
             </Link>
           </AvatarContainer>
-          <Link
-            to={`/message/${userId}`}
+          <div
             style={{
               flexGrow: 1,
-              textDecoration: 'none',
+              cursor: 'pointer',
+            }}
+            onClick={() => {
+              handleMessageSeen({ sender: userId });
+              navigate(`/message/${userId}`);
             }}
           >
             <Flex
@@ -124,7 +131,7 @@ const DMItem = ({
                 {message}
               </ClampText>
             </Flex>
-          </Link>
+          </div>
         </Flex>
       </TextContainer>
     </Flex>

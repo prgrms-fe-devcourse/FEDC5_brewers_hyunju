@@ -8,6 +8,7 @@ export interface PersonalMessagePropsType {
   message: string;
   subject: 'you' | 'me';
   createdAt?: string | null;
+  seen: boolean;
 }
 
 interface MessageDivPropsType {
@@ -38,6 +39,7 @@ const PersonalMessage = ({
   message,
   createdAt,
   subject,
+  seen,
 }: PersonalMessagePropsType) => {
   const side = subject === 'me' ? 'end' : 'start';
   return (
@@ -46,23 +48,34 @@ const PersonalMessage = ({
         direction='column'
         alignItems={side}
       >
-        <MessageDiv
-          size='sm'
-          subject={subject}
-          sideBorder={!!createdAt}
-          maxWidth={24}
+        <Flex
+          gap={0.25}
+          direction={`${subject === 'you' ? 'row-reverse' : 'row'}`}
         >
-          {message}
-        </MessageDiv>
-        {createdAt ? (
-          <Text
-            size='xs'
-            color='--primaryColor'
-            p={0.25}
+          {createdAt ? (
+            <Flex
+              direction='column-reverse'
+              alignItems='end'
+            >
+              <Text
+                size='xs'
+                color='--primaryColor'
+                p={0.25}
+              >
+                {createdAt}
+              </Text>
+              <Text size='sm'>{!seen && '1'}</Text>
+            </Flex>
+          ) : null}
+          <MessageDiv
+            size='sm'
+            subject={subject}
+            sideBorder={!!createdAt}
+            maxWidth={24}
           >
-            {createdAt}
-          </Text>
-        ) : null}
+            {message}
+          </MessageDiv>
+        </Flex>
       </Flex>
     </Container>
   );

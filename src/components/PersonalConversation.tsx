@@ -37,6 +37,7 @@ const PersonalConversation = ({
                 : convertTime(message.createdAt)
               : convertTime(message.createdAt)
           }
+          seen={message.seen}
         />
       ))}
     </Flex>
