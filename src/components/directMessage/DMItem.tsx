@@ -1,7 +1,10 @@
 import styled from '@emotion/styled';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Text from '~/components/common/Text';
 import Flex from '~/components/common/Flex';
+import Image from '~/components/common/Image';
+import useMessageSeen from '~/hooks/api/conversation/useMessageSeen';
 
 interface DMItemPropsType {
   userName: string;
@@ -9,14 +12,11 @@ interface DMItemPropsType {
   size?: 'md' | 'lg';
   src?: string;
   seen: boolean;
+  userId: string;
 }
 
 interface ClampTextPropsType {
   size?: string;
-}
-
-interface AvatarPropsType {
-  avatar?: string;
 }
 
 const ClampText = styled(Text)<ClampTextPropsType>`
@@ -55,16 +55,6 @@ const AvatarContainer = styled.div`
   border-radius: 100%;
 `;
 
-const Avatar = styled.img<AvatarPropsType>`
-  width: 3.5rem;
-  height: 3.5rem;
-
-  background-color: var(--adaptive300);
-
-  alt: 'avatar';
-  src: ${(props) => props.avatar};
-`;
-
 const Badge = styled.div`
   top: 1.75rem;
   left: 2rem;
@@ -82,7 +72,11 @@ const DMItem = ({
   message = '',
   size = 'md',
   seen,
+  userId,
 }: DMItemPropsType) => {
+  const { handleMessageSeen } = useMessageSeen();
+  const navigate = useNavigate();
+
   const messageSize = size === 'md' ? 'sm' : 'md';
 
   return (
@@ -97,27 +91,47 @@ const DMItem = ({
           gap={1}
         >
           <AvatarContainer>
-            <Avatar src={src} />
+            <Link to={`/profile/${userId}`}>
+              <Image
+                width={3.5}
+                height={3.5}
+                alt={`${userName}`}
+                src={src}
+              />
+            </Link>
           </AvatarContainer>
-          <Flex
-            direction='column'
-            alignItems='flex-start'
-            gap={0.25}
+          <div
+            style={{
+              flexGrow: 1,
+              cursor: 'pointer',
+            }}
+            onClick={() => {
+              handleMessageSeen({ sender: userId });
+              navigate(`/message/${userId}`);
+            }}
           >
             <Flex
-              alignItems='center'
+              direction='column'
+              alignItems='flex-start'
+              grow={1}
               gap={0.25}
             >
-              <Text size={size}>{userName}</Text>
-              {!seen && <Badge />}
+              <Flex
+                alignItems='center'
+                gap={0.25}
+                grow={1}
+              >
+                <Text size={size}>{userName}</Text>
+                {!seen && <Badge />}
+              </Flex>
+              <ClampText
+                size={messageSize}
+                color='--adaptive400'
+              >
+                {message}
+              </ClampText>
             </Flex>
-            <ClampText
-              size={messageSize}
-              color='--adaptive400'
-            >
-              {message}
-            </ClampText>
-          </Flex>
+          </div>
         </Flex>
       </TextContainer>
     </Flex>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import request from '~/api/axios';
 import { handleError } from '~/utils/handleError';
 import { RangeTemplateType } from '~/types/api/common';
@@ -11,7 +11,7 @@ export const useGetPosts = () => {
   >('stale');
   const [post, setPost] = useState<GetChannelPostsResponseType | null>(null);
 
-  const getPosts = async (config?: RangeTemplateType) => {
+  const getPosts = useCallback(async (config?: RangeTemplateType) => {
     setStatus('loading');
     try {
       const response = await request({
@@ -27,7 +27,7 @@ export const useGetPosts = () => {
       handleError(e, 'GetPosts');
       setStatus('error');
     }
-  };
+  }, []);
 
   return { status, data: post, request: getPosts };
 };

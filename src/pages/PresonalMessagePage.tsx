@@ -26,7 +26,7 @@ const PersonalMessagePage = () => {
       handlePersonalMessageList({
         userId,
       });
-    }, 60000);
+    }, 10000);
     return () => {
       clearInterval(timer);
     };
