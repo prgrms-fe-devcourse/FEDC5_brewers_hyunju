@@ -12,6 +12,7 @@ import Tabs from './common/Tabs';
 import Text from './common/Text';
 import { postModalState } from '~/recoil/postModal/atoms';
 import { reviewFormState } from '~/recoil/postModal/selectors';
+import Select from './common/Select';
 
 const RADIO_GROUP_CONFIG = [
   { label: '별로에요', value: '1' },
@@ -26,6 +27,15 @@ const FORM_ICONS = Object.freeze([
   <IconUsers />,
   <IconArmchair />,
 ]);
+const DAY_OPTIONS = [
+  { label: '일요일', value: '0' },
+  { label: '월요일', value: '1' },
+  { label: '화요일', value: '2' },
+  { label: '수요일', value: '3' },
+  { label: '목요일', value: '4' },
+  { label: '금요일', value: '5' },
+  { label: '토요일', value: '6' },
+];
 const FORM_CONFIG: readonly {
   key: 'plugs' | 'quiet' | 'crowded' | 'seat';
   description: string;
@@ -65,19 +75,56 @@ const ReviewForm = () => {
             >
               {description}
             </Text>
+            {key === 'crowded' && (
+              <Select
+                data={DAY_OPTIONS}
+                label='방문 요일'
+                placeholder='요일 선택'
+                required
+                handleChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                  setPostModal((prev) => ({
+                    ...prev,
+                    reviewForm: {
+                      ...prev.reviewForm,
+                      crowded: {
+                        ...prev.reviewForm.crowded,
+                        day: e.target.value,
+                      },
+                    },
+                  }))
+                }
+              />
+            )}
             <RadioGroup
-              defaultValue={reviewForm[key]}
+              defaultValue={
+                key === 'crowded'
+                  ? reviewForm.crowded && reviewForm.crowded!.value
+                  : reviewForm[key]
+              }
               options={RADIO_GROUP_CONFIG}
               name={key}
-              onChange={(value) =>
-                setPostModal((prev) => ({
-                  ...prev,
-                  reviewForm: {
-                    ...prev.reviewForm,
-                    [key]: value,
-                  },
-                }))
-              }
+              onChange={(value) => {
+                if (key === 'crowded') {
+                  setPostModal((prev) => ({
+                    ...prev,
+                    reviewForm: {
+                      ...prev.reviewForm,
+                      crowded: {
+                        ...prev.reviewForm.crowded,
+                        value,
+                      },
+                    },
+                  }));
+                } else {
+                  setPostModal((prev) => ({
+                    ...prev,
+                    reviewForm: {
+                      ...prev.reviewForm,
+                      [key]: value,
+                    },
+                  }));
+                }
+              }}
             />
           </Tabs.Body>
         ))}

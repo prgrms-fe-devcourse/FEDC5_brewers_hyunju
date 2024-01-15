@@ -3,12 +3,11 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from '@emotion/styled';
 import { IconPhoto } from '@tabler/icons-react';
 import ContentEditableDiv from '~/components/ContentEditableDiv';
-// import Input from '~/components/input/Input';
-import Text from './common/Text';
-import Modal from './common/Modal';
-import Button from './common/Button';
-import Flex from './common/Flex';
-import PostButton from './PostButton';
+import Text from '~/components/common/Text';
+import Modal from '~/components/common/Modal';
+import Button from '~/components/common/Button';
+import Flex from '~/components/common/Flex';
+import PostButton from '~/components/PostButton';
 import { postModalState } from '~/recoil/postModal/atoms';
 import { mogakPostOpenState } from '~/recoil/postModal/selectors';
 
@@ -114,6 +113,23 @@ const MogakPostModal = () => {
                 setPostModal((prev) => ({
                   ...prev,
                   mogakForm: { ...prev.mogakForm, address: e.target.value },
+                }));
+              }}
+            />
+          </Wrapper>
+          <Wrapper>
+            <Text
+              size='lg'
+              weight={600}
+            >
+              몇명까지 생각하고 계신가요?
+            </Text>
+            <input
+              placeholder='장소 이름이 무엇인가요?'
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setPostModal((prev) => ({
+                  ...prev,
+                  mogakForm: { ...prev.mogakForm, maxCount: e.target.value },
                 }));
               }}
             />
