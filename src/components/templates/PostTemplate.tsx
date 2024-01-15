@@ -16,6 +16,7 @@ export interface PostTemplatePropsType {
     deletePost: (config?: OptionalConfig) => Promise<void>;
   };
   onCreateComment: (comment: string) => void;
+  onDeleteComment: (commentId: string) => void;
 }
 
 const PostContainer = styled(Container)``;
@@ -25,6 +26,7 @@ const PostTemplate = ({
   user,
   actions,
   onCreateComment,
+  onDeleteComment,
 }: PostTemplatePropsType) => {
   // dropDown 버튼 클릭 시
   const handleDropDownClick = async (action: string) => {
@@ -100,12 +102,15 @@ const PostTemplate = ({
       {post.comments &&
         post.comments.map((comment) => (
           <PostCommentListItem
+            id={comment._id}
+            isMine={comment.author._id === user?._id}
             userName={comment.author.fullName}
             createdAt={comment.createdAt}
             avatarSrc={comment.author.image}
             message={comment.comment}
             handleClick={handleUserClick}
             updatedAt={comment.updatedAt}
+            onDeleteComment={onDeleteComment}
           ></PostCommentListItem>
         ))}
     </PostContainer>

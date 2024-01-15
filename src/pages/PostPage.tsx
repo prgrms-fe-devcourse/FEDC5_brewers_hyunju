@@ -8,6 +8,7 @@ import useUpdatePost from '~/hooks/api/post/useUpdatePost';
 import useDeletePost from '~/hooks/api/post/useDeletePost';
 import useGetPost from '~/hooks/api/post/useGetPost';
 import useCreateComment from '~/hooks/api/comment/useCreateComment';
+import useDeleteComment from '~/hooks/api/comment/useDeleteComment';
 
 const PostPage = () => {
   const { postId } = useParams();
@@ -20,8 +21,9 @@ const PostPage = () => {
   } = useGetPost(postId);
 
   const { request: createComment } = useCreateComment();
+  const { request: deleteComment } = useDeleteComment();
 
-  // post 전송 시
+  // comment post 시
   const handleCreateComment = async (comment: string) => {
     try {
       console.log(comment, postId);
@@ -29,6 +31,16 @@ const PostPage = () => {
       requestPost();
     } catch (error) {
       console.error('comment 전송 Error 발생');
+    }
+  };
+
+  // comment delete 시
+  const handleDeleteComment = async (commentId: string) => {
+    try {
+      await deleteComment(commentId);
+      requestPost();
+    } catch (error) {
+      console.error('comment 삭제 Error 발생');
     }
   };
 
@@ -47,6 +59,7 @@ const PostPage = () => {
         // auth={authData}
         actions={{ requestPost, updatePost, deletePost }}
         onCreateComment={handleCreateComment}
+        onDeleteComment={handleDeleteComment}
       />
     );
   } else if (postStatus === 'error') {
