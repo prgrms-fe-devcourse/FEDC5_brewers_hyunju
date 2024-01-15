@@ -6,14 +6,14 @@ import {
   DeleteCommentResponseType,
 } from '~/types/api/comment';
 
-export const useDeleteComment = ({ id }: DeleteCommentRequestType) => {
+export const useDeleteComment = () => {
   const [status, setStatus] = useState<
     'stale' | 'loading' | 'error' | 'success'
   >('stale');
   const [data, setData] = useState<DeleteCommentResponseType | null>(null);
   const DELETE_COMMENT_URL = `/comments/delete`;
 
-  const deleteComment = async () => {
+  const deleteComment = async (id: string) => {
     setStatus('loading');
     try {
       const response = await request<DeleteCommentResponseType>({
@@ -28,7 +28,7 @@ export const useDeleteComment = ({ id }: DeleteCommentRequestType) => {
       setStatus('error');
     }
   };
-  return { status, data, deleteComment };
+  return { status, data, request: deleteComment };
 };
 
 export default useDeleteComment;
