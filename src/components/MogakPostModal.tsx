@@ -9,7 +9,8 @@ import Modal from './common/Modal';
 import Button from './common/Button';
 import Flex from './common/Flex';
 import PostButton from './PostButton';
-import { mogakPostOpenState, postModalState } from '~/atoms/postModalState';
+import { postModalState } from '~/recoil/postModal/atoms';
+import { mogakPostOpenState } from '~/recoil/postModal/selectors';
 
 const MogakPostModal = () => {
   const setPostModal = useSetRecoilState(postModalState);

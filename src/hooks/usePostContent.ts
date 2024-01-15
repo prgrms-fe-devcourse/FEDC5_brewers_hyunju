@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useSetRecoilState } from 'recoil';
 import sanitizeHtml from 'sanitize-html';
-import { postModalState } from '~/atoms/postModalState';
+import { postModalState } from '~/recoil/postModal/atoms';
 
 const usePostContent = () => {
   const setPostModal = useSetRecoilState(postModalState);

@@ -36,8 +36,8 @@ const UserListItemSkeleton = () => {
 const UserListSkeleton = () => {
   return (
     <StyledUl>
-      {Array.from(Array(5)).map(() => {
-        return <UserListItemSkeleton />;
+      {Array.from(Array(5)).map((_, idx) => {
+        return <UserListItemSkeleton key={idx} />;
       })}
     </StyledUl>
   );

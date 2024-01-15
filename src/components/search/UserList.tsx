@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import UserListItem, { UserListItemPropsType } from './UserListItem';
+import Text from '../common/Text';
 
 export interface UserListPropsType {
   users?: UserListItemPropsType[];
@@ -8,7 +9,7 @@ export interface UserListPropsType {
 const UserList = ({ users }: UserListPropsType) => {
   return (
     <StyledUl>
-      {users &&
+      {users && users.length ? (
         users.map(({ userId, userName, userImage, isFollowing }) => (
           <UserListItem
             key={userId}
@@ -17,7 +18,10 @@ const UserList = ({ users }: UserListPropsType) => {
             userImage={userImage}
             isFollowing={isFollowing}
           />
-        ))}
+        ))
+      ) : (
+        <Text>검색 결과가 없습니다</Text>
+      )}
     </StyledUl>
   );
 };
@@ -27,6 +31,4 @@ export default UserList;
 const StyledUl = styled.ul`
   flex-direction: column;
   align-items: center;
-
-  padding: 1rem;
 `;
