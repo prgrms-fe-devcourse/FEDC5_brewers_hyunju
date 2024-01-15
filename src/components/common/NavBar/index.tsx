@@ -100,7 +100,7 @@ const NavBar = () => {
                   text='채팅'
                   id={2}
                   handleClick={() => {
-                    handleTabClick('/chat');
+                    handleTabClick('/message');
                   }}
                 />
               </Tabs.Header>
