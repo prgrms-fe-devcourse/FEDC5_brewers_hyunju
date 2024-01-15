@@ -21,7 +21,7 @@ import UserListItem from '../UserListItem';
 import { useRecoilValue } from 'recoil';
 import { userState } from '~/recoil/login/atoms';
 import Tabs from '../common/Tabs';
-import ChangePasswordForm from '../profile/ChangePasswordForm';
+import PasswordChangeForm from '../profile/PasswordChangeForm';
 import NameChangeForm from '../profile/NameChangeForm';
 
 export interface ProfileTemplatePropsType {
@@ -352,7 +352,7 @@ const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
                 />
               </Tabs.Body>
               <Tabs.Body id={1}>
-                <ChangePasswordForm onSuccess={() => setIsShowSetting(false)} />
+                <PasswordChangeForm onSuccess={() => setIsShowSetting(false)} />
               </Tabs.Body>
             </Tabs>
           </Modal.Body>

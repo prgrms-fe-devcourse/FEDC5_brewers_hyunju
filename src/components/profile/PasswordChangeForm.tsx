@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import Button from '../common/Button';
-import Input from '../input/Input';
-import { FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { userState } from '~/recoil/login/atoms';
 import useUpdatePassword from '~/hooks/api/settings/useUpdatePassword';
@@ -23,8 +22,8 @@ const ChangePasswordForm = (props: ChangePasswordFromPropsType) => {
     new_password_repeat: '',
   });
 
-  const handleChange = (text: string, name: string) =>
-    setFormData({ ...formData, [name]: text });
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value.trim() });
 
   const handleSumbit = async (e: FormEvent) => {
     e.preventDefault();
@@ -55,23 +54,25 @@ const ChangePasswordForm = (props: ChangePasswordFromPropsType) => {
     <Form onSubmit={handleSumbit}>
       {/* <Input
         type='password'
-        InputName='old_password'
-        onChange={() => {}}
+        name='old_password'
+        onChange={handleChange}
         placeholder='기존 비밀번호'
         disabled={!auth}
       /> */}
       <Input
         type='password'
-        InputName='new_password'
+        name='new_password'
         onChange={handleChange}
         placeholder='새로운 비밀번호'
+        value={formData.new_password}
         disabled={!auth || isLoading}
       />
       <Input
         type='password'
-        InputName='new_password_repeat'
+        name='new_password_repeat'
         onChange={handleChange}
         placeholder='비밀번호 확인'
+        value={formData.new_password_repeat}
         disabled={!auth || isLoading}
       />
       <Button
@@ -100,4 +101,8 @@ const Form = styled.form`
   padding: 2rem 0;
 
   gap: 0.5rem;
+`;
+
+const Input = styled.input`
+  height: 2.875rem;
 `;
