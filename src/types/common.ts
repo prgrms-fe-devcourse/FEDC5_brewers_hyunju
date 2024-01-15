@@ -211,25 +211,22 @@ export interface MogakPostBodyType {
   endTime: string;
   placeName: string;
   address: string;
-  maxCount: number;
+  maxCount: string;
 }
 export interface ReviewPostBodyType {
   text: string;
   placeName: string;
   address: string;
-  form: ReviewFormType;
+  plugs?: string;
+  crowded?: {
+    day: string;
+    value: string;
+  };
+  quiet?: string;
+  comfortable?: string;
+  bathroom?: string;
 }
 export interface SpotPostBodyType {
   spot: WorkingSpotType;
   text: '';
-}
-export interface ReviewFormType {
-  plugs?: number;
-  crowded?: {
-    day: number;
-    value: number;
-  };
-  quiet?: number;
-  comfortable?: number;
-  bathroom?: number;
 }

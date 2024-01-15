@@ -4,8 +4,13 @@ type PostModalType = 'basic' | 'review' | 'mogakco';
 export interface ReviewFormType {
   plugs?: string;
   quiet?: string;
-  crowded?: string;
+  crowded?: {
+    day?: string;
+    value?: string;
+  };
   seat?: string;
+  placeName?: string;
+  address?: string;
 }
 export interface MogakFormType {
   date?: string;
@@ -13,6 +18,7 @@ export interface MogakFormType {
   endTime?: string;
   placeName?: string;
   address?: string;
+  maxCount?: string;
 }
 export const postModalState = atom<{
   type: PostModalType;
