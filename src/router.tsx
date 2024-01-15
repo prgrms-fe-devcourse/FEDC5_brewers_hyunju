@@ -6,43 +6,54 @@ import ProfilePage from './pages/ProfilePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import SearchPage from './pages/SearchPage';
-import Test from './Test';
+import App from './App';
+import ChatPage from './pages/ChatPage';
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <FeedPage />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: 'login',
-    element: <LoginPage />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: 'signup',
-    element: <SignupPage />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: 'search/',
-    element: <SearchPage />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: 'post/:postId',
-    element: <PostPage />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: 'profile/:userId',
-    element: <ProfilePage />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: 'test-modal',
-    element: <Test />,
-    errorElement: <ErrorPage />,
+    element: <App />,
+    children: [
+      {
+        path: '/',
+        element: <FeedPage />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: '/home',
+        element: <FeedPage />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: 'login',
+        element: <LoginPage />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: 'signup',
+        element: <SignupPage />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: 'search/',
+        element: <SearchPage />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: 'post/:postId',
+        element: <PostPage />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: 'profile/:userId',
+        element: <ProfilePage />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: 'chat',
+        element: <ChatPage />,
+        errorElement: <ErrorPage />,
+      },
+    ],
   },
 ]);
 

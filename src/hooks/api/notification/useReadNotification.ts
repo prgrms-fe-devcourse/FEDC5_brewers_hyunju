@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { request } from '~/api/axios';
+import request from '~/api/axios';
 import { handleError } from '~/utils/handleError';
 
 export const useReadNotification = () => {
