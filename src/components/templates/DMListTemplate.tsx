@@ -11,6 +11,36 @@ export interface DMListTemplatePropsType {
   status: 'stale' | 'loading' | 'error' | 'success';
 }
 const DMListTemplate = ({ conversations, status }: DMListTemplatePropsType) => {
+  const user = useRecoilValue(userState);
+
+  if (!user) {
+    return (
+      <Container
+        maxWidth='sm'
+        minWidth={20}
+        minHeight={40}
+      >
+        <Flex
+          direction='column'
+          gap={1}
+        >
+          <Text size='2xl'>채팅 목록</Text>
+          <Flex
+            direction='column'
+            gap={0.25}
+          >
+            <Flex
+              justifyContent='center'
+              mt={10}
+            >
+              <Text color='--adaptive400'>로그인해 주세요</Text>
+            </Flex>
+          </Flex>
+        </Flex>
+      </Container>
+    );
+  }
+
   return (
     <Container
       maxWidth='sm'

@@ -12,6 +12,9 @@ import {
   GetMessageListsRequestType,
   GetMessageListsResponseType,
 } from '~/types/api/message';
+import { userState } from '~/recoil/login/atoms';
+import { useRecoilValue } from 'recoil';
+import Text from '../common/Text';
 
 interface MessageSendingTemplatePropsType {
   messageListStatus: 'stale' | 'loading' | 'error' | 'success';
@@ -28,7 +31,10 @@ const MessageSendingTemplate = ({
   userId,
   handlePersonalMessageList,
 }: MessageSendingTemplatePropsType) => {
+  const user = useRecoilValue(userState);
+
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
   const { handleCreateMessage } = useCreateMessage();
 
   const onClick = () => {
@@ -49,6 +55,33 @@ const MessageSendingTemplate = ({
 
     textareaRef.current.value = '';
   };
+
+  if (!user) {
+    return (
+      <Container
+        maxWidth='sm'
+        minWidth={20}
+        minHeight={40}
+      >
+        <Flex
+          direction='column'
+          gap={1}
+        >
+          <Flex
+            direction='column'
+            gap={0.25}
+          >
+            <Flex
+              justifyContent='center'
+              mt={10}
+            >
+              <Text color='--adaptive400'>로그인해 주세요</Text>
+            </Flex>
+          </Flex>
+        </Flex>
+      </Container>
+    );
+  }
 
   return (
     <Container
