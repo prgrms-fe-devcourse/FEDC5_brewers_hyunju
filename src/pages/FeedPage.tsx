@@ -1,9 +1,14 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import FeedPageTemplate from '~/components/FeedPageTemplate';
 import Text from '~/components/common/Text';
+import useCreatePost from '~/hooks/api/post/useCreatePost';
 import useGetPosts from '~/hooks/api/post/useGetPosts';
 
+import { CustomPostContentType } from '~/types/common';
+
 const FeedPage = () => {
+  const { request: createPost } = useCreatePost();
+
   const {
     status: postsStatus,
     data: postsData,
@@ -12,8 +17,20 @@ const FeedPage = () => {
 
   useEffect(() => {
     getPosts();
-    // eslint-disable-next-line
   }, []);
+
+  // post 전송 시
+  const handleCreatePost = async (
+    newPost: CustomPostContentType,
+    file?: File
+  ) => {
+    try {
+      await createPost(newPost, file);
+      getPosts();
+    } catch (error) {
+      console.error('post 전송 Error 발생');
+    }
+  };
 
   if (postsStatus === 'success' && postsData) {
     return (
@@ -22,8 +39,7 @@ const FeedPage = () => {
           posts={postsData}
           userId='1'
           profileImage={''}
-          // auth={authData}
-          // actions={{ requestPost, updatePost, deletePost }}
+          onHandleCreatePost={handleCreatePost}
         />
       </>
     );
@@ -33,10 +49,6 @@ const FeedPage = () => {
     return;
     // skeleton return
   }
-  <>
-    {postsData}
-    <Text>Feed</Text>
-  </>;
 };
 
 export default FeedPage;

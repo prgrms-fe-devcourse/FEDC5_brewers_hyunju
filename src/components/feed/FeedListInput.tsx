@@ -6,11 +6,15 @@ import Image from '../common/Image';
 import Flex from '~/components/common/Flex';
 import Container from '~/components/common/Container';
 import { CustomPostContentType } from '~/types/common';
-import { useCreatePost } from '~/hooks/api/post/useCreatePost';
+import useGetPosts from '~/hooks/api/post/useGetPosts';
 
 export interface FeedListInputPropsType {
   userId: string;
   profileImage: string;
+  onHandleCreatePost: (
+    newPost: CustomPostContentType,
+    file?: File | null
+  ) => void;
 }
 
 const FeedListInputContainer = styled(Container)`
@@ -43,15 +47,17 @@ const FeedListTextarea = styled.textarea`
   }
 `;
 
-const FeedListInput = ({ userId, profileImage }: FeedListInputPropsType) => {
+const FeedListInput = ({
+  userId,
+  profileImage,
+  onHandleCreatePost,
+}: FeedListInputPropsType) => {
   const formRef = useRef<HTMLFormElement | null>(null);
+  const { request: getPosts } = useGetPosts();
 
   const [content, setContent] = useState('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | undefined>(undefined);
-
-  const { request: createPost } = useCreatePost();
-  // const [postContent, setPostContent] = useState<CustomPostContentType>();
 
   const resetData = () => {
     setContent('');
@@ -62,14 +68,6 @@ const FeedListInput = ({ userId, profileImage }: FeedListInputPropsType) => {
   // '작성' 버튼 클릭시
   const handleSubmitBtnClick = async () => {
     if (content) {
-      // setPostContent({
-      //   type: 'common',
-      //   title: '',
-      //   workingSpot: 'cafe',
-      //   body: {
-      //     text: content,
-      //   },
-      // });
       const newPost: CustomPostContentType = {
         type: 'common',
         title: '새로운 포스트',
@@ -80,23 +78,11 @@ const FeedListInput = ({ userId, profileImage }: FeedListInputPropsType) => {
       };
 
       console.log(newPost);
-
-      // createPost 훅을 사용하여 새로운 포스트 생성
-      if (selectedFile) {
-        createPost(newPost, selectedFile);
-      } else {
-        createPost(newPost);
-      }
+      onHandleCreatePost(newPost, selectedFile);
 
       resetData();
     }
   };
-
-  // useEffect(() => {
-  //   console.log(JSON.stringify(postContent));
-  //   createPost(postContent, selectedFile);
-  //   resetData();
-  // }, [postContent]);
 
   // '사진' 버튼 클릭 시
   const handleImageBtnClick = () => {
