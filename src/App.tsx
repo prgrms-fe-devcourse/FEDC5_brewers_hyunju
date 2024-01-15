@@ -6,6 +6,7 @@ import { userState } from './recoil/login/atoms';
 import { getItem } from './utils/localStorage';
 import axiosInstance from './api/axios';
 import { AuthUserResponseType } from './types/api/auth';
+import UserStateListSideBar from './components/UserStateListSideBar';
 
 function App() {
   const [user, setUser] = useRecoilState(userState);
@@ -27,6 +28,7 @@ function App() {
     <>
       <NavBar />
       <Outlet />
+      <UserStateListSideBar />
     </>
   );
 }
