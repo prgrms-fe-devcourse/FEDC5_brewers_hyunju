@@ -1,10 +1,7 @@
 import { useState } from 'react';
 import request from '~/api/axios';
 import { handleError } from '~/utils/handleError';
-import {
-  DeleteCommentRequestType,
-  DeleteCommentResponseType,
-} from '~/types/api/comment';
+import { DeleteCommentResponseType } from '~/types/api/comment';
 
 export const useDeleteComment = () => {
   const [status, setStatus] = useState<
