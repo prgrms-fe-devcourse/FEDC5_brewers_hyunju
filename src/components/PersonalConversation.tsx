@@ -23,15 +23,16 @@ const PersonalConversation = ({
       px={1}
       style={{ height: '54vw', overflowY: 'auto' }}
     >
-      {messages?.map((message, idx) => (
+      {messages?.map((message, index) => (
         <PersonalMessage
+          key={index}
           message={message.message}
           subject={message.sender._id === userId ? 'you' : 'me'}
           createdAt={
-            idx < messages.length - 1
-              ? convertTime(messages[idx + 1].createdAt) ===
+            index < messages.length - 1
+              ? convertTime(messages[index + 1].createdAt) ===
                   convertTime(message.createdAt) &&
-                messages[idx + 1].sender._id === message.sender._id
+                messages[index + 1].sender._id === message.sender._id
                 ? null
                 : convertTime(message.createdAt)
               : convertTime(message.createdAt)
