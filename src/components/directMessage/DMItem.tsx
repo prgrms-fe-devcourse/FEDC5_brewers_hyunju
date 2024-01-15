@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 
 import Text from '~/components/common/Text';
 import Flex from '~/components/common/Flex';
-import Image from '../common/Image';
-import { Link } from 'react-router-dom';
+import Image from '~/components/common/Image';
 
 interface DMItemPropsType {
   userName: string;
