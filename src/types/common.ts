@@ -219,8 +219,8 @@ export interface ReviewPostBodyType {
   address: string;
   plugs?: string;
   crowded?: {
-    day: string;
-    value: string;
+    day?: string;
+    value?: string;
   };
   quiet?: string;
   comfortable?: string;
