@@ -24,6 +24,7 @@ export interface InputPropsType {
   children?: React.ReactNode;
   InputName?: string;
   inputText?: string;
+  disabled?: boolean;
 }
 
 interface BorderPropsType {
@@ -35,9 +36,8 @@ interface InputFieldPropsType {
   inputFontSize: FontSizeType;
 }
 
-const InputField = styled.input(
-  (props: InputFieldPropsType) => `
-  width: calc(100% - ${props.iconSize}rem - 0.25rem);
+const InputField = styled.input<InputFieldPropsType>`
+  width: calc(100% - ${(props) => props.iconSize}rem - 0.25rem);
   padding: 0;
   outline: none;
   border: 0;
@@ -45,19 +45,20 @@ const InputField = styled.input(
   background-color: transparent;
 
   color: var(--adaptive900);
-  font-size: ${FONT_SIZE[props.inputFontSize || 'sm']};
-`
-);
+  font-size: ${(props) => FONT_SIZE[props.inputFontSize || 'sm']};
+`;
 
-const Border = styled.div(
-  (props: BorderPropsType) => `
+const Border = styled.div<BorderPropsType>`
   height: fit-content;
   padding: 0.75rem;
   border: 0.0625rem solid
-    ${`var(${props.isError ? '--red600' : '--adaptive900'})`};
+    ${(props) => `var(${props.isError ? '--red600' : '--adaptive900'})`};
   border-radius: 1rem;
-`
-);
+
+  &:has(input:disabled) {
+    background-color: var(--adaptiveOpacity200);
+  }
+`;
 
 const Input = ({
   width,
@@ -69,6 +70,7 @@ const Input = ({
   onChange,
   children,
   InputName,
+  disabled,
 }: InputPropsType) => {
   const labelFontSize = 'sm' as FontSizeType;
   const inputFontSize = 'lg' as FontSizeType;
@@ -123,6 +125,7 @@ const Input = ({
                 placeholder={placeholder}
                 inputFontSize={inputFontSize}
                 onChange={handleChange}
+                disabled={disabled}
               />
             </Flex>
           </Flex>

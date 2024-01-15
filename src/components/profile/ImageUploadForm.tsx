@@ -4,22 +4,26 @@ import axios from 'axios';
 import Flex from '~/components/common/Flex';
 import Image from '~/components/common/Image';
 import Button from '~/components/common/Button';
-import Text from '~/components/common/Text';
+import useUploadPhoto from '~/hooks/api/users/useUploadPhoto';
 
-export interface ProfileImageUploadPropsType {
+export interface ImageUploadFormPropsType {
+  isCover?: boolean;
   currentImageUrl: string;
-  onSave: (file: File) => void;
+  onSave: () => void;
   onCancel: () => void;
   disabled?: boolean;
 }
 
-const ProfileImageUpload = ({
+const ImageUploadForm = ({
+  isCover,
   currentImageUrl,
   onSave,
   onCancel,
   disabled,
-}: ProfileImageUploadPropsType) => {
+}: ImageUploadFormPropsType) => {
   const formRef = useRef<HTMLFormElement | null>(null);
+
+  const { request: uploadPhoto } = useUploadPhoto();
 
   const [isLoading, setIsLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -64,15 +68,31 @@ const ProfileImageUpload = ({
     setIsLoading(false);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (selectedFile) {
-      onSave(selectedFile);
+      setIsLoading(true);
+
+      const form = new FormData();
+
+      form.append('isCover', (isCover ?? false).toString());
+      form.append('image', selectedFile);
+
+      await uploadPhoto({
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        data: form,
+      });
+
+      setIsLoading(false);
+
+      onSave();
     }
   };
 
   return (
     <Flex
-      p={2}
+      pt={2}
       direction='column'
       gap={2}
     >
@@ -87,12 +107,6 @@ const ProfileImageUpload = ({
           hidden
         />
       </HiddenForm>
-      <Text
-        size='xl'
-        weight={800}
-      >
-        프로필 이미지 변경
-      </Text>
       <Flex gap={2}>
         <Image
           width={10}
@@ -170,4 +184,4 @@ const HiddenForm = styled.form`
   display: none;
 `;
 
-export default ProfileImageUpload;
+export default ImageUploadForm;
