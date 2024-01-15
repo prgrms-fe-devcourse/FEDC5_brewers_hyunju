@@ -1,4 +1,6 @@
 import { useMemo, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import {
   IconMessage,
@@ -13,17 +15,17 @@ import Flex from '../common/Flex';
 import Avatar from '../common/Avatar';
 import Image from '../common/Image';
 import Button from '../common/Button';
-import { UserType } from '~/types/common';
-import { OptionalConfig } from '~/hooks/api';
 import Modal from '../common/Modal';
-import UserListItem from '../UserListItem';
-import { useRecoilValue } from 'recoil';
-import { userState } from '~/recoil/login/atoms';
 import Tabs from '../common/Tabs';
+import Box from '../common/Box';
+import UserListItem from '../UserListItem';
 import PasswordChangeForm from '../profile/PasswordChangeForm';
 import NameChangeForm from '../profile/NameChangeForm';
-import Box from '../common/Box';
 import ImageUploadForm from '../profile/ImageUploadForm';
+import FeedListItem from '../feed/FeedListItem';
+import { userState } from '~/recoil/login/atoms';
+import { UserType } from '~/types/common';
+import { OptionalConfig } from '~/hooks/api';
 
 export interface ProfileTemplatePropsType {
   user: UserType;
@@ -35,6 +37,8 @@ export interface ProfileTemplatePropsType {
 }
 
 const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
+  const navigator = useNavigate();
+
   const auth = useRecoilValue(userState);
 
   const [tabId, setTabId] = useState<number>(0);
@@ -99,8 +103,8 @@ const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
   };
 
   return (
-    <>
-      <ProfileContainer maxWidth='md'>
+    <ProfileContainer maxWidth='md'>
+      <Profile maxWidth='md'>
         <Text
           size='3xl'
           weight={800}
@@ -232,12 +236,29 @@ const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
             </>
           )}
         </Flex>
-      </ProfileContainer>
-      <PostContainer maxWidth='md'>
+      </Profile>
+      <Flex
+        direction='column'
+        gap={1}
+      >
         {user.posts.map((post) => (
-          <div key={post._id}>{post._id}</div>
+          <div key={post._id}>
+            <FeedListItem
+              id={post._id}
+              userId={post.author._id}
+              profileImage={post.author.image}
+              userName={post.author.fullName}
+              createdAt={post.createdAt}
+              content={''}
+              imageUrl={post.image}
+              likesCount={post.likes.length}
+              commentsCount={post.comments.length}
+              onFeedClick={() => navigator(`/post/${post._id}`)}
+              onUserClick={() => navigator(`/profile/${post.author._id}`)}
+            />
+          </div>
         ))}
-      </PostContainer>
+      </Flex>
       <>
         <Modal
           visible={isShowUpload}
@@ -403,7 +424,7 @@ const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
           </Modal.Body>
         </Modal>
       </>
-    </>
+    </ProfileContainer>
   );
 };
 
@@ -413,16 +434,25 @@ const ProfileContainer = styled(Container)`
   display: flex;
   flex-direction: column;
 
+  border-radius: 1rem;
+  box-shadow: 0 0 1.5rem var(--adaptiveOpacity50);
+
+  background-color: var(--transparent);
+
+  box-sizing: border-box;
+  gap: 1.5rem;
+`;
+
+const Profile = styled(Container)`
+  display: flex;
+  flex-direction: column;
+
   padding: 2rem;
   border-radius: 1rem;
   box-shadow: 0 0 1.5rem var(--adaptiveOpacity50);
 
   box-sizing: border-box;
   gap: 1.5rem;
-`;
-
-const PostContainer = styled(Container)`
-  background-color: var(--transparent);
 `;
 
 const Cover = styled(Box)`
