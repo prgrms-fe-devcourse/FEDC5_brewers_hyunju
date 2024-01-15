@@ -1,6 +1,10 @@
+import { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import SearchTemplate from '~/components/SearchTemplate';
 import useSearchAll from '~/hooks/api/search/useSearchAll';
-// import useSearchUsers from '~/hooks/api/search/useSearchUsers';
+import useSearchUsers from '~/hooks/api/search/useSearchUsers';
+import { userState } from '~/recoil/login/atoms';
 import { PostType, UserType } from '~/types/common';
 interface UserSearchData {
   userImage: string;
@@ -22,7 +26,10 @@ interface PostSearchData {
   commentsCount: number;
   [prop: string]: unknown;
 }
-const parseSearchData = (searchData: (PostType | UserType)[]) => {
+const parseSearchData = (
+  searchData: (PostType | UserType)[],
+  id: string | undefined
+) => {
   const users: UserSearchData[] = [];
   const postList: PostSearchData[] = [];
   if (searchData) {
@@ -33,8 +40,7 @@ const parseSearchData = (searchData: (PostType | UserType)[]) => {
           userImage: (item as UserType).image,
           userId: item._id,
           userName: (item as UserType).fullName,
-          // isFollowing: (item as UserType).followers.includes()
-          isFollowing: true,
+          isFollowing: id ? (item as UserType).followers.includes(id) : false,
         });
       } else if ((item as PostType).title) {
         // const response = await axiosInstance.get(
@@ -60,16 +66,24 @@ const parseSearchData = (searchData: (PostType | UserType)[]) => {
 };
 
 const SearchPage = () => {
-  const { status, data: searchData } = useSearchAll();
+  const loginData = useRecoilValue(userState);
+  const { status: searchAllStatus, data: searchAllData } = useSearchAll();
+  const { status: searchUserStatus, data: searchUserData } = useSearchUsers();
+  // const { users, postList } = parseSearchData(searchData);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  // const { status: userSearchStatus, data: searchUserData } = useSearchUsers();
-  const { users, postList } = parseSearchData(searchData);
+  useEffect(() => {
+    if (!searchParams.get('type')) {
+      setSearchParams({ type: 'all' });
+    }
+  }, []);
 
   return (
     <SearchTemplate
-      status={status}
-      users={users}
-      postList={postList}
+      allStatus={searchAllStatus}
+      userStatus={searchUserStatus}
+      users={parseSearchData(searchUserData, loginData?._id).users}
+      postList={parseSearchData(searchAllData, loginData?._id).postList}
     />
   );
 };

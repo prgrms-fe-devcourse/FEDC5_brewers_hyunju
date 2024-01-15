@@ -11,18 +11,21 @@ import FeedListItem, { FeedListItemPropsType } from './feed/FeedListItem';
 import FeedListSkeleton from './FeedListSkeleton';
 import UserListSkeleton from './UserListSkeleton';
 
+type StatusType = 'stale' | 'loading' | 'error' | 'success';
 export interface SearchTemplatePropsType {
   users?: UserListItemPropsType[];
   postList?: Omit<FeedListItemPropsType, 'onFeedClick' | 'onUserClick'>[];
-  status: 'stale' | 'loading' | 'error' | 'success';
+  allStatus: StatusType;
+  userStatus: StatusType;
 }
 
 const SearchTemplate = ({
   users,
   postList,
-  status,
+  allStatus,
+  userStatus,
 }: SearchTemplatePropsType) => {
-  const [, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   return (
     <SearchContainer maxWidth='md'>
       <Text
@@ -37,6 +40,7 @@ const SearchTemplate = ({
         gap={2}
         fontSize='md'
         fontWeight={600}
+        defaultId={searchParams.get('type') === 'all' ? 0 : 1}
       >
         <Tabs.Header>
           <Tabs.Item
@@ -61,38 +65,41 @@ const SearchTemplate = ({
           />
         </Tabs.Header>
         <Tabs.Body id={0}>
-          {status === 'success' ? (
-            postList &&
-            postList.map((post) => (
-              <FeedListItem
-                key={post.id}
-                id={post.id}
-                userId={post.userId}
-                profileImage={post.profileImage}
-                userName={post.userName}
-                createdAt={post.createdAt}
-                updatedAt={post.updatedAt}
-                content={post.content}
-                likesCount={post.likesCount}
-                commentsCount={post.commentsCount}
-                onFeedClick={() => {}}
-                onUserClick={() => {}}
-                imageUrl={post.imageUrl}
-              />
-            ))
-          ) : status === 'loading' ? (
+          {allStatus === 'success' ? (
+            postList && postList.length ? (
+              postList.map((post) => (
+                <FeedListItem
+                  key={post.id}
+                  id={post.id}
+                  userId={post.userId}
+                  profileImage={post.profileImage}
+                  userName={post.userName}
+                  createdAt={post.createdAt}
+                  updatedAt={post.updatedAt}
+                  content={post.content}
+                  likesCount={post.likesCount}
+                  commentsCount={post.commentsCount}
+                  onFeedClick={() => {}}
+                  onUserClick={() => {}}
+                  imageUrl={post.imageUrl}
+                />
+              ))
+            ) : (
+              <Text>검색 결과가 없습니다</Text>
+            )
+          ) : allStatus === 'loading' ? (
             <FeedListSkeleton />
           ) : (
-            status === 'error' && <Text>Error</Text>
+            allStatus === 'error' && <Text>Error</Text>
           )}
         </Tabs.Body>
         <Tabs.Body id={1}>
-          {status === 'success' ? (
+          {userStatus === 'success' ? (
             <UserList users={users} />
-          ) : status === 'loading' ? (
+          ) : userStatus === 'loading' ? (
             <UserListSkeleton />
           ) : (
-            status === 'error' && <Text>Error</Text>
+            userStatus === 'error' && <Text>Error</Text>
           )}
         </Tabs.Body>
       </Tabs>
