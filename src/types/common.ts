@@ -60,7 +60,7 @@ export interface ChannelType {
 }
 
 export interface PostType {
-  likes: LikeType[];
+  likes: LikeType[]; // 확인 필요
   comments: CommentType[];
   _id: string;
   image?: string;
@@ -77,7 +77,7 @@ export interface PostType {
   //     | SpotPostBodyType;
   // };
   channel: ChannelType;
-  author: UserType;
+  author: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -209,12 +209,14 @@ export interface MogakPostBodyType {
   date: string;
   startTime: string;
   endTime: string;
-  location: string;
+  placeName: string;
+  address: string;
   maxCount: number;
 }
 export interface ReviewPostBodyType {
   text: string;
-  location: string;
+  placeName: string;
+  address: string;
   form: ReviewFormType;
 }
 export interface SpotPostBodyType {
