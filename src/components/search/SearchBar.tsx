@@ -1,12 +1,13 @@
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import { IconX } from '@tabler/icons-react';
 import { FONT_SIZE } from '~/constants/design';
+import { useSearchParams } from 'react-router-dom';
 
 const SearchBar = () => {
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const [input, setInput] = useState<string>('');
-
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [input, setInput] = useState<string>(searchParams.get('q') || '');
   return (
     <Wrapper ref={wrapperRef}>
       <SearchInput
@@ -17,8 +18,13 @@ const SearchBar = () => {
         onBlur={() => wrapperRef.current?.classList.remove('focus')}
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
-            alert(`${input} 검색`);
-            // submit search api
+            setSearchParams((prev) => {
+              prev.set('q', input);
+              return prev;
+            });
+            // handleSearch({
+            //   url: `/search/${searchType}/${input}`,
+            // });
           }
         }}
       />
@@ -37,7 +43,6 @@ const SearchBar = () => {
     </Wrapper>
   );
 };
-
 export default SearchBar;
 
 const Wrapper = styled.div`

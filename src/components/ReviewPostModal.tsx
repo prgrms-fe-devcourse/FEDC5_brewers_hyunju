@@ -7,7 +7,8 @@ import ReviewForm from './ReviewForm';
 import Button from '~/components/common/Button';
 import ContentEditableDiv from './ContentEditableDiv';
 import PostButton from './PostButton';
-import { postModalState, reviewPostOpenState } from '~/atoms/postModalState';
+import { postModalState } from '~/recoil/postModal/atoms';
+import { reviewPostOpenState } from '~/recoil/postModal/selectors';
 
 const ReviewPostModal = () => {
   const setPostModal = useSetRecoilState(postModalState);
