@@ -20,6 +20,8 @@ const PersonalConversation = ({
     <Flex
       direction='column'
       gap={0.25}
+      px={1}
+      style={{ height: '54vw', overflowY: 'auto' }}
     >
       {messages?.map((message, idx) => (
         <PersonalMessage
