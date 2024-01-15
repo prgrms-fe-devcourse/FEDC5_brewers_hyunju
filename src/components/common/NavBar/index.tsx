@@ -5,10 +5,14 @@ import Flex from '~/components/common/Flex';
 import Button from '~/components/common/Button';
 import Tabs from '~/components/common/Tabs';
 import Logo from '~/components/common/Logo';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { userState } from '~/recoil/login/atoms';
 import useLogout from '~/hooks/api/auth/useLogout';
 import { removeItem } from '~/utils/localStorage';
+import { postModalState } from '~/recoil/postModal/atoms';
+import BasicPostModal from '~/components/BasicPostModal';
+import MogakPostModal from '~/components/MogakPostModal';
+import ReviewPostModal from '~/components/ReviewPostModal';
 
 export interface NavItemPropsType {
   to: string;
@@ -59,6 +63,7 @@ const AuthNavItem = () => {
 const NavBar = () => {
   const navigate = useNavigate();
 
+  const setPostModalOpen = useSetRecoilState(postModalState);
   const handleTabClick = (link: string) => {
     navigate(link);
   };
@@ -114,19 +119,26 @@ const NavBar = () => {
         justifyContent='flex-end'
         style={{ flexShrink: '0' }}
       >
-        <NavItem to='/post'>
-          <Button
-            variant='outlined'
-            size='md'
-            color='--primaryColor'
-            style={{ width: '7.5rem', height: '3.125rem' }}
-          >
-            포스트 작성
-          </Button>
-        </NavItem>
+        <Button
+          variant='outlined'
+          size='md'
+          color='--primaryColor'
+          style={{ width: '7.5rem', height: '3.125rem' }}
+          onClick={() =>
+            setPostModalOpen((prev) => ({
+              ...prev,
+              isOpen: true,
+            }))
+          }
+        >
+          포스트 작성
+        </Button>
         <NavItem to='/search'>검색</NavItem>
         <AuthNavItem />
       </Flex>
+      <BasicPostModal />
+      <MogakPostModal />
+      <ReviewPostModal />
     </NavWrapper>
   );
 };
