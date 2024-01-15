@@ -1,49 +1,19 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Link, useNavigate } from 'react-router-dom';
-import Container from '~/components/common/Container';
 import Flex from '~/components/common/Flex';
 import Button from '~/components/common/Button';
 import Tabs from '~/components/common/Tabs';
 import Logo from '~/components/common/Logo';
-
-export interface NavBarPropsType {
-  isLoggedIn: boolean;
-  userName: string;
-  onLogout: () => void;
-}
+import { useRecoilState } from 'recoil';
+import { userState } from '~/recoil/login/atoms';
+import useLogout from '~/hooks/api/auth/useLogout';
+import { removeItem } from '~/utils/localStorage';
 
 export interface NavItemPropsType {
   to: string;
   children: React.ReactNode;
 }
-
-const Box = styled.div`
-  width: 15rem;
-  padding-bottom: 0.375rem;
-`;
-
-const NavBarItem = styled.li`
-  flex-shrink: 0;
-
-  padding: 0.625rem 1.25rem;
-
-  color: var(--adaptive400);
-  font-weight: 400;
-  font-size: 1rem;
-
-  cursor: pointer;
-  list-style: none;
-  text-decoration: none;
-
-  &:has(button) {
-    padding: 0;
-  }
-
-  &:hover {
-    color: var(--adaptive950);
-  }
-`;
 
 const NavItem = ({ to, children }: NavItemPropsType) => (
   <Link
@@ -57,25 +27,36 @@ const NavItem = ({ to, children }: NavItemPropsType) => (
   </Link>
 );
 
-const AuthNavItem = ({ isLoggedIn, userName, onLogout }: NavBarPropsType) => (
-  <>
-    {isLoggedIn ? (
-      <>
-        <NavItem to={`/user/${userName}`}>{userName}</NavItem>
-        <NavBarItem
-          onClick={onLogout}
-          style={{ marginLeft: '1rem' }}
-        >
-          로그아웃
-        </NavBarItem>
-      </>
-    ) : (
-      <NavItem to='/login'>로그인</NavItem>
-    )}
-  </>
-);
+const AuthNavItem = () => {
+  const [user, setUser] = useRecoilState(userState);
+  const { request: requestLogout } = useLogout();
 
-const NavBar = ({ isLoggedIn, userName, onLogout }: NavBarPropsType) => {
+  const handleLogout = async () => {
+    await requestLogout();
+    await removeItem('accessToken');
+    await setUser(null);
+  };
+
+  return (
+    <>
+      {user ? (
+        <>
+          <NavItem to={`/profile/${user._id}`}>{user.fullName}</NavItem>
+          <NavBarItem
+            onClick={handleLogout}
+            style={{ marginLeft: '1rem' }}
+          >
+            로그아웃
+          </NavBarItem>
+        </>
+      ) : (
+        <NavItem to='/login'>로그인</NavItem>
+      )}
+    </>
+  );
+};
+
+const NavBar = () => {
   const navigate = useNavigate();
 
   const handleTabClick = (link: string) => {
@@ -83,21 +64,7 @@ const NavBar = ({ isLoggedIn, userName, onLogout }: NavBarPropsType) => {
   };
 
   return (
-    <Container
-      maxWidth='xl'
-      style={{
-        maxWidth: '100%',
-        overflow: 'scroll',
-        margin: '0',
-        width: '100%',
-        height: '5rem',
-        display: 'flex',
-        justifyContent: 'space-between',
-        textDecoration: 'none',
-        padding: '0 3.75rem',
-        boxSizing: 'border-box',
-      }}
-    >
+    <NavWrapper>
       {/* Nav 왼쪽 부분 (로고, 홈. 그룹, 채팅) */}
       <Flex
         alignItems='center'
@@ -130,13 +97,6 @@ const NavBar = ({ isLoggedIn, userName, onLogout }: NavBarPropsType) => {
                   }}
                 />
                 <Tabs.Item
-                  text='그룹'
-                  id={1}
-                  handleClick={() => {
-                    handleTabClick('/group');
-                  }}
-                />
-                <Tabs.Item
                   text='채팅'
                   id={2}
                   handleClick={() => {
@@ -165,14 +125,54 @@ const NavBar = ({ isLoggedIn, userName, onLogout }: NavBarPropsType) => {
           </Button>
         </NavItem>
         <NavItem to='/search'>검색</NavItem>
-        <AuthNavItem
-          isLoggedIn={isLoggedIn}
-          userName={userName}
-          onLogout={onLogout}
-        ></AuthNavItem>
+        <AuthNavItem />
       </Flex>
-    </Container>
+    </NavWrapper>
   );
 };
 
 export default NavBar;
+
+const NavWrapper = styled(Flex)`
+  display: flex;
+  justify-content: space-between;
+  overflow: auto;
+
+  width: 100%;
+  height: 5rem;
+  max-width: 100%;
+  margin-bottom: 2rem;
+  padding: 0 3.75rem;
+
+  background-color: var(--adaptive50);
+
+  box-sizing: border-box;
+  text-decoration: none;
+`;
+
+const Box = styled.div`
+  width: 15rem;
+  padding-bottom: 0.375rem;
+`;
+
+const NavBarItem = styled.li`
+  flex-shrink: 0;
+
+  padding: 0.625rem 1.25rem;
+
+  color: var(--adaptive400);
+  font-weight: 400;
+  font-size: 1rem;
+
+  cursor: pointer;
+  list-style: none;
+  text-decoration: none;
+
+  &:has(button) {
+    padding: 0;
+  }
+
+  &:hover {
+    color: var(--adaptive950);
+  }
+`;

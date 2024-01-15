@@ -1,11 +1,5 @@
 import { atom } from 'recoil';
-
 import { UserType } from '~/types/common';
-
-export const loginState = atom({
-  key: 'loginState',
-  default: false,
-});
 
 export const userState = atom<UserType | null>({
   key: 'userState',

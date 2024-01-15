@@ -7,6 +7,7 @@ import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import SearchPage from './pages/SearchPage';
 import App from './App';
+import ChatPage from './pages/ChatPage';
 
 const router = createBrowserRouter([
   {
@@ -48,13 +49,8 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
       },
       {
-        path: 'group',
-        element: <ProfilePage />,
-        errorElement: <ErrorPage />,
-      },
-      {
         path: 'chat',
-        element: <ProfilePage />,
+        element: <ChatPage />,
         errorElement: <ErrorPage />,
       },
     ],
