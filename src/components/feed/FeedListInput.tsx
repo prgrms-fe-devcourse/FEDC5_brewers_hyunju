@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import Avatar from '~/components/common/Avatar';
 import Button from '~/components/common/Button';
@@ -51,7 +51,7 @@ const FeedListInput = ({ userId, profileImage }: FeedListInputPropsType) => {
   const [previewUrl, setPreviewUrl] = useState<string | undefined>(undefined);
 
   const { request: createPost } = useCreatePost();
-  const [postContent, setPostContent] = useState<CustomPostContentType>();
+  // const [postContent, setPostContent] = useState<CustomPostContentType>();
 
   const resetData = () => {
     setContent('');

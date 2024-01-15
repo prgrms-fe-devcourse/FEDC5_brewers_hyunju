@@ -5,7 +5,6 @@ import Text from '~/components/common/Text';
 import FeedListInput from '~/components/feed/FeedListInput';
 import { GetChannelPostsResponseType } from '~/types/api/posts';
 import { useNavigate } from 'react-router-dom';
-import { PostType } from '~/types/common';
 
 export interface FeedPageTemplatePropsType {
   posts?: GetChannelPostsResponseType;
@@ -13,7 +12,7 @@ export interface FeedPageTemplatePropsType {
   profileImage: string;
 }
 
-const FeedPageContainer = styled(Container)``;
+const FeedPageContainer = styled(Container)();
 
 const FeedPageTemplate = ({
   posts,
@@ -45,8 +44,7 @@ const FeedPageTemplate = ({
             userName={post.author.fullName}
             createdAt={post.createdAt}
             updatedAt={post.updatedAt}
-            // content={post.title}
-            content={JSON.parse(post.title).body.text}
+            content={post.title}
             likes={post.likes}
             comments={post.comments}
             onFeedClick={(feedId: string) => {

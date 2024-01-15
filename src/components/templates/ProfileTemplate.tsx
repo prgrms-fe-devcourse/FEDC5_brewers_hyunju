@@ -251,8 +251,8 @@ const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
               createdAt={post.createdAt}
               content={''}
               imageUrl={post.image}
-              likesCount={post.likes.length}
-              commentsCount={post.comments.length}
+              likes={post.likes}
+              comments={post.comments}
               onFeedClick={() => navigator(`/post/${post._id}`)}
               onUserClick={() => navigator(`/profile/${post.author._id}`)}
             />
