@@ -10,7 +10,8 @@ import RadioGroup from './RadioGroup/RadioGroup';
 import Flex from './common/Flex';
 import Tabs from './common/Tabs';
 import Text from './common/Text';
-import { postModalState, reviewFormState } from '~/atoms/postModalState';
+import { postModalState } from '~/recoil/postModal/atoms';
+import { reviewFormState } from '~/recoil/postModal/selectors';
 
 const RADIO_GROUP_CONFIG = [
   { label: '별로에요', value: '1' },

@@ -6,9 +6,10 @@ import Text from '~/components/common/Text';
 import Avatar from '~/components/common/Avatar';
 import Flex from '~/components/common/Flex';
 import Button from '~/components/common/Button';
-import { basicPostOpenState, postModalState } from '~/atoms/postModalState';
 import ContentEditableDiv from './ContentEditableDiv';
 import PostButton from './PostButton';
+import { postModalState } from '~/recoil/postModal/atoms';
+import { basicPostOpenState } from '~/recoil/postModal/selectors';
 
 // TODO: 렌더링 최적화, contentEditable XSS 보호
 const BasicPostModal = () => {
