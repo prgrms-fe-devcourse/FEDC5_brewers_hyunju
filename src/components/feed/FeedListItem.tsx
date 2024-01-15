@@ -5,8 +5,9 @@ import Text from '~/components/common/Text';
 import Image from '~/components/common/Image';
 import Avatar from '~/components/common/Avatar';
 import FeedFooterItem from './FeedFooterItem';
-import { CommentType, LikeType } from '~/types/common';
 import { handleDate } from '~/utils/handleDate';
+import WorkingSpotIcon from '~/components/WorkingSpotIcon';
+import { CommentType, LikeType, WorkingSpotType } from '~/types/common';
 
 export interface FeedListItemPropsType {
   id: string;
@@ -16,6 +17,7 @@ export interface FeedListItemPropsType {
   createdAt: string;
   updatedAt?: string;
   content: string;
+  workingSpot: WorkingSpotType;
   imageUrl?: string;
   likes: LikeType[] | string[];
   comments: CommentType[] | string[];
@@ -62,6 +64,7 @@ const FeedListItem = ({
   createdAt,
   updatedAt,
   content,
+  workingSpot,
   imageUrl,
   likes,
   comments,
@@ -106,22 +109,32 @@ const FeedListItem = ({
             width: '44rem',
           }}
         >
-          <Text
-            size='lg'
-            weight={600}
-            style={{ marginTop: '0.2rem', marginBottom: '0.2rem' }}
+          <Flex
+            alignItems='center'
+            style={{ flexGrow: 1 }}
           >
-            {userName}
-          </Text>
-          <Text
-            size='xs'
-            color='--adaptive500'
-            style={{ marginBottom: '1rem' }}
-          >
-            {updatedAt
+
+            <div style={{ flexGrow: 1 }}>
+              <Text
+                size='lg'
+                weight={600}
+                style={{ marginTop: '0.2rem', marginBottom: '0.2rem' }}
+              >
+                {userName}
+              </Text>
+              <Text
+                size='xs'
+                color='--adaptive500'
+                style={{ marginBottom: '1rem' }}
+              >
+                {updatedAt
               ? `${handleDate(updatedAt)} · 수정됨`
               : handleDate(createdAt)}
-          </Text>
+              </Text>
+            </div>
+            <WorkingSpotIcon workingSpot={workingSpot} />
+          </Flex>
+
           <Text style={{ marginBottom: '1rem' }}>{content}</Text>
           {imageUrl && (
             <Image

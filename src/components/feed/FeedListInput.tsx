@@ -5,8 +5,9 @@ import Button from '~/components/common/Button';
 import Image from '../common/Image';
 import Flex from '~/components/common/Flex';
 import Container from '~/components/common/Container';
-import { CustomPostContentType } from '~/types/common';
+import { CustomPostContentType, WorkingSpotType } from '~/types/common';
 import useGetPosts from '~/hooks/api/post/useGetPosts';
+import WorkSpotSelector from '../WorkSpotSelector';
 
 export interface FeedListInputPropsType {
   userId: string;
@@ -18,6 +19,8 @@ export interface FeedListInputPropsType {
 }
 
 const FeedListInputContainer = styled(Container)`
+  display: flex;
+  flex-direction: column;
   flex-shrink: 0;
 
   margin-bottom: 3.25rem;
@@ -29,6 +32,7 @@ const FeedListInputContainer = styled(Container)`
   background-color: var(-adaptive50);
 
   box-sizing: border-box;
+  gap: 10px;
 `;
 
 const FeedListTextarea = styled.textarea`
@@ -53,12 +57,13 @@ const FeedListInput = ({
   onHandleCreatePost,
 }: FeedListInputPropsType) => {
   const formRef = useRef<HTMLFormElement | null>(null);
-  const { request: getPosts } = useGetPosts();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  useGetPosts();
 
   const [content, setContent] = useState('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | undefined>(undefined);
-
+  const [workingSpot, setWorkingSpot] = useState<WorkingSpotType>('cafe');
   const resetData = () => {
     setContent('');
     setPreviewUrl(undefined);
@@ -71,7 +76,7 @@ const FeedListInput = ({
       const newPost: CustomPostContentType = {
         type: 'common',
         title: '새로운 포스트',
-        workingSpot: 'cafe',
+        workingSpot,
         body: {
           text: content,
         },
@@ -101,6 +106,9 @@ const FeedListInput = ({
 
   return (
     <FeedListInputContainer maxWidth='md'>
+      <WorkSpotSelector
+        handleChange={(e) => setWorkingSpot(e.target.value as WorkingSpotType)}
+      />
       <Flex
         justifyContent='space-between'
         alignItems='flex-start'
