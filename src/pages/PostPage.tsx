@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router';
+import { useRecoilValue } from 'recoil';
+import { userState } from '~/recoil/login/atoms';
 import Text from '~/components/common/Text';
 import PostTemplate from '~/components/templates/PostTemplate';
 import useUpdatePost from '~/hooks/api/post/useUpdatePost';
@@ -9,6 +11,7 @@ import useCreateComment from '~/hooks/api/comment/useCreateComment';
 
 const PostPage = () => {
   const { postId } = useParams();
+  const user = useRecoilValue(userState);
 
   const {
     status: postStatus,
@@ -40,6 +43,7 @@ const PostPage = () => {
     return (
       <PostTemplate
         post={postData}
+        user={user}
         // auth={authData}
         actions={{ requestPost, updatePost, deletePost }}
         onCreateComment={handleCreateComment}

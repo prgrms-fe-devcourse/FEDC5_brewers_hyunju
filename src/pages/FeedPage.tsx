@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { userState } from '~/recoil/login/atoms';
 import FeedPageTemplate from '~/components/FeedPageTemplate';
 import Text from '~/components/common/Text';
 import useCreatePost from '~/hooks/api/post/useCreatePost';
@@ -8,6 +10,7 @@ import { CustomPostContentType } from '~/types/common';
 
 const FeedPage = () => {
   const { request: createPost } = useCreatePost();
+  const user = useRecoilValue(userState);
 
   const {
     status: postsStatus,
@@ -25,6 +28,7 @@ const FeedPage = () => {
     file?: File
   ) => {
     try {
+      if (!user) return; // 로그인 안되었을 경우
       await createPost(newPost, file);
       getPosts();
     } catch (error) {
@@ -37,8 +41,8 @@ const FeedPage = () => {
       <>
         <FeedPageTemplate
           posts={postsData}
-          userId='1'
-          profileImage={''}
+          userId={user ? user._id : null}
+          profileImage={user ? user.image : ''}
           onHandleCreatePost={handleCreatePost}
         />
       </>

@@ -9,7 +9,7 @@ import { CustomPostContentType } from '~/types/common';
 
 export interface FeedPageTemplatePropsType {
   posts?: GetChannelPostsResponseType;
-  userId: string;
+  userId: string | null;
   profileImage: string;
   onHandleCreatePost: (
     newPost: CustomPostContentType,
@@ -35,12 +35,17 @@ const FeedPageTemplate = ({
       >
         피드
       </Text>
-      <FeedListInput
-        userId={userId}
-        profileImage={profileImage}
-        onHandleCreatePost={onHandleCreatePost}
-      ></FeedListInput>
-      <div style={{ marginBottom: '3.375rem' }}></div>
+      {userId && (
+        <>
+          <FeedListInput
+            userId={userId}
+            profileImage={profileImage}
+            onHandleCreatePost={onHandleCreatePost}
+          ></FeedListInput>
+          <div style={{ marginBottom: '3.375rem' }}></div>
+        </>
+      )}
+
       {posts &&
         posts.map((post) => {
           let contentText = '';

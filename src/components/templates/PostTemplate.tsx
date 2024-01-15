@@ -2,13 +2,14 @@ import styled from '@emotion/styled';
 import Container from '~/components/common/Container';
 import Text from '~/components/common/Text';
 import Post from '~/components/post/Post';
-import { PostType } from '~/types/common';
+import { PostType, UserType } from '~/types/common';
 import { OptionalConfig } from '~/hooks/api';
 import PostCommentListItem from '~/components/postComment/PostCommentListItem';
 import PostCommentInput from '~/components/post/PostCommentInput';
 
 export interface PostTemplatePropsType {
   post: PostType;
+  user: UserType | null;
   actions: {
     requestPost: (config?: OptionalConfig) => Promise<void>;
     updatePost: (config?: OptionalConfig) => Promise<void>;
@@ -21,6 +22,7 @@ const PostContainer = styled(Container)``;
 
 const PostTemplate = ({
   post,
+  user,
   actions,
   onCreateComment,
 }: PostTemplatePropsType) => {
@@ -91,8 +93,8 @@ const PostTemplate = ({
         />
       )}
       <PostCommentInput
-        userId='1'
-        profileImage=''
+        userId={user ? user._id : null}
+        profileImage={user ? user.image : null}
         onCreateComment={onCreateComment}
       ></PostCommentInput>
       {post.comments &&
