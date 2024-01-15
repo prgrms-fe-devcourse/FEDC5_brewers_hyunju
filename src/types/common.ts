@@ -8,6 +8,27 @@ export interface UserType {
   posts: PostType[];
   likes: LikeType[];
   comments: string[];
+  followers: FollowInfoType[];
+  following: FollowInfoType[];
+  notifications: NotificationType[];
+  messages: MessageType[];
+  _id: string;
+  fullName: string;
+  email: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface UserSimpleType {
+  coverImage: string; // 커버 이미지
+  image: string; // 프로필 이미지
+  role: string;
+  emailVerified: boolean; // 사용되지 않음
+  banned: boolean; // 사용되지 않음
+  isOnline: boolean;
+  posts: string[];
+  likes: string[];
+  comments: string[];
   followers: string[];
   following: string[];
   notifications: NotificationType[];
@@ -19,15 +40,14 @@ export interface UserType {
   updatedAt: string;
 }
 
-// 안 쓰임
-// export interface FollowInfoType {
-//   _id: string;
-//   user: string;
-//   follower: string;
-//   createdAt: string;
-//   updatedAt: string;
-//   __v: number;
-// }
+export interface FollowInfoType {
+  _id: string;
+  user: string;
+  follower: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
 
 export interface ChannelType {
   authRequired: boolean; // 사용되지 않음
@@ -57,15 +77,16 @@ export interface PostType {
   //     | SpotPostBodyType;
   // };
   channel: ChannelType;
-  author: string;
+  author: UserType;
   createdAt: string;
   updatedAt: string;
 }
 
 export interface PostSimpleType {
-  likes: LikeType[]; // 확인 필요
-  comments: CommentType[]; // 확인 필요
+  likes: string[]; // 확인 필요
+  comments: string[]; // 확인 필요
   _id: string;
+  image?: string;
   title: string;
   channel: string;
   author: string;
@@ -107,16 +128,16 @@ export type CustomPostContentType =
   | MogakPostContentType
   | SpotPostContentType;
 
-export interface BasicPostType extends PostType {
+export interface BasicPostType {
   title: BasicPostContentType;
 }
-export interface ReviewPostType extends PostType {
+export interface ReviewPostType {
   title: ReviewPostContentType;
 }
-export interface MogakPostType extends PostType {
+export interface MogakPostType {
   title: MogakPostContentType;
 }
-export interface SpotPostType extends PostType {
+export interface SpotPostType {
   title: SpotPostContentType;
 }
 
