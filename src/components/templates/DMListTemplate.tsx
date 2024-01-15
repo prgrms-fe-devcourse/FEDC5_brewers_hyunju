@@ -1,11 +1,12 @@
 import { useRecoilValue } from 'recoil';
-import { userState } from '~/recoil/login/atoms';
 
 import Container from '~/components/common/Container';
 import CircleLoading from '~/components/loading/CircleLoading';
 import DMItem from '~/components/directMessage/DMItem';
 import Flex from '~/components/common/Flex';
 import Text from '~/components/common/Text';
+
+import { userState } from '~/recoil/login/atoms';
 
 import { ConversationType } from '~/types/common';
 
