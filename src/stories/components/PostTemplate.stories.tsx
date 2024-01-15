@@ -1,5 +1,6 @@
-import { PostTemplatePropsType } from '~/components/templates/PostTemplate';
-import PostTemplate from '~/components/templates/PostTemplate';
+import PostTemplate, {
+  PostTemplatePropsType,
+} from '~/components/templates/PostTemplate';
 
 export default {
   title: 'Component/PostTemplate',

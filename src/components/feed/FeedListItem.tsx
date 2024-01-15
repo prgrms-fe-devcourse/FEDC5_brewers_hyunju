@@ -5,6 +5,7 @@ import Text from '~/components/common/Text';
 import Image from '~/components/common/Image';
 import Avatar from '~/components/common/Avatar';
 import FeedFooterItem from './FeedFooterItem';
+import { CommentType, LikeType } from '~/types/common';
 
 export interface FeedListItemPropsType {
   id: string;
@@ -15,8 +16,8 @@ export interface FeedListItemPropsType {
   updatedAt?: string;
   content: string;
   imageUrl?: string;
-  likesCount: number;
-  commentsCount: number;
+  likes: LikeType[];
+  comments: CommentType[];
   onFeedClick: (feedId: string) => void;
   onUserClick: (userId: string) => void;
 }
@@ -61,8 +62,8 @@ const FeedListItem = ({
   updatedAt,
   content,
   imageUrl,
-  likesCount,
-  commentsCount,
+  likes,
+  comments,
   onFeedClick,
   onUserClick,
 }: FeedListItemPropsType) => {
@@ -139,12 +140,12 @@ const FeedListItem = ({
             <FeedFooterItem
               iconType={'like'}
               title='좋아요'
-              count={likesCount}
+              count={likes.length}
             ></FeedFooterItem>
             <FeedFooterItem
               iconType={''}
               title='댓글'
-              count={commentsCount}
+              count={comments.length}
             ></FeedFooterItem>
           </Flex>
         </Flex>

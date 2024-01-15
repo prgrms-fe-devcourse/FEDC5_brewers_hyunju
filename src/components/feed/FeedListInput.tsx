@@ -6,7 +6,7 @@ import Image from '../common/Image';
 import Flex from '~/components/common/Flex';
 import Container from '~/components/common/Container';
 import { CustomPostContentType } from '~/types/common';
-// import { useCreatePost } from '~/hooks/api/post/useCreatePost';
+import { useCreatePost } from '~/hooks/api/post/useCreatePost';
 
 export interface FeedListInputPropsType {
   userId: string;
@@ -31,9 +31,11 @@ const FeedListTextarea = styled.textarea`
   width: 100%;
   height: 4.875rem;
   padding-top: 0.625rem;
-  box-sizing: border-box;
   border: none;
+
   font-size: 1rem;
+
+  box-sizing: border-box;
   resize: none;
 
   :focus {
@@ -48,8 +50,8 @@ const FeedListInput = ({ userId, profileImage }: FeedListInputPropsType) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | undefined>(undefined);
 
-  // const { request: createPost } = useCreatePost();
-  const [postContent, setPostContent] = useState<CustomPostContentType>({});
+  const { request: createPost } = useCreatePost();
+  const [postContent, setPostContent] = useState<CustomPostContentType>();
 
   const resetData = () => {
     setContent('');
@@ -60,22 +62,41 @@ const FeedListInput = ({ userId, profileImage }: FeedListInputPropsType) => {
   // '작성' 버튼 클릭시
   const handleSubmitBtnClick = async () => {
     if (content) {
-      setPostContent({
+      // setPostContent({
+      //   type: 'common',
+      //   title: '',
+      //   workingSpot: 'cafe',
+      //   body: {
+      //     text: content,
+      //   },
+      // });
+      const newPost: CustomPostContentType = {
         type: 'common',
-        title: '',
+        title: '새로운 포스트',
         workingSpot: 'cafe',
         body: {
           text: content,
         },
-      });
+      };
+
+      console.log(newPost);
+
+      // createPost 훅을 사용하여 새로운 포스트 생성
+      if (selectedFile) {
+        createPost(newPost, selectedFile);
+      } else {
+        createPost(newPost);
+      }
+
+      resetData();
     }
   };
 
-  useEffect(() => {
-    console.log(JSON.stringify(postContent));
-    // createPost(postContent, selectedFile);
-    resetData();
-  }, [postContent]);
+  // useEffect(() => {
+  //   console.log(JSON.stringify(postContent));
+  //   createPost(postContent, selectedFile);
+  //   resetData();
+  // }, [postContent]);
 
   // '사진' 버튼 클릭 시
   const handleImageBtnClick = () => {

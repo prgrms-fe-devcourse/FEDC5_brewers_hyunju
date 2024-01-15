@@ -1,13 +1,14 @@
 import styled from '@emotion/styled';
-import FeedListItem, {
-  FeedListItemPropsType,
-} from '~/components/feed/FeedListItem';
+import FeedListItem from '~/components/feed/FeedListItem'; // FeedListItemPropsType,
 import Container from '~/components/common/Container';
 import Text from '~/components/common/Text';
-import FeedListInput from './feed/FeedListInput';
+import FeedListInput from '~/components/feed/FeedListInput';
+import { GetChannelPostsResponseType } from '~/types/api/posts';
+import { useNavigate } from 'react-router-dom';
+import { PostType } from '~/types/common';
 
 export interface FeedPageTemplatePropsType {
-  posts?: FeedListItemPropsType[];
+  posts?: GetChannelPostsResponseType;
   userId: string;
   profileImage: string;
 }
@@ -19,6 +20,7 @@ const FeedPageTemplate = ({
   userId,
   profileImage,
 }: FeedPageTemplatePropsType) => {
+  const navigate = useNavigate();
   return (
     <FeedPageContainer maxWidth='md'>
       <Text
@@ -36,18 +38,26 @@ const FeedPageTemplate = ({
       {posts &&
         posts.map((post) => (
           <FeedListItem
-            id={post.id}
-            userId={post.userId}
-            profileImage={post.profileImage}
-            userName={post.userName}
+            id={post._id}
+            key={post._id}
+            userId={post.author._id}
+            profileImage={post.author.image}
+            userName={post.author.fullName}
             createdAt={post.createdAt}
             updatedAt={post.updatedAt}
-            content={post.content}
-            likesCount={post.likesCount}
-            commentsCount={post.commentsCount}
-            onFeedClick={() => {}}
-            onUserClick={() => {}}
-            imageUrl={post.imageUrl}
+            // content={post.title}
+            content={JSON.parse(post.title).body.text}
+            likes={post.likes}
+            comments={post.comments}
+            onFeedClick={(feedId: string) => {
+              console.log(feedId);
+              // 일단 navigation으로 구현
+              navigate(`/post/${feedId}`);
+            }}
+            onUserClick={(userId: string) => {
+              console.log(userId);
+            }}
+            imageUrl={post.image}
           />
         ))}
     </FeedPageContainer>
