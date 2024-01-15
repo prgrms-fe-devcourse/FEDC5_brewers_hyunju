@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import ReactDOM from 'react-dom';
+import { createPortal } from 'react-dom';
 import styled from '@emotion/styled';
 import Container from '../Container';
 import ModalHeader from './ModalHeader';
@@ -16,12 +16,12 @@ const Modal = ({ children, visible, handleClose }: ModalPropsType) => {
   return (
     <>
       {visible &&
-        ReactDOM.createPortal(
+        createPortal(
           <BackgroundDim onClick={handleClose}></BackgroundDim>,
           document.body
         )}
       {visible &&
-        ReactDOM.createPortal(
+        createPortal(
           <ModalContainer
             maxWidth='sm'
             p={1}
