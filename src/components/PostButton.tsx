@@ -1,7 +1,8 @@
 import { useRecoilValue } from 'recoil';
 import styled from '@emotion/styled';
 import Button from './common/Button';
-import { isPostEmptyState, postModalState } from '~/atoms/postModalState';
+import { isPostEmptyState } from '~/recoil/postModal/selectors';
+import { postModalState } from '~/recoil/postModal/atoms';
 
 const PostButton = () => {
   // const content = useRecoilValue(postModalContentState);

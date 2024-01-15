@@ -12,9 +12,9 @@ export function useRequest<T>(config: AxiosRequestConfig) {
 
   useEffect(() => {
     request();
-  }, [request]);
+  }, []);
 
-  return [status, data];
+  return { status, data };
 }
 
 export function useRequestFn<T>(config: AxiosRequestConfig) {
