@@ -5,16 +5,9 @@ import Image from '~/components/common/Image';
 import Text from '~/components/common/Text';
 import Flex from '~/components/common/Flex';
 
-import ColorType from '~/types/design/color';
-
 export interface UserStateListItemPropsType {
   src: string;
   fullName: string;
-  isOnline: boolean;
-}
-
-interface BadgePropsType {
-  color: ColorType;
 }
 
 const ImageBadgeDiv = styled.div`
@@ -31,23 +24,7 @@ const ProfileImage = styled.div`
   border-radius: 100%;
 `;
 
-const Badge = styled.div<BadgePropsType>`
-  position: absolute;
-  top: 1.75rem;
-  left: 2rem;
-
-  width: 0.75rem;
-  height: 0.75rem;
-  border-radius: 100%;
-
-  background-color: ${({ color }) => `var(${color})`};
-`;
-
-const UserStateListItem = ({
-  src,
-  fullName,
-  isOnline,
-}: UserStateListItemPropsType) => {
+const UserStateListItem = ({ src, fullName }: UserStateListItemPropsType) => {
   return (
     <Container
       maxWidth='sm'
@@ -72,11 +49,6 @@ const UserStateListItem = ({
               src={src}
             />
           </ProfileImage>
-          {isOnline ? (
-            <Badge color={'--green500'} />
-          ) : (
-            <Badge color={'--red700'} />
-          )}
         </ImageBadgeDiv>
         <Flex style={{ flex: 1, maxWidth: '108px' }}>
           <Text
