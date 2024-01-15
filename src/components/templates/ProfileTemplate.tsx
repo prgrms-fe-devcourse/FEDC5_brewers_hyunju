@@ -22,6 +22,7 @@ import { useRecoilValue } from 'recoil';
 import { userState } from '~/recoil/login/atoms';
 import Tabs from '../common/Tabs';
 import ChangePasswordForm from '../profile/ChangePasswordForm';
+import NameChangeForm from '../profile/NameChangeForm';
 
 export interface ProfileTemplatePropsType {
   user: UserType;
@@ -342,7 +343,14 @@ const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
                   text='비밀번호'
                 />
               </Tabs.Header>
-              <Tabs.Body id={0}>이름 변경</Tabs.Body>
+              <Tabs.Body id={0}>
+                <NameChangeForm
+                  onSuccess={async () => {
+                    await actions.requestUser();
+                    setIsShowSetting(false);
+                  }}
+                />
+              </Tabs.Body>
               <Tabs.Body id={1}>
                 <ChangePasswordForm onSuccess={() => setIsShowSetting(false)} />
               </Tabs.Body>
