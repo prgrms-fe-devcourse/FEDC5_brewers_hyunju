@@ -87,12 +87,14 @@ const DMItem = ({
           gap={1}
         >
           <AvatarContainer>
-            <Image
-              width={3.5}
-              height={3.5}
-              alt={`${userName}`}
-              src={src}
-            />
+            <Link to={`/profile/${userId}`}>
+              <Image
+                width={3.5}
+                height={3.5}
+                alt={`${userName}`}
+                src={src}
+              />
+            </Link>
           </AvatarContainer>
           <Link
             to={`/message/${userId}`}
