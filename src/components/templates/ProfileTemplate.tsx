@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import {
   IconMessage,
+  IconSettings,
   IconUserMinus,
   IconUserPlus,
   IconUsers,
@@ -17,10 +18,13 @@ import { OptionalConfig } from '~/hooks/api';
 import Modal from '../common/Modal';
 import ProfileImageUpload from '../uploadImage/ProfileImageUpload';
 import UserListItem from '../UserListItem';
+import { useRecoilValue } from 'recoil';
+import { userState } from '~/recoil/login/atoms';
+import Tabs from '../common/Tabs';
+import ChangePasswordForm from '../profile/ChangePasswordForm';
 
 export interface ProfileTemplatePropsType {
   user: UserType;
-  auth?: UserType;
   actions: {
     requestUser: (config?: OptionalConfig) => Promise<void>;
     createFollow: (config?: OptionalConfig) => Promise<void>;
@@ -29,12 +33,15 @@ export interface ProfileTemplatePropsType {
   };
 }
 
-const ProfileTemplate = ({ user, auth, actions }: ProfileTemplatePropsType) => {
+const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
+  const auth = useRecoilValue(userState);
+
   const [isShowUpload, setIsShowUpload] = useState(false);
-  const [isLoadingUpload, setIsLoadingUpload] = useState(false);
   const [isShowProfile, setIsShowProfile] = useState(false);
-  const [isShowFollower, setIsShowFollower] = useState(false);
-  const [isShowFollowing, setIsShowFollowing] = useState(false);
+  const [isShowFollow, setIsShowFollow] = useState(false);
+  const [isShowSetting, setIsShowSetting] = useState(false);
+
+  const [isLoadingUpload, setIsLoadingUpload] = useState(false);
 
   const isMe = useMemo(() => {
     return user._id === auth?._id;
@@ -100,69 +107,6 @@ const ProfileTemplate = ({ user, auth, actions }: ProfileTemplatePropsType) => {
 
   return (
     <>
-      <>
-        <Modal
-          visible={isShowUpload}
-          handleClose={() => setIsShowUpload(false)}
-        >
-          <ProfileImageUpload
-            currentImageUrl={user.image}
-            onSave={handleOnSaveProfileImage}
-            onCancel={handleOnCancelProfileImage}
-            disabled={isLoadingUpload}
-          />
-        </Modal>
-        <Modal
-          visible={isShowProfile}
-          handleClose={() => setIsShowProfile(false)}
-        >
-          <Modal.Header handleClose={() => setIsShowProfile(false)}>
-            <Text weight={600}>프로필 이미지</Text>
-          </Modal.Header>
-          <Image
-            width='100%'
-            height='50%'
-            src={user.image}
-            alt={`${user.fullName}'s cover image`}
-          />
-        </Modal>
-        <Modal
-          visible={isShowFollower}
-          handleClose={() => setIsShowFollower(false)}
-        >
-          <Modal.Header handleClose={() => setIsShowFollower(false)}>
-            팔로워
-          </Modal.Header>
-          <Modal.Body>
-            {user.followers.length === 0 && <Text>팔로워가 없습니다.</Text>}
-            {user.followers.map((follow) => (
-              <UserListItem
-                key={follow._id}
-                id={follow.user}
-              />
-            ))}
-          </Modal.Body>
-        </Modal>
-        <Modal
-          visible={isShowFollowing}
-          handleClose={() => setIsShowFollowing(false)}
-        >
-          <Modal.Header handleClose={() => setIsShowFollowing(false)}>
-            팔로잉
-          </Modal.Header>
-          <Modal.Body>
-            {user.following.length === 0 && (
-              <Text>팔로잉하고 있는 사용자가 없습니다.</Text>
-            )}
-            {user.following.map((follow) => (
-              <UserListItem
-                key={follow._id}
-                id={follow.user}
-              />
-            ))}
-          </Modal.Body>
-        </Modal>
-      </>
       <ProfileContainer maxWidth='md'>
         <Text
           size='3xl'
@@ -218,76 +162,79 @@ const ProfileTemplate = ({ user, auth, actions }: ProfileTemplatePropsType) => {
           gap={1}
           px={1}
         >
-          {isMe ? (
-            <Button
-              variant='filled'
-              size='lg'
-              color='--primaryColor'
-              leftItem={
-                <IconUsers
-                  size={18}
-                  stroke={2.5}
-                />
-              }
-              onClick={() => setIsShowFollower(true)}
-              disabled={!auth}
-            >
-              팔로워
-            </Button>
-          ) : (
-            <Button
-              variant='filled'
-              size='lg'
-              color='--primaryColor'
-              leftItem={
-                myFollow ? (
-                  <IconUserMinus
+          {isMe && (
+            <>
+              <Button
+                variant='filled'
+                size='lg'
+                color='--primaryColor'
+                leftItem={
+                  <IconUsers
                     size={18}
                     stroke={2.5}
                   />
-                ) : (
-                  <IconUserPlus
+                }
+                onClick={() => setIsShowFollow(true)}
+                disabled={!auth}
+              >
+                팔로잉 / 팔로워
+              </Button>
+              <Button
+                variant='outlined'
+                size='lg'
+                color='--adaptive400'
+                leftItem={
+                  <IconSettings
                     size={18}
                     stroke={2.5}
                   />
-                )
-              }
-              onClick={handleFollow}
-              disabled={!auth}
-            >
-              {myFollow ? '팔로우 해제' : '팔로우'}
-            </Button>
+                }
+                onClick={() => setIsShowSetting(true)}
+                disabled={!auth}
+              >
+                내 정보 수정
+              </Button>
+            </>
           )}
-          {isMe ? (
-            <Button
-              variant='outlined'
-              size='lg'
-              color='--adaptive400'
-              leftItem={
-                <IconUsers
-                  size={18}
-                  stroke={2.5}
-                />
-              }
-              onClick={() => setIsShowFollowing(true)}
-            >
-              팔로잉
-            </Button>
-          ) : (
-            <Button
-              variant='outlined'
-              size='lg'
-              color='--adaptive400'
-              leftItem={
-                <IconMessage
-                  size={18}
-                  stroke={2.5}
-                />
-              }
-              disabled
-            >
-              메시지
-            </Button>
+          {!isMe && (
+            <>
+              <Button
+                variant='filled'
+                size='lg'
+                color='--primaryColor'
+                leftItem={
+                  myFollow ? (
+                    <IconUserMinus
+                      size={18}
+                      stroke={2.5}
+                    />
+                  ) : (
+                    <IconUserPlus
+                      size={18}
+                      stroke={2.5}
+                    />
+                  )
+                }
+                onClick={handleFollow}
+                disabled={!auth}
+              >
+                {myFollow ? '팔로우 해제' : '팔로우'}
+              </Button>
+              <Button
+                variant='outlined'
+                size='lg'
+                color='--adaptive400'
+                leftItem={
+                  <IconMessage
+                    size={18}
+                    stroke={2.5}
+                  />
+                }
+                disabled
+              >
+                메시지
+              </Button>
+            </>
           )}
         </Flex>
       </ProfileContainer>
@@ -296,6 +243,113 @@ const ProfileTemplate = ({ user, auth, actions }: ProfileTemplatePropsType) => {
           <div key={post._id}>{post._id}</div>
         ))}
       </PostContainer>
+      <>
+        <Modal
+          visible={isShowUpload}
+          handleClose={() => setIsShowUpload(false)}
+        >
+          <ProfileImageUpload
+            currentImageUrl={user.image}
+            onSave={handleOnSaveProfileImage}
+            onCancel={handleOnCancelProfileImage}
+            disabled={isLoadingUpload}
+          />
+        </Modal>
+        <Modal
+          visible={isShowProfile}
+          handleClose={() => setIsShowProfile(false)}
+        >
+          <Modal.Header handleClose={() => setIsShowProfile(false)}>
+            <Text weight={600}>프로필 이미지</Text>
+          </Modal.Header>
+          <Image
+            width='100%'
+            height='50%'
+            src={user.image}
+            alt={`${user.fullName}'s cover image`}
+          />
+        </Modal>
+        <Modal
+          visible={isShowFollow}
+          handleClose={() => setIsShowFollow(false)}
+        >
+          <Modal.Header handleClose={() => setIsShowFollow(false)}>
+            팔로우 목록
+          </Modal.Header>
+          <Modal.Body>
+            <Tabs>
+              <Tabs.Header>
+                <Tabs.Item
+                  id={0}
+                  text='팔로워'
+                />
+                <Tabs.Item
+                  id={1}
+                  text='팔로잉'
+                />
+              </Tabs.Header>
+              <Tabs.Body id={0}>
+                <Flex
+                  py={1}
+                  direction='column'
+                >
+                  {user.followers.length === 0 && (
+                    <Text>팔로워가 없습니다.</Text>
+                  )}
+                  {user.followers.map((follow) => (
+                    <UserListItem
+                      key={follow._id}
+                      id={follow.user}
+                    />
+                  ))}
+                </Flex>
+              </Tabs.Body>
+              <Tabs.Body id={1}>
+                <Flex
+                  py={1}
+                  direction='column'
+                >
+                  {user.following.length === 0 && (
+                    <Text>팔로잉하고 있는 사용자가 없습니다.</Text>
+                  )}
+                  {user.following.map((follow) => (
+                    <UserListItem
+                      key={follow._id}
+                      id={follow.user}
+                    />
+                  ))}
+                </Flex>
+              </Tabs.Body>
+            </Tabs>
+          </Modal.Body>
+        </Modal>
+        <Modal
+          visible={isShowSetting}
+          handleClose={() => setIsShowSetting(false)}
+        >
+          <Modal.Header handleClose={() => setIsShowSetting(false)}>
+            내 정보 수정
+          </Modal.Header>
+          <Modal.Body>
+            <Tabs>
+              <Tabs.Header>
+                <Tabs.Item
+                  id={0}
+                  text='이름'
+                />
+                <Tabs.Item
+                  id={1}
+                  text='비밀번호'
+                />
+              </Tabs.Header>
+              <Tabs.Body id={0}>이름 변경</Tabs.Body>
+              <Tabs.Body id={1}>
+                <ChangePasswordForm onSuccess={() => setIsShowSetting(false)} />
+              </Tabs.Body>
+            </Tabs>
+          </Modal.Body>
+        </Modal>
+      </>
     </>
   );
 };
