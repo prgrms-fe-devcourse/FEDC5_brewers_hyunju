@@ -6,8 +6,8 @@ import Text from '~/components/common/Text';
 import Avatar from '~/components/common/Avatar';
 import Flex from '~/components/common/Flex';
 import Button from '~/components/common/Button';
-import ContentEditableDiv from './ContentEditableDiv';
-import PostButton from './PostButton';
+import ContentEditableDiv from '~/components/ContentEditableDiv';
+import PostButton from '~/components/PostButton';
 import { postModalState } from '~/recoil/postModal/atoms';
 import { basicPostOpenState } from '~/recoil/postModal/selectors';
 
@@ -46,7 +46,7 @@ const BasicPostModal = () => {
             <div>
               <Avatar
                 size='sm'
-                handleClick={() => console.log('클릭')}
+                handleClick={() => {}}
               />
             </div>
             <ContentEditableDiv />
