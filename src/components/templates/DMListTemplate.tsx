@@ -64,13 +64,13 @@ const DMListTemplate = ({ conversations, status }: DMListTemplatePropsType) => {
           {status === 'success' && conversations.length ? (
             conversations?.map(({ message, sender, receiver, seen }, index) => (
               <Link
+                key={index}
                 to={`/message/${
                   sender._id === user?._id ? receiver._id : sender._id
                 }`}
                 style={{ textDecoration: 'none' }}
               >
                 <DMItem
-                  key={index}
                   userName={
                     sender._id === user?._id
                       ? receiver.fullName
