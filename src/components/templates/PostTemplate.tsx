@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
-import Post from '~/components/post/Post';
-import { PostType } from '~/types/common';
-import PostCommentListItem from '~/components/postComment/PostCommentListItem';
 import Container from '~/components/common/Container';
 import Text from '~/components/common/Text';
+import Post from '~/components/post/Post';
+import { PostType } from '~/types/common';
 import { OptionalConfig } from '~/hooks/api';
+import PostCommentListItem from '~/components/postComment/PostCommentListItem';
+import PostCommentInput from '~/components/post/PostCommentInput';
 
 export interface PostTemplatePropsType {
   post: PostType;
@@ -13,11 +14,16 @@ export interface PostTemplatePropsType {
     updatePost: (config?: OptionalConfig) => Promise<void>;
     deletePost: (config?: OptionalConfig) => Promise<void>;
   };
+  onCreateComment: (comment: string) => void;
 }
 
 const PostContainer = styled(Container)``;
 
-const PostTemplate = ({ post, actions }: PostTemplatePropsType) => {
+const PostTemplate = ({
+  post,
+  actions,
+  onCreateComment,
+}: PostTemplatePropsType) => {
   // dropDown 버튼 클릭 시
   const handleDropDownClick = async (action: string) => {
     // if (!auth) return;
@@ -84,6 +90,11 @@ const PostTemplate = ({ post, actions }: PostTemplatePropsType) => {
           onUserClick={handleUserClick}
         />
       )}
+      <PostCommentInput
+        userId='1'
+        profileImage=''
+        onCreateComment={onCreateComment}
+      ></PostCommentInput>
       {post.comments &&
         post.comments.map((comment) => (
           <PostCommentListItem
