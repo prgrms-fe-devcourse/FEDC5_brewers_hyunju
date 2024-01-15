@@ -16,13 +16,14 @@ import Button from '../common/Button';
 import { UserType } from '~/types/common';
 import { OptionalConfig } from '~/hooks/api';
 import Modal from '../common/Modal';
-import ProfileImageUpload from '../uploadImage/ProfileImageUpload';
 import UserListItem from '../UserListItem';
 import { useRecoilValue } from 'recoil';
 import { userState } from '~/recoil/login/atoms';
 import Tabs from '../common/Tabs';
 import PasswordChangeForm from '../profile/PasswordChangeForm';
 import NameChangeForm from '../profile/NameChangeForm';
+import Box from '../common/Box';
+import ImageUploadForm from '../profile/ImageUploadForm';
 
 export interface ProfileTemplatePropsType {
   user: UserType;
@@ -30,19 +31,17 @@ export interface ProfileTemplatePropsType {
     requestUser: (config?: OptionalConfig) => Promise<void>;
     createFollow: (config?: OptionalConfig) => Promise<void>;
     deleteFollow: (config?: OptionalConfig) => Promise<void>;
-    uploadPhoto: (config?: OptionalConfig) => Promise<void>;
   };
 }
 
 const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
   const auth = useRecoilValue(userState);
 
+  const [tabId, setTabId] = useState<number>(0);
   const [isShowUpload, setIsShowUpload] = useState(false);
-  const [isShowProfile, setIsShowProfile] = useState(false);
+  const [isShowImage, setIsShowImage] = useState(false);
   const [isShowFollow, setIsShowFollow] = useState(false);
   const [isShowSetting, setIsShowSetting] = useState(false);
-
-  const [isLoadingUpload, setIsLoadingUpload] = useState(false);
 
   const isMe = useMemo(() => {
     return user._id === auth?._id;
@@ -72,37 +71,30 @@ const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
     actions.requestUser();
   };
 
-  const handlerProfileClick = () => {
+  const handlerClickImage = () => {
+    setTabId(0);
     if (isMe) {
       setIsShowUpload(true);
     } else {
-      setIsShowProfile(true);
+      setIsShowImage(true);
     }
   };
 
-  const handleOnSaveProfileImage = async (file: File) => {
-    // 동작
-    setIsLoadingUpload(true);
-
-    const form = new FormData();
-
-    form.append('isCover', 'false');
-    form.append('image', file);
-
-    await actions.uploadPhoto({
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-      data: form,
-    });
-
-    await actions.requestUser();
-
-    setIsShowUpload(false);
-    setIsLoadingUpload(false);
+  const handleClickCover = () => {
+    setTabId(1);
+    if (isMe) {
+      setIsShowUpload(true);
+    } else {
+      setIsShowImage(true);
+    }
   };
 
-  const handleOnCancelProfileImage = () => {
+  const handleOnSaveImage = async () => {
+    await actions.requestUser();
+    setIsShowUpload(false);
+  };
+
+  const handleOnCancelImage = () => {
     setIsShowUpload(false);
   };
 
@@ -115,14 +107,16 @@ const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
         >
           프로필
         </Text>
-        <Image
-          width='100%'
-          height={14}
-          src={user.coverImage}
-          alt={`${user.fullName}'s cover image`}
-          letterBoxColor='--adaptive300'
-          mode='cover'
-        />
+        <Cover onClick={handleClickCover}>
+          <Image
+            width='100%'
+            height={14}
+            src={user.coverImage}
+            alt={`${user.fullName}'s cover image`}
+            letterBoxColor='--adaptive300'
+            mode='cover'
+          />
+        </Cover>
         <Flex
           gap={1.5}
           mt={-5}
@@ -131,7 +125,7 @@ const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
           <Avatar
             src={user.image}
             size='lg'
-            handleClick={handlerProfileClick}
+            handleClick={handlerClickImage}
           />
           <Flex
             direction='column'
@@ -249,26 +243,77 @@ const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
           visible={isShowUpload}
           handleClose={() => setIsShowUpload(false)}
         >
-          <ProfileImageUpload
-            currentImageUrl={user.image}
-            onSave={handleOnSaveProfileImage}
-            onCancel={handleOnCancelProfileImage}
-            disabled={isLoadingUpload}
-          />
+          <Modal.Header handleClose={() => setIsShowUpload(false)}>
+            <Text weight={600}>이미지 업로드</Text>
+          </Modal.Header>
+          <Modal.Body>
+            <Tabs defaultId={tabId}>
+              <Tabs.Header>
+                <Tabs.Item
+                  id={0}
+                  text='프로필'
+                />
+                <Tabs.Item
+                  id={1}
+                  text='커버'
+                />
+              </Tabs.Header>
+              <Tabs.Body id={0}>
+                <ImageUploadForm
+                  isCover={false}
+                  currentImageUrl={user.image}
+                  onSave={handleOnSaveImage}
+                  onCancel={handleOnCancelImage}
+                />
+              </Tabs.Body>
+              <Tabs.Body id={1}>
+                <ImageUploadForm
+                  isCover={true}
+                  currentImageUrl={user.coverImage}
+                  onSave={handleOnSaveImage}
+                  onCancel={handleOnCancelImage}
+                />
+              </Tabs.Body>
+            </Tabs>
+          </Modal.Body>
         </Modal>
         <Modal
-          visible={isShowProfile}
-          handleClose={() => setIsShowProfile(false)}
+          visible={isShowImage}
+          handleClose={() => setIsShowImage(false)}
         >
-          <Modal.Header handleClose={() => setIsShowProfile(false)}>
-            <Text weight={600}>프로필 이미지</Text>
+          <Modal.Header handleClose={() => setIsShowImage(false)}>
+            <Text weight={600}>이미지</Text>
           </Modal.Header>
-          <Image
-            width='100%'
-            height='50%'
-            src={user.image}
-            alt={`${user.fullName}'s cover image`}
-          />
+          <Modal.Body>
+            <Tabs defaultId={tabId}>
+              <Tabs.Header>
+                <Tabs.Item
+                  id={0}
+                  text='프로필'
+                />
+                <Tabs.Item
+                  id={1}
+                  text='커버'
+                />
+              </Tabs.Header>
+              <Tabs.Body id={0}>
+                <Image
+                  width='100%'
+                  height='50%'
+                  src={user.image}
+                  alt={`${user.fullName}'s profile image`}
+                />
+              </Tabs.Body>
+              <Tabs.Body id={1}>
+                <Image
+                  width='100%'
+                  height='50%'
+                  src={user.coverImage}
+                  alt={`${user.fullName}'s cover image`}
+                />
+              </Tabs.Body>
+            </Tabs>
+          </Modal.Body>
         </Modal>
         <Modal
           visible={isShowFollow}
@@ -378,4 +423,10 @@ const ProfileContainer = styled(Container)`
 
 const PostContainer = styled(Container)`
   background-color: var(--transparent);
+`;
+
+const Cover = styled(Box)`
+  &:hover {
+    cursor: pointer;
+  }
 `;

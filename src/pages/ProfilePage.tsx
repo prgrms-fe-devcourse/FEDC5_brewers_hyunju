@@ -5,7 +5,6 @@ import ProfileTemplate from '~/components/templates/ProfileTemplate';
 import useCreateFollow from '~/hooks/api/follow/useCreateFollow';
 import useDeleteFollow from '~/hooks/api/follow/useDeleteFollow';
 import useGetUser from '~/hooks/api/users/useGetUser';
-import useUploadPhoto from '~/hooks/api/users/useUploadPhoto';
 
 const ProfilePage = () => {
   const { userId } = useParams();
@@ -18,7 +17,6 @@ const ProfilePage = () => {
 
   const { request: createFollow } = useCreateFollow();
   const { request: deleteFollow } = useDeleteFollow();
-  const { request: uploadPhoto } = useUploadPhoto();
 
   useEffect(() => {
     requestUser();
@@ -29,7 +27,7 @@ const ProfilePage = () => {
     return (
       <ProfileTemplate
         user={userData}
-        actions={{ requestUser, createFollow, deleteFollow, uploadPhoto }}
+        actions={{ requestUser, createFollow, deleteFollow }}
       />
     );
   } else {
