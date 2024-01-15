@@ -6,14 +6,15 @@ import useSearchAll from '~/hooks/api/search/useSearchAll';
 import useSearchUsers from '~/hooks/api/search/useSearchUsers';
 import { userState } from '~/recoil/login/atoms';
 import { PostType, UserType } from '~/types/common';
-interface UserSearchData {
+
+export interface UserSearchData {
   userImage: string;
   userId: string;
   userName: string;
   isFollowing: boolean;
   [prop: string]: unknown;
 }
-interface PostSearchData {
+export interface PostSearchData {
   id: string;
   userId: string;
   profileImage: string;
@@ -83,7 +84,7 @@ const SearchPage = () => {
       allStatus={searchAllStatus}
       userStatus={searchUserStatus}
       users={parseSearchData(searchUserData, loginData?._id).users}
-      postList={parseSearchData(searchAllData, loginData?._id).postList}
+      all={parseSearchData(searchAllData, loginData?._id)}
     />
   );
 };

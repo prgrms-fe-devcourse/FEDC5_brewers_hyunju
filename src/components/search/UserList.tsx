@@ -31,6 +31,4 @@ export default UserList;
 const StyledUl = styled.ul`
   flex-direction: column;
   align-items: center;
-
-  padding: 1rem;
 `;
