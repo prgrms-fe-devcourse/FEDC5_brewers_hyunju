@@ -5,7 +5,7 @@ import SearchTemplate from '~/components/SearchTemplate';
 import useSearchAll from '~/hooks/api/search/useSearchAll';
 import useSearchUsers from '~/hooks/api/search/useSearchUsers';
 import { userState } from '~/recoil/login/atoms';
-import { PostType, UserType } from '~/types/common';
+import { PostSimpleType, UserSimpleType } from '~/types/common';
 
 export interface UserSearchData {
   userImage: string;
@@ -23,12 +23,12 @@ export interface PostSearchData {
   updatedAt?: string;
   content: string;
   imageUrl?: string;
-  likesCount: number;
-  commentsCount: number;
+  likes: string[];
+  comments: string[];
   [prop: string]: unknown;
 }
 const parseSearchData = (
-  searchData: (PostType | UserType)[],
+  searchData: (PostSimpleType | UserSimpleType)[],
   id: string | undefined
 ) => {
   const users: UserSearchData[] = [];
@@ -36,29 +36,31 @@ const parseSearchData = (
   if (searchData) {
     searchData.forEach((item) => {
       //console.log(item);
-      if ((item as UserType).role) {
+      if ((item as UserSimpleType).role) {
         users.push({
-          userImage: (item as UserType).image,
+          userImage: (item as UserSimpleType).image,
           userId: item._id,
-          userName: (item as UserType).fullName,
-          isFollowing: id ? (item as UserType).followers.includes(id) : false,
+          userName: (item as UserSimpleType).fullName,
+          isFollowing: id
+            ? (item as UserSimpleType).followers.includes(id)
+            : false,
         });
-      } else if ((item as PostType).title) {
+      } else if ((item as PostSimpleType).title) {
         // const response = await axiosInstance.get(
-        //   `/users/${(item as PostType).author}`
+        //   `/users/${(item as PostSimpleType).author}`
         // );
         // console.log(response);
         postList.push({
-          id: (item as PostType)._id,
-          userId: (item as PostType).author,
+          id: (item as PostSimpleType)._id,
+          userId: (item as PostSimpleType).author,
           profileImage: '',
           userName: '',
           createdAt: item.createdAt,
           updatedAt: item.updatedAt,
-          content: JSON.parse((item as PostType).title).body.text,
+          content: JSON.parse((item as PostSimpleType).title).body.text,
           imageUrl: item.image,
-          likesCount: item.likes.length,
-          commentsCount: item.comments.length,
+          likes: item.likes,
+          comments: item.comments,
         });
       }
     });

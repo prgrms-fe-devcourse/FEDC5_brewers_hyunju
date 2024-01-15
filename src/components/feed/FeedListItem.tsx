@@ -16,8 +16,8 @@ export interface FeedListItemPropsType {
   updatedAt?: string;
   content: string;
   imageUrl?: string;
-  likes: LikeType[];
-  comments: CommentType[];
+  likes: LikeType[] | string[];
+  comments: CommentType[] | string[];
   onFeedClick: (feedId: string) => void;
   onUserClick: (userId: string) => void;
 }
@@ -93,13 +93,7 @@ const FeedListItem = ({
       >
         <div>
           <Avatar
-            src={
-              profileImage
-                ? profileImage
-                : status === 'success'
-                  ? data.image
-                  : ''
-            }
+            src={profileImage}
             size='sm'
             handleClick={handleUserClick}
             alt='user image'

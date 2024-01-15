@@ -103,8 +103,8 @@ const SearchTemplate = ({
                       createdAt={post.createdAt}
                       updatedAt={post.updatedAt}
                       content={post.content}
-                      likesCount={post.likesCount}
-                      commentsCount={post.commentsCount}
+                      likes={post.likes}
+                      comments={post.comments}
                       onFeedClick={() => {}}
                       onUserClick={() => {}}
                       imageUrl={post.imageUrl}
