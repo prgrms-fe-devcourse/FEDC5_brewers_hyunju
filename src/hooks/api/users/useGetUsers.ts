@@ -1,5 +1,8 @@
-import { GetUsersResponseType } from '~/types/api/users';
 import { useRequestFn } from '~/hooks/api';
+
+import { handleError } from '~/utils/handleError';
+
+import { GetUsersResponseType } from '~/types/api/users';
 
 export const useGetUsers = () => {
   const { request, status, data, error } = useRequestFn<GetUsersResponseType>({
@@ -7,7 +10,14 @@ export const useGetUsers = () => {
     url: '/users/get-users',
   });
 
-  return { status, data, request, error };
+  const handleGetUsers = async () => {
+    try {
+      await request();
+    } catch (e) {
+      handleError(e, 'api/get-users');
+    }
+  };
+  return { handleGetUsers, status, data, error };
 };
 
 export default useGetUsers;
