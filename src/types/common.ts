@@ -77,7 +77,7 @@ export interface PostType {
   //     | SpotPostBodyType;
   // };
   channel: ChannelType;
-  author: string;
+  author: UserSimpleType;
   createdAt: string;
   updatedAt: string;
 }

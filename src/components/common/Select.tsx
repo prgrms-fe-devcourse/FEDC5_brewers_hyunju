@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
+import { FONT_SIZE } from '~/constants/design';
 
 interface SelectPropsType {
   data: (string | { label: string; value: string })[];
   label: string;
   placeholder: string;
-  block?: boolean;
   invalid?: boolean;
   required?: boolean;
   disabled?: boolean;
@@ -14,7 +14,6 @@ const Select = ({
   data,
   label,
   placeholder,
-  block = false,
   invalid = false,
   required = false,
   disabled = false,
@@ -46,7 +45,7 @@ const Select = ({
   }
 
   return (
-    <Wrapper block={block}>
+    <Wrapper>
       <Label>{label}</Label>
       <StyledSelect
         invalid={invalid}
@@ -63,23 +62,29 @@ const Select = ({
 export default Select;
 
 const Wrapper = styled.div(
-  (props: { block: boolean }) => `
-  display: ${props.block ? 'block' : 'inline-block'};
+  () => `
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+
+  gap: 0.375rem;
 `
 );
 
 const Label = styled.label`
   display: block;
-  font-size: 12px;
+
+  font-weight: 800;
+  font-size: ${FONT_SIZE['md']};
 `;
 
 const StyledSelect = styled.select(
   (props: { invalid: boolean }) => `
-  width: 100%;
   padding: 4px 8px;
   border: 1px solid ${props.invalid ? 'var(--red600)' : 'var(--adaptive400)'};
   border-radius: 4px;
 
   box-sizing: border-box;
+  outline: none;
 `
 );

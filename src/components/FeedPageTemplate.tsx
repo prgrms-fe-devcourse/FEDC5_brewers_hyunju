@@ -5,7 +5,7 @@ import Text from '~/components/common/Text';
 import FeedListInput from '~/components/feed/FeedListInput';
 import { GetChannelPostsResponseType } from '~/types/api/posts';
 import { useNavigate } from 'react-router-dom';
-import { CustomPostContentType } from '~/types/common';
+import { CustomPostContentType, WorkingSpotType } from '~/types/common';
 
 export interface FeedPageTemplatePropsType {
   posts?: GetChannelPostsResponseType;
@@ -44,16 +44,22 @@ const FeedPageTemplate = ({
       {posts &&
         posts.map((post) => {
           let contentText = '';
+          let workingSpot = 'cafe';
           try {
             const parsedTitle = JSON.parse(post.title);
+            console.log(parsedTitle);
             if (parsedTitle.body && parsedTitle.body.text) {
               contentText = parsedTitle.body.text;
             } else {
               contentText = post.title;
             }
+            if (parsedTitle.workingSpot) {
+              workingSpot = parsedTitle.workingSpot;
+            }
           } catch (error) {
             contentText = post.title;
           }
+
           return (
             <FeedListItem
               id={post._id}
@@ -64,6 +70,7 @@ const FeedPageTemplate = ({
               createdAt={post.createdAt}
               updatedAt={post.updatedAt}
               content={contentText}
+              workingSpot={workingSpot as WorkingSpotType}
               likes={post.likes}
               comments={post.comments}
               onFeedClick={(feedId: string) => {
