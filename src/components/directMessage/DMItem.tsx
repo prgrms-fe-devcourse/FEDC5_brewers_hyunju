@@ -2,6 +2,8 @@ import styled from '@emotion/styled';
 
 import Text from '~/components/common/Text';
 import Flex from '~/components/common/Flex';
+import Image from '../common/Image';
+import { Link } from 'react-router-dom';
 
 interface DMItemPropsType {
   userName: string;
@@ -9,14 +11,11 @@ interface DMItemPropsType {
   size?: 'md' | 'lg';
   src?: string;
   seen: boolean;
+  userId: string;
 }
 
 interface ClampTextPropsType {
   size?: string;
-}
-
-interface AvatarPropsType {
-  avatar?: string;
 }
 
 const ClampText = styled(Text)<ClampTextPropsType>`
@@ -55,16 +54,6 @@ const AvatarContainer = styled.div`
   border-radius: 100%;
 `;
 
-const Avatar = styled.img<AvatarPropsType>`
-  width: 3.5rem;
-  height: 3.5rem;
-
-  background-color: var(--adaptive300);
-
-  alt: 'avatar';
-  src: ${(props) => props.avatar};
-`;
-
 const Badge = styled.div`
   top: 1.75rem;
   left: 2rem;
@@ -82,6 +71,7 @@ const DMItem = ({
   message = '',
   size = 'md',
   seen,
+  userId,
 }: DMItemPropsType) => {
   const messageSize = size === 'md' ? 'sm' : 'md';
 
@@ -97,27 +87,42 @@ const DMItem = ({
           gap={1}
         >
           <AvatarContainer>
-            <Avatar src={src} />
+            <Image
+              width={3.5}
+              height={3.5}
+              alt={`${userName}`}
+              src={src}
+            />
           </AvatarContainer>
-          <Flex
-            direction='column'
-            alignItems='flex-start'
-            gap={0.25}
+          <Link
+            to={`/message/${userId}`}
+            style={{
+              flexGrow: 1,
+              textDecoration: 'none',
+            }}
           >
             <Flex
-              alignItems='center'
+              direction='column'
+              alignItems='flex-start'
+              grow={1}
               gap={0.25}
             >
-              <Text size={size}>{userName}</Text>
-              {!seen && <Badge />}
+              <Flex
+                alignItems='center'
+                gap={0.25}
+                grow={1}
+              >
+                <Text size={size}>{userName}</Text>
+                {!seen && <Badge />}
+              </Flex>
+              <ClampText
+                size={messageSize}
+                color='--adaptive400'
+              >
+                {message}
+              </ClampText>
             </Flex>
-            <ClampText
-              size={messageSize}
-              color='--adaptive400'
-            >
-              {message}
-            </ClampText>
-          </Flex>
+          </Link>
         </Flex>
       </TextContainer>
     </Flex>
