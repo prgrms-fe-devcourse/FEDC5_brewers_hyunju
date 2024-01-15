@@ -1,20 +1,21 @@
 import { useRef } from 'react';
+import { useRecoilValue } from 'recoil';
 
 import CircleLoading from '../loading/CircleLoading';
 import Container from '../common/Container';
 import Flex from '../common/Flex';
-import PersonalConversation from '../PersonalConversation';
 import MessageSending from '../MessageSending';
+import PersonalConversation from '../PersonalConversation';
+import Text from '../common/Text';
 
 import useCreateMessage from '~/hooks/api/conversation/useCreateMessage';
+
+import { userState } from '~/recoil/login/atoms';
 
 import {
   GetMessageListsRequestType,
   GetMessageListsResponseType,
 } from '~/types/api/message';
-import { userState } from '~/recoil/login/atoms';
-import { useRecoilValue } from 'recoil';
-import Text from '../common/Text';
 
 interface MessageSendingTemplatePropsType {
   messageListStatus: 'stale' | 'loading' | 'error' | 'success';
