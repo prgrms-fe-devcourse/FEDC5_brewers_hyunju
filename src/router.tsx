@@ -7,7 +7,8 @@ import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import SearchPage from './pages/SearchPage';
 import App from './App';
-import ChatPage from './pages/ChatPage';
+import PersonalMessagePage from './pages/PresonalMessagePage';
+import DMListPage from './pages/DMListPage';
 
 const router = createBrowserRouter([
   {
@@ -49,8 +50,13 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
       },
       {
-        path: 'chat',
-        element: <ChatPage />,
+        path: 'message',
+        element: <DMListPage />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: 'message/:userId',
+        element: <PersonalMessagePage />,
         errorElement: <ErrorPage />,
       },
     ],

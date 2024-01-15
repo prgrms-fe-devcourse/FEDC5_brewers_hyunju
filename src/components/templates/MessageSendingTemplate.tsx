@@ -1,12 +1,16 @@
 import { useRef } from 'react';
+import { useRecoilValue } from 'recoil';
 
 import CircleLoading from '../loading/CircleLoading';
 import Container from '../common/Container';
 import Flex from '../common/Flex';
-import PersonalConversation from '../PersonalConversation';
 import MessageSending from '../MessageSending';
+import PersonalConversation from '../PersonalConversation';
+import Text from '../common/Text';
 
 import useCreateMessage from '~/hooks/api/conversation/useCreateMessage';
+
+import { userState } from '~/recoil/login/atoms';
 
 import {
   GetMessageListsRequestType,
@@ -28,7 +32,10 @@ const MessageSendingTemplate = ({
   userId,
   handlePersonalMessageList,
 }: MessageSendingTemplatePropsType) => {
+  const user = useRecoilValue(userState);
+
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
   const { handleCreateMessage } = useCreateMessage();
 
   const onClick = () => {
@@ -49,6 +56,33 @@ const MessageSendingTemplate = ({
 
     textareaRef.current.value = '';
   };
+
+  if (!user) {
+    return (
+      <Container
+        maxWidth='sm'
+        minWidth={20}
+        minHeight={40}
+      >
+        <Flex
+          direction='column'
+          gap={1}
+        >
+          <Flex
+            direction='column'
+            gap={0.25}
+          >
+            <Flex
+              justifyContent='center'
+              mt={10}
+            >
+              <Text color='--adaptive400'>로그인해 주세요</Text>
+            </Flex>
+          </Flex>
+        </Flex>
+      </Container>
+    );
+  }
 
   return (
     <Container
