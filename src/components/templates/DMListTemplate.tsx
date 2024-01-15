@@ -1,12 +1,12 @@
-import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { userState } from '~/recoil/login/atoms';
 
 import Container from '~/components/common/Container';
 import CircleLoading from '~/components/loading/CircleLoading';
 import DMItem from '~/components/directMessage/DMItem';
 import Flex from '~/components/common/Flex';
 import Text from '~/components/common/Text';
+
+import { userState } from '~/recoil/login/atoms';
 
 import { ConversationType } from '~/types/common';
 
@@ -63,24 +63,16 @@ const DMListTemplate = ({ conversations, status }: DMListTemplatePropsType) => {
           {status === 'loading' && <CircleLoading size={1} />}
           {status === 'success' && conversations.length ? (
             conversations?.map(({ message, sender, receiver, seen }, index) => (
-              <Link
+              <DMItem
                 key={index}
-                to={`/message/${
-                  sender._id === user?._id ? receiver._id : sender._id
-                }`}
-                style={{ textDecoration: 'none' }}
-              >
-                <DMItem
-                  userName={
-                    sender._id === user?._id
-                      ? receiver.fullName
-                      : sender.fullName
-                  }
-                  message={message}
-                  seen={seen}
-                  src={sender._id === user?._id ? receiver.image : sender.image}
-                />
-              </Link>
+                userName={
+                  sender._id === user?._id ? receiver.fullName : sender.fullName
+                }
+                message={message}
+                seen={seen}
+                src={sender._id === user?._id ? receiver.image : sender.image}
+                userId={sender._id === user?._id ? receiver._id : sender._id}
+              />
             ))
           ) : (
             <Flex
