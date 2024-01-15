@@ -7,6 +7,7 @@ import Avatar from '~/components/common/Avatar';
 import FeedFooterItem from '~/components/feed/FeedFooterItem';
 import DropDown from '~/components/dropDown/DropDown';
 // import PostCommentListItem from '../postComment/PostCommentListItem';
+import { handleDate } from '~/utils/handleDate';
 import { CommentType, LikeType, UserType } from '~/types/common';
 
 export interface PostPropsType {
@@ -113,7 +114,9 @@ const Post = ({
                 color='--adaptive500'
                 style={{ marginBottom: '1rem' }}
               >
-                {updatedAt ? `${updatedAt} · 수정됨` : createdAt}
+                {updatedAt
+                  ? `${handleDate(updatedAt)} · 수정됨`
+                  : handleDate(createdAt)}
               </Text>
             </div>
             <DropDown

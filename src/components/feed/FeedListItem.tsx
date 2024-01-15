@@ -5,6 +5,7 @@ import Text from '~/components/common/Text';
 import Image from '~/components/common/Image';
 import Avatar from '~/components/common/Avatar';
 import FeedFooterItem from './FeedFooterItem';
+import { handleDate } from '~/utils/handleDate';
 import WorkingSpotIcon from '~/components/WorkingSpotIcon';
 import { CommentType, LikeType, WorkingSpotType } from '~/types/common';
 
@@ -112,6 +113,7 @@ const FeedListItem = ({
             alignItems='center'
             style={{ flexGrow: 1 }}
           >
+
             <div style={{ flexGrow: 1 }}>
               <Text
                 size='lg'
@@ -125,7 +127,9 @@ const FeedListItem = ({
                 color='--adaptive500'
                 style={{ marginBottom: '1rem' }}
               >
-                {updatedAt ? `${updatedAt} · 수정됨` : createdAt}
+                {updatedAt
+              ? `${handleDate(updatedAt)} · 수정됨`
+              : handleDate(createdAt)}
               </Text>
             </div>
             <WorkingSpotIcon workingSpot={workingSpot} />

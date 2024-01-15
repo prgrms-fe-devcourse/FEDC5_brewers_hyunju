@@ -6,8 +6,8 @@ import Flex from '~/components/common/Flex';
 import Container from '~/components/common/Container';
 
 export interface PostCommentInputPropsType {
-  userId: string;
-  profileImage: string;
+  userId: string | null;
+  profileImage: string | null;
   onCreateComment: (comment: string) => void;
 }
 
@@ -51,6 +51,10 @@ const PostCommentInput = ({
 
   // '작성' 버튼 클릭시
   const handleSubmitBtnClick = async () => {
+    if (!userId) {
+      alert('댓글을 작성하려면 로그인 해주세요!');
+      return;
+    }
     if (content) {
       console.log(content);
       onCreateComment(content);
@@ -74,7 +78,7 @@ const PostCommentInput = ({
         >
           <div style={{ marginRight: '1rem' }}>
             <Avatar
-              src={profileImage}
+              src={profileImage ? profileImage : ''}
               size='sm'
               alt='user image'
               handleClick={() => {

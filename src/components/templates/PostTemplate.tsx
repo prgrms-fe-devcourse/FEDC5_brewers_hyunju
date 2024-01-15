@@ -2,27 +2,31 @@ import styled from '@emotion/styled';
 import Container from '~/components/common/Container';
 import Text from '~/components/common/Text';
 import Post from '~/components/post/Post';
-import { PostType } from '~/types/common';
+import { PostType, UserType } from '~/types/common';
 import { OptionalConfig } from '~/hooks/api';
 import PostCommentListItem from '~/components/postComment/PostCommentListItem';
 import PostCommentInput from '~/components/post/PostCommentInput';
 
 export interface PostTemplatePropsType {
   post: PostType;
+  user: UserType | null;
   actions: {
     requestPost: (config?: OptionalConfig) => Promise<void>;
     updatePost: (config?: OptionalConfig) => Promise<void>;
     deletePost: (config?: OptionalConfig) => Promise<void>;
   };
   onCreateComment: (comment: string) => void;
+  onDeleteComment: (commentId: string) => void;
 }
 
 const PostContainer = styled(Container)``;
 
 const PostTemplate = ({
   post,
+  user,
   actions,
   onCreateComment,
+  onDeleteComment,
 }: PostTemplatePropsType) => {
   // dropDown 버튼 클릭 시
   const handleDropDownClick = async (action: string) => {
@@ -91,19 +95,22 @@ const PostTemplate = ({
         />
       )}
       <PostCommentInput
-        userId='1'
-        profileImage=''
+        userId={user ? user._id : null}
+        profileImage={user ? user.image : null}
         onCreateComment={onCreateComment}
       ></PostCommentInput>
       {post.comments &&
         post.comments.map((comment) => (
           <PostCommentListItem
+            id={comment._id}
+            isMine={comment.author._id === user?._id}
             userName={comment.author.fullName}
             createdAt={comment.createdAt}
             avatarSrc={comment.author.image}
             message={comment.comment}
             handleClick={handleUserClick}
             updatedAt={comment.updatedAt}
+            onDeleteComment={onDeleteComment}
           ></PostCommentListItem>
         ))}
     </PostContainer>
