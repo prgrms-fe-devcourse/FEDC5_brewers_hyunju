@@ -5,6 +5,7 @@ import Text from '~/components/common/Text';
 import Avatar from '../common/Avatar';
 import { FontSizeType, FontWeightType } from '~/types/design/font';
 import ContainerSizeType from '~/types/design/container';
+import { handleDate } from '~/utils/handleDate';
 
 export interface PostCommentListItemPropsType {
   userName: string;
@@ -76,7 +77,7 @@ const PostCommentListItem = ({
                 weight={400}
                 color='--adaptive400'
               >
-                {updatedAt || createdAt}
+                {handleDate(updatedAt) || handleDate(createdAt)}
               </Text>
               {updatedAt ? (
                 <Text

@@ -6,6 +6,7 @@ import Image from '~/components/common/Image';
 import Avatar from '~/components/common/Avatar';
 import FeedFooterItem from './FeedFooterItem';
 import { CommentType, LikeType } from '~/types/common';
+import { handleDate } from '~/utils/handleDate';
 
 export interface FeedListItemPropsType {
   id: string;
@@ -117,7 +118,9 @@ const FeedListItem = ({
             color='--adaptive500'
             style={{ marginBottom: '1rem' }}
           >
-            {updatedAt ? `${updatedAt} · 수정됨` : createdAt}
+            {updatedAt
+              ? `${handleDate(updatedAt)} · 수정됨`
+              : handleDate(createdAt)}
           </Text>
           <Text style={{ marginBottom: '1rem' }}>{content}</Text>
           {imageUrl && (
