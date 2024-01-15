@@ -7,6 +7,8 @@ import Tabs from '~/components/common/Tabs';
 import Logo from '~/components/common/Logo';
 import { useRecoilState } from 'recoil';
 import { userState } from '~/recoil/login/atoms';
+import useLogout from '~/hooks/api/auth/useLogout';
+import { removeItem } from '~/utils/localStorage';
 
 export interface NavItemPropsType {
   to: string;
@@ -27,9 +29,12 @@ const NavItem = ({ to, children }: NavItemPropsType) => (
 
 const AuthNavItem = () => {
   const [user, setUser] = useRecoilState(userState);
+  const { request: requestLogout } = useLogout();
 
-  const handleLogout = () => {
-    setUser(null);
+  const handleLogout = async () => {
+    await requestLogout();
+    await removeItem('accessToken');
+    await setUser(null);
   };
 
   return (
