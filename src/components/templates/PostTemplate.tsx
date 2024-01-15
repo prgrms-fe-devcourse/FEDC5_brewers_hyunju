@@ -47,6 +47,18 @@ const PostTemplate = ({ post, actions }: PostTemplatePropsType) => {
     // navigation(post.author._id)
   };
 
+  let contentText = '';
+  try {
+    const parsedTitle = JSON.parse(post.title);
+    if (parsedTitle.body && parsedTitle.body.text) {
+      contentText = parsedTitle.body.text;
+    } else {
+      contentText = post.title;
+    }
+  } catch (error) {
+    contentText = post.title;
+  }
+
   return (
     <PostContainer maxWidth='md'>
       <Text
@@ -64,7 +76,7 @@ const PostTemplate = ({ post, actions }: PostTemplatePropsType) => {
           author={post.author}
           createdAt={post.createdAt}
           updatedAt={post.updatedAt}
-          content={post.title.body.text}
+          content={contentText}
           imageUrl={post.image}
           likes={post.likes}
           comments={post.comments}
