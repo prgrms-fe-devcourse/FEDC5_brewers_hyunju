@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Flex from '~/components/common/Flex';
 import Button from '~/components/common/Button';
-import Tabs from '~/components/common/Tabs';
 import Logo from '~/components/common/Logo';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { userState } from '~/recoil/login/atoms';
@@ -17,17 +16,32 @@ export interface NavItemPropsType {
   children: React.ReactNode;
 }
 
-const NavItem = ({ to, children }: NavItemPropsType) => (
-  <Link
-    to={to}
-    style={{
-      textDecoration: 'none',
-      marginLeft: '1rem',
-    }}
-  >
-    <NavBarItem>{children}</NavBarItem>
-  </Link>
-);
+const NavItem = ({ to, children }: NavItemPropsType) => {
+  const location = useLocation();
+  const isActive = location.pathname === to;
+
+  const NavBarItemWithUnderline = styled(NavBarItem)`
+    height: 2rem;
+    border-bottom: ${isActive ? '2px solid var(--primaryColor)' : 'none'};
+
+    color: ${isActive ? 'var(--adaptive950)' : 'none'};
+
+    box-sizing: border-box;
+  `;
+
+  return (
+    <Link
+      to={to}
+      style={{
+        textDecoration: 'none',
+        marginLeft: '1rem',
+        boxSizing: 'border-box',
+      }}
+    >
+      <NavBarItemWithUnderline>{children}</NavBarItemWithUnderline>
+    </Link>
+  );
+};
 
 const AuthNavItem = () => {
   const [user, setUser] = useRecoilState(userState);
@@ -43,7 +57,7 @@ const AuthNavItem = () => {
     <>
       {user ? (
         <>
-          <NavItem to={`/profile/${user._id}`}>{user.fullName}</NavItem>
+          <NavItem to={`/profile/${user._id}`}>{user.fullName} 님</NavItem>
           <NavBarItem
             onClick={handleLogout}
             style={{ marginLeft: '1rem' }}
@@ -59,12 +73,7 @@ const AuthNavItem = () => {
 };
 
 const NavBar = () => {
-  const navigate = useNavigate();
-
   const setPostModalOpen = useSetRecoilState(postModalState);
-  const handleTabClick = (link: string) => {
-    navigate(link);
-  };
 
   return (
     <NavWrapper>
@@ -72,51 +81,16 @@ const NavBar = () => {
       <Flex
         alignItems='center'
         justifyContent='flex-start'
-        style={{ flexShrink: '0' }}
+        style={{ flexShrink: '0', boxSizing: 'border-box' }}
       >
-        {/* brewers 로고 */}
         <Logo
           type='normal'
           size='sm'
         ></Logo>
-        <Flex
-          justifyContent='flex-start'
-          ml={1}
-          style={{ flexShrink: '0' }}
-        >
-          <Box>
-            <Tabs
-              isFull={false}
-              gap={2.5}
-              fontSize='md'
-              fontWeight={400}
-            >
-              <Tabs.Header>
-                <Tabs.Item
-                  text='홈'
-                  id={0}
-                  handleClick={() => {
-                    handleTabClick('/home');
-                  }}
-                />
-                <Tabs.Item
-                  text='채팅'
-                  id={1}
-                  handleClick={() => {
-                    handleTabClick('/message');
-                  }}
-                />
-                <Tabs.Item
-                  text='알림'
-                  id={2}
-                  handleClick={() => {
-                    handleTabClick('/notification');
-                  }}
-                />
-              </Tabs.Header>
-            </Tabs>
-          </Box>
-        </Flex>
+
+        <NavItem to='/'>홈</NavItem>
+        <NavItem to='/message'>채팅</NavItem>
+        <NavItem to='/notification'>알림</NavItem>
       </Flex>
       {/* Nav 오른쪽 부분 (포스트작성, 검색, 로그인)*/}
       <Flex
@@ -161,29 +135,27 @@ const NavWrapper = styled(Flex)`
 
   background-color: var(--adaptive50);
 
-  box-sizing: border-box;
   text-decoration: none;
-`;
-
-const Box = styled.div`
-  width: 15rem;
-  padding-bottom: 0.375rem;
 `;
 
 const NavBarItem = styled.li`
   flex-shrink: 0;
 
-  padding: 0.625rem 1.25rem;
+  margin: 0 0.85rem;
+  padding: 0.425rem 0.45rem;
 
   color: var(--adaptive400);
   font-weight: 400;
   font-size: 1rem;
+
+  box-sizing: border-box;
 
   cursor: pointer;
   list-style: none;
   text-decoration: none;
 
   &:has(button) {
+    margin: 0;
     padding: 0;
   }
 
