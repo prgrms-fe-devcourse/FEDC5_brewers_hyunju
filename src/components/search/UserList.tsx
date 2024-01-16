@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import UserListItem, { UserListItemPropsType } from './UserListItem';
 import Text from '../common/Text';

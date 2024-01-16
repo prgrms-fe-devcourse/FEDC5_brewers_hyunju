@@ -23,7 +23,6 @@ export interface PostPropsType {
   likes: LikeType[];
   comments: CommentType[];
   onDropDownClick: (action: string) => void;
-  onUserClick: () => void;
 }
 
 export const Divider = styled.div`

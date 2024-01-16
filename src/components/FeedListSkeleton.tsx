@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from '@emotion/styled';
 import { IconHeart, IconMessageCircle2 } from '@tabler/icons-react';
 import { Divider, FeedItemContainer } from './feed/FeedListItem';

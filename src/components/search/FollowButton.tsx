@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import Button from '~/components/common/Button';
 import Text from '~/components/common/Text';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 import Container from './common/Container';
@@ -95,6 +94,7 @@ const SearchTemplate = ({
                 {all.postList.length ? (
                   all.postList.map((post) => (
                     <FeedListItem
+                      workingSpot={post.workingSpot}
                       key={post.id}
                       id={post.id}
                       userId={post.userId}
@@ -106,7 +106,6 @@ const SearchTemplate = ({
                       likes={post.likes}
                       comments={post.comments}
                       onFeedClick={() => {}}
-                      onUserClick={() => {}}
                       imageUrl={post.imageUrl}
                     />
                   ))

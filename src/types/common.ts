@@ -77,13 +77,13 @@ export interface PostType {
   //     | SpotPostBodyType;
   // };
   channel: ChannelType;
-  author: UserSimpleType;
+  author: UserType;
   createdAt: string;
   updatedAt: string;
 }
 
 export interface PostSimpleType {
-  likes: string[]; // 확인 필요
+  likes: LikeType[]; // 확인 필요
   comments: string[]; // 확인 필요
   _id: string;
   image?: string;
