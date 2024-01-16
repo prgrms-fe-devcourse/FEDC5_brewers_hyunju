@@ -21,7 +21,14 @@ const UserList = ({ users }: UserListPropsType) => {
           />
         ))
       ) : (
-        <Text>검색 결과가 없습니다</Text>
+        <Box>
+          <Text
+            size='lg'
+            weight={600}
+          >
+            검색 결과가 없습니다
+          </Text>
+        </Box>
       )}
     </StyledUl>
   );
@@ -29,6 +36,9 @@ const UserList = ({ users }: UserListPropsType) => {
 
 export default UserList;
 
+const Box = styled.div`
+  padding: 1rem;
+`;
 const StyledUl = styled.ul`
   flex-direction: column;
   align-items: center;
