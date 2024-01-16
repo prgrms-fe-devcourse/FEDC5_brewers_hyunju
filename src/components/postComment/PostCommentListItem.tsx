@@ -103,7 +103,6 @@ const PostCommentListItem = ({
                 </Text>
 
                 {isUpdated(createdAt, updatedAt) ? (
-
                   <Text
                     size='xs'
                     weight={400}
@@ -117,6 +116,7 @@ const PostCommentListItem = ({
             <Text
               size={messageSize}
               weight={messageWeight}
+              style={{ lineHeight: '1.4' }}
             >
               {message}
             </Text>
@@ -128,7 +128,14 @@ const PostCommentListItem = ({
             size='md'
             color='--primaryColor'
             onClick={() => onDeleteComment(id)}
-            style={{ alignSelf: 'center', marginRight: '0' }}
+            style={{
+              height: '2rem',
+              width: '4.5rem',
+              marginLeft: 'auto',
+              alignSelf: 'center',
+              marginRight: '0',
+              flexShrink: '0',
+            }}
           >
             삭제
           </Button>

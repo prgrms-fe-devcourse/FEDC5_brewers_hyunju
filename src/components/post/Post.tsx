@@ -23,7 +23,7 @@ export interface PostPropsType {
   likes: LikeType[];
   comments: CommentType[];
   onDropDownClick: (action: string) => void;
-  onUserClick: () => void;
+  isMine: boolean;
 }
 
 export const Divider = styled.div`
@@ -65,6 +65,7 @@ const Post = ({
   likes,
   comments,
   onDropDownClick,
+  isMine,
   // onUserClick,
 }: PostPropsType) => {
   // 피드 클릭 시
@@ -122,23 +123,27 @@ const Post = ({
                 {handleDate(createdAt)}
               </Text>
             </div>
-            <DropDown
-              list={[
-                { title: '수정하기', action: 'put' },
-                { title: '삭제하기', action: 'delete' },
-              ]}
-              handleClick={(action: string) => {
-                if (action === 'put') {
-                  handleDropDownClick(action);
-                } else {
-                  handleDropDownClick(action);
-                }
-                // 로직 추가
-              }}
-            ></DropDown>
+            {isMine && (
+              <DropDown
+                list={[
+                  { title: '수정하기', action: 'put' },
+                  { title: '삭제하기', action: 'delete' },
+                ]}
+                handleClick={(action: string) => {
+                  if (action === 'put') {
+                    handleDropDownClick(action);
+                  } else {
+                    handleDropDownClick(action);
+                  }
+                  // 로직 추가
+                }}
+              ></DropDown>
+            )}
           </Flex>
 
-          <Text style={{ marginBottom: '1rem' }}>{content}</Text>
+          <Text style={{ marginBottom: '1rem', lineHeight: '1.4' }}>
+            {content}
+          </Text>
           {imageUrl && (
             <Image
               src={imageUrl}

@@ -1,5 +1,6 @@
 import { ChangeEvent, useRef, useState } from 'react';
 import styled from '@emotion/styled';
+import { FONT_SIZE } from '~/constants/design';
 import Avatar from '~/components/common/Avatar';
 import Button from '~/components/common/Button';
 import Image from '../common/Image';
@@ -35,16 +36,23 @@ const FeedListInputContainer = styled(Container)`
 const FeedListTextarea = styled.textarea`
   width: 100%;
   height: 4.875rem;
-  padding-top: 0.625rem;
-  border: none;
+  padding: 0.625rem 0.9375rem;
+  outline: none;
+  border: solid 0.0938rem var(--transparent);
 
-  font-size: 1rem;
+  /* border: none; */
+  border-radius: 0.4375rem;
+
+  background-color: var(--adaptive200);
+
+  color: var(--adaptive950);
+  font-size: ${FONT_SIZE['md']};
 
   box-sizing: border-box;
   resize: none;
 
   :focus {
-    outline: none;
+    border-color: var(--secondaryColor);
   }
 `;
 

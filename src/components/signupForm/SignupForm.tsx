@@ -13,7 +13,7 @@ import { INPUT } from '~/constants/regex';
 
 interface SignupFormPropsType {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  onChange: (text: string, InputName: string) => void;
+  onChange: (text: string, inputName: string) => void;
   userSignupInfo: {
     [key: string]: string;
   };
@@ -77,7 +77,7 @@ const SignupForm = ({
               }
               messageColor='--red600'
               onChange={onChange}
-              InputName='fullName'
+              inputName='fullName'
               inputText={userSignupInfo.fullName}
             />
           </Box>
@@ -88,7 +88,7 @@ const SignupForm = ({
               message={emailErrorMessage()}
               messageColor='--red600'
               onChange={onChange}
-              InputName='email'
+              inputName='email'
               inputText={userSignupInfo.email}
             />
           </Box>
@@ -101,7 +101,7 @@ const SignupForm = ({
                 userSignupInfoIsError.password ? '비밀번호를 입력해주세요' : ''
               }
               onChange={onChange}
-              InputName='password'
+              inputName='password'
               inputText={userSignupInfo.password}
             />
           </Box>
@@ -112,7 +112,7 @@ const SignupForm = ({
               message={passwordErrorMessage()}
               messageColor='--red600'
               onChange={onChange}
-              InputName='checkPassword'
+              inputName='checkPassword'
               inputText={userSignupInfo.checkPassword}
             />
           </Box>

@@ -12,7 +12,8 @@ import Modal from '../common/Modal';
 import { useNavigate } from 'react-router-dom';
 
 export interface UserStateListTemplatePropsType {
-  AllUsers: UserType[];
+  onlineUserList: UserType[];
+  allUsers: UserType[];
 }
 
 const ContentDiv = styled.div`
@@ -75,7 +76,8 @@ const UserContainerDiv = styled.div`
 `;
 
 const UserStateListTemplate = ({
-  AllUsers,
+  onlineUserList,
+  allUsers,
 }: UserStateListTemplatePropsType) => {
   const [more, setMore] = useState(false);
   const navigate = useNavigate();
@@ -122,7 +124,23 @@ const UserStateListTemplate = ({
           gap={0.5}
           minHeight={4}
           alignItems='center'
-        ></Flex>
+        >
+          {onlineUserList?.map(({ _id, fullName, image }) => (
+            <div
+              onClick={() => {
+                navigate(`/profile/${_id}`);
+                setMore(false);
+              }}
+              style={{ cursor: 'pointer' }}
+              key={_id}
+            >
+              <UserStateListItem
+                fullName={fullName}
+                src={image}
+              />
+            </div>
+          ))}
+        </Flex>
       </Flex>
       <Flex
         direction='column'
@@ -154,17 +172,16 @@ const UserStateListTemplate = ({
         </Modal.Header>
         <Modal.Body>
           <UserContainerDiv>
-            {AllUsers?.map(({ _id, fullName, image }) => (
+            {allUsers?.map(({ _id, fullName, image }) => (
               <div
-                key={_id}
                 onClick={() => {
                   navigate(`/profile/${_id}`);
                   setMore(false);
                 }}
                 style={{ cursor: 'pointer' }}
+                key={_id}
               >
                 <UserStateListItem
-                  key={_id}
                   fullName={fullName}
                   src={image}
                 />

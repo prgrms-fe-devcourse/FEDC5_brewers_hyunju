@@ -1,10 +1,10 @@
 import { SearchUserResponseType } from '~/types/api/search';
 import { useRequestFn } from '~/hooks/api';
-import { useRef, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 export const useSearchUsers = () => {
-  const prevSearch = useRef<string | null>(null);
+  // const prevSearch = useRef<string | null>(null);
   // const [searchType, setSearchType] = useState<SearchType>('all');
   const [searchParams] = useSearchParams();
   const query = searchParams.get('q');
@@ -18,8 +18,8 @@ export const useSearchUsers = () => {
 
   useEffect(() => {
     if (type !== 'users' || !query) return;
-    if (prevSearch.current === query) return;
-    prevSearch.current = query;
+    // if (prevSearch.current === query) return;
+    // prevSearch.current = query;
     request();
   }, [query, type]);
   return { request, status, data, error };

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import { IconX } from '@tabler/icons-react';
 import { FONT_SIZE } from '~/constants/design';

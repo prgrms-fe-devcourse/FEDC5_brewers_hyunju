@@ -1,17 +1,23 @@
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import SearchTemplate from '~/components/SearchTemplate';
+import SearchTemplate from '~/components/templates/SearchTemplate';
 import useSearchAll from '~/hooks/api/search/useSearchAll';
 import useSearchUsers from '~/hooks/api/search/useSearchUsers';
 import { userState } from '~/recoil/login/atoms';
-import { PostSimpleType, UserSimpleType } from '~/types/common';
+import {
+  LikeType,
+  PostSimpleType,
+  UserSimpleType,
+  WorkingSpotType,
+} from '~/types/common';
 
 export interface UserSearchData {
   userImage: string;
   userId: string;
   userName: string;
   isFollowing: boolean;
+  followId?: string;
   [prop: string]: unknown;
 }
 export interface PostSearchData {
@@ -22,8 +28,9 @@ export interface PostSearchData {
   createdAt: string;
   updatedAt?: string;
   content: string;
+  workingSpot: WorkingSpotType;
   imageUrl?: string;
-  likes: string[];
+  likes: LikeType[];
   comments: string[];
   [prop: string]: unknown;
 }
@@ -36,15 +43,19 @@ const parseSearchData = (
   if (searchData) {
     searchData.forEach((item) => {
       if ((item as UserSimpleType).role) {
+        const followData = (item as UserSimpleType).followers.find(
+          (follow) => follow.follower === id
+        );
+
         users.push({
           userImage: (item as UserSimpleType).image,
           userId: item._id,
           userName: (item as UserSimpleType).fullName,
-          isFollowing: id
-            ? (item as UserSimpleType).followers.includes(id)
-            : false,
+          isFollowing: followData !== undefined ? true : false,
+          followId: followData ? followData._id : undefined,
         });
       } else if ((item as PostSimpleType).title) {
+        const parsedContent = JSON.parse((item as PostSimpleType).title);
         // const response = await axiosInstance.get(
         //   `/users/${(item as PostSimpleType).author}`
         // );
@@ -56,9 +67,10 @@ const parseSearchData = (
           userName: '',
           createdAt: item.createdAt,
           updatedAt: item.updatedAt,
-          content: JSON.parse((item as PostSimpleType).title).body.text,
+          content: parsedContent.body.text,
+          workingSpot: parsedContent.workingSpot,
           imageUrl: item.image,
-          likes: item.likes,
+          likes: (item as PostSimpleType).likes,
           comments: item.comments,
         });
       }
@@ -79,6 +91,8 @@ const SearchPage = () => {
       setSearchParams({ type: 'all' });
     }
   }, []);
+
+  useEffect(() => {}, [searchParams]);
 
   return (
     <SearchTemplate
