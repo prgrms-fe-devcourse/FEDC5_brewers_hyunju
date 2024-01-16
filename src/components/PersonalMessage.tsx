@@ -27,10 +27,10 @@ const MessageDiv = styled(Text)<MessageDivPropsType>`
         : '10px 10px 10px 0px'};
 
   background-color: ${({ subject }) =>
-    subject === 'me' ? 'var(--secondaryColor)' : 'var(--white)'};
+    subject === 'me' ? 'var(--secondaryColor)' : 'var(--adaptive100)'};
 
   color: ${({ subject }) =>
-    subject === 'me' ? 'var(--white)' : 'var(--secondaryColor)'};
+    subject === 'me' ? 'var(--adaptive100)' : 'var(--secondaryColor)'};
 
   box-sizing: border-box;
 `;
