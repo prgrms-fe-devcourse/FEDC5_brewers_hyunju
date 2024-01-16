@@ -264,26 +264,30 @@ const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
         gap={1}
       >
         {user.posts.map((post) => {
-          const parsePost = JSON.parse(post.title);
+          try {
+            const parsePost = JSON.parse(post.title);
 
-          return (
-            <div key={post._id}>
-              <FeedListItem
-                key={post._id}
-                id={post._id}
-                userId={user._id}
-                profileImage={user.image}
-                userName={user.fullName}
-                createdAt={post.createdAt}
-                workingSpot={parsePost.workingSpot}
-                content={parsePost.body.text}
-                imageUrl={post.image}
-                likes={post.likes}
-                comments={post.comments}
-                onFeedClick={() => navigator(`/post/${post._id}`)}
-              />
-            </div>
-          );
+            return (
+              <div key={post._id}>
+                <FeedListItem
+                  key={post._id}
+                  id={post._id}
+                  userId={user._id}
+                  profileImage={user.image}
+                  userName={user.fullName}
+                  createdAt={post.createdAt}
+                  workingSpot={parsePost.workingSpot}
+                  content={parsePost.body.text}
+                  imageUrl={post.image}
+                  likes={post.likes}
+                  comments={post.comments}
+                  onFeedClick={() => navigator(`/post/${post._id}`)}
+                />
+              </div>
+            );
+          } catch {
+            return null;
+          }
         })}
       </Flex>
       <>
