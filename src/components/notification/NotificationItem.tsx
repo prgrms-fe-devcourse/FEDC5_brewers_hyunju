@@ -4,12 +4,16 @@ import Flex from '../common/Flex';
 import Text from '../common/Text';
 import Skeleton from '../common/Skeleton';
 import { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from '@emotion/styled';
 
 export interface NotificationItemPropsType {
   data: NotificationType;
 }
 
 const NotificationItem = ({ data }: NotificationItemPropsType) => {
+  const navigator = useNavigate();
+
   const type = useMemo(() => {
     if (data.message) return 'MESSAGE';
     else if (data.comment) return 'COMMENT';
@@ -25,9 +29,15 @@ const NotificationItem = ({ data }: NotificationItemPropsType) => {
   };
 
   return (
-    <Flex
+    <StyledFlex
       alignItems='center'
       gap={1}
+      p={0.5}
+      onClick={() => {
+        if (data.post) {
+          navigator(`/post/${data.post}`);
+        }
+      }}
     >
       <Avatar
         size='sm'
@@ -44,15 +54,16 @@ const NotificationItem = ({ data }: NotificationItemPropsType) => {
           {data.author.fullName}님께서 {message[type]}
         </Text>
       </Flex>
-    </Flex>
+    </StyledFlex>
   );
 };
 
 export const NotificationItemSkeleton = () => {
   return (
-    <Flex
+    <StyledFlex
       alignItems='center'
       gap={1}
+      p={0.5}
     >
       <Skeleton
         width={2.75}
@@ -66,8 +77,17 @@ export const NotificationItemSkeleton = () => {
         <Skeleton width={4} />
         <Skeleton height={0.875} />
       </Flex>
-    </Flex>
+    </StyledFlex>
   );
 };
 
 export default NotificationItem;
+
+const StyledFlex = styled(Flex)`
+  &:hover {
+    background-color: var(--adaptive200);
+
+    cursor: pointer;
+    transition: 125ms;
+  }
+`;
