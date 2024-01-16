@@ -93,7 +93,11 @@ const MessageSendingTemplate = ({
         gap={1}
         direction='column'
       >
-        {messageListStatus === 'loading' && <CircleLoading />}
+        {messageListStatus === 'loading' && (
+          <PersonalConversation>
+            <CircleLoading />
+          </PersonalConversation>
+        )}
         {messageListStatus === 'success' && (
           <PersonalConversation
             messages={messageListData}
