@@ -5,7 +5,6 @@ import FeedPageTemplate from '~/components/FeedPageTemplate';
 import Text from '~/components/common/Text';
 import useCreatePost from '~/hooks/api/post/useCreatePost';
 import useGetPosts from '~/hooks/api/post/useGetPosts';
-
 import { CustomPostContentType } from '~/types/common';
 
 const FeedPage = () => {

@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from '@emotion/styled';
 import { IconCoffee, IconHome, IconQuestionMark } from '@tabler/icons-react';
 import Tooltip from './common/Tooltip';

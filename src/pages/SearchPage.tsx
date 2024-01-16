@@ -5,7 +5,12 @@ import SearchTemplate from '~/components/SearchTemplate';
 import useSearchAll from '~/hooks/api/search/useSearchAll';
 import useSearchUsers from '~/hooks/api/search/useSearchUsers';
 import { userState } from '~/recoil/login/atoms';
-import { PostSimpleType, UserSimpleType } from '~/types/common';
+import {
+  LikeType,
+  PostSimpleType,
+  UserSimpleType,
+  WorkingSpotType,
+} from '~/types/common';
 
 export interface UserSearchData {
   userImage: string;
@@ -22,8 +27,9 @@ export interface PostSearchData {
   createdAt: string;
   updatedAt?: string;
   content: string;
+  workingSpot: WorkingSpotType;
   imageUrl?: string;
-  likes: string[];
+  likes: LikeType[];
   comments: string[];
   [prop: string]: unknown;
 }
@@ -45,6 +51,7 @@ const parseSearchData = (
             : false,
         });
       } else if ((item as PostSimpleType).title) {
+        const parsedContent = JSON.parse((item as PostSimpleType).title);
         // const response = await axiosInstance.get(
         //   `/users/${(item as PostSimpleType).author}`
         // );
@@ -56,9 +63,10 @@ const parseSearchData = (
           userName: '',
           createdAt: item.createdAt,
           updatedAt: item.updatedAt,
-          content: JSON.parse((item as PostSimpleType).title).body.text,
+          content: parsedContent.body.text,
+          workingSpot: parsedContent.workingSpot,
           imageUrl: item.image,
-          likes: item.likes,
+          likes: (item as PostSimpleType).likes,
           comments: item.comments,
         });
       }
