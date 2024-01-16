@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import Container from '~/components/common/Container';
 import Text from '~/components/common/Text';
 import Post from '~/components/post/Post';
@@ -17,6 +18,31 @@ export interface PostTemplatePropsType {
     requestPost: () => void;
   };
 }
+
+const PostContainer = styled(Container)`
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 1rem;
+  box-shadow: 0 0 1.5rem var(--adaptiveOpacity50);
+
+  background-color: var(--transparent);
+
+  box-sizing: border-box;
+  gap: 1.5rem;
+`;
+
+const PostInnerContainer = styled(Container)`
+  display: flex;
+  flex-direction: column;
+
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 1.5rem var(--adaptiveOpacity50);
+
+  box-sizing: border-box;
+  gap: 1.5rem;
+`;
 
 const PostTemplate = ({ post, user, actions }: PostTemplatePropsType) => {
   const navigator = useNavigate();
@@ -67,49 +93,49 @@ const PostTemplate = ({ post, user, actions }: PostTemplatePropsType) => {
   }
 
   return (
-    <Container maxWidth='md'>
-      <Text
-        size='3xl'
-        weight={800}
-        mb={2.25}
-      >
-        포스트
-      </Text>
-      <div style={{ marginBottom: '3.375rem' }}></div>
-      {post && (
-        <Post
-          id={post._id}
-          key={post._id}
-          author={post.author}
-          createdAt={post.createdAt}
-          updatedAt={post.updatedAt}
-          content={contentText}
-          imageUrl={post.image}
-          likes={post.likes}
-          comments={post.comments}
-          onDropDownClick={handleDropDownClick}
-        />
-      )}
-      <PostCommentInput
-        userId={user ? user._id : null}
-        profileImage={user ? user.image : null}
-        onCreateComment={handleCreateComment}
-      ></PostCommentInput>
-      {post.comments &&
-        post.comments.map((comment) => (
-          <PostCommentListItem
-            id={comment._id}
-            isMine={comment.author._id === user?._id}
-            userId={comment.author._id}
-            userName={comment.author.fullName}
-            createdAt={comment.createdAt}
-            avatarSrc={comment.author.image}
-            message={comment.comment}
-            updatedAt={comment.updatedAt}
-            onDeleteComment={handleDeleteComment}
-          ></PostCommentListItem>
-        ))}
-    </Container>
+    <PostContainer maxWidth='md'>
+      <PostInnerContainer maxWidth='md'>
+        <Text
+          size='3xl'
+          weight={800}
+        >
+          포스트
+        </Text>
+        {post && (
+          <Post
+            id={post._id}
+            key={post._id}
+            author={post.author}
+            createdAt={post.createdAt}
+            updatedAt={post.updatedAt}
+            content={contentText}
+            imageUrl={post.image}
+            likes={post.likes}
+            comments={post.comments}
+            onDropDownClick={handleDropDownClick}
+          />
+        )}
+        <PostCommentInput
+          userId={user ? user._id : null}
+          profileImage={user ? user.image : null}
+          onCreateComment={handleCreateComment}
+        ></PostCommentInput>
+        {post.comments &&
+          post.comments.map((comment) => (
+            <PostCommentListItem
+              id={comment._id}
+              isMine={comment.author._id === user?._id}
+              userId={comment.author._id}
+              userName={comment.author.fullName}
+              createdAt={comment.createdAt}
+              avatarSrc={comment.author.image}
+              message={comment.comment}
+              updatedAt={comment.updatedAt}
+              onDeleteComment={handleDeleteComment}
+            ></PostCommentListItem>
+          ))}
+      </PostInnerContainer>
+    </PostContainer>
   );
 };
 
