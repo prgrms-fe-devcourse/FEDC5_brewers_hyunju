@@ -22,7 +22,7 @@ export const useReadNotification = () => {
       setStatus('error');
     }
   };
-  return { status, readNotification };
+  return { status, request: readNotification };
 };
 
 export default useReadNotification;
