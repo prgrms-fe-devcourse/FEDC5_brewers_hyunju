@@ -5,7 +5,7 @@ import { IconHeart, IconHeartFilled } from '@tabler/icons-react';
 import Text from '~/components/common/Text';
 import Flex from '~/components/common/Flex';
 import { userState } from '~/recoil/login/atoms';
-import { LikeType, UserType } from '~/types/common';
+import { LikeType } from '~/types/common';
 import useCreateLike from '~/hooks/api/likes/useCreateLike';
 import useDeleteLike from '~/hooks/api/likes/useDeleteLike';
 import useDebounce from '~/hooks/useDebounce';
@@ -13,10 +13,10 @@ import useCreateNotification from '~/hooks/api/notification/useCreateNotificatio
 
 interface LikeItemPropsType {
   postId: string;
-  author: UserType;
+  userId: string;
   likes: LikeType[];
 }
-const LikeItem = ({ postId, author, likes }: LikeItemPropsType) => {
+const LikeItem = ({ postId, userId, likes }: LikeItemPropsType) => {
   const userData = useRecoilValue(userState);
 
   const { request: createRequest, status: createStatus } = useCreateLike();
@@ -40,7 +40,7 @@ const LikeItem = ({ postId, author, likes }: LikeItemPropsType) => {
             createNoti({
               notificationType: 'LIKE',
               notificationTypeId: createdLike._id,
-              userId: author._id,
+              userId: userId,
               postId,
             });
         });
