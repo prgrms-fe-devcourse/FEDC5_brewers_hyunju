@@ -78,6 +78,7 @@ const PostCommentInput = ({
           <div style={{ marginRight: '1rem' }}>
             <Avatar
               userId={userId ? userId : ''}
+
               src={profileImage ? profileImage : ''}
               size='sm'
               alt='user image'
