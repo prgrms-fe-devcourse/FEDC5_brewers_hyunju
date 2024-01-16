@@ -22,7 +22,7 @@ export interface PostCommentListItemPropsType {
   messageWeight?: FontWeightType;
   avatarSrc?: string;
   width?: ContainerSizeType;
-  handleClick: () => void;
+  // handleClick: () => void;
   createdAt: string;
   updatedAt: string;
   onDeleteComment: (commentId: string) => void;

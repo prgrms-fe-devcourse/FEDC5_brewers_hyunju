@@ -11,10 +11,7 @@ export interface FeedPageTemplatePropsType {
   posts?: GetChannelPostsResponseType;
   userId: string | null;
   profileImage: string;
-  onHandleCreatePost: (
-    newPost: CustomPostContentType,
-    file?: File | null
-  ) => void;
+  onHandleCreatePost: (newPost: CustomPostContentType, file?: File) => void;
 }
 
 const FeedPageContainer = styled(Container)();

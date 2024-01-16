@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { userState } from '~/recoil/login/atoms';
 import FeedPageTemplate from '~/components/FeedPageTemplate';

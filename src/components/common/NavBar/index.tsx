@@ -13,7 +13,7 @@ import { postModalState } from '~/recoil/postModal/atoms';
 import BasicPostModal from '~/components/postModal/BasicPostModal';
 import MogakPostModal from '~/components/postModal/MogakPostModal';
 import ReviewPostModal from '~/components/postModal/ReviewPostModal';
-import PostTypeButton from '~/components/postModal/postTypeButton';
+import PostTypeButton from '~/components/postModal/PostTypeButton';
 
 export interface NavItemPropsType {
   to: string;
@@ -104,9 +104,16 @@ const NavBar = () => {
                 />
                 <Tabs.Item
                   text='채팅'
-                  id={2}
+                  id={1}
                   handleClick={() => {
                     handleTabClick('/message');
+                  }}
+                />
+                <Tabs.Item
+                  text='알림'
+                  id={2}
+                  handleClick={() => {
+                    handleTabClick('/notification');
                   }}
                 />
               </Tabs.Header>

@@ -40,7 +40,7 @@ export const useCreateNotification = () => {
     }
   };
 
-  return { status, notification, createNotification };
+  return { status, data: notification, request: createNotification };
 };
 
 export default useCreateNotification;

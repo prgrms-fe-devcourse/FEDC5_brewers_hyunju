@@ -12,10 +12,7 @@ import WorkSpotSelector from '../WorkSpotSelector';
 export interface FeedListInputPropsType {
   userId: string;
   profileImage: string;
-  onHandleCreatePost: (
-    newPost: CustomPostContentType,
-    file?: File | null
-  ) => void;
+  onHandleCreatePost: (newPost: CustomPostContentType, file?: File) => void;
 }
 
 const FeedListInputContainer = styled(Container)`
@@ -61,13 +58,13 @@ const FeedListInput = ({
   useGetPosts();
 
   const [content, setContent] = useState('');
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | undefined>(undefined);
   const [previewUrl, setPreviewUrl] = useState<string | undefined>(undefined);
   const [workingSpot, setWorkingSpot] = useState<WorkingSpotType>('cafe');
   const resetData = () => {
     setContent('');
     setPreviewUrl(undefined);
-    setSelectedFile(null);
+    setSelectedFile(undefined);
   };
 
   // '작성' 버튼 클릭시

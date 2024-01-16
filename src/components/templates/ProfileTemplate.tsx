@@ -26,18 +26,23 @@ import FeedListItem from '../feed/FeedListItem';
 import { userState } from '~/recoil/login/atoms';
 import { UserType } from '~/types/common';
 import { OptionalConfig } from '~/hooks/api';
+import useCreateNotification from '~/hooks/api/notification/useCreateNotification';
+import useCreateFollow from '~/hooks/api/follow/useCreateFollow';
+import useDeleteFollow from '~/hooks/api/follow/useDeleteFollow';
 
 export interface ProfileTemplatePropsType {
   user: UserType;
   actions: {
     requestUser: (config?: OptionalConfig) => Promise<void>;
-    createFollow: (config?: OptionalConfig) => Promise<void>;
-    deleteFollow: (config?: OptionalConfig) => Promise<void>;
   };
 }
 
 const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
   const navigator = useNavigate();
+
+  const { request: createFollow } = useCreateFollow();
+  const { request: deleteFollow } = useDeleteFollow();
+  const { request: createNoti } = useCreateNotification();
 
   const auth = useRecoilValue(userState);
 
@@ -59,17 +64,21 @@ const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
     if (!auth) return;
 
     if (myFollow) {
-      await actions.deleteFollow({
+      await deleteFollow({
         data: {
           id: myFollow._id,
         },
       });
     } else {
-      await actions.createFollow({
-        data: {
-          userId: user._id,
-        },
-      });
+      const createdFollow = await createFollow(user._id);
+
+      createdFollow &&
+        createNoti({
+          notificationType: 'FOLLOW',
+          notificationTypeId: createdFollow._id,
+          userId: createdFollow.user,
+          postId: null,
+        });
     }
 
     actions.requestUser();
@@ -249,23 +258,27 @@ const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
         direction='column'
         gap={1}
       >
-        {user.posts.map((post) => (
-          <div key={post._id}>
-            <FeedListItem
-              id={post._id}
-              userId={post.author._id}
-              profileImage={post.author.image}
-              userName={post.author.fullName}
-              createdAt={post.createdAt}
-              content={''}
-              imageUrl={post.image}
-              likes={post.likes}
-              comments={post.comments}
-              onFeedClick={() => navigator(`/post/${post._id}`)}
-              onUserClick={() => navigator(`/profile/${post.author._id}`)}
-            />
-          </div>
-        ))}
+        {user.posts.map((post) => {
+          const parsePost = JSON.parse(post.title);
+
+          return (
+            <div key={post._id}>
+              <FeedListItem
+                id={post._id}
+                userId={post.author._id}
+                profileImage={post.author.image}
+                userName={post.author.fullName}
+                createdAt={post.createdAt}
+                workingSpot={parsePost.workingSpot}
+                content={parsePost.body.text}
+                imageUrl={post.image}
+                likes={post.likes}
+                comments={post.comments}
+                onFeedClick={() => navigator(`/post/${post._id}`)}
+              />
+            </div>
+          );
+        })}
       </Flex>
       <>
         <Modal

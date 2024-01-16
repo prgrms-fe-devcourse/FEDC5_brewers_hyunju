@@ -16,6 +16,8 @@ import {
   GetMessageListsRequestType,
   GetMessageListsResponseType,
 } from '~/types/api/message';
+import useCreateNotification from '~/hooks/api/notification/useCreateNotification';
+// import { NotificationType } from '~/types/common';
 
 interface MessageSendingTemplatePropsType {
   messageListStatus: 'stale' | 'loading' | 'error' | 'success';
@@ -36,9 +38,10 @@ const MessageSendingTemplate = ({
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const { handleCreateMessage } = useCreateMessage();
+  const { handleCreateMessage, data: messageData } = useCreateMessage();
+  const { request: createNoti } = useCreateNotification();
 
-  const onClick = () => {
+  const onClick = async () => {
     if (!textareaRef.current || !textareaRef.current.value) {
       return;
     }
@@ -47,14 +50,22 @@ const MessageSendingTemplate = ({
       return;
     }
 
-    handleCreateMessage({
-      message: textareaRef.current.value,
+    const text = textareaRef.current.value;
+    textareaRef.current.value = '';
+
+    await handleCreateMessage({
+      message: text,
       receiver: userId,
     });
 
     handlePersonalMessageList({ userId });
 
-    textareaRef.current.value = '';
+    createNoti({
+      notificationType: 'MESSAGE',
+      notificationTypeId: messageData._id,
+      userId: userId,
+      postId: null,
+    });
   };
 
   if (!user) {
