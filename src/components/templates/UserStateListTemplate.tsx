@@ -26,7 +26,7 @@ const ContentDiv = styled.div`
   border: 1px solid var(--primaryColor);
   box-shadow: 3px 3px 5px var(--primaryColor);
 
-  background-color: var(--white);
+  background-color: var(--adaptive100);
 
   overflow-x: hidden;
 
@@ -52,7 +52,7 @@ const UserContainerDiv = styled.div`
   height: 28rem;
   margin: auto;
 
-  background-color: var(--white);
+  background-color: var(--adaptive100);
 
   gap: 0.75rem;
   overflow-x: 'hidden';
@@ -92,12 +92,17 @@ const UserStateListTemplate = ({
         style={{
           position: 'sticky',
           top: 0,
-          backgroundColor: 'var(--white)',
+          backgroundColor: 'var(--adaptive100)',
           flexGrow: 1,
           padding: '1rem',
         }}
       >
-        <div style={{ backgroundColor: 'var(--white)', width: '100%' }}>
+        <div
+          style={{
+            backgroundColor: 'var(--adaptive100)',
+            width: '100%',
+          }}
+        >
           <Text
             size='md'
             color='--primaryColor'
@@ -110,7 +115,7 @@ const UserStateListTemplate = ({
         direction='column'
         gap={0.5}
         minHeight={28.5}
-        style={{ backgroundColor: 'var(--white)' }}
+        style={{ backgroundColor: 'var(--adaptive100)' }}
       >
         <Flex
           direction='column'
@@ -127,7 +132,7 @@ const UserStateListTemplate = ({
           position: 'sticky',
           bottom: 0,
           padding: '0.75rem',
-          backgroundColor: 'var(--white)',
+          backgroundColor: 'var(--adaptive100)',
         }}
       >
         <Button
