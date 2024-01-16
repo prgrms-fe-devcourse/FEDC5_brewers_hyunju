@@ -11,9 +11,11 @@ import PostButton from '~/components/PostButton';
 import { postModalState } from '~/recoil/postModal/atoms';
 import { basicPostOpenState } from '~/recoil/postModal/selectors';
 import { userState } from '~/recoil/login/atoms';
+import { useNavigate } from 'react-router';
 
 // TODO: 렌더링 최적화, contentEditable XSS 보호
 const BasicPostModal = () => {
+  const navigation = useNavigate();
   const user = useRecoilValue(userState);
   const setPostModal = useSetRecoilState(postModalState);
   const isOpen = useRecoilValue(basicPostOpenState);
@@ -49,7 +51,13 @@ const BasicPostModal = () => {
               <Avatar
                 userId={user ? user._id : ''}
                 size='sm'
-                handleClick={() => {}}
+                handleClick={() => {
+                  navigation(`/profile/${user?._id}`);
+                  setPostModal((prev) => ({
+                    ...prev,
+                    isOpen: false,
+                  }));
+                }}
               />
             </div>
             <ContentEditableDiv />
