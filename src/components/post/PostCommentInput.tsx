@@ -108,7 +108,11 @@ const PostCommentInput = ({
             size='md'
             color='--primaryColor'
             onClick={handleSubmitBtnClick}
-            style={{ height: '100%', width: '4.5rem', marginLeft: 'auto' }}
+            style={{
+              height: '100%',
+              width: '4.5rem',
+              marginLeft: 'auto',
+            }}
           >
             작성
           </Button>
