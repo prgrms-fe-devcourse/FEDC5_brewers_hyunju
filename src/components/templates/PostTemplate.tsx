@@ -92,6 +92,8 @@ const PostTemplate = ({ post, user, actions }: PostTemplatePropsType) => {
     contentText = post.title;
   }
 
+  const isMine = user?._id === post.author._id;
+
   return (
     <PostContainer maxWidth='md'>
       <PostInnerContainer maxWidth='md'>
@@ -113,6 +115,7 @@ const PostTemplate = ({ post, user, actions }: PostTemplatePropsType) => {
             likes={post.likes}
             comments={post.comments}
             onDropDownClick={handleDropDownClick}
+            isMine={isMine}
           />
         )}
         <PostCommentInput
