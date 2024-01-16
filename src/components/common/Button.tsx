@@ -68,7 +68,10 @@ const Button: React.FC<React.ComponentProps<typeof StyledButton>> = ({
   ...args
 }) => {
   return (
-    <StyledButton {...args}>
+    <StyledButton
+      type='button'
+      {...args}
+    >
       {args.leftItem}
       {args.children}
       {args.rightItem}
