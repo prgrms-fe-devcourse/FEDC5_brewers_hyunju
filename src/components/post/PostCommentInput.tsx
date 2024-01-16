@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
+import { FONT_SIZE } from '~/constants/design';
 import Avatar from '~/components/common/Avatar';
 import Button from '~/components/common/Button';
 import Flex from '~/components/common/Flex';
@@ -25,16 +26,21 @@ const PostCommentInputContainer = styled(Container)`
 const PostCommentTextarea = styled.textarea`
   width: calc(100% - 3.7rem);
   height: 3rem;
-  padding: 0.625rem 1rem;
-  border: none;
+  padding: 0.625rem 0.9375rem;
+  outline: none;
+  border: solid 0.0938rem var(--transparent);
+  border-radius: 0.4375rem;
 
-  font-size: 1rem;
+  background-color: var(--adaptive200);
+
+  color: var(--adaptive950);
+  font-size: ${FONT_SIZE['md']};
 
   box-sizing: border-box;
   resize: none;
 
   :focus {
-    outline: none;
+    border-color: var(--secondaryColor);
   }
 `;
 
@@ -78,7 +84,6 @@ const PostCommentInput = ({
           <div style={{ marginRight: '1rem' }}>
             <Avatar
               userId={userId ? userId : ''}
-
               src={profileImage ? profileImage : ''}
               size='sm'
               alt='user image'
