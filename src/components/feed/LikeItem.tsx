@@ -9,19 +9,25 @@ import { LikeType } from '~/types/common';
 import useCreateLike from '~/hooks/api/likes/useCreateLike';
 import useDeleteLike from '~/hooks/api/likes/useDeleteLike';
 import useDebounce from '~/hooks/useDebounce';
+import useCreateNotification from '~/hooks/api/notification/useCreateNotification';
 
 interface LikeItemPropsType {
   postId: string;
+  userId: string;
   likes: LikeType[];
 }
-const LikeItem = ({ postId, likes }: LikeItemPropsType) => {
+const LikeItem = ({ postId, userId, likes }: LikeItemPropsType) => {
   const userData = useRecoilValue(userState);
+
   const { request: createRequest, status: createStatus } = useCreateLike();
   const { request: deleteRequest, status: deleteStatus } = useDeleteLike();
+  const { request: createNoti } = useCreateNotification();
+
   const [isLikeFilled, setIsLikeFilled] = useState(
     likes && likes.some((like) => (like as LikeType).user === userData?._id)
   );
   const [likeCount, setLikeCount] = useState(likes.length);
+
   const originalIsLikeFilled = useRef(isLikeFilled);
   useDebounce(
     () => {
@@ -29,10 +35,14 @@ const LikeItem = ({ postId, likes }: LikeItemPropsType) => {
       if (deleteStatus === 'loading' || createStatus === 'loading') return;
       if (isLikeFilled) {
         // create api 연결
-        createRequest({
-          data: {
-            postId,
-          },
+        createRequest(postId).then((createdLike) => {
+          createdLike &&
+            createNoti({
+              notificationType: 'LIKE',
+              notificationTypeId: createdLike._id,
+              userId: userId,
+              postId,
+            });
         });
         originalIsLikeFilled.current = true;
       } else {

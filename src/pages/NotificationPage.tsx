@@ -16,7 +16,12 @@ const NotificationPage = () => {
 
   if (!auth) return <RequiredLoginTemplate />;
   if (!data) return <NotificationSkeleton />;
-  return <NotificationTemplate data={data} />;
+  return (
+    <NotificationTemplate
+      data={data}
+      action={{ getNotification }}
+    />
+  );
 };
 
 export default NotificationPage;

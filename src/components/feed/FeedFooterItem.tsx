@@ -4,6 +4,7 @@ import CommentItem from './CommentItem';
 
 export interface FeedFooterItemPropTypes {
   postId: string;
+  userId: string;
   iconType: string;
   likes?: LikeType[];
   comments?: CommentType[] | string[];
@@ -11,6 +12,7 @@ export interface FeedFooterItemPropTypes {
 
 const FeedFooterItem = ({
   postId,
+  userId,
   iconType,
   likes,
   comments,
@@ -20,6 +22,7 @@ const FeedFooterItem = ({
       {iconType === 'like' && (
         <LikeItem
           postId={postId}
+          userId={userId}
           likes={likes || []}
         />
       )}
