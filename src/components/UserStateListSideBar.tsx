@@ -21,7 +21,7 @@ const UserStateListSideBar = () => {
 
     const timer = setInterval(() => {
       onlineUsers.handleGetOnlineUsers();
-    }, 5000);
+    }, 30000);
 
     return () => {
       clearInterval(timer);
