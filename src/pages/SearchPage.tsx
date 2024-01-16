@@ -35,7 +35,6 @@ const parseSearchData = (
   const postList: PostSearchData[] = [];
   if (searchData) {
     searchData.forEach((item) => {
-      //console.log(item);
       if ((item as UserSimpleType).role) {
         users.push({
           userImage: (item as UserSimpleType).image,

@@ -22,7 +22,6 @@ export interface FeedListItemPropsType {
   likes: LikeType[] | string[];
   comments: CommentType[] | string[];
   onFeedClick: (feedId: string) => void;
-  onUserClick: (userId: string) => void;
 }
 
 export const Divider = styled.div`
@@ -69,7 +68,6 @@ const FeedListItem = ({
   likes,
   comments,
   onFeedClick,
-  // onUserClick,
 }: FeedListItemPropsType) => {
   // 피드 클릭 시
   const handleFeedClick = (feedId: string) => {

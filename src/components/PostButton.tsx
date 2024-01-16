@@ -18,8 +18,6 @@ const PostButton = () => {
       color='--primaryColor'
       size='md'
       onClick={() => {
-        console.log(state);
-        // TODO: POST 작성 api 연결
         switch (state.type) {
           case 'basic':
             request({
