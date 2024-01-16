@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import {
   IconMessage,
+  IconPointFilled,
   IconSettings,
   IconUserMinus,
   IconUserPlus,
@@ -168,8 +169,12 @@ const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
             <Text
               lineHeight={150}
               weight={600}
+              style={{ display: 'flex' }}
             >
-              {user.role}
+              <Text color={user.isOnline || isMe ? '--green500' : '--red500'}>
+                <IconPointFilled />
+              </Text>
+              {user.isOnline || isMe ? '온라인' : '오프라인'}
             </Text>
           </Flex>
         </Flex>
@@ -264,10 +269,11 @@ const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
           return (
             <div key={post._id}>
               <FeedListItem
+                key={post._id}
                 id={post._id}
-                userId={post.author._id}
-                profileImage={post.author.image}
-                userName={post.author.fullName}
+                userId={user._id}
+                profileImage={user.image}
+                userName={user.fullName}
                 createdAt={post.createdAt}
                 workingSpot={parsePost.workingSpot}
                 content={parsePost.body.text}

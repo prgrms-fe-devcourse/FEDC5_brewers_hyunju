@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import Text from '~/components/common/Text';
 import useGetPostDetail from '~/hooks/api/post/useGetPostDetail';
 import { userState } from '~/recoil/login/atoms';
 import ErrorPage from './ErrorPage';
 import PostEditTemplate from '~/components/templates/PostEditTemplate';
+import RequiredLoginTemplate from '~/components/templates/RequiredLoginTemplate';
 
 const PostEditPage = () => {
   const { postId } = useParams();
@@ -20,10 +20,11 @@ const PostEditPage = () => {
     }
   }, [postId]);
 
-  if (data && data.author._id === auth?._id)
-    return <PostEditTemplate data={data} />;
-  else if (data && data.author._id !== auth?._id) return <ErrorPage />;
-  else return <Text>loading...</Text>;
+  if (!auth) return <RequiredLoginTemplate />;
+  else if (data) {
+    if (data.author._id === auth._id) return <PostEditTemplate data={data} />;
+    else return <ErrorPage />;
+  } else return <></>;
 };
 
 export default PostEditPage;
