@@ -6,7 +6,6 @@ import Image from '~/components/common/Image';
 import Avatar from '~/components/common/Avatar';
 import FeedFooterItem from '~/components/feed/FeedFooterItem';
 import DropDown from '~/components/dropDown/DropDown';
-// import PostCommentListItem from '../postComment/PostCommentListItem';
 import { handleDate } from '~/utils/handleDate';
 import { CommentType, LikeType, UserType } from '~/types/common';
 
@@ -54,10 +53,10 @@ export const PostContainer = styled(Container)`
 `;
 
 const Post = ({
-  id,
+  // id,
   author,
   createdAt,
-  updatedAt,
+  // updatedAt,
   content,
   imageUrl,
   likes,
@@ -114,9 +113,10 @@ const Post = ({
                 color='--adaptive500'
                 style={{ marginBottom: '1rem' }}
               >
-                {updatedAt
+                {/* {isUpdated(createdAt, updatedAt)
                   ? `${handleDate(updatedAt)} · 수정됨`
-                  : handleDate(createdAt)}
+                  : handleDate(createdAt)} */}
+                {handleDate(createdAt)}
               </Text>
             </div>
             <DropDown

@@ -1,11 +1,11 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import Container from '~/components/common/Container';
 import Flex from '~/components/common/Flex';
 import Text from '~/components/common/Text';
 import Avatar from '../common/Avatar';
 import { FontSizeType, FontWeightType } from '~/types/design/font';
 import ContainerSizeType from '~/types/design/container';
-import { handleDate } from '~/utils/handleDate';
+import { handleDate, isUpdated } from '~/utils/handleDate';
 import Button from '../common/Button';
 
 export interface PostCommentListItemPropsType {
@@ -96,7 +96,8 @@ const PostCommentListItem = ({
                 >
                   {handleDate(updatedAt) || handleDate(createdAt)}
                 </Text>
-                {updatedAt ? (
+
+                {isUpdated(createdAt, updatedAt) ? (
                   <Text
                     size='xs'
                     weight={400}
