@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import Container from '~/components/common/Container';
 import Flex from '~/components/common/Flex';
 import Text from '~/components/common/Text';
@@ -20,7 +20,7 @@ export interface PostCommentListItemPropsType {
   messageWeight?: FontWeightType;
   avatarSrc?: string;
   width?: ContainerSizeType;
-  handleClick: () => void;
+  // handleClick: () => void;
   createdAt: string;
   updatedAt: string;
   onDeleteComment: (commentId: string) => void;

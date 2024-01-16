@@ -2,58 +2,56 @@ import Container from '~/components/common/Container';
 import Text from '~/components/common/Text';
 import Post from '~/components/post/Post';
 import { PostType, UserType } from '~/types/common';
-import { OptionalConfig } from '~/hooks/api';
 import PostCommentListItem from '~/components/postComment/PostCommentListItem';
 import PostCommentInput from '~/components/post/PostCommentInput';
+import { useNavigate } from 'react-router-dom';
+import useCreateComment from '~/hooks/api/comment/useCreateComment';
+import useDeleteComment from '~/hooks/api/comment/useDeleteComment';
+import useDeletePost from '~/hooks/api/post/useDeletePost';
+import useCreateNotification from '~/hooks/api/notification/useCreateNotification';
 
 export interface PostTemplatePropsType {
   post: PostType;
   user: UserType | null;
   actions: {
-    requestPost: (config?: OptionalConfig) => Promise<void>;
-    updatePost: (config?: OptionalConfig) => Promise<void>;
-    deletePost: (config?: OptionalConfig) => Promise<void>;
+    requestPost: () => void;
   };
-  onCreateComment: (comment: string) => void;
-  onDeleteComment: (commentId: string) => void;
 }
 
-// const PostContainer = styled(Container)``;
+const PostTemplate = ({ post, user, actions }: PostTemplatePropsType) => {
+  const navigator = useNavigate();
 
-const PostTemplate = ({
-  post,
-  user,
-  actions,
-  onCreateComment,
-  onDeleteComment,
-}: PostTemplatePropsType) => {
-  // dropDown 버튼 클릭 시
+  const { request: createComment } = useCreateComment();
+  const { request: deleteComment } = useDeleteComment();
+  const { request: deletePost } = useDeletePost();
+  const { request: createNoti } = useCreateNotification();
+
   const handleDropDownClick = async (action: string) => {
-    // if (!auth) return;
-
-    // '수정하기' 클릭 시
     if (action === 'put') {
-      await actions.updatePost({
-        data: {
-          id: post._id,
-        },
-      });
+      navigator(`/edit/${post._id}`);
     } else {
-      // '삭제하기' 클릭 시
-      await actions.deletePost({
-        data: {
-          userId: post._id,
-        },
-      });
-      // == 다시 post로 돌아가게? navigation?
+      await deletePost(post._id);
+      navigator('/');
     }
-    // actions.requestPost();
   };
 
-  // Avatar 클릭 시
-  const handleUserClick = () => {
-    // navigation 설정?
-    // navigation(post.author._id)
+  const handleCreateComment = async (comment: string) => {
+    const createdComment = await createComment(comment, post._id);
+
+    createdComment &&
+      createNoti({
+        notificationType: 'COMMENT',
+        notificationTypeId: createdComment._id,
+        userId: post.author._id,
+        postId: post._id,
+      });
+
+    actions.requestPost();
+  };
+
+  const handleDeleteComment = async (commentId: string) => {
+    await deleteComment(commentId);
+    actions.requestPost();
   };
 
   let contentText = '';
@@ -90,13 +88,12 @@ const PostTemplate = ({
           likes={post.likes}
           comments={post.comments}
           onDropDownClick={handleDropDownClick}
-          onUserClick={handleUserClick}
         />
       )}
       <PostCommentInput
         userId={user ? user._id : null}
         profileImage={user ? user.image : null}
-        onCreateComment={onCreateComment}
+        onCreateComment={handleCreateComment}
       ></PostCommentInput>
       {post.comments &&
         post.comments.map((comment) => (
@@ -108,9 +105,8 @@ const PostTemplate = ({
             createdAt={comment.createdAt}
             avatarSrc={comment.author.image}
             message={comment.comment}
-            handleClick={handleUserClick}
             updatedAt={comment.updatedAt}
-            onDeleteComment={onDeleteComment}
+            onDeleteComment={handleDeleteComment}
           ></PostCommentListItem>
         ))}
     </Container>
