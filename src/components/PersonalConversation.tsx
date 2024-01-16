@@ -21,7 +21,7 @@ const PersonalConversation = ({
       direction='column'
       gap={0.25}
       px={1}
-      style={{ height: '54vw', overflowY: 'auto' }}
+      style={{ height: '70vh', overflowY: 'auto' }}
     >
       {messages?.map((message, index) => (
         <PersonalMessage
