@@ -84,9 +84,9 @@ const FeedListItemSkeleton = () => {
 const FeedListSkeleton = () => {
   return (
     <StyledUl>
-      {Array.from(Array(5)).map(() => {
-        return <FeedListItemSkeleton />;
-      })}
+      {Array.from(Array(5)).map((_, idx) => (
+        <FeedListItemSkeleton key={idx} />
+      ))}
     </StyledUl>
   );
 };

@@ -3,6 +3,7 @@ import { IconCoffee, IconHome, IconQuestionMark } from '@tabler/icons-react';
 import Tooltip from './common/Tooltip';
 import Text from './common/Text';
 import { WorkingSpotType } from '~/types/common';
+import { FONT_SIZE } from '~/constants/design';
 
 interface WorkingSpotIconPropsType {
   workingSpot: WorkingSpotType;
@@ -24,14 +25,7 @@ const WorkingSpotIcon = ({ workingSpot }: WorkingSpotIconPropsType) => {
           style={{ display: 'inline' }}
         >
           오늘의 워킹스팟은{' '}
-          <Text
-            size='sm'
-            color='--secondaryColor'
-            weight={800}
-            style={{ display: 'inline' }}
-          >
-            {WORKING_SPOT_HOVER[workingSpot]}
-          </Text>
+          <StyledSpan>{WORKING_SPOT_HOVER[workingSpot]}</StyledSpan>
           입니다
         </Text>
       }
@@ -52,4 +46,12 @@ export default WorkingSpotIcon;
 
 const Wrapper = styled.div`
   padding: 1rem;
+`;
+
+const StyledSpan = styled.span`
+  display: inline;
+
+  color: var(--secondaryColor);
+  font-weight: 800;
+  font-size: ${FONT_SIZE['sm']};
 `;
