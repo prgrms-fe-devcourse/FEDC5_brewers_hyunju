@@ -161,9 +161,9 @@ const UserStateListTemplate = ({
                   setMore(false);
                 }}
                 style={{ cursor: 'pointer' }}
+                key={_id}
               >
                 <UserStateListItem
-                  key={_id}
                   fullName={fullName}
                   src={image}
                 />
