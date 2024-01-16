@@ -19,11 +19,11 @@ export interface InputPropsType {
   messageColor?: ColorType;
   isValidate?: (text: string) => boolean;
   onChange:
-    | ((text: string, InputName: string) => void)
+    | ((text: string, inputName: string) => void)
     | ((text: string) => void);
   children?: React.ReactNode;
-  InputName?: string;
-  inputText: string;
+  inputName?: string;
+  inputText?: string;
   disabled?: boolean;
   maxLength?: number;
 }
@@ -70,7 +70,7 @@ const Input = ({
   messageColor,
   onChange,
   children,
-  InputName,
+  inputName,
   disabled,
   inputText,
   maxLength = 0,
@@ -125,7 +125,7 @@ const Input = ({
                 </Container>
               ) : null}
               <InputField
-                name={InputName}
+                name={inputName}
                 width={width}
                 iconSize={iconSize}
                 type={type}

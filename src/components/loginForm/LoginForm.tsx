@@ -72,7 +72,7 @@ const LoginForm = ({
             message={emailErrorMessage()}
             messageColor='--red600'
             onChange={onChange}
-            InputName='email'
+            inputName='email'
           />
         </Box>
         <Box>
@@ -80,7 +80,7 @@ const LoginForm = ({
             label='비밀번호'
             placeholder='비밀번호를 입력해주세요'
             onChange={onChange}
-            InputName='password'
+            inputName='password'
             messageColor='--red600'
             message={
               userLoginInfoIsError.password ? '비밀번호를 입력해 주세요' : ''
@@ -111,7 +111,7 @@ const LoginForm = ({
               style={{ height: '3rem' }}
               onClick={onClick}
             >
-              가입하기
+              회원가입
             </Button>
           </Flex>
         </Container>
