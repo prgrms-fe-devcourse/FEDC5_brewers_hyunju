@@ -156,6 +156,7 @@ const UserStateListTemplate = ({
           <UserContainerDiv>
             {AllUsers?.map(({ _id, fullName, image }) => (
               <div
+                key={_id}
                 onClick={() => {
                   navigate(`/profile/${_id}`);
                   setMore(false);

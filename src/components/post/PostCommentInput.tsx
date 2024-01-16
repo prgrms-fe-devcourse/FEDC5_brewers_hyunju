@@ -56,7 +56,6 @@ const PostCommentInput = ({
       return;
     }
     if (content) {
-      console.log(content);
       onCreateComment(content);
 
       resetData();
