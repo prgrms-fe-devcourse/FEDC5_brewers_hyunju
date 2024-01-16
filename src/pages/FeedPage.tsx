@@ -6,11 +6,12 @@ import Text from '~/components/common/Text';
 import useCreatePost from '~/hooks/api/post/useCreatePost';
 import useGetPosts from '~/hooks/api/post/useGetPosts';
 import { CustomPostContentType } from '~/types/common';
+import { postModalOpenState } from '~/recoil/postModal/selectors';
 
 const FeedPage = () => {
   const { request: createPost } = useCreatePost();
   const user = useRecoilValue(userState);
-
+  const isOpen = useRecoilValue(postModalOpenState);
   const {
     status: postsStatus,
     data: postsData,
@@ -18,8 +19,9 @@ const FeedPage = () => {
   } = useGetPosts();
 
   useEffect(() => {
+    if (isOpen) return;
     getPosts();
-  }, []);
+  }, [isOpen]);
 
   // post 전송 시
   const handleCreatePost = async (

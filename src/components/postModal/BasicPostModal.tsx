@@ -1,24 +1,19 @@
 import { useCallback } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { IconPhoto } from '@tabler/icons-react';
 import Modal from '~/components/common/Modal';
 import Text from '~/components/common/Text';
-import Avatar from '~/components/common/Avatar';
-import Flex from '~/components/common/Flex';
-import Button from '~/components/common/Button';
-import ContentEditableDiv from '~/components/ContentEditableDiv';
-import PostButton from '~/components/PostButton';
 import { postModalState } from '~/recoil/postModal/atoms';
 import { basicPostOpenState } from '~/recoil/postModal/selectors';
 import { userState } from '~/recoil/login/atoms';
-import { useNavigate } from 'react-router';
+import FeedListInput from '../feed/FeedListInput';
+import { CustomPostContentType } from '~/types/common';
+import useCreatePost from '~/hooks/api/post/useCreatePost';
 
-// TODO: 렌더링 최적화, contentEditable XSS 보호
 const BasicPostModal = () => {
-  const navigation = useNavigate();
   const user = useRecoilValue(userState);
   const setPostModal = useSetRecoilState(postModalState);
   const isOpen = useRecoilValue(basicPostOpenState);
+  const { request: createPost } = useCreatePost();
   const handleClose = useCallback(() => {
     setPostModal({
       type: 'basic',
@@ -28,6 +23,18 @@ const BasicPostModal = () => {
       mogakForm: {},
     });
   }, [setPostModal]);
+  const handleCreatePost = async (
+    newPost: CustomPostContentType,
+    file?: File
+  ) => {
+    try {
+      if (!user) return; // 로그인 안되었을 경우
+      await createPost(newPost, file);
+      setPostModal((prev) => ({ ...prev, isOpen: false }));
+    } catch (error) {
+      console.error('post 전송 Error 발생');
+    }
+  };
   return (
     <Modal
       handleClose={handleClose}
@@ -43,7 +50,15 @@ const BasicPostModal = () => {
           </Text>
         </Modal.Header>
         <Modal.Body>
-          <Flex
+          {user && (
+            <FeedListInput
+              userId={user._id}
+              profileImage={user.image}
+              onHandleCreatePost={handleCreatePost}
+            />
+          )}
+
+          {/* <Flex
             justifyContent='center'
             gap={1}
           >
@@ -61,9 +76,9 @@ const BasicPostModal = () => {
               />
             </div>
             <ContentEditableDiv />
-          </Flex>
+          </Flex> */}
         </Modal.Body>
-        <Modal.Footer>
+        {/* <Modal.Footer>
           <Button
             variant='text'
             size='sm'
@@ -72,7 +87,7 @@ const BasicPostModal = () => {
             <IconPhoto size={30} />
           </Button>
           <PostButton />
-        </Modal.Footer>
+        </Modal.Footer> */}
       </Modal.Page>
     </Modal>
   );

@@ -11,9 +11,6 @@ import useLogout from '~/hooks/api/auth/useLogout';
 import { removeItem } from '~/utils/localStorage';
 import { postModalState } from '~/recoil/postModal/atoms';
 import BasicPostModal from '~/components/postModal/BasicPostModal';
-import MogakPostModal from '~/components/postModal/MogakPostModal';
-import ReviewPostModal from '~/components/postModal/ReviewPostModal';
-import PostTypeButton from '~/components/postModal/PostTypeButton';
 
 export interface NavItemPropsType {
   to: string;
@@ -127,7 +124,6 @@ const NavBar = () => {
         justifyContent='flex-end'
         style={{ flexShrink: '0' }}
       >
-        <PostTypeButton />
         <Button
           variant='outlined'
           size='md'
@@ -146,8 +142,6 @@ const NavBar = () => {
         <AuthNavItem />
       </Flex>
       <BasicPostModal />
-      <MogakPostModal />
-      <ReviewPostModal />
     </NavWrapper>
   );
 };
