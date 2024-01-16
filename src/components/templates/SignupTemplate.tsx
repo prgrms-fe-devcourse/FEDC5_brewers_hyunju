@@ -1,3 +1,5 @@
+import styled from '@emotion/styled';
+
 import Box from '../common/Box';
 import Container from '../common/Container';
 import Flex from '../common/Flex';
@@ -26,18 +28,18 @@ const SignupTemplate = ({
   formErrorMessage,
 }: SignupTemplatePropsType) => {
   return (
-    <Container maxWidth='md'>
-      <Box style={{ padding: '4rem 0' }}>
+    <SignupContainer maxWidth='md'>
+      <Signup maxWidth='md'>
         <Flex
           direction='column'
           gap={1}
         >
           <Container maxWidth='sm'>
             <Text
-              size='2xl'
-              color='--adaptive900'
+              size='3xl'
+              weight={800}
             >
-              가입하기
+              회원가입
             </Text>
           </Container>
           <SignupForm
@@ -59,9 +61,34 @@ const SignupTemplate = ({
             )}
           </SignupForm>
         </Flex>
-      </Box>
-    </Container>
+      </Signup>
+    </SignupContainer>
   );
 };
 
 export default SignupTemplate;
+
+const SignupContainer = styled(Container)`
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 1rem;
+  box-shadow: 0 0 1.5rem var(--adaptiveOpacity50);
+
+  background-color: var(--transparent);
+
+  box-sizing: border-box;
+  gap: 1.5rem;
+`;
+
+const Signup = styled(Container)`
+  display: flex;
+  flex-direction: column;
+
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 1.5rem var(--adaptiveOpacity50);
+
+  box-sizing: border-box;
+  gap: 1.5rem;
+`;

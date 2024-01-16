@@ -1,26 +1,53 @@
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import Button from '~/components/common/Button';
 import Text from '~/components/common/Text';
 import ColorType from '~/types/design/color';
+import useCreateFollow from '~/hooks/api/follow/useCreateFollow';
+import useDeleteFollow from '~/hooks/api/follow/useDeleteFollow';
 
 export interface FollowButtonPropsType {
+  userId: string;
+  followId?: string;
   isFollowing: boolean;
 }
-const FollowButton = ({ isFollowing }: FollowButtonPropsType) => {
+const FollowButton = ({
+  userId,
+  followId,
+  isFollowing,
+}: FollowButtonPropsType) => {
+  const { status: createFollowStatus, request: createFollow } =
+    useCreateFollow();
+  const { status: deleteFollowStatus, request: deleteFollow } =
+    useDeleteFollow(followId);
   const [hover, setHover] = useState(false);
   const [isFollow, setIsFollow] = useState(isFollowing);
-  const handleClick = useCallback(() => {
-    console.log('click');
+
+  const handleClick = useCallback(async () => {
+    if (createFollowStatus === 'loading' || deleteFollowStatus === 'loading')
+      return;
     if (isFollow) {
       setIsFollow(false);
       // TODO: modal => unfollow 하겠습니까? [확인] [취소]
       // TODO: unfollow api
+      if (followId === undefined) return;
+      await deleteFollow();
+      //actions.searchUserRequest();
     } else {
       setIsFollow(true);
       // TODO: follow api
+      await createFollow(userId);
+      //actions.searchUserRequest();
     }
-  }, [isFollow]);
+  }, [
+    createFollow,
+    createFollowStatus,
+    deleteFollow,
+    deleteFollowStatus,
+    followId,
+    isFollow,
+    userId,
+  ]);
   return (
     <RoundButton
       size='md'

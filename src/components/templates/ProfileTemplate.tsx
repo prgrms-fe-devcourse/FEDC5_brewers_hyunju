@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import {
   IconMessage,
+  IconPointFilled,
   IconSettings,
   IconUserMinus,
   IconUserPlus,
@@ -26,18 +27,23 @@ import FeedListItem from '../feed/FeedListItem';
 import { userState } from '~/recoil/login/atoms';
 import { UserType } from '~/types/common';
 import { OptionalConfig } from '~/hooks/api';
+import useCreateNotification from '~/hooks/api/notification/useCreateNotification';
+import useCreateFollow from '~/hooks/api/follow/useCreateFollow';
+import useDeleteFollow from '~/hooks/api/follow/useDeleteFollow';
 
 export interface ProfileTemplatePropsType {
   user: UserType;
   actions: {
     requestUser: (config?: OptionalConfig) => Promise<void>;
-    createFollow: (config?: OptionalConfig) => Promise<void>;
-    deleteFollow: (config?: OptionalConfig) => Promise<void>;
   };
 }
 
 const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
   const navigator = useNavigate();
+
+  const { request: createFollow } = useCreateFollow();
+  const { request: deleteFollow } = useDeleteFollow();
+  const { request: createNoti } = useCreateNotification();
 
   const auth = useRecoilValue(userState);
 
@@ -59,17 +65,21 @@ const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
     if (!auth) return;
 
     if (myFollow) {
-      await actions.deleteFollow({
+      await deleteFollow({
         data: {
           id: myFollow._id,
         },
       });
     } else {
-      await actions.createFollow({
-        data: {
-          userId: user._id,
-        },
-      });
+      const createdFollow = await createFollow(user._id);
+
+      createdFollow &&
+        createNoti({
+          notificationType: 'FOLLOW',
+          notificationTypeId: createdFollow._id,
+          userId: createdFollow.user,
+          postId: null,
+        });
     }
 
     actions.requestUser();
@@ -159,8 +169,12 @@ const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
             <Text
               lineHeight={150}
               weight={600}
+              style={{ display: 'flex' }}
             >
-              {user.role}
+              <Text color={user.isOnline || isMe ? '--green500' : '--red500'}>
+                <IconPointFilled />
+              </Text>
+              {user.isOnline || isMe ? '온라인' : '오프라인'}
             </Text>
           </Flex>
         </Flex>
@@ -249,23 +263,32 @@ const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
         direction='column'
         gap={1}
       >
-        {user.posts.map((post) => (
-          <div key={post._id}>
-            <FeedListItem
-              id={post._id}
-              userId={post.author._id}
-              profileImage={post.author.image}
-              userName={post.author.fullName}
-              createdAt={post.createdAt}
-              content={''}
-              imageUrl={post.image}
-              likes={post.likes}
-              comments={post.comments}
-              onFeedClick={() => navigator(`/post/${post._id}`)}
-              onUserClick={() => navigator(`/profile/${post.author._id}`)}
-            />
-          </div>
-        ))}
+        {user.posts.map((post) => {
+          try {
+            const parsePost = JSON.parse(post.title);
+
+            return (
+              <div key={post._id}>
+                <FeedListItem
+                  key={post._id}
+                  id={post._id}
+                  userId={user._id}
+                  profileImage={user.image}
+                  userName={user.fullName}
+                  createdAt={post.createdAt}
+                  workingSpot={parsePost.workingSpot}
+                  content={parsePost.body.text}
+                  imageUrl={post.image}
+                  likes={post.likes}
+                  comments={post.comments}
+                  onFeedClick={() => navigator(`/post/${post._id}`)}
+                />
+              </div>
+            );
+          } catch {
+            return null;
+          }
+        })}
       </Flex>
       <>
         <Modal

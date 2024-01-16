@@ -19,10 +19,9 @@ export interface FeedListItemPropsType {
   content: string;
   workingSpot: WorkingSpotType;
   imageUrl?: string;
-  likes: LikeType[] | string[];
+  likes: LikeType[];
   comments: CommentType[] | string[];
   onFeedClick: (feedId: string) => void;
-  onUserClick: (userId: string) => void;
 }
 
 export const Divider = styled.div`
@@ -39,15 +38,9 @@ export const FeedItemContainer = styled(Container)`
   padding: 1rem 1.5rem;
   border: 1px solid var(--adaptive200);
 
-  /* border-radius: 0.75rem; */
-
-  /* box-shadow: 0 4px 4px 0 var(--adaptiveOpacity100); */
-
   background-color: var(-adaptive50);
 
   box-sizing: border-box;
-
-  cursor: pointer;
 
   transition: 0.2s background-color ease-in;
 
@@ -62,14 +55,13 @@ const FeedListItem = ({
   profileImage,
   userName,
   createdAt,
-  updatedAt,
+  // updatedAt,
   content,
   workingSpot,
   imageUrl,
   likes,
   comments,
   onFeedClick,
-  // onUserClick,
 }: FeedListItemPropsType) => {
   // 피드 클릭 시
   const handleFeedClick = (feedId: string) => {
@@ -129,15 +121,18 @@ const FeedListItem = ({
                 color='--adaptive500'
                 style={{ marginBottom: '1rem' }}
               >
-                {updatedAt
+                {/* {isUpdated(createdAt, updatedAt)
                   ? `${handleDate(updatedAt)} · 수정됨`
-                  : handleDate(createdAt)}
+                  : handleDate(createdAt)} */}
+                {handleDate(createdAt)}
               </Text>
             </div>
             <WorkingSpotIcon workingSpot={workingSpot} />
           </Flex>
 
-          <Text style={{ marginBottom: '1rem' }}>{content}</Text>
+          <Text style={{ marginBottom: '1rem', lineHeight: '1.4' }}>
+            {content}
+          </Text>
           {imageUrl && (
             <Image
               src={imageUrl}
@@ -150,14 +145,16 @@ const FeedListItem = ({
           <Divider></Divider>
           <Flex gap={1.5}>
             <FeedFooterItem
+              postId={id}
+              userId={userId}
               iconType={'like'}
-              title='좋아요'
-              count={likes.length}
+              likes={likes}
             ></FeedFooterItem>
             <FeedFooterItem
-              iconType={''}
-              title='댓글'
-              count={comments.length}
+              postId={id}
+              userId={userId}
+              iconType={'comment'}
+              comments={comments}
             ></FeedFooterItem>
           </Flex>
         </Flex>

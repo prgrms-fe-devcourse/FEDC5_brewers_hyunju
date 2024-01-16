@@ -9,6 +9,8 @@ import SearchPage from './pages/SearchPage';
 import App from './App';
 import PersonalMessagePage from './pages/PresonalMessagePage';
 import DMListPage from './pages/DMListPage';
+import PostEditPage from './pages/PostEditPage';
+import NotificationPage from './pages/NotificationPage';
 
 const router = createBrowserRouter([
   {
@@ -57,6 +59,16 @@ const router = createBrowserRouter([
       {
         path: 'message/:userId',
         element: <PersonalMessagePage />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: 'edit/:postId',
+        element: <PostEditPage />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: 'notification',
+        element: <NotificationPage />,
         errorElement: <ErrorPage />,
       },
     ],

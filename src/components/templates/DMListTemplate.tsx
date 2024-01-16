@@ -20,83 +20,97 @@ const DMListTemplate = ({ conversations, status }: DMListTemplatePropsType) => {
 
   if (!user) {
     return (
-      <Container
-        maxWidth='sm'
-        minWidth={20}
-        minHeight={40}
-      >
-        <Flex
-          direction='column'
-          gap={1}
-        >
-          <Text size='2xl'>채팅 목록</Text>
+      <MessageListContainer maxWidth='md'>
+        <MessageList maxWidth='md'>
           <Flex
             direction='column'
-            gap={0.25}
+            gap={1}
           >
-            <Flex
-              justifyContent='center'
-              mt={10}
+            <Text
+              size='3xl'
+              weight={800}
             >
-              <Text color='--adaptive400'>로그인해 주세요</Text>
+              채팅 목록
+            </Text>
+            <Flex
+              direction='column'
+              gap={0.25}
+            >
+              <Flex
+                justifyContent='center'
+                mt={10}
+              >
+                <Text color='--adaptive400'>로그인해 주세요</Text>
+              </Flex>
             </Flex>
           </Flex>
-        </Flex>
-      </Container>
+        </MessageList>
+      </MessageListContainer>
     );
   }
 
   return (
-    <Container
-      maxWidth='sm'
-      minWidth={20}
-      minHeight={40}
-    >
-      <Flex
-        direction='column'
-        gap={1}
-      >
-        <Text size='2xl'>채팅 목록</Text>
-        <Flex direction='column'>
-          <Text style={{ textAlign: 'right' }}>상대방 메시지 확인 상태</Text>
-          <Flex
-            alignItems='center'
-            gap={0.25}
-            style={{ marginLeft: 'auto' }}
-          >
-            <Badge />
-            <Text>읽지 않음</Text>
-          </Flex>
-        </Flex>
+    <MessageListContainer maxWidth='md'>
+      <MessageList maxWidth='md'>
         <Flex
           direction='column'
-          gap={0.25}
+          gap={1}
         >
-          {status === 'loading' && <CircleLoading size={1} />}
-          {status === 'success' && conversations.length ? (
-            conversations?.map(({ message, sender, receiver, seen }, index) => (
-              <DMItem
-                key={index}
-                userName={
-                  sender._id === user?._id ? receiver.fullName : sender.fullName
-                }
-                message={message}
-                seen={seen}
-                src={sender._id === user?._id ? receiver.image : sender.image}
-                userId={sender._id === user?._id ? receiver._id : sender._id}
-              />
-            ))
-          ) : (
+          <Text
+            size='3xl'
+            weight={800}
+          >
+            채팅 목록
+          </Text>
+          <Flex direction='column'>
+            <Text style={{ textAlign: 'right' }}>상대방 메시지 확인 상태</Text>
             <Flex
-              justifyContent='center'
-              mt={10}
+              alignItems='center'
+              gap={0.25}
+              style={{ marginLeft: 'auto' }}
             >
-              <Text color='--adaptive400'>메시지함이 비었습니다</Text>
+              <Badge />
+              <Text>읽지 않음</Text>
             </Flex>
-          )}
+          </Flex>
+          <Flex
+            direction='column'
+            gap={0.25}
+          >
+            {status === 'loading' && <CircleLoading size={1} />}
+            {status === 'success' && conversations.length ? (
+              conversations?.map(
+                ({ message, sender, receiver, seen }, index) => (
+                  <DMItem
+                    key={index}
+                    userName={
+                      sender._id === user?._id
+                        ? receiver.fullName
+                        : sender.fullName
+                    }
+                    message={message}
+                    seen={seen}
+                    src={
+                      sender._id === user?._id ? receiver.image : sender.image
+                    }
+                    userId={
+                      sender._id === user?._id ? receiver._id : sender._id
+                    }
+                  />
+                )
+              )
+            ) : (
+              <Flex
+                justifyContent='center'
+                mt={10}
+              >
+                <Text color='--adaptive400'>메시지함이 비었습니다</Text>
+              </Flex>
+            )}
+          </Flex>
         </Flex>
-      </Flex>
-    </Container>
+      </MessageList>
+    </MessageListContainer>
   );
 };
 export default DMListTemplate;
@@ -110,4 +124,29 @@ const Badge = styled.div`
   border-radius: 100%;
 
   background-color: var(--secondaryColor);
+`;
+
+const MessageListContainer = styled(Container)`
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 1rem;
+  box-shadow: 0 0 1.5rem var(--adaptiveOpacity50);
+
+  background-color: var(--transparent);
+
+  box-sizing: border-box;
+  gap: 1.5rem;
+`;
+
+const MessageList = styled(Container)`
+  display: flex;
+  flex-direction: column;
+
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 1.5rem var(--adaptiveOpacity50);
+
+  box-sizing: border-box;
+  gap: 1.5rem;
 `;

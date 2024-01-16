@@ -6,7 +6,9 @@ import Image from '~/components/common/Image';
 import Avatar from '~/components/common/Avatar';
 import FeedFooterItem from '~/components/feed/FeedFooterItem';
 import DropDown from '~/components/dropDown/DropDown';
+
 // import PostCommentListItem from '../postComment/PostCommentListItem';
+
 import { handleDate } from '~/utils/handleDate';
 import { CommentType, LikeType, UserType } from '~/types/common';
 
@@ -21,7 +23,7 @@ export interface PostPropsType {
   likes: LikeType[];
   comments: CommentType[];
   onDropDownClick: (action: string) => void;
-  onUserClick: () => void;
+  isMine: boolean;
 }
 
 export const Divider = styled.div`
@@ -54,15 +56,16 @@ export const PostContainer = styled(Container)`
 `;
 
 const Post = ({
-  // id,
+  id,
   author,
   createdAt,
-  updatedAt,
+  // updatedAt,
   content,
   imageUrl,
   likes,
   comments,
   onDropDownClick,
+  isMine,
   // onUserClick,
 }: PostPropsType) => {
   // 피드 클릭 시
@@ -114,28 +117,33 @@ const Post = ({
                 color='--adaptive500'
                 style={{ marginBottom: '1rem' }}
               >
-                {updatedAt
+                {/* {isUpdated(createdAt, updatedAt)
                   ? `${handleDate(updatedAt)} · 수정됨`
-                  : handleDate(createdAt)}
+                  : handleDate(createdAt)} */}
+                {handleDate(createdAt)}
               </Text>
             </div>
-            <DropDown
-              list={[
-                { title: '수정하기', action: 'put' },
-                { title: '삭제하기', action: 'delete' },
-              ]}
-              handleClick={(action: string) => {
-                if (action === 'put') {
-                  handleDropDownClick(action);
-                } else {
-                  handleDropDownClick(action);
-                }
-                // 로직 추가
-              }}
-            ></DropDown>
+            {isMine && (
+              <DropDown
+                list={[
+                  { title: '수정하기', action: 'put' },
+                  { title: '삭제하기', action: 'delete' },
+                ]}
+                handleClick={(action: string) => {
+                  if (action === 'put') {
+                    handleDropDownClick(action);
+                  } else {
+                    handleDropDownClick(action);
+                  }
+                  // 로직 추가
+                }}
+              ></DropDown>
+            )}
           </Flex>
 
-          <Text style={{ marginBottom: '1rem' }}>{content}</Text>
+          <Text style={{ marginBottom: '1rem', lineHeight: '1.4' }}>
+            {content}
+          </Text>
           {imageUrl && (
             <Image
               src={imageUrl}
@@ -148,36 +156,18 @@ const Post = ({
           <Divider></Divider>
           <Flex gap={1.5}>
             <FeedFooterItem
+              postId={id}
+              userId={author._id}
               iconType={'like'}
-              title='좋아요'
-              count={likes.length}
+              likes={likes}
             ></FeedFooterItem>
             <FeedFooterItem
-              iconType={''}
-              title='댓글'
-              count={comments.length}
+              postId={id}
+              userId={author._id}
+              iconType={'comment'}
+              comments={comments}
             ></FeedFooterItem>
           </Flex>
-          {/* <PostCommentListItem
-            userName='사용자 이름'
-            createdAt='9:00'
-            avatarSrc='https://picsum.photos/200'
-            message='Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit.'
-            handleClick={() => {
-              alert('hello');
-            }}
-            updatedAt='12:30'
-          ></PostCommentListItem>
-          <PostCommentListItem
-            userName='사용자 이름'
-            createdAt='9:00'
-            avatarSrc='https://picsum.photos/200'
-            message='Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit.'
-            handleClick={() => {
-              alert('hello');
-            }}
-            updatedAt='12:30'
-          ></PostCommentListItem> */}
         </Flex>
       </Flex>
     </PostContainer>

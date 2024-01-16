@@ -15,7 +15,7 @@ const WorkSpotSelector = ({ handleChange }: WorkSpotSelectorType) => {
   return (
     <Wrapper>
       <Select
-        label='오늘의 카공 스팟'
+        label='오늘의 카공 장소'
         data={WORK_SPOT_INDEX}
         placeholder='유형 선택'
         handleChange={handleChange}
@@ -27,5 +27,6 @@ const WorkSpotSelector = ({ handleChange }: WorkSpotSelectorType) => {
 export default WorkSpotSelector;
 
 const Wrapper = styled.div`
-  align-self: flex-end;
+  align-self: flex-start;
+  margin-bottom: 1rem;
 `;

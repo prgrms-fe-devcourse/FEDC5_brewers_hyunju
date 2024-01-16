@@ -1,5 +1,6 @@
 import { ChangeEvent, useRef, useState } from 'react';
 import styled from '@emotion/styled';
+import { FONT_SIZE } from '~/constants/design';
 import Avatar from '~/components/common/Avatar';
 import Button from '~/components/common/Button';
 import Image from '../common/Image';
@@ -8,14 +9,12 @@ import Container from '~/components/common/Container';
 import { CustomPostContentType, WorkingSpotType } from '~/types/common';
 import useGetPosts from '~/hooks/api/post/useGetPosts';
 import WorkSpotSelector from '../WorkSpotSelector';
+import { IconPhoto, IconX } from '@tabler/icons-react';
 
 export interface FeedListInputPropsType {
   userId: string;
   profileImage: string;
-  onHandleCreatePost: (
-    newPost: CustomPostContentType,
-    file?: File | null
-  ) => void;
+  onHandleCreatePost: (newPost: CustomPostContentType, file?: File) => void;
 }
 
 const FeedListInputContainer = styled(Container)`
@@ -38,16 +37,23 @@ const FeedListInputContainer = styled(Container)`
 const FeedListTextarea = styled.textarea`
   width: 100%;
   height: 4.875rem;
-  padding-top: 0.625rem;
-  border: none;
+  padding: 0.625rem 0.9375rem;
+  outline: none;
+  border: solid 0.0938rem var(--transparent);
 
-  font-size: 1rem;
+  /* border: none; */
+  border-radius: 0.4375rem;
+
+  background-color: var(--adaptive200);
+
+  color: var(--adaptive950);
+  font-size: ${FONT_SIZE['md']};
 
   box-sizing: border-box;
   resize: none;
 
   :focus {
-    outline: none;
+    border-color: var(--secondaryColor);
   }
 `;
 
@@ -60,14 +66,15 @@ const FeedListInput = ({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   useGetPosts();
 
+  const [hover, setHover] = useState(false);
   const [content, setContent] = useState('');
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | undefined>(undefined);
   const [previewUrl, setPreviewUrl] = useState<string | undefined>(undefined);
   const [workingSpot, setWorkingSpot] = useState<WorkingSpotType>('cafe');
   const resetData = () => {
     setContent('');
     setPreviewUrl(undefined);
-    setSelectedFile(null);
+    setSelectedFile(undefined);
   };
 
   // '작성' 버튼 클릭시
@@ -134,30 +141,34 @@ const FeedListInput = ({
             onChange={(e) => setContent(e.target.value)}
           />
           {selectedFile && (
-            <Image
-              width={10}
-              height={10}
-              src={previewUrl}
-              alt='Profile Image'
-              letterBoxColor='--transparent'
-            />
+            <ImageWrapper
+              onMouseEnter={() => setHover(true)}
+              onMouseLeave={() => setHover(false)}
+            >
+              <Image
+                width={10}
+                height={10}
+                src={previewUrl}
+                alt='Profile Image'
+                letterBoxColor='--transparent'
+              />
+              {hover && (
+                <CloseButton
+                  onClick={() => {
+                    setSelectedFile(undefined);
+                    setPreviewUrl(undefined);
+                  }}
+                >
+                  <IconX size={15} />
+                </CloseButton>
+              )}
+            </ImageWrapper>
           )}
           <Flex
             mt={1.2}
             style={{ height: '2.75rem' }}
+            alignItems='center'
           >
-            <Button
-              variant='outlined'
-              size='md'
-              color='--primaryColor'
-              onClick={() => {
-                alert('위치');
-              }}
-              mr={1.2}
-              style={{ height: '100%', width: '4.5rem' }}
-            >
-              위치
-            </Button>
             <form
               ref={formRef}
               onChange={(e) => console.log(e)}
@@ -170,13 +181,13 @@ const FeedListInput = ({
               />
             </form>
             <Button
-              variant='outlined'
+              variant='text'
               size='md'
               color='--primaryColor'
               onClick={handleImageBtnClick}
               style={{ height: '100%', width: '4.5rem' }}
             >
-              사진
+              <IconPhoto size='32' />
             </Button>
             <Button
               variant='filled'
@@ -195,3 +206,33 @@ const FeedListInput = ({
 };
 
 export default FeedListInput;
+
+const ImageWrapper = styled.div`
+  position: relative;
+
+  width: fit-content;
+  margin-top: 1rem;
+  border: solid 1px var(--adaptive300);
+`;
+
+const CloseButton = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  padding-top: 0.5px;
+  padding-left: 1px;
+  border: none;
+  border-radius: 50%;
+
+  background-color: var(--adaptive500);
+
+  box-sizing: border-box;
+  cursor: pointer;
+`;

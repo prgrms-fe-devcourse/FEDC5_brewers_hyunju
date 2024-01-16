@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSetRecoilState } from 'recoil';
 import Flex from '~/components/common/Flex';
 import Button from '~/components/common/Button';

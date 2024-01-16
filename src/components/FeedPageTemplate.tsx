@@ -11,13 +11,33 @@ export interface FeedPageTemplatePropsType {
   posts?: GetChannelPostsResponseType;
   userId: string | null;
   profileImage: string;
-  onHandleCreatePost: (
-    newPost: CustomPostContentType,
-    file?: File | null
-  ) => void;
+  onHandleCreatePost: (newPost: CustomPostContentType, file?: File) => void;
 }
 
-const FeedPageContainer = styled(Container)();
+const FeedContainer = styled(Container)`
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 1rem;
+  box-shadow: 0 0 1.5rem var(--adaptiveOpacity50);
+
+  background-color: var(--transparent);
+
+  box-sizing: border-box;
+  gap: 1.5rem;
+`;
+
+const FeedInnerContainer = styled(Container)`
+  display: flex;
+  flex-direction: column;
+
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 1.5rem var(--adaptiveOpacity50);
+
+  box-sizing: border-box;
+  gap: 1.5rem;
+`;
 
 const FeedPageTemplate = ({
   posts,
@@ -27,70 +47,65 @@ const FeedPageTemplate = ({
 }: FeedPageTemplatePropsType) => {
   const navigate = useNavigate();
   return (
-    <FeedPageContainer maxWidth='md'>
-      <Text
-        size='3xl'
-        weight={800}
-        mb={2.25}
-      >
-        피드
-      </Text>
-      {userId && (
-        <>
-          <FeedListInput
-            userId={userId}
-            profileImage={profileImage}
-            onHandleCreatePost={onHandleCreatePost}
-          ></FeedListInput>
-          <div style={{ marginBottom: '3.375rem' }}></div>
-        </>
-      )}
+    <FeedContainer maxWidth='md'>
+      <FeedInnerContainer maxWidth='md'>
+        <Text
+          size='3xl'
+          weight={800}
+        >
+          피드
+        </Text>
+        {userId && (
+          <>
+            <FeedListInput
+              userId={userId}
+              profileImage={profileImage}
+              onHandleCreatePost={onHandleCreatePost}
+            ></FeedListInput>
+          </>
+        )}
 
-      {posts &&
-        posts.map((post) => {
-          let contentText = '';
-          let workingSpot = 'cafe';
-          try {
-            const parsedTitle = JSON.parse(post.title);
-            console.log(parsedTitle);
-            if (parsedTitle.body && parsedTitle.body.text) {
-              contentText = parsedTitle.body.text;
-            } else {
+        {posts &&
+          posts.map((post) => {
+            let contentText = '';
+            let workingSpot = 'cafe';
+            try {
+              const parsedTitle = JSON.parse(post.title);
+              if (parsedTitle.body && parsedTitle.body.text) {
+                contentText = parsedTitle.body.text;
+              } else {
+                contentText = post.title;
+              }
+              if (parsedTitle.workingSpot) {
+                workingSpot = parsedTitle.workingSpot;
+              }
+            } catch (error) {
               contentText = post.title;
             }
-            if (parsedTitle.workingSpot) {
-              workingSpot = parsedTitle.workingSpot;
-            }
-          } catch (error) {
-            contentText = post.title;
-          }
 
-          return (
-            <FeedListItem
-              id={post._id}
-              key={post._id}
-              userId={post.author._id}
-              profileImage={post.author.image}
-              userName={post.author.fullName}
-              createdAt={post.createdAt}
-              updatedAt={post.updatedAt}
-              content={contentText}
-              workingSpot={workingSpot as WorkingSpotType}
-              likes={post.likes}
-              comments={post.comments}
-              onFeedClick={(feedId: string) => {
-                console.log(feedId);
-                // 일단 navigation으로 구현
-                navigate(`/post/${feedId}`);
-              }}
-              onUserClick={(userId: string) => {
-                console.log(userId);
-              }}
-              imageUrl={post.image}
-            />
-          );
-        })}
-    </FeedPageContainer>
+            return (
+              <FeedListItem
+                id={post._id}
+                key={post._id}
+                userId={post.author._id}
+                profileImage={post.author.image}
+                userName={post.author.fullName}
+                createdAt={post.createdAt}
+                updatedAt={post.updatedAt}
+                content={contentText}
+                workingSpot={workingSpot as WorkingSpotType}
+                likes={post.likes}
+                comments={post.comments}
+                onFeedClick={(feedId: string) => {
+                  // 일단 navigation으로 구현
+                  navigate(`/post/${feedId}`);
+                }}
+                imageUrl={post.image}
+              />
+            );
+          })}
+      </FeedInnerContainer>
+    </FeedContainer>
   );
 };
 

@@ -13,3 +13,16 @@ export const handleDate = (ISOdate: string) => {
 
   return formattedDate;
 };
+
+export const isUpdated = (
+  createdISOdate: string,
+  updatedISOdate: string | undefined
+) => {
+  if (updatedISOdate === undefined) return false;
+  const date1 = new Date(createdISOdate);
+  const date2 = new Date(updatedISOdate);
+  if (date1 < date2) {
+    return true;
+  }
+  return false;
+};

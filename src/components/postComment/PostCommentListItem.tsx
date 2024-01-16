@@ -1,11 +1,13 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import Container from '~/components/common/Container';
 import Flex from '~/components/common/Flex';
 import Text from '~/components/common/Text';
 import Avatar from '../common/Avatar';
 import { FontSizeType, FontWeightType } from '~/types/design/font';
 import ContainerSizeType from '~/types/design/container';
-import { handleDate } from '~/utils/handleDate';
+
+import { handleDate, isUpdated } from '~/utils/handleDate';
+
 import Button from '../common/Button';
 
 export interface PostCommentListItemPropsType {
@@ -20,7 +22,7 @@ export interface PostCommentListItemPropsType {
   messageWeight?: FontWeightType;
   avatarSrc?: string;
   width?: ContainerSizeType;
-  handleClick: () => void;
+  // handleClick: () => void;
   createdAt: string;
   updatedAt: string;
   onDeleteComment: (commentId: string) => void;
@@ -99,7 +101,8 @@ const PostCommentListItem = ({
                 >
                   {handleDate(updatedAt) || handleDate(createdAt)}
                 </Text>
-                {updatedAt ? (
+
+                {isUpdated(createdAt, updatedAt) ? (
                   <Text
                     size='xs'
                     weight={400}
@@ -113,6 +116,7 @@ const PostCommentListItem = ({
             <Text
               size={messageSize}
               weight={messageWeight}
+              style={{ lineHeight: '1.4' }}
             >
               {message}
             </Text>
@@ -124,7 +128,14 @@ const PostCommentListItem = ({
             size='md'
             color='--primaryColor'
             onClick={() => onDeleteComment(id)}
-            style={{ alignSelf: 'center', marginRight: '0' }}
+            style={{
+              height: '2rem',
+              width: '4.5rem',
+              marginLeft: 'auto',
+              alignSelf: 'center',
+              marginRight: '0',
+              flexShrink: '0',
+            }}
           >
             삭제
           </Button>

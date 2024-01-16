@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from '@emotion/styled';
 import { IconHeart, IconMessageCircle2 } from '@tabler/icons-react';
 import { Divider, FeedItemContainer } from './feed/FeedListItem';
@@ -85,9 +84,9 @@ const FeedListItemSkeleton = () => {
 const FeedListSkeleton = () => {
   return (
     <StyledUl>
-      {Array.from(Array(5)).map(() => {
-        return <FeedListItemSkeleton />;
-      })}
+      {Array.from(Array(5)).map((_, idx) => (
+        <FeedListItemSkeleton key={idx} />
+      ))}
     </StyledUl>
   );
 };

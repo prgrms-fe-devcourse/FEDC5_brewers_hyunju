@@ -1,26 +1,34 @@
-import React from 'react';
 import styled from 'styled-components';
-import UserListItem, { UserListItemPropsType } from './UserListItem';
-import Text from '../common/Text';
+import UserListItem from './UserListItem';
+import Text from '~/components/common/Text';
+import { UserSearchData } from '~/pages/SearchPage';
 
 export interface UserListPropsType {
-  users?: UserListItemPropsType[];
+  users?: UserSearchData[];
 }
 const UserList = ({ users }: UserListPropsType) => {
   return (
     <StyledUl>
       {users && users.length ? (
-        users.map(({ userId, userName, userImage, isFollowing }) => (
+        users.map(({ userId, userName, userImage, isFollowing, followId }) => (
           <UserListItem
             key={userId}
             userId={userId}
             userName={userName}
             userImage={userImage}
             isFollowing={isFollowing}
+            followId={followId}
           />
         ))
       ) : (
-        <Text>검색 결과가 없습니다</Text>
+        <Box>
+          <Text
+            size='lg'
+            weight={600}
+          >
+            검색 결과가 없습니다
+          </Text>
+        </Box>
       )}
     </StyledUl>
   );
@@ -28,6 +36,9 @@ const UserList = ({ users }: UserListPropsType) => {
 
 export default UserList;
 
+const Box = styled.div`
+  padding: 1rem;
+`;
 const StyledUl = styled.ul`
   flex-direction: column;
   align-items: center;

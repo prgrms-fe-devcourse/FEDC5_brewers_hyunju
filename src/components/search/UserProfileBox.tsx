@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from '@emotion/styled';
 import Flex from '~/components/common/Flex';
 import Text from '~/components/common/Text';

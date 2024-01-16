@@ -2,8 +2,6 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router';
 import ProfileSkeleton from '~/components/templates/ProfileSkeleton';
 import ProfileTemplate from '~/components/templates/ProfileTemplate';
-import useCreateFollow from '~/hooks/api/follow/useCreateFollow';
-import useDeleteFollow from '~/hooks/api/follow/useDeleteFollow';
 import useGetUser from '~/hooks/api/users/useGetUser';
 
 const ProfilePage = () => {
@@ -15,9 +13,6 @@ const ProfilePage = () => {
     request: requestUser,
   } = useGetUser(userId);
 
-  const { request: createFollow } = useCreateFollow();
-  const { request: deleteFollow } = useDeleteFollow();
-
   useEffect(() => {
     requestUser();
     // eslint-disable-next-line
@@ -27,7 +22,7 @@ const ProfilePage = () => {
     return (
       <ProfileTemplate
         user={userData}
-        actions={{ requestUser, createFollow, deleteFollow }}
+        actions={{ requestUser }}
       />
     );
   } else {

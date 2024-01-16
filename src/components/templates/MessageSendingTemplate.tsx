@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { useRecoilValue } from 'recoil';
+import styled from '@emotion/styled';
 
 import CircleLoading from '../loading/CircleLoading';
 import Container from '../common/Container';
@@ -13,6 +14,7 @@ import useCreateMessage from '~/hooks/api/conversation/useCreateMessage';
 import { userState } from '~/recoil/login/atoms';
 
 import { GetMessageListsResponseType } from '~/types/api/message';
+import useCreateNotification from '~/hooks/api/notification/useCreateNotification';
 
 interface MessageSendingTemplatePropsType {
   messageListStatus: 'stale' | 'loading' | 'error' | 'success';
@@ -33,9 +35,10 @@ const MessageSendingTemplate = ({
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const { handleCreateMessage } = useCreateMessage();
+  const { handleCreateMessage, data: messageData } = useCreateMessage();
+  const { request: createNoti } = useCreateNotification();
 
-  const onClick = () => {
+  const onClick = async () => {
     if (!textareaRef.current || !textareaRef.current.value) {
       return;
     }
@@ -44,74 +47,105 @@ const MessageSendingTemplate = ({
       return;
     }
 
-    handleCreateMessage({
-      message: textareaRef.current.value,
+    const text = textareaRef.current.value;
+    textareaRef.current.value = '';
+
+    await handleCreateMessage({
+      message: text,
       receiver: userId,
     }).then(fetch);
 
-    textareaRef.current.value = '';
+    createNoti({
+      notificationType: 'MESSAGE',
+      notificationTypeId: messageData._id,
+      userId: userId,
+      postId: null,
+    });
   };
 
   if (!user) {
     return (
-      <Container
-        maxWidth='sm'
-        minWidth={20}
-        minHeight={40}
-      >
-        <Flex
-          direction='column'
-          gap={1}
-        >
+      <MessageSendContainer maxWidth='md'>
+        <MessageSend maxWidth='md'>
           <Flex
             direction='column'
-            gap={0.25}
+            gap={1}
           >
             <Flex
-              justifyContent='center'
-              mt={10}
+              direction='column'
+              gap={0.25}
             >
-              <Text color='--adaptive400'>로그인해 주세요</Text>
+              <Flex
+                justifyContent='center'
+                mt={10}
+              >
+                <Text color='--adaptive400'>로그인해 주세요</Text>
+              </Flex>
             </Flex>
           </Flex>
-        </Flex>
-      </Container>
+        </MessageSend>
+      </MessageSendContainer>
     );
   }
 
   return (
-    <Container
-      maxWidth='sm'
-      style={{ padding: '1rem' }}
-    >
-      <Flex
-        gap={1}
-        direction='column'
-      >
-        {(messageListStatus === 'error' || messageSeenStatus === 'error') && (
-          <PersonalConversation>
-            <CircleLoading color='--secondaryColor' />
-          </PersonalConversation>
-        )}
-        {(messageListStatus === 'loading' ||
-          messageSeenStatus === 'loading') && (
-          <PersonalConversation>
-            <CircleLoading color='--secondaryColor' />
-          </PersonalConversation>
-        )}
+    <MessageSendContainer maxWidth='md'>
+      <MessageSend maxWidth='md'>
+        <Flex
+          gap={1}
+          direction='column'
+        >
+          {(messageListStatus === 'error' || messageSeenStatus === 'error') && (
+            <PersonalConversation>
+              <CircleLoading color='--secondaryColor' />
+            </PersonalConversation>
+          )}
+          {(messageListStatus === 'loading' ||
+            messageSeenStatus === 'loading') && (
+            <PersonalConversation>
+              <CircleLoading color='--secondaryColor' />
+            </PersonalConversation>
+          )}
 
-        {messageListStatus === 'success' && messageSeenStatus === 'success' && (
-          <PersonalConversation
-            messages={messageListData}
-            userId={userId}
+          {messageListStatus === 'success' &&
+            messageSeenStatus === 'success' && (
+              <PersonalConversation
+                messages={messageListData}
+                userId={userId}
+              />
+            )}
+          <MessageSending
+            ref={textareaRef}
+            onClick={onClick}
           />
-        )}
-        <MessageSending
-          ref={textareaRef}
-          onClick={onClick}
-        />
-      </Flex>
-    </Container>
+        </Flex>
+      </MessageSend>
+    </MessageSendContainer>
   );
 };
 export default MessageSendingTemplate;
+
+const MessageSendContainer = styled(Container)`
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 1rem;
+  box-shadow: 0 0 1.5rem var(--adaptiveOpacity50);
+
+  background-color: var(--transparent);
+
+  box-sizing: border-box;
+  gap: 1.5rem;
+`;
+
+const MessageSend = styled(Container)`
+  display: flex;
+  flex-direction: column;
+
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 1.5rem var(--adaptiveOpacity50);
+
+  box-sizing: border-box;
+  gap: 1.5rem;
+`;
