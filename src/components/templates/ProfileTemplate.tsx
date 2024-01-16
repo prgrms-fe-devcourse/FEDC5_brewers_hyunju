@@ -264,10 +264,11 @@ const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
           return (
             <div key={post._id}>
               <FeedListItem
+                key={post._id}
                 id={post._id}
-                userId={post.author._id}
-                profileImage={post.author.image}
-                userName={post.author.fullName}
+                userId={user._id}
+                profileImage={user.image}
+                userName={user.fullName}
                 createdAt={post.createdAt}
                 workingSpot={parsePost.workingSpot}
                 content={parsePost.body.text}
