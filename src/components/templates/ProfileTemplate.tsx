@@ -26,18 +26,23 @@ import FeedListItem from '../feed/FeedListItem';
 import { userState } from '~/recoil/login/atoms';
 import { UserType } from '~/types/common';
 import { OptionalConfig } from '~/hooks/api';
+import useCreateNotification from '~/hooks/api/notification/useCreateNotification';
+import useCreateFollow from '~/hooks/api/follow/useCreateFollow';
+import useDeleteFollow from '~/hooks/api/follow/useDeleteFollow';
 
 export interface ProfileTemplatePropsType {
   user: UserType;
   actions: {
     requestUser: (config?: OptionalConfig) => Promise<void>;
-    createFollow: (config?: OptionalConfig) => Promise<void>;
-    deleteFollow: (config?: OptionalConfig) => Promise<void>;
   };
 }
 
 const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
   const navigator = useNavigate();
+
+  const { request: createFollow } = useCreateFollow();
+  const { request: deleteFollow } = useDeleteFollow();
+  const { request: createNoti } = useCreateNotification();
 
   const auth = useRecoilValue(userState);
 
@@ -59,17 +64,21 @@ const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
     if (!auth) return;
 
     if (myFollow) {
-      await actions.deleteFollow({
+      await deleteFollow({
         data: {
           id: myFollow._id,
         },
       });
     } else {
-      await actions.createFollow({
-        data: {
-          userId: user._id,
-        },
-      });
+      const createdFollow = await createFollow(user._id);
+
+      createdFollow &&
+        createNoti({
+          notificationType: 'FOLLOW',
+          notificationTypeId: createdFollow._id,
+          userId: createdFollow.user,
+          postId: null,
+        });
     }
 
     actions.requestUser();
