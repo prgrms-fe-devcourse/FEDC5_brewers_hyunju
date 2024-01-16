@@ -102,6 +102,12 @@ const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
     setIsShowUpload(false);
   };
 
+  const handleClickMessage = () => {
+    if (auth && user._id !== auth._id) {
+      navigator(`/message/${user._id}`);
+    }
+  };
+
   return (
     <ProfileContainer maxWidth='md'>
       <Profile maxWidth='md'>
@@ -229,7 +235,8 @@ const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
                     stroke={2.5}
                   />
                 }
-                disabled
+                onClick={handleClickMessage}
+                disabled={!auth}
               >
                 메시지
               </Button>
