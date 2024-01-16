@@ -20,6 +20,8 @@ export const useCreateComment = () => {
       });
       setData(response.data);
       setStatus('success');
+
+      return response.data;
     } catch (e: unknown) {
       handleError(e, `Comment (createComment / ${postId})`);
       setStatus('error');
