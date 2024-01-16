@@ -5,7 +5,6 @@ import Text from './common/Text';
 import SearchBar from './search/SearchBar';
 import UserList from './search/UserList';
 import Tabs from './common/Tabs';
-import { UserListItemPropsType } from './search/UserListItem';
 import FeedListItem from './feed/FeedListItem';
 import FeedListSkeleton from './FeedListSkeleton';
 import UserListSkeleton from './UserListSkeleton';
@@ -15,7 +14,7 @@ import UsersLink from './UsersLink';
 
 type StatusType = 'stale' | 'loading' | 'error' | 'success';
 export interface SearchTemplatePropsType {
-  users?: UserListItemPropsType[];
+  users?: UserSearchData[];
   all?: {
     users: UserSearchData[];
     postList: PostSearchData[];
@@ -31,7 +30,6 @@ const SearchTemplate = ({
   userStatus,
 }: SearchTemplatePropsType) => {
   const [searchParams, setSearchParams] = useSearchParams();
-
   return (
     <SearchContainer maxWidth='md'>
       <Text
