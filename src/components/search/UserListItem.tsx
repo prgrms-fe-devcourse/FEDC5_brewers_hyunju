@@ -7,12 +7,14 @@ export interface UserListItemPropsType {
   userId: string;
   userName: string;
   isFollowing: boolean;
+  followId?: string;
 }
 const UserListItem = ({
   userImage,
   userId,
   userName,
   isFollowing,
+  followId,
 }: UserListItemPropsType) => {
   const navigation = useNavigate();
   const handleClick = useCallback(() => {
@@ -29,7 +31,11 @@ const UserListItem = ({
         userName={userName}
         handleClick={handleClick}
       />
-      <ListItem.FollowButton isFollowing={isFollowing} />
+      <ListItem.FollowButton
+        userId={userId}
+        followId={followId}
+        isFollowing={isFollowing}
+      />
     </ListItem>
   );
 };

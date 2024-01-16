@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 
 import UserStateListTemplate from '~/components/templates/UserStateListTemplate';
+
+import useGetOnlineUsers from '~/hooks/api/users/useGetOnlineUsers';
 import useGetUsers from '~/hooks/api/users/useGetUsers';
 
 import { UserType } from '~/types/common';
@@ -10,10 +12,27 @@ export interface UserStateListSideBarPropsType {
 }
 
 const UserStateListSideBar = () => {
-  const AllUsers = useGetUsers();
+  const allUsers = useGetUsers();
+  const onlineUsers = useGetOnlineUsers();
+
   useEffect(() => {
-    AllUsers.handleGetUsers();
+    allUsers.handleGetUsers();
+    onlineUsers.handleGetOnlineUsers();
+
+    const timer = setInterval(() => {
+      onlineUsers.handleGetOnlineUsers();
+    }, 5000);
+
+    return () => {
+      clearInterval(timer);
+    };
   }, []);
-  return <UserStateListTemplate AllUsers={AllUsers.data} />;
+
+  return (
+    <UserStateListTemplate
+      allUsers={allUsers.data}
+      onlineUserList={onlineUsers.data}
+    />
+  );
 };
 export default UserStateListSideBar;

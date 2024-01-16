@@ -29,8 +29,8 @@ export interface UserSimpleType {
   posts: string[];
   likes: string[];
   comments: string[];
-  followers: string[];
-  following: string[];
+  followers: FollowInfoType[];
+  following: FollowInfoType[];
   notifications: NotificationType[];
   messages: MessageType[];
   _id: string;

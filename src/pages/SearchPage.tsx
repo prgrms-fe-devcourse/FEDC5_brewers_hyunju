@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import SearchTemplate from '~/components/SearchTemplate';
+import SearchTemplate from '~/components/templates/SearchTemplate';
 import useSearchAll from '~/hooks/api/search/useSearchAll';
 import useSearchUsers from '~/hooks/api/search/useSearchUsers';
 import { userState } from '~/recoil/login/atoms';
@@ -17,6 +17,7 @@ export interface UserSearchData {
   userId: string;
   userName: string;
   isFollowing: boolean;
+  followId?: string;
   [prop: string]: unknown;
 }
 export interface PostSearchData {
@@ -42,13 +43,16 @@ const parseSearchData = (
   if (searchData) {
     searchData.forEach((item) => {
       if ((item as UserSimpleType).role) {
+        const followData = (item as UserSimpleType).followers.find(
+          (follow) => follow.follower === id
+        );
+
         users.push({
           userImage: (item as UserSimpleType).image,
           userId: item._id,
           userName: (item as UserSimpleType).fullName,
-          isFollowing: id
-            ? (item as UserSimpleType).followers.includes(id)
-            : false,
+          isFollowing: followData !== undefined ? true : false,
+          followId: followData ? followData._id : undefined,
         });
       } else if ((item as PostSimpleType).title) {
         const parsedContent = JSON.parse((item as PostSimpleType).title);
@@ -87,6 +91,8 @@ const SearchPage = () => {
       setSearchParams({ type: 'all' });
     }
   }, []);
+
+  useEffect(() => {}, [searchParams]);
 
   return (
     <SearchTemplate
