@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 import LogoNormal from '~/assets/logo-normal.svg?react';
 import LogoSimple from '~/assets/logo-simple.svg?react';
 import { LOGO_SIZE } from '~/constants/design';
@@ -6,26 +7,24 @@ import { LOGO_SIZE } from '~/constants/design';
 export interface LogoPropsType {
   type: 'normal' | 'simple';
   size: 'sm' | 'md' | 'lg';
-  handleClick?: () => void;
 }
-const Logo = ({ handleClick, type, size }: LogoPropsType) => {
+const Logo = ({ type, size }: LogoPropsType) => {
   return (
-    <LogoWrapper
-      onClick={handleClick}
-      className='logo'
-    >
-      {type === 'normal' ? (
-        <LogoNormal
-          width={LOGO_SIZE[type][size].width}
-          height={LOGO_SIZE[type][size].height}
-        />
-      ) : (
-        <LogoSimple
-          width={LOGO_SIZE[type][size].width}
-          height={LOGO_SIZE[type][size].height}
-        />
-      )}
-    </LogoWrapper>
+    <Link to='/'>
+      <LogoWrapper className='logo'>
+        {type === 'normal' ? (
+          <LogoNormal
+            width={LOGO_SIZE[type][size].width}
+            height={LOGO_SIZE[type][size].height}
+          />
+        ) : (
+          <LogoSimple
+            width={LOGO_SIZE[type][size].width}
+            height={LOGO_SIZE[type][size].height}
+          />
+        )}
+      </LogoWrapper>
+    </Link>
   );
 };
 
@@ -41,11 +40,7 @@ const LogoWrapper = styled.div`
 
   transition: 0.2s background-color ease-in;
 
-  /* transition: 0.2s opacity ease-in; */
-
   &:hover {
     background-color: var(--adaptive200);
-
-    /* opacity: 0.7; */
   }
 `;
