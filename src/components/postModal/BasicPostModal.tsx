@@ -10,9 +10,11 @@ import ContentEditableDiv from '~/components/ContentEditableDiv';
 import PostButton from '~/components/PostButton';
 import { postModalState } from '~/recoil/postModal/atoms';
 import { basicPostOpenState } from '~/recoil/postModal/selectors';
+import { userState } from '~/recoil/login/atoms';
 
 // TODO: 렌더링 최적화, contentEditable XSS 보호
 const BasicPostModal = () => {
+  const user = useRecoilValue(userState);
   const setPostModal = useSetRecoilState(postModalState);
   const isOpen = useRecoilValue(basicPostOpenState);
   const handleClose = useCallback(() => {
@@ -45,6 +47,7 @@ const BasicPostModal = () => {
           >
             <div>
               <Avatar
+                userId={user ? user._id : ''}
                 size='sm'
                 handleClick={() => {}}
               />

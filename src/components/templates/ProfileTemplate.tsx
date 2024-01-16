@@ -127,6 +127,7 @@ const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
           px={1}
         >
           <Avatar
+            userId={user._id}
             src={user.image}
             size='lg'
             handleClick={handlerClickImage}

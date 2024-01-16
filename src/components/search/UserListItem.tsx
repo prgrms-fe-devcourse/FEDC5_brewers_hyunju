@@ -21,8 +21,8 @@ const UserListItem = ({
   return (
     <ListItem>
       <ListItem.Avatar
+        userId={userId}
         size='sm'
-        handleClick={handleClick}
         src={userImage}
       />
       <ListItem.ProfileBox

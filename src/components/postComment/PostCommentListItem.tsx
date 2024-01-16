@@ -11,6 +11,7 @@ import Button from '../common/Button';
 export interface PostCommentListItemPropsType {
   id: string;
   isMine: boolean;
+  userId: string;
   userName: string;
   userNameSize?: FontSizeType;
   userNameWeight?: FontWeightType;
@@ -32,6 +33,7 @@ const AvatarContainer = styled.div`
 const PostCommentListItem = ({
   id,
   isMine,
+  userId,
   userName,
   userNameSize = 'sm',
   userNameWeight = 600,
@@ -40,7 +42,7 @@ const PostCommentListItem = ({
   messageWeight = 400,
   avatarSrc = '',
   width = 'md',
-  handleClick,
+  // handleClick,
   createdAt,
   updatedAt,
   onDeleteComment,
@@ -65,9 +67,10 @@ const PostCommentListItem = ({
         <Flex>
           <AvatarContainer style={{ marginRight: '1rem' }}>
             <Avatar
+              userId={userId}
               src={avatarSrc}
               size='sm'
-              handleClick={handleClick}
+              // handleClick={handleClick}
             />
           </AvatarContainer>
           <Flex

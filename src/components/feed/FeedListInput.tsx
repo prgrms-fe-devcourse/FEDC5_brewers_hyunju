@@ -115,12 +115,10 @@ const FeedListInput = ({
       >
         <div>
           <Avatar
+            userId={userId}
             src={profileImage}
             size='sm'
             alt='user image'
-            handleClick={() => {
-              alert(userId);
-            }}
           ></Avatar>
         </div>
         <Flex

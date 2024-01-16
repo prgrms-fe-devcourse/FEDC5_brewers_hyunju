@@ -27,6 +27,7 @@ const UserListItem = (props: UserListItemPropsType) => {
         gap={0.5}
       >
         <Avatar
+          userId={data._id}
           size='sm'
           src={data.image}
           alt={`${data.fullName}s profile image`}
