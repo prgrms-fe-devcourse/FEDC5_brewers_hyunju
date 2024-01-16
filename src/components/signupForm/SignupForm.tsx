@@ -69,6 +69,7 @@ const SignupForm = ({
             <Input
               label='사용자 이름'
               placeholder='프롱이'
+              maxLength={10}
               message={
                 userSignupInfoIsError.fullName
                   ? '사용자 이름을 입력해 주세요'
