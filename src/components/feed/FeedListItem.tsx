@@ -19,7 +19,7 @@ export interface FeedListItemPropsType {
   content: string;
   workingSpot: WorkingSpotType;
   imageUrl?: string;
-  likes: LikeType[] | string[];
+  likes: LikeType[];
   comments: CommentType[] | string[];
   onFeedClick: (feedId: string) => void;
 }
@@ -41,8 +41,6 @@ export const FeedItemContainer = styled(Container)`
   background-color: var(-adaptive50);
 
   box-sizing: border-box;
-
-  cursor: pointer;
 
   transition: 0.2s background-color ease-in;
 
@@ -147,14 +145,14 @@ const FeedListItem = ({
           <Divider></Divider>
           <Flex gap={1.5}>
             <FeedFooterItem
+              postId={id}
               iconType={'like'}
-              title='좋아요'
-              count={likes.length}
+              likes={likes}
             ></FeedFooterItem>
             <FeedFooterItem
-              iconType={''}
-              title='댓글'
-              count={comments.length}
+              postId={id}
+              iconType={'comment'}
+              comments={comments}
             ></FeedFooterItem>
           </Flex>
         </Flex>

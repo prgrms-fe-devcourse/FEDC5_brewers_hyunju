@@ -1,46 +1,35 @@
-import { IconHeart, IconMessageCircle2 } from '@tabler/icons-react';
-import Flex from '~/components/common/Flex';
-import Text from '~/components/common/Text';
+import { CommentType, LikeType } from '~/types/common';
+import LikeItem from './LikeItem';
+import CommentItem from './CommentItem';
 
 export interface FeedFooterItemPropTypes {
+  postId: string;
   iconType: string;
-  title: string;
-  count: number;
+  likes?: LikeType[];
+  comments?: CommentType[] | string[];
 }
 
 const FeedFooterItem = ({
+  postId,
   iconType,
-  title,
-  count,
+  likes,
+  comments,
 }: FeedFooterItemPropTypes) => {
   return (
-    <Flex alignItems='center'>
-      {iconType === 'like' ? (
-        <IconHeart
-          width='1.4rem'
-          height='1.4rem'
-          color='var(--adaptive500)'
-        ></IconHeart>
-      ) : (
-        <IconMessageCircle2
-          width='1.4rem'
-          height='1.4rem'
-          color='var(--adaptive500)'
-        ></IconMessageCircle2>
+    <>
+      {iconType === 'like' && (
+        <LikeItem
+          postId={postId}
+          likes={likes || []}
+        />
       )}
-      <Text
-        size='sm'
-        style={{ marginLeft: '0.2rem', color: 'var(--adaptive500)' }}
-      >
-        {title}
-      </Text>
-      <Text
-        size='sm'
-        style={{ marginLeft: '0.25rem', color: 'var(--adaptive500)' }}
-      >
-        {count}
-      </Text>
-    </Flex>
+      {iconType === 'comment' && (
+        <CommentItem
+          handleClick={() => console.log('댓글')}
+          comments={comments || []}
+        />
+      )}
+    </>
   );
 };
 
