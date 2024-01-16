@@ -23,8 +23,9 @@ export interface InputPropsType {
     | ((text: string) => void);
   children?: React.ReactNode;
   InputName?: string;
-  inputText?: string;
+  inputText: string;
   disabled?: boolean;
+  maxLength?: number;
 }
 
 interface BorderPropsType {
@@ -71,6 +72,8 @@ const Input = ({
   children,
   InputName,
   disabled,
+  inputText,
+  maxLength = 0,
 }: InputPropsType) => {
   const labelFontSize = 'sm' as FontSizeType;
   const inputFontSize = 'lg' as FontSizeType;
@@ -81,6 +84,10 @@ const Input = ({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
+    if (maxLength && value.length > maxLength) {
+      return;
+    }
 
     if (onChange !== undefined) {
       onChange(value, name);
@@ -126,6 +133,7 @@ const Input = ({
                 inputFontSize={inputFontSize}
                 onChange={handleChange}
                 disabled={disabled}
+                value={inputText}
               />
             </Flex>
           </Flex>

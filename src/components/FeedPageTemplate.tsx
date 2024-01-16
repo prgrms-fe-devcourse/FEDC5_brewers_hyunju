@@ -52,7 +52,6 @@ const FeedPageTemplate = ({
           let workingSpot = 'cafe';
           try {
             const parsedTitle = JSON.parse(post.title);
-            console.log(parsedTitle);
             if (parsedTitle.body && parsedTitle.body.text) {
               contentText = parsedTitle.body.text;
             } else {
@@ -79,12 +78,8 @@ const FeedPageTemplate = ({
               likes={post.likes}
               comments={post.comments}
               onFeedClick={(feedId: string) => {
-                console.log(feedId);
                 // 일단 navigation으로 구현
                 navigate(`/post/${feedId}`);
-              }}
-              onUserClick={(userId: string) => {
-                console.log(userId);
               }}
               imageUrl={post.image}
             />

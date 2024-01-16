@@ -5,12 +5,15 @@ import Text from '~/components/common/Text';
 import Avatar from '../common/Avatar';
 import { FontSizeType, FontWeightType } from '~/types/design/font';
 import ContainerSizeType from '~/types/design/container';
+
 import { handleDate, isUpdated } from '~/utils/handleDate';
+
 import Button from '../common/Button';
 
 export interface PostCommentListItemPropsType {
   id: string;
   isMine: boolean;
+  userId: string;
   userName: string;
   userNameSize?: FontSizeType;
   userNameWeight?: FontWeightType;
@@ -32,6 +35,7 @@ const AvatarContainer = styled.div`
 const PostCommentListItem = ({
   id,
   isMine,
+  userId,
   userName,
   userNameSize = 'sm',
   userNameWeight = 600,
@@ -40,7 +44,7 @@ const PostCommentListItem = ({
   messageWeight = 400,
   avatarSrc = '',
   width = 'md',
-  handleClick,
+  // handleClick,
   createdAt,
   updatedAt,
   onDeleteComment,
@@ -65,9 +69,10 @@ const PostCommentListItem = ({
         <Flex>
           <AvatarContainer style={{ marginRight: '1rem' }}>
             <Avatar
+              userId={userId}
               src={avatarSrc}
               size='sm'
-              handleClick={handleClick}
+              // handleClick={handleClick}
             />
           </AvatarContainer>
           <Flex
@@ -98,6 +103,7 @@ const PostCommentListItem = ({
                 </Text>
 
                 {isUpdated(createdAt, updatedAt) ? (
+
                   <Text
                     size='xs'
                     weight={400}

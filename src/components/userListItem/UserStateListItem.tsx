@@ -30,7 +30,7 @@ const UserStateListItem = ({ src, fullName }: UserStateListItemPropsType) => {
       maxWidth='sm'
       p={0.5}
       style={{
-        backgroundColor: 'var(--white)',
+        backgroundColor: 'var(--adaptive100)',
         width: '10rem',
         borderBottom: '1px solid var(--primaryColor) ',
       }}

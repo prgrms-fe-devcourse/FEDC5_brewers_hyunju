@@ -6,6 +6,9 @@ import Image from '~/components/common/Image';
 import Avatar from '~/components/common/Avatar';
 import FeedFooterItem from '~/components/feed/FeedFooterItem';
 import DropDown from '~/components/dropDown/DropDown';
+
+// import PostCommentListItem from '../postComment/PostCommentListItem';
+
 import { handleDate } from '~/utils/handleDate';
 import { CommentType, LikeType, UserType } from '~/types/common';
 
@@ -62,7 +65,7 @@ const Post = ({
   likes,
   comments,
   onDropDownClick,
-  onUserClick,
+  // onUserClick,
 }: PostPropsType) => {
   // 피드 클릭 시
   const handleDropDownClick = (action: string) => {
@@ -72,11 +75,11 @@ const Post = ({
   };
 
   // 사용자 이미지 클릭 시
-  const handleUserClick = () => {
-    if (onUserClick) {
-      onUserClick();
-    }
-  };
+  // const handleUserClick = () => {
+  //   if (onUserClick) {
+  //     onUserClick();
+  //   }
+  // };
 
   return (
     <PostContainer maxWidth='md'>
@@ -87,9 +90,9 @@ const Post = ({
       >
         <div>
           <Avatar
+            userId={author._id}
             src={author.image}
             size='sm'
-            handleClick={handleUserClick}
             alt='user image'
           ></Avatar>
         </div>
@@ -113,10 +116,12 @@ const Post = ({
                 color='--adaptive500'
                 style={{ marginBottom: '1rem' }}
               >
+
                 {/* {isUpdated(createdAt, updatedAt)
                   ? `${handleDate(updatedAt)} · 수정됨`
                   : handleDate(createdAt)} */}
                 {handleDate(createdAt)}
+
               </Text>
             </div>
             <DropDown
@@ -158,26 +163,7 @@ const Post = ({
               count={comments.length}
             ></FeedFooterItem>
           </Flex>
-          {/* <PostCommentListItem
-            userName='사용자 이름'
-            createdAt='9:00'
-            avatarSrc='https://picsum.photos/200'
-            message='Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit.'
-            handleClick={() => {
-              alert('hello');
-            }}
-            updatedAt='12:30'
-          ></PostCommentListItem>
-          <PostCommentListItem
-            userName='사용자 이름'
-            createdAt='9:00'
-            avatarSrc='https://picsum.photos/200'
-            message='Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit.'
-            handleClick={() => {
-              alert('hello');
-            }}
-            updatedAt='12:30'
-          ></PostCommentListItem> */}
+         
         </Flex>
       </Flex>
     </PostContainer>

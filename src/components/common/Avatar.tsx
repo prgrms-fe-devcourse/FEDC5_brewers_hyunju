@@ -3,8 +3,10 @@ import Image, { ImageModeType } from './Image';
 import { AvatarSizeType } from '~/types/design/avatar';
 import { AVATAR_SIZE } from '~/constants/design';
 import ColorType from '~/types/design/color';
+import { useNavigate } from 'react-router-dom';
 
 export interface AvatarPropsType {
+  userId: string;
   lazy?: boolean;
   threshold?: number;
   src?: string;
@@ -13,9 +15,10 @@ export interface AvatarPropsType {
   mode?: ImageModeType;
   size: AvatarSizeType;
   hoverColor?: ColorType;
-  handleClick: () => void;
+  handleClick?: () => void;
 }
 const Avatar = ({
+  userId,
   lazy = true,
   threshold,
   src,
@@ -26,11 +29,25 @@ const Avatar = ({
   hoverColor = '--primaryColor',
   handleClick,
 }: AvatarPropsType) => {
+  const navigation = useNavigate();
+
+  const chooseHandler = (handleClick: (() => void) | undefined) => {
+    if (handleClick) {
+      return handleClick;
+    } else {
+      return () => {
+        navigation(`/profile/${userId}`);
+      };
+    }
+  };
   return (
     <AvatarWrapper
       size={size}
       hoverColor={hoverColor}
-      onClick={handleClick}
+      onClick={(e) => {
+        e.stopPropagation();
+        chooseHandler(handleClick)();
+      }}
     >
       <Image
         block

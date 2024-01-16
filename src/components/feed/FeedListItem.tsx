@@ -22,7 +22,6 @@ export interface FeedListItemPropsType {
   likes: LikeType[] | string[];
   comments: CommentType[] | string[];
   onFeedClick: (feedId: string) => void;
-  onUserClick: (userId: string) => void;
 }
 
 export const Divider = styled.div`
@@ -65,7 +64,6 @@ const FeedListItem = ({
   likes,
   comments,
   onFeedClick,
-  onUserClick,
 }: FeedListItemPropsType) => {
   // 피드 클릭 시
   const handleFeedClick = (feedId: string) => {
@@ -75,16 +73,19 @@ const FeedListItem = ({
   };
 
   // 사용자 이미지 클릭 시
-  const handleUserClick = () => {
-    if (onUserClick) {
-      onUserClick(userId);
-    }
-  };
+  // const handleUserClick = () => {
+  //   if (onUserClick) {
+  //     onUserClick(userId);
+  //   }
+  // };
 
   return (
     <FeedItemContainer
       maxWidth='md'
-      onClick={() => handleFeedClick(id)}
+      onClick={(e) => {
+        e.preventDefault();
+        handleFeedClick(id);
+      }}
     >
       <Flex
         justifyContent='space-between'
@@ -93,9 +94,9 @@ const FeedListItem = ({
       >
         <div>
           <Avatar
+            userId={userId}
             src={profileImage}
             size='sm'
-            handleClick={handleUserClick}
             alt='user image'
           ></Avatar>
         </div>
@@ -122,10 +123,12 @@ const FeedListItem = ({
                 color='--adaptive500'
                 style={{ marginBottom: '1rem' }}
               >
+
                 {/* {isUpdated(createdAt, updatedAt)
                   ? `${handleDate(updatedAt)} · 수정됨`
                   : handleDate(createdAt)} */}
                 {handleDate(createdAt)}
+
               </Text>
             </div>
             <WorkingSpotIcon workingSpot={workingSpot} />

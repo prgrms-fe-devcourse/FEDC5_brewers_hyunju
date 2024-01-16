@@ -26,7 +26,6 @@ const PostPage = () => {
   // comment post 시
   const handleCreateComment = async (comment: string) => {
     try {
-      console.log(comment, postId);
       await createComment(comment, postId);
       requestPost();
     } catch (error) {

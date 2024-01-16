@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import Container from '~/components/common/Container';
 import Text from '~/components/common/Text';
 import Post from '~/components/post/Post';
@@ -19,7 +18,7 @@ export interface PostTemplatePropsType {
   onDeleteComment: (commentId: string) => void;
 }
 
-const PostContainer = styled(Container)``;
+// const PostContainer = styled(Container)``;
 
 const PostTemplate = ({
   post,
@@ -70,7 +69,7 @@ const PostTemplate = ({
   }
 
   return (
-    <PostContainer maxWidth='md'>
+    <Container maxWidth='md'>
       <Text
         size='3xl'
         weight={800}
@@ -104,6 +103,7 @@ const PostTemplate = ({
           <PostCommentListItem
             id={comment._id}
             isMine={comment.author._id === user?._id}
+            userId={comment.author._id}
             userName={comment.author.fullName}
             createdAt={comment.createdAt}
             avatarSrc={comment.author.image}
@@ -113,7 +113,7 @@ const PostTemplate = ({
             onDeleteComment={onDeleteComment}
           ></PostCommentListItem>
         ))}
-    </PostContainer>
+    </Container>
   );
 };
 

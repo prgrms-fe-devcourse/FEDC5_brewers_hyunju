@@ -11,7 +11,6 @@ const FollowButton = ({ isFollowing }: FollowButtonPropsType) => {
   const [hover, setHover] = useState(false);
   const [isFollow, setIsFollow] = useState(isFollowing);
   const handleClick = useCallback(() => {
-    console.log('click');
     if (isFollow) {
       setIsFollow(false);
       // TODO: modal => unfollow 하겠습니까? [확인] [취소]
