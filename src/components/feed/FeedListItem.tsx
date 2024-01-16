@@ -38,10 +38,6 @@ export const FeedItemContainer = styled(Container)`
   padding: 1rem 1.5rem;
   border: 1px solid var(--adaptive200);
 
-  /* border-radius: 0.75rem; */
-
-  /* box-shadow: 0 4px 4px 0 var(--adaptiveOpacity100); */
-
   background-color: var(-adaptive50);
 
   box-sizing: border-box;
@@ -59,7 +55,7 @@ const FeedListItem = ({
   profileImage,
   userName,
   createdAt,
-  updatedAt,
+  // updatedAt,
   content,
   workingSpot,
   imageUrl,
@@ -125,9 +121,12 @@ const FeedListItem = ({
                 color='--adaptive500'
                 style={{ marginBottom: '1rem' }}
               >
-                {updatedAt
+
+                {/* {isUpdated(createdAt, updatedAt)
                   ? `${handleDate(updatedAt)} · 수정됨`
-                  : handleDate(createdAt)}
+                  : handleDate(createdAt)} */}
+                {handleDate(createdAt)}
+
               </Text>
             </div>
             <WorkingSpotIcon workingSpot={workingSpot} />
