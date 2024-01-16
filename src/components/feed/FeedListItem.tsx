@@ -121,18 +121,18 @@ const FeedListItem = ({
                 color='--adaptive500'
                 style={{ marginBottom: '1rem' }}
               >
-
                 {/* {isUpdated(createdAt, updatedAt)
                   ? `${handleDate(updatedAt)} · 수정됨`
                   : handleDate(createdAt)} */}
                 {handleDate(createdAt)}
-
               </Text>
             </div>
             <WorkingSpotIcon workingSpot={workingSpot} />
           </Flex>
 
-          <Text style={{ marginBottom: '1rem' }}>{content}</Text>
+          <Text style={{ marginBottom: '1rem', lineHeight: '1.4' }}>
+            {content}
+          </Text>
           {imageUrl && (
             <Image
               src={imageUrl}

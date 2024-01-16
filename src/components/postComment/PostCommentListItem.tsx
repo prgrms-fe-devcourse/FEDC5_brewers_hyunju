@@ -116,6 +116,7 @@ const PostCommentListItem = ({
             <Text
               size={messageSize}
               weight={messageWeight}
+              style={{ lineHeight: '1.4' }}
             >
               {message}
             </Text>

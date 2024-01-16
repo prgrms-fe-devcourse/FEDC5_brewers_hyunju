@@ -137,7 +137,9 @@ const Post = ({
             ></DropDown>
           </Flex>
 
-          <Text style={{ marginBottom: '1rem' }}>{content}</Text>
+          <Text style={{ marginBottom: '1rem', lineHeight: '1.4' }}>
+            {content}
+          </Text>
           {imageUrl && (
             <Image
               src={imageUrl}
