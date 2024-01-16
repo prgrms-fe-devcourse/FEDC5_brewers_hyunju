@@ -249,23 +249,27 @@ const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
         direction='column'
         gap={1}
       >
-        {user.posts.map((post) => (
-          <div key={post._id}>
-            <FeedListItem
-              id={post._id}
-              userId={post.author._id}
-              profileImage={post.author.image}
-              userName={post.author.fullName}
-              createdAt={post.createdAt}
-              content={''}
-              imageUrl={post.image}
-              likes={post.likes}
-              comments={post.comments}
-              onFeedClick={() => navigator(`/post/${post._id}`)}
-              onUserClick={() => navigator(`/profile/${post.author._id}`)}
-            />
-          </div>
-        ))}
+        {user.posts.map((post) => {
+          const parsePost = JSON.parse(post.title);
+
+          return (
+            <div key={post._id}>
+              <FeedListItem
+                id={post._id}
+                userId={post.author._id}
+                profileImage={post.author.image}
+                userName={post.author.fullName}
+                createdAt={post.createdAt}
+                workingSpot={parsePost.workingSpot}
+                content={parsePost.body.text}
+                imageUrl={post.image}
+                likes={post.likes}
+                comments={post.comments}
+                onFeedClick={() => navigator(`/post/${post._id}`)}
+              />
+            </div>
+          );
+        })}
       </Flex>
       <>
         <Modal
