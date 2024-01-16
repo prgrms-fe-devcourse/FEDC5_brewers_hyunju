@@ -69,7 +69,7 @@ const FeedListItem = ({
   likes,
   comments,
   onFeedClick,
-  onUserClick,
+  // onUserClick,
 }: FeedListItemPropsType) => {
   // 피드 클릭 시
   const handleFeedClick = (feedId: string) => {
@@ -79,16 +79,19 @@ const FeedListItem = ({
   };
 
   // 사용자 이미지 클릭 시
-  const handleUserClick = () => {
-    if (onUserClick) {
-      onUserClick(userId);
-    }
-  };
+  // const handleUserClick = () => {
+  //   if (onUserClick) {
+  //     onUserClick(userId);
+  //   }
+  // };
 
   return (
     <FeedItemContainer
       maxWidth='md'
-      onClick={() => handleFeedClick(id)}
+      onClick={(e) => {
+        e.preventDefault();
+        handleFeedClick(id);
+      }}
     >
       <Flex
         justifyContent='space-between'
@@ -97,9 +100,9 @@ const FeedListItem = ({
       >
         <div>
           <Avatar
+            userId={userId}
             src={profileImage}
             size='sm'
-            handleClick={handleUserClick}
             alt='user image'
           ></Avatar>
         </div>
@@ -113,7 +116,6 @@ const FeedListItem = ({
             alignItems='center'
             style={{ flexGrow: 1 }}
           >
-
             <div style={{ flexGrow: 1 }}>
               <Text
                 size='lg'
@@ -128,8 +130,8 @@ const FeedListItem = ({
                 style={{ marginBottom: '1rem' }}
               >
                 {updatedAt
-              ? `${handleDate(updatedAt)} · 수정됨`
-              : handleDate(createdAt)}
+                  ? `${handleDate(updatedAt)} · 수정됨`
+                  : handleDate(createdAt)}
               </Text>
             </div>
             <WorkingSpotIcon workingSpot={workingSpot} />

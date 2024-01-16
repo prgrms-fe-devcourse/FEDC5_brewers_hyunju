@@ -54,7 +54,7 @@ export const PostContainer = styled(Container)`
 `;
 
 const Post = ({
-  id,
+  // id,
   author,
   createdAt,
   updatedAt,
@@ -63,7 +63,7 @@ const Post = ({
   likes,
   comments,
   onDropDownClick,
-  onUserClick,
+  // onUserClick,
 }: PostPropsType) => {
   // 피드 클릭 시
   const handleDropDownClick = (action: string) => {
@@ -73,11 +73,11 @@ const Post = ({
   };
 
   // 사용자 이미지 클릭 시
-  const handleUserClick = () => {
-    if (onUserClick) {
-      onUserClick();
-    }
-  };
+  // const handleUserClick = () => {
+  //   if (onUserClick) {
+  //     onUserClick();
+  //   }
+  // };
 
   return (
     <PostContainer maxWidth='md'>
@@ -88,9 +88,9 @@ const Post = ({
       >
         <div>
           <Avatar
+            userId={author._id}
             src={author.image}
             size='sm'
-            handleClick={handleUserClick}
             alt='user image'
           ></Avatar>
         </div>
