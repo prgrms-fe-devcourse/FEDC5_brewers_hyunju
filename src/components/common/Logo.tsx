@@ -1,8 +1,7 @@
 import styled from '@emotion/styled';
-import LogoNormal from '~/assets/logo-normal.svg';
-import LogoSimple from '~/assets/logo-simple.svg';
+import LogoNormal from '~/assets/logo-normal.svg?react';
+import LogoSimple from '~/assets/logo-simple.svg?react';
 import { LOGO_SIZE } from '~/constants/design';
-import Image from './Image';
 
 export interface LogoPropsType {
   type: 'normal' | 'simple';
@@ -15,14 +14,17 @@ const Logo = ({ handleClick, type, size }: LogoPropsType) => {
       onClick={handleClick}
       className='logo'
     >
-      <Image
-        width={LOGO_SIZE[type][size].width}
-        height={LOGO_SIZE[type][size].height}
-        src={type === 'normal' ? LogoNormal : LogoSimple}
-        lazy={false}
-        alt='Brewers 로고'
-        letterBoxColor={'--transparent'}
-      />
+      {type === 'normal' ? (
+        <LogoNormal
+          width={LOGO_SIZE[type][size].width}
+          height={LOGO_SIZE[type][size].height}
+        />
+      ) : (
+        <LogoSimple
+          width={LOGO_SIZE[type][size].width}
+          height={LOGO_SIZE[type][size].height}
+        />
+      )}
     </LogoWrapper>
   );
 };
