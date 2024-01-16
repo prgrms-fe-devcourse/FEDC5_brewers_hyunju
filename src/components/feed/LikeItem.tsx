@@ -5,23 +5,29 @@ import { IconHeart, IconHeartFilled } from '@tabler/icons-react';
 import Text from '~/components/common/Text';
 import Flex from '~/components/common/Flex';
 import { userState } from '~/recoil/login/atoms';
-import { LikeType } from '~/types/common';
+import { LikeType, UserType } from '~/types/common';
 import useCreateLike from '~/hooks/api/likes/useCreateLike';
 import useDeleteLike from '~/hooks/api/likes/useDeleteLike';
 import useDebounce from '~/hooks/useDebounce';
+import useCreateNotification from '~/hooks/api/notification/useCreateNotification';
 
 interface LikeItemPropsType {
   postId: string;
+  author: UserType;
   likes: LikeType[];
 }
-const LikeItem = ({ postId, likes }: LikeItemPropsType) => {
+const LikeItem = ({ postId, author, likes }: LikeItemPropsType) => {
   const userData = useRecoilValue(userState);
+
   const { request: createRequest, status: createStatus } = useCreateLike();
   const { request: deleteRequest, status: deleteStatus } = useDeleteLike();
+  const { request: createNoti } = useCreateNotification();
+
   const [isLikeFilled, setIsLikeFilled] = useState(
     likes && likes.some((like) => (like as LikeType).user === userData?._id)
   );
   const [likeCount, setLikeCount] = useState(likes.length);
+
   const originalIsLikeFilled = useRef(isLikeFilled);
   useDebounce(
     () => {
@@ -29,10 +35,14 @@ const LikeItem = ({ postId, likes }: LikeItemPropsType) => {
       if (deleteStatus === 'loading' || createStatus === 'loading') return;
       if (isLikeFilled) {
         // create api 연결
-        createRequest({
-          data: {
-            postId,
-          },
+        createRequest(postId).then((createdLike) => {
+          createdLike &&
+            createNoti({
+              notificationType: 'LIKE',
+              notificationTypeId: createdLike._id,
+              userId: author._id,
+              postId,
+            });
         });
         originalIsLikeFilled.current = true;
       } else {

@@ -152,11 +152,13 @@ const Post = ({
           <Flex gap={1.5}>
             <FeedFooterItem
               postId={id}
+              author={author}
               iconType={'like'}
               likes={likes}
             ></FeedFooterItem>
             <FeedFooterItem
               postId={id}
+              author={author}
               iconType={'comment'}
               comments={comments}
             ></FeedFooterItem>
