@@ -56,7 +56,7 @@ export const PostContainer = styled(Container)`
 `;
 
 const Post = ({
-  // id,
+  id,
   author,
   createdAt,
   // updatedAt,
@@ -116,12 +116,10 @@ const Post = ({
                 color='--adaptive500'
                 style={{ marginBottom: '1rem' }}
               >
-
                 {/* {isUpdated(createdAt, updatedAt)
                   ? `${handleDate(updatedAt)} · 수정됨`
                   : handleDate(createdAt)} */}
                 {handleDate(createdAt)}
-
               </Text>
             </div>
             <DropDown
@@ -153,17 +151,16 @@ const Post = ({
           <Divider></Divider>
           <Flex gap={1.5}>
             <FeedFooterItem
+              postId={id}
               iconType={'like'}
-              title='좋아요'
-              count={likes.length}
+              likes={likes}
             ></FeedFooterItem>
             <FeedFooterItem
-              iconType={''}
-              title='댓글'
-              count={comments.length}
+              postId={id}
+              iconType={'comment'}
+              comments={comments}
             ></FeedFooterItem>
           </Flex>
-         
         </Flex>
       </Flex>
     </PostContainer>
