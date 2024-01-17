@@ -10,6 +10,8 @@ import useCreateComment from '~/hooks/api/comment/useCreateComment';
 import useDeleteComment from '~/hooks/api/comment/useDeleteComment';
 import useDeletePost from '~/hooks/api/post/useDeletePost';
 import useCreateNotification from '~/hooks/api/notification/useCreateNotification';
+import { useRecoilValue } from 'recoil';
+import { userState } from '~/recoil/login/atoms';
 
 export interface PostTemplatePropsType {
   post: PostType;
@@ -21,6 +23,8 @@ export interface PostTemplatePropsType {
 
 const PostTemplate = ({ post, user, actions }: PostTemplatePropsType) => {
   const navigator = useNavigate();
+
+  const auth = useRecoilValue(userState);
 
   const { request: createComment } = useCreateComment();
   const { request: deleteComment } = useDeleteComment();
@@ -40,6 +44,7 @@ const PostTemplate = ({ post, user, actions }: PostTemplatePropsType) => {
     const createdComment = await createComment(comment, post._id);
 
     createdComment &&
+      post.author._id !== auth?._id &&
       createNoti({
         notificationType: 'COMMENT',
         notificationTypeId: createdComment._id,
