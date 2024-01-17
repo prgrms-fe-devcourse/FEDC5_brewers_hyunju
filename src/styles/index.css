@@ -1,5 +1,6 @@
 @import './reset.css';
 @import './colors.css';
+@import './scroll.css';
 
 html {
   background-color: var(--adaptive100);
@@ -22,6 +23,12 @@ body {
     'Segoe UI Emoji',
     'Segoe UI Symbol',
     sans-serif;
+}
+
+input,
+select {
+  background-color: var(--adaptive200);
+  color: var(--adaptive900);
 }
 
 input[type='date'] {
