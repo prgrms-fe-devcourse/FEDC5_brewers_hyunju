@@ -95,7 +95,6 @@ interface DMItemPropsType {
   message: string;
   size?: 'md' | 'lg';
   src?: string;
-  seen: boolean;
   userId: string;
 }
 
