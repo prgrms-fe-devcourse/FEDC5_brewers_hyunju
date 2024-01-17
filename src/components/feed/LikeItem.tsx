@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { IconHeart, IconHeartFilled } from '@tabler/icons-react';
 import Text from '~/components/common/Text';
@@ -10,6 +10,7 @@ import useCreateLike from '~/hooks/api/likes/useCreateLike';
 import useDeleteLike from '~/hooks/api/likes/useDeleteLike';
 import useDebounce from '~/hooks/useDebounce';
 import useCreateNotification from '~/hooks/api/notification/useCreateNotification';
+import { isLoginModalOpenState } from '~/recoil/loginModal/atoms';
 
 interface LikeItemPropsType {
   postId: string;
@@ -17,18 +18,17 @@ interface LikeItemPropsType {
   likes: LikeType[];
 }
 const LikeItem = ({ postId, userId, likes }: LikeItemPropsType) => {
-  const userData = useRecoilValue(userState);
-
+  const auth = useRecoilValue(userState);
+  const [likeCount, setLikeCount] = useState(likes.length);
+  const [isLikeFilled, setIsLikeFilled] = useState(
+    likes && likes.some((like) => (like as LikeType).user === auth?._id)
+  );
   const { request: createRequest, status: createStatus } = useCreateLike();
   const { request: deleteRequest, status: deleteStatus } = useDeleteLike();
   const { request: createNoti } = useCreateNotification();
-
-  const [isLikeFilled, setIsLikeFilled] = useState(
-    likes && likes.some((like) => (like as LikeType).user === userData?._id)
-  );
-  const [likeCount, setLikeCount] = useState(likes.length);
-
+  const setIsLoginModalOpen = useSetRecoilState(isLoginModalOpenState);
   const originalIsLikeFilled = useRef(isLikeFilled);
+
   useDebounce(
     () => {
       if (originalIsLikeFilled.current === isLikeFilled) return;
@@ -48,7 +48,7 @@ const LikeItem = ({ postId, userId, likes }: LikeItemPropsType) => {
       } else {
         // delete api 연결
         const deleteId = likes.find(
-          (like) => (like as LikeType).user === userData?._id
+          (like) => (like as LikeType).user === auth?._id
         )?._id;
         deleteRequest({
           data: {
@@ -62,6 +62,10 @@ const LikeItem = ({ postId, userId, likes }: LikeItemPropsType) => {
     [isLikeFilled]
   );
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (!auth) {
+      setIsLoginModalOpen(true);
+      return;
+    }
     e.stopPropagation();
     if (deleteStatus === 'loading' || createStatus === 'loading') return;
     if (isLikeFilled) {
