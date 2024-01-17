@@ -1,7 +1,9 @@
-import Container from '../common/Container';
+import styled from '@emotion/styled';
+import StyledContainer from '../common/Container';
 import Text from '../common/Text';
 import Flex from '../common/Flex';
 import { NotificationItemSkeleton } from '../notification/NotificationItem';
+import Button from '../common/Button';
 
 const NotificationSkeleton = () => {
   return (
@@ -14,11 +16,19 @@ const NotificationSkeleton = () => {
         gap={2}
       >
         <Text
-          size='xl'
+          size='3xl'
           weight={800}
         >
           알림
         </Text>
+        <Button
+          variant='text'
+          size='lg'
+          color='--primaryColor'
+          disabled={true}
+        >
+          전체 읽음 처리
+        </Button>
         <Flex
           as='ul'
           direction='column'
@@ -36,3 +46,12 @@ const NotificationSkeleton = () => {
 };
 
 export default NotificationSkeleton;
+
+const Container = styled(StyledContainer)`
+  display: flex;
+  flex-direction: column;
+
+  padding: 0;
+
+  background-color: var(--transparent);
+`;
