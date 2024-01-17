@@ -90,7 +90,7 @@ const DMListTemplate = ({ conversations, status }: DMListTemplatePropsType) => {
           </Flex>
           <Flex
             direction='column'
-            gap={0.25}
+            gap={1.25}
           >
             {status === 'loading' && <CircleLoading size={'sm'} />}
             {status === 'success' && conversations.length ? (
