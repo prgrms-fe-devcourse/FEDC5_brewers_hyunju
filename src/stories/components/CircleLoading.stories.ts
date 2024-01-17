@@ -12,11 +12,17 @@ export default meta;
 
 type Story = StoryObj<typeof CircleLoading>;
 
-export const Standard: Story = {
+export const Small: Story = {
   args: {
-    size: 1,
-    time: 2,
-    stroke: 0.25,
+    size: 'sm',
+    color: '--primaryColor',
+    backgroundColor: '--adaptive300',
+  },
+};
+
+export const Large: Story = {
+  args: {
+    size: 'md',
     color: '--primaryColor',
     backgroundColor: '--adaptive300',
   },
