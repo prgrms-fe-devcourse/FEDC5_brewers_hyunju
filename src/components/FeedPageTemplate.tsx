@@ -41,20 +41,15 @@ const FeedPageTemplate = ({
 
       {posts &&
         posts.map((post) => {
-          let contentText = '';
           let workingSpot = 'cafe';
           try {
             const parsedTitle = JSON.parse(post.title);
-            if (parsedTitle.body && parsedTitle.body.text) {
-              contentText = parsedTitle.body.text;
-            } else {
-              contentText = post.title;
-            }
+
             if (parsedTitle.workingSpot) {
               workingSpot = parsedTitle.workingSpot;
             }
           } catch (error) {
-            contentText = post.title;
+            console.error(error);
           }
 
           return (
@@ -66,12 +61,12 @@ const FeedPageTemplate = ({
               userName={post.author.fullName}
               createdAt={post.createdAt}
               updatedAt={post.updatedAt}
-              content={contentText}
+              content={JSON.parse(post.title).body.text}
               workingSpot={workingSpot as WorkingSpotType}
               likes={post.likes}
               comments={post.comments}
               onFeedClick={(feedId: string) => {
-                // 일단 navigation으로 구현
+                // navigation으로 구현
                 navigate(`/post/${feedId}`);
               }}
               imageUrl={post.image}
