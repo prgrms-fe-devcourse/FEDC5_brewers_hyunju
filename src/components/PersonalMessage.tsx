@@ -52,11 +52,11 @@ const PersonalMessage = ({
           gap={0.25}
           direction={`${subject === 'you' ? 'row-reverse' : 'row'}`}
         >
-          {createdAt ? (
-            <Flex
-              direction='column-reverse'
-              alignItems='end'
-            >
+          <Flex
+            direction='column-reverse'
+            alignItems='end'
+          >
+            {createdAt ? (
               <Text
                 size='xs'
                 color='--primaryColor'
@@ -64,9 +64,14 @@ const PersonalMessage = ({
               >
                 {createdAt}
               </Text>
-              <Text size='sm'>{!seen && '1'}</Text>
-            </Flex>
-          ) : null}
+            ) : null}{' '}
+            <Text
+              size='sm'
+              style={{ margin: 'auto 0' }}
+            >
+              {!seen && '1'}
+            </Text>
+          </Flex>
           <MessageDiv
             size='sm'
             subject={subject}

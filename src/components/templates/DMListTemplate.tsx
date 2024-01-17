@@ -62,6 +62,17 @@ const DMListTemplate = ({ conversations, status }: DMListTemplatePropsType) => {
           >
             채팅 목록
           </Text>
+          <Flex direction='column'>
+            <Text style={{ textAlign: 'right' }}>상대방 메시지 확인 상태</Text>
+            <Flex
+              alignItems='center'
+              gap={0.25}
+              style={{ marginLeft: 'auto' }}
+            >
+              <Badge />
+              <Text>읽지 않음</Text>
+            </Flex>
+          </Flex>
           <Flex
             direction='column'
             gap={0.25}
@@ -103,6 +114,17 @@ const DMListTemplate = ({ conversations, status }: DMListTemplatePropsType) => {
   );
 };
 export default DMListTemplate;
+
+const Badge = styled.div`
+  top: 1.75rem;
+  left: 2rem;
+
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 100%;
+
+  background-color: var(--secondaryColor);
+`;
 
 const MessageListContainer = styled(Container)`
   display: flex;

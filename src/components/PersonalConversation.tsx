@@ -1,23 +1,53 @@
+import { ReactNode, useEffect, useRef } from 'react';
+import styled from '@emotion/styled';
+
 import PersonalMessage from './PersonalMessage';
 import Flex from './common/Flex';
 
 import { MessageType } from '~/types/common';
 
 interface PersonalConversationPropsType {
-  messages: MessageType[];
-  userId: string | undefined;
+  messages?: MessageType[];
+  userId?: string | undefined;
+  children?: ReactNode;
 }
 
 const PersonalConversation = ({
   messages,
   userId,
+  children,
 }: PersonalConversationPropsType) => {
+  const lastMessageRef = useRef<HTMLDivElement>(null);
+
   const convertTime = (createdAt: string) => {
     return new Date(createdAt).toLocaleTimeString('ko-KR').slice(0, -3);
   };
 
+  useEffect(() => {
+    if (!lastMessageRef.current) {
+      return;
+    }
+
+    lastMessageRef.current.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
+  if (children) {
+    return (
+      <Flex
+        direction='column'
+        gap={0.25}
+        px={1}
+        style={{ height: '70vh', overflowY: 'auto' }}
+        alignItems='center'
+        justifyContent='center'
+      >
+        {children}
+      </Flex>
+    );
+  }
+
   return (
-    <Flex
+    <Div
       direction='column'
       gap={0.25}
       px={1}
@@ -25,7 +55,7 @@ const PersonalConversation = ({
     >
       {messages?.map((message, index) => (
         <PersonalMessage
-          key={index}
+          key={message._id}
           message={message.message}
           subject={message.sender._id === userId ? 'you' : 'me'}
           createdAt={
@@ -40,7 +70,25 @@ const PersonalConversation = ({
           seen={message.seen}
         />
       ))}
-    </Flex>
+      <div ref={lastMessageRef} />
+    </Div>
   );
 };
 export default PersonalConversation;
+
+const Div = styled(Flex)`
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    width: 0.25rem;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: var(--secondaryColor);
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--blue100);
+  }
+`;

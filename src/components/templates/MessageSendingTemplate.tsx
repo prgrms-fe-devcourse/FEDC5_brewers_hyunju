@@ -13,26 +13,23 @@ import useCreateMessage from '~/hooks/api/conversation/useCreateMessage';
 
 import { userState } from '~/recoil/login/atoms';
 
-import {
-  GetMessageListsRequestType,
-  GetMessageListsResponseType,
-} from '~/types/api/message';
+import { GetMessageListsResponseType } from '~/types/api/message';
 import useCreateNotification from '~/hooks/api/notification/useCreateNotification';
 
 interface MessageSendingTemplatePropsType {
   messageListStatus: 'stale' | 'loading' | 'error' | 'success';
+  messageSeenStatus: 'stale' | 'loading' | 'error' | 'success';
   messageListData: GetMessageListsResponseType;
   userId: string | undefined;
-  handlePersonalMessageList: ({
-    userId,
-  }: GetMessageListsRequestType) => Promise<void>;
+  fetch: () => void;
 }
 
 const MessageSendingTemplate = ({
   messageListStatus,
+  messageSeenStatus,
   messageListData,
   userId,
-  handlePersonalMessageList,
+  fetch,
 }: MessageSendingTemplatePropsType) => {
   const user = useRecoilValue(userState);
 
@@ -56,9 +53,7 @@ const MessageSendingTemplate = ({
     await handleCreateMessage({
       message: text,
       receiver: userId,
-    });
-
-    handlePersonalMessageList({ userId });
+    }).then(fetch);
 
     createNoti({
       notificationType: 'MESSAGE',
@@ -100,14 +95,25 @@ const MessageSendingTemplate = ({
           gap={1}
           direction='column'
         >
-          {messageListStatus === 'loading' && <CircleLoading />}
-          {messageListStatus === 'success' && (
-            <PersonalConversation
-              messages={messageListData}
-              userId={userId}
-            />
+          {(messageListStatus === 'error' || messageSeenStatus === 'error') && (
+            <PersonalConversation>
+              <CircleLoading color='--secondaryColor' />
+            </PersonalConversation>
+          )}
+          {(messageListStatus === 'loading' ||
+            messageSeenStatus === 'loading') && (
+            <PersonalConversation>
+              <CircleLoading color='--secondaryColor' />
+            </PersonalConversation>
           )}
 
+          {messageListStatus === 'success' &&
+            messageSeenStatus === 'success' && (
+              <PersonalConversation
+                messages={messageListData}
+                userId={userId}
+              />
+            )}
           <MessageSending
             ref={textareaRef}
             onClick={onClick}
