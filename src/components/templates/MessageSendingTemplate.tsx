@@ -30,7 +30,7 @@ const MessageSendingTemplate = ({
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const { handleCreateMessage, data: messageData } = useCreateMessage();
+  const { handleCreateMessage } = useCreateMessage();
   const { request: createNoti } = useCreateNotification();
 
   const onClick = async () => {
@@ -45,15 +45,18 @@ const MessageSendingTemplate = ({
     const text = textareaRef.current.value;
     textareaRef.current.value = '';
 
-    await handleCreateMessage({
+    const createdMessage = await handleCreateMessage({
       message: text,
       receiver: userId,
-    }).then(fetch);
+    });
 
-    userId !== user?._id &&
+    fetch();
+
+    createdMessage &&
+      userId !== user?._id &&
       createNoti({
         notificationType: 'MESSAGE',
-        notificationTypeId: messageData._id,
+        notificationTypeId: createdMessage._id,
         userId: userId,
         postId: null,
       });
