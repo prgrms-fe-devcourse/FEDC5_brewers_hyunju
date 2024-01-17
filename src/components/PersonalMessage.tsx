@@ -33,6 +33,7 @@ const MessageDiv = styled(Text)<MessageDivPropsType>`
     subject === 'me' ? 'var(--adaptive100)' : 'var(--secondaryColor)'};
 
   box-sizing: border-box;
+  word-break: break-all;
 `;
 
 const PersonalMessage = ({
@@ -67,7 +68,7 @@ const PersonalMessage = ({
             ) : null}{' '}
             <Text
               size='sm'
-              style={{ margin: 'auto 0' }}
+              style={{ margin: 'auto 0 0' }}
             >
               {!seen && '1'}
             </Text>

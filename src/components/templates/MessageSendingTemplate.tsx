@@ -2,12 +2,11 @@ import { useRef } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from '@emotion/styled';
 
-import CircleLoading from '../loading/CircleLoading';
 import Container from '../common/Container';
 import Flex from '../common/Flex';
 import MessageSending from '../MessageSending';
 import PersonalConversation from '../PersonalConversation';
-import Text from '../common/Text';
+import RequiredLoginTemplate from './RequiredLoginTemplate';
 
 import useCreateMessage from '~/hooks/api/conversation/useCreateMessage';
 
@@ -17,16 +16,12 @@ import { GetMessageListsResponseType } from '~/types/api/message';
 import useCreateNotification from '~/hooks/api/notification/useCreateNotification';
 
 interface MessageSendingTemplatePropsType {
-  messageListStatus: 'stale' | 'loading' | 'error' | 'success';
-  messageSeenStatus: 'stale' | 'loading' | 'error' | 'success';
   messageListData: GetMessageListsResponseType;
   userId: string | undefined;
   fetch: () => void;
 }
 
 const MessageSendingTemplate = ({
-  messageListStatus,
-  messageSeenStatus,
   messageListData,
   userId,
   fetch,
@@ -64,28 +59,7 @@ const MessageSendingTemplate = ({
   };
 
   if (!user) {
-    return (
-      <MessageSendContainer maxWidth='md'>
-        <MessageSend maxWidth='md'>
-          <Flex
-            direction='column'
-            gap={1}
-          >
-            <Flex
-              direction='column'
-              gap={0.25}
-            >
-              <Flex
-                justifyContent='center'
-                mt={10}
-              >
-                <Text color='--adaptive400'>로그인해 주세요</Text>
-              </Flex>
-            </Flex>
-          </Flex>
-        </MessageSend>
-      </MessageSendContainer>
-    );
+    return <RequiredLoginTemplate />;
   }
 
   return (
@@ -94,26 +68,12 @@ const MessageSendingTemplate = ({
         <Flex
           gap={1}
           direction='column'
+          style={{ height: '66vh' }}
         >
-          {(messageListStatus === 'error' || messageSeenStatus === 'error') && (
-            <PersonalConversation>
-              <CircleLoading color='--secondaryColor' />
-            </PersonalConversation>
-          )}
-          {(messageListStatus === 'loading' ||
-            messageSeenStatus === 'loading') && (
-            <PersonalConversation>
-              <CircleLoading color='--secondaryColor' />
-            </PersonalConversation>
-          )}
-
-          {messageListStatus === 'success' &&
-            messageSeenStatus === 'success' && (
-              <PersonalConversation
-                messages={messageListData}
-                userId={userId}
-              />
-            )}
+          <PersonalConversation
+            messages={messageListData}
+            userId={userId}
+          />
           <MessageSending
             ref={textareaRef}
             onClick={onClick}

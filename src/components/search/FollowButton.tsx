@@ -1,11 +1,15 @@
 import { useCallback, useState } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import Button from '~/components/common/Button';
 import Text from '~/components/common/Text';
 import ColorType from '~/types/design/color';
 import useCreateFollow from '~/hooks/api/follow/useCreateFollow';
 import useDeleteFollow from '~/hooks/api/follow/useDeleteFollow';
-import { css } from '@emotion/react';
+import { userState } from '~/recoil/login/atoms';
+import { isLoginModalOpenState } from '~/recoil/loginModal/atoms';
+
 
 export interface FollowButtonPropsType {
   userId: string;
@@ -17,14 +21,21 @@ const FollowButton = ({
   followId,
   isFollowing,
 }: FollowButtonPropsType) => {
+  const [hover, setHover] = useState(false);
+  const [isFollow, setIsFollow] = useState(isFollowing);
+  const auth = useRecoilValue(userState);
+  const setIsLoginModalOpen = useSetRecoilState(isLoginModalOpenState);
+
   const { status: createFollowStatus, request: createFollow } =
     useCreateFollow();
   const { status: deleteFollowStatus, request: deleteFollow } =
     useDeleteFollow(followId);
-  const [hover, setHover] = useState(false);
-  const [isFollow, setIsFollow] = useState(isFollowing);
 
   const handleClick = useCallback(async () => {
+    if (!auth) {
+      setIsLoginModalOpen(true);
+      return;
+    }
     if (createFollowStatus === 'loading' || deleteFollowStatus === 'loading')
       return;
     if (isFollow) {
@@ -41,12 +52,14 @@ const FollowButton = ({
       //actions.searchUserRequest();
     }
   }, [
+    auth,
     createFollow,
     createFollowStatus,
     deleteFollow,
     deleteFollowStatus,
     followId,
     isFollow,
+    setIsLoginModalOpen,
     userId,
   ]);
   return (

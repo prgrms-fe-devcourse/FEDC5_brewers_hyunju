@@ -9,7 +9,7 @@ import usePersonalMessageList from '~/hooks/api/conversation/usePersonalMessageL
 const PersonalMessagePage = () => {
   const { userId } = useParams();
 
-  const { handlePersonalMessageList, status, data } = usePersonalMessageList();
+  const { handlePersonalMessageList, data } = usePersonalMessageList();
   const messageSeen = useMessageSeen();
 
   const fetch = async () => {
@@ -28,7 +28,7 @@ const PersonalMessagePage = () => {
     fetch();
     const timer = setInterval(() => {
       fetch();
-    }, 10000);
+    }, 1000);
     return () => {
       clearInterval(timer);
     };
@@ -36,8 +36,6 @@ const PersonalMessagePage = () => {
 
   return (
     <MessageSendingTemplate
-      messageListStatus={status}
-      messageSeenStatus={messageSeen.status}
       messageListData={data}
       userId={userId}
       fetch={fetch}

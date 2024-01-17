@@ -6,6 +6,7 @@ import CircleLoading from '~/components/loading/CircleLoading';
 import DMItem from '~/components/directMessage/DMItem';
 import Flex from '~/components/common/Flex';
 import Text from '~/components/common/Text';
+import RequiredLoginTemplate from './RequiredLoginTemplate';
 
 import { userState } from '~/recoil/login/atoms';
 
@@ -19,34 +20,7 @@ const DMListTemplate = ({ conversations, status }: DMListTemplatePropsType) => {
   const user = useRecoilValue(userState);
 
   if (!user) {
-    return (
-      <MessageListContainer maxWidth='md'>
-        <MessageList maxWidth='md'>
-          <Flex
-            direction='column'
-            gap={1}
-          >
-            <Text
-              size='3xl'
-              weight={800}
-            >
-              채팅 목록
-            </Text>
-            <Flex
-              direction='column'
-              gap={0.25}
-            >
-              <Flex
-                justifyContent='center'
-                mt={10}
-              >
-                <Text color='--adaptive400'>로그인해 주세요</Text>
-              </Flex>
-            </Flex>
-          </Flex>
-        </MessageList>
-      </MessageListContainer>
-    );
+    return <RequiredLoginTemplate />;
   }
 
   return (
@@ -75,7 +49,7 @@ const DMListTemplate = ({ conversations, status }: DMListTemplatePropsType) => {
           </Flex>
           <Flex
             direction='column'
-            gap={0.25}
+            gap={1.25}
           >
             {status === 'loading' && <CircleLoading size={'sm'} />}
             {status === 'success' && conversations.length ? (
@@ -103,6 +77,7 @@ const DMListTemplate = ({ conversations, status }: DMListTemplatePropsType) => {
               <Flex
                 justifyContent='center'
                 mt={10}
+                mb={14}
               >
                 <Text color='--adaptive400'>메시지함이 비었습니다</Text>
               </Flex>

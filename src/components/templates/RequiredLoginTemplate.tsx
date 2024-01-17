@@ -4,7 +4,12 @@ import StyledContainer from '../common/Container';
 import Text from '../common/Text';
 import { useNavigate } from 'react-router-dom';
 
-const RequiredLoginTemplate = () => {
+export interface RequiredLoginTemplatePropsType {
+  handleClick?: () => void;
+}
+const RequiredLoginTemplate = ({
+  handleClick,
+}: RequiredLoginTemplatePropsType) => {
   const navigator = useNavigate();
 
   return (
@@ -23,7 +28,12 @@ const RequiredLoginTemplate = () => {
         variant='filled'
         size='md'
         color='--primaryColor'
-        onClick={() => navigator('/login')}
+        onClick={() => {
+          if (handleClick) {
+            handleClick();
+          }
+          navigator('/login');
+        }}
       >
         로그인 페이지로 이동
       </Button>

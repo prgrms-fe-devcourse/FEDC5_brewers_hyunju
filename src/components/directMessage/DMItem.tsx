@@ -42,8 +42,7 @@ const TextContainer = styled.div`
   width: 40rem;
   height: fit-content;
   margin: 1rem auto;
-  padding: var(--padding-lg);
-  border: 1px solid var(--secondaryColor);
+  padding: 1rem;
 `;
 
 const AvatarContainer = styled.div`
@@ -52,7 +51,15 @@ const AvatarContainer = styled.div`
 
   width: 3.5rem;
   height: 3.5rem;
-  border-radius: 100%;
+  border: 0.125rem solid var(--adaptive600);
+  border-radius: 50%;
+
+  cursor: pointer;
+  transition: border-color 0.2s ease-out;
+
+  &:hover {
+    border-color: var(--secondaryColor);
+  }
 `;
 
 const Badge = styled.div`
@@ -80,11 +87,7 @@ const DMItem = ({
   const messageSize = size === 'md' ? 'sm' : 'md';
 
   return (
-    <Flex
-      direction='row'
-      alignItems='center'
-      gap={0.75}
-    >
+    <MessageContainer>
       <TextContainer>
         <Flex
           alignItems='center'
@@ -134,8 +137,24 @@ const DMItem = ({
           </div>
         </Flex>
       </TextContainer>
-    </Flex>
+    </MessageContainer>
   );
 };
 
 export default DMItem;
+
+const MessageContainer = styled(Flex)`
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 1rem;
+  box-shadow: 0 0 1.5rem var(--adaptiveOpacity100);
+
+  background-color: var(--transparent);
+
+  box-sizing: border-box;
+
+  &:hover {
+    background-color: var(--adaptiveOpacity100);
+  }
+`;
