@@ -1,7 +1,9 @@
-import Container from '../common/Container';
-import ColorType from '~/types/design/color';
-import styled from '@emotion/styled';
 import { keyframes, css } from '@emotion/react';
+import styled from '@emotion/styled';
+
+import Container from '../common/Container';
+
+import ColorType from '~/types/design/color';
 
 interface CircleLoadingPropsType {
   size?: 'sm' | 'md';
