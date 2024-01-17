@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
-import Button from '../common/Button';
-import StyledContainer from '../common/Container';
-import Text from '../common/Text';
 import { useNavigate } from 'react-router-dom';
+import Button from '~/components/common/Button';
+import StyledContainer from '~/components/common/Container';
+import Text from '~/components/common/Text';
 
-const RequiredLoginTemplate = () => {
+const UnauthorizedTemplate = () => {
   const navigator = useNavigate();
 
   return (
@@ -16,22 +16,22 @@ const RequiredLoginTemplate = () => {
         size='2xl'
         weight={800}
       >
-        로그인이 필요합니다.
+        권한이 없습니다.
       </Text>
-      <Text>로그인이 필요한 페이지입니다.</Text>
+      <Text>권한이 없는 페이지입니다.</Text>
       <Button
         variant='filled'
         size='md'
         color='--primaryColor'
-        onClick={() => navigator('/login')}
+        onClick={() => navigator(-1)}
       >
-        로그인 페이지로 이동
+        뒤로가기
       </Button>
     </Container>
   );
 };
 
-export default RequiredLoginTemplate;
+export default UnauthorizedTemplate;
 
 const Container = styled(StyledContainer)`
   display: flex;

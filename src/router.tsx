@@ -1,75 +1,77 @@
 import { createBrowserRouter } from 'react-router-dom';
+import App from './App';
 import FeedPage from './pages/FeedPage';
-import ErrorPage from './pages/ErrorPage';
 import PostPage from './pages/PostPage';
 import ProfilePage from './pages/ProfilePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import SearchPage from './pages/SearchPage';
-import App from './App';
 import PersonalMessagePage from './pages/PresonalMessagePage';
 import DMListPage from './pages/DMListPage';
 import PostEditPage from './pages/PostEditPage';
 import NotificationPage from './pages/NotificationPage';
+import NotFoundTemplate from '~/components/templates/NotFoundTemplate';
+import ErrorTemplate from '~/components/templates/ErrorTemplate';
 
 const router = createBrowserRouter([
   {
     element: <App />,
+    errorElement: <NotFoundTemplate />,
     children: [
       {
         path: '/',
         element: <FeedPage />,
-        errorElement: <ErrorPage />,
+        errorElement: <ErrorTemplate />,
       },
       {
         path: '/home',
         element: <FeedPage />,
-        errorElement: <ErrorPage />,
+        errorElement: <ErrorTemplate />,
       },
       {
         path: 'login',
         element: <LoginPage />,
-        errorElement: <ErrorPage />,
+        errorElement: <ErrorTemplate />,
       },
       {
         path: 'signup',
         element: <SignupPage />,
-        errorElement: <ErrorPage />,
+        errorElement: <ErrorTemplate />,
       },
       {
         path: 'search/',
         element: <SearchPage />,
-        errorElement: <ErrorPage />,
+        errorElement: <ErrorTemplate />,
       },
       {
         path: 'post/:postId',
         element: <PostPage />,
-        errorElement: <ErrorPage />,
+        errorElement: <ErrorTemplate />,
       },
       {
         path: 'profile/:userId',
         element: <ProfilePage />,
-        errorElement: <ErrorPage />,
+        errorElement: <ErrorTemplate />,
       },
       {
         path: 'message',
         element: <DMListPage />,
-        errorElement: <ErrorPage />,
+        errorElement: <ErrorTemplate />,
       },
       {
         path: 'message/:userId',
         element: <PersonalMessagePage />,
-        errorElement: <ErrorPage />,
+        errorElement: <ErrorTemplate />,
       },
       {
         path: 'edit/:postId',
         element: <PostEditPage />,
-        errorElement: <ErrorPage />,
+        errorElement: <ErrorTemplate />,
       },
       {
         path: 'notification',
         element: <NotificationPage />,
-        errorElement: <ErrorPage />,
+        errorElement: <ErrorTemplate />,
       },
     ],
   },
