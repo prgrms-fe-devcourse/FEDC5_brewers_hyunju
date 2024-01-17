@@ -5,6 +5,7 @@ import Avatar from '~/components/common/Avatar';
 import Button from '~/components/common/Button';
 import Flex from '~/components/common/Flex';
 import Container from '~/components/common/Container';
+import Image from '../common/Image';
 
 export interface PostCommentInputPropsType {
   userId: string | null;
@@ -82,18 +83,39 @@ const PostCommentInput = ({
           }}
         >
           <div style={{ marginRight: '1rem' }}>
-            <Avatar
-              userId={userId ? userId : ''}
-              src={profileImage ? profileImage : ''}
-              size='sm'
-              alt='user image'
-            ></Avatar>
+            {userId ? (
+              <Avatar
+                userId={userId ? userId : ''}
+                src={profileImage ? profileImage : ''}
+                size='sm'
+                alt='user image'
+              ></Avatar>
+            ) : (
+              <div
+                style={{
+                  borderRadius: '50%',
+                  overflow: 'hidden',
+                  width: '2.5rem',
+                  height: '2.5rem',
+                  border: '0.125rem solid var(--adaptive400)',
+                }}
+              >
+                <Image
+                  alt='default image'
+                  width={'100%'}
+                  height={'100%'}
+                ></Image>
+              </div>
+            )}
           </div>
 
           <PostCommentTextarea
-            placeholder='댓글을 남겨주세요'
+            placeholder={
+              userId ? '댓글을 남겨주세요' : '댓글을 남기려면 로그인을 해주세요'
+            }
             value={content}
             onChange={(e) => setContent(e.target.value)}
+            disabled={userId ? false : true}
           />
         </Flex>
         <Flex
@@ -113,6 +135,7 @@ const PostCommentInput = ({
               width: '4.5rem',
               marginLeft: 'auto',
             }}
+            disabled={userId ? false : true}
           >
             작성
           </Button>

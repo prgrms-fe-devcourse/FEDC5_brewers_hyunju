@@ -55,18 +55,6 @@ const PostTemplate = ({ post, user, actions }: PostTemplatePropsType) => {
     actions.requestPost();
   };
 
-  let contentText = '';
-  try {
-    const parsedTitle = JSON.parse(post.title);
-    if (parsedTitle.body && parsedTitle.body.text) {
-      contentText = parsedTitle.body.text;
-    } else {
-      contentText = post.title;
-    }
-  } catch (error) {
-    contentText = post.title;
-  }
-
   const isMine = user?._id === post.author._id;
 
   return (
@@ -85,7 +73,7 @@ const PostTemplate = ({ post, user, actions }: PostTemplatePropsType) => {
             author={post.author}
             createdAt={post.createdAt}
             updatedAt={post.updatedAt}
-            content={contentText}
+            content={JSON.parse(post.title).body.text}
             imageUrl={post.image}
             likes={post.likes}
             comments={post.comments}
