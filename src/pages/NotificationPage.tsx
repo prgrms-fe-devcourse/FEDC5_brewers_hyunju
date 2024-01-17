@@ -12,8 +12,10 @@ const NotificationPage = () => {
   const { data, getNotification } = useGetNotification();
 
   useEffect(() => {
-    getNotification();
-  }, []);
+    if (auth) {
+      getNotification();
+    }
+  }, [auth]);
 
   if (!auth) return <RequiredLoginTemplate />;
   if (!data) return <NotificationSkeleton />;
