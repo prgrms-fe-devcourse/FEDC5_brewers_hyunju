@@ -3,7 +3,6 @@ import { useRecoilValue } from 'recoil';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 
-import CircleLoading from '../loading/CircleLoading';
 import Container from '../common/Container';
 import Flex from '../common/Flex';
 import MessageSending from '../MessageSending';
@@ -18,16 +17,12 @@ import { GetMessageListsResponseType } from '~/types/api/message';
 import useCreateNotification from '~/hooks/api/notification/useCreateNotification';
 
 interface MessageSendingTemplatePropsType {
-  messageListStatus: 'stale' | 'loading' | 'error' | 'success';
-  messageSeenStatus: 'stale' | 'loading' | 'error' | 'success';
   messageListData: GetMessageListsResponseType;
   userId: string | undefined;
   fetch: () => void;
 }
 
 const MessageSendingTemplate = ({
-  messageListStatus,
-  messageSeenStatus,
   messageListData,
   userId,
   fetch,
@@ -107,26 +102,12 @@ const MessageSendingTemplate = ({
         <Flex
           gap={1}
           direction='column'
+          style={{ height: '66vh' }}
         >
-          {(messageListStatus === 'error' || messageSeenStatus === 'error') && (
-            <PersonalConversation>
-              <CircleLoading color='--secondaryColor' />
-            </PersonalConversation>
-          )}
-          {(messageListStatus === 'loading' ||
-            messageSeenStatus === 'loading') && (
-            <PersonalConversation>
-              <CircleLoading color='--secondaryColor' />
-            </PersonalConversation>
-          )}
-
-          {messageListStatus === 'success' &&
-            messageSeenStatus === 'success' && (
-              <PersonalConversation
-                messages={messageListData}
-                userId={userId}
-              />
-            )}
+          <PersonalConversation
+            messages={messageListData}
+            userId={userId}
+          />
           <MessageSending
             ref={textareaRef}
             onClick={onClick}
