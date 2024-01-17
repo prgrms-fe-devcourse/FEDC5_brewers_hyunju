@@ -21,7 +21,11 @@ const ProfileImage = styled.div`
   overflow: hidden;
   position: relative;
 
-  border-radius: 100%;
+  border: 0.125rem solid var(--adaptive600);
+  border-radius: 50%;
+
+  cursor: pointer;
+  transition: border-color 0.2s ease-out;
 `;
 
 const UserStateListItem = ({ src, fullName }: UserStateListItemPropsType) => {

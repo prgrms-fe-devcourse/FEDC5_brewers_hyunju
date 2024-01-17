@@ -52,7 +52,15 @@ const AvatarContainer = styled.div`
 
   width: 3.5rem;
   height: 3.5rem;
-  border-radius: 100%;
+  border: 0.125rem solid var(--adaptive600);
+  border-radius: 50%;
+
+  cursor: pointer;
+  transition: border-color 0.2s ease-out;
+
+  &:hover {
+    border-color: var(--secondaryColor);
+  }
 `;
 
 const Badge = styled.div`
