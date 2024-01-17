@@ -1,11 +1,13 @@
 import { useRecoilValue } from 'recoil';
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 
 import Container from '~/components/common/Container';
 import CircleLoading from '~/components/loading/CircleLoading';
 import DMItem from '~/components/directMessage/DMItem';
 import Flex from '~/components/common/Flex';
 import Text from '~/components/common/Text';
+import Button from '../common/Button';
 
 import { userState } from '~/recoil/login/atoms';
 
@@ -17,6 +19,11 @@ export interface DMListTemplatePropsType {
 }
 const DMListTemplate = ({ conversations, status }: DMListTemplatePropsType) => {
   const user = useRecoilValue(userState);
+  const navigate = useNavigate();
+
+  const handleLoginClick = () => {
+    navigate('/login');
+  };
 
   if (!user) {
     return (
@@ -39,8 +46,16 @@ const DMListTemplate = ({ conversations, status }: DMListTemplatePropsType) => {
               <Flex
                 justifyContent='center'
                 mt={10}
+                mb={14}
               >
-                <Text color='--adaptive400'>로그인해 주세요</Text>
+                <Button
+                  color='--adaptive400'
+                  variant='text'
+                  size='md'
+                  onClick={handleLoginClick}
+                >
+                  로그인해 주세요
+                </Button>
               </Flex>
             </Flex>
           </Flex>
@@ -103,6 +118,7 @@ const DMListTemplate = ({ conversations, status }: DMListTemplatePropsType) => {
               <Flex
                 justifyContent='center'
                 mt={10}
+                mb={14}
               >
                 <Text color='--adaptive400'>메시지함이 비었습니다</Text>
               </Flex>
