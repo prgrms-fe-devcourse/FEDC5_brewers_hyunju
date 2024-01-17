@@ -101,7 +101,7 @@ const LoginForm = ({
               type='submit'
               style={{ height: '3rem' }}
             >
-              {status === 'loading' ? <CircleLoading size={1} /> : '로그인'}
+              {status === 'loading' ? <CircleLoading size='sm' /> : '로그인'}
             </Button>
             <Button
               size='lg'
