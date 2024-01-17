@@ -29,6 +29,8 @@ const MessageSending = React.forwardRef(
               borderRadius: '0.5rem',
               backgroundColor: 'var(--adaptive200)',
               boxSizing: 'border-box',
+
+              color: 'var(--adaptive900)',
             }}
           />
           <Button
