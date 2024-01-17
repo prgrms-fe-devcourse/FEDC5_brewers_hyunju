@@ -1,13 +1,12 @@
 import { useRecoilValue } from 'recoil';
 import styled from '@emotion/styled';
-import { useNavigate } from 'react-router-dom';
 
 import Container from '~/components/common/Container';
 import CircleLoading from '~/components/loading/CircleLoading';
 import DMItem from '~/components/directMessage/DMItem';
 import Flex from '~/components/common/Flex';
 import Text from '~/components/common/Text';
-import Button from '../common/Button';
+import RequiredLoginTemplate from './RequiredLoginTemplate';
 
 import { userState } from '~/recoil/login/atoms';
 
@@ -19,49 +18,9 @@ export interface DMListTemplatePropsType {
 }
 const DMListTemplate = ({ conversations, status }: DMListTemplatePropsType) => {
   const user = useRecoilValue(userState);
-  const navigate = useNavigate();
-
-  const handleLoginClick = () => {
-    navigate('/login');
-  };
 
   if (!user) {
-    return (
-      <MessageListContainer maxWidth='md'>
-        <MessageList maxWidth='md'>
-          <Flex
-            direction='column'
-            gap={1}
-          >
-            <Text
-              size='3xl'
-              weight={800}
-            >
-              채팅 목록
-            </Text>
-            <Flex
-              direction='column'
-              gap={0.25}
-            >
-              <Flex
-                justifyContent='center'
-                mt={10}
-                mb={14}
-              >
-                <Button
-                  color='--adaptive400'
-                  variant='text'
-                  size='md'
-                  onClick={handleLoginClick}
-                >
-                  로그인해 주세요
-                </Button>
-              </Flex>
-            </Flex>
-          </Flex>
-        </MessageList>
-      </MessageListContainer>
-    );
+    return <RequiredLoginTemplate />;
   }
 
   return (
