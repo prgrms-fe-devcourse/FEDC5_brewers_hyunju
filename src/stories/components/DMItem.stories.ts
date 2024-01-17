@@ -18,6 +18,5 @@ export const Default: Story = {
     message: `Lorem ipsum, dolor sit amet consectetur adipisicing elit. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Lorem ipsum, dolor sit amet consectetur adipisicing elit.Lorem ipsum, dolor sit amet consectetur adipisicing elit.Lorem ipsum, dolor sit amet consectetur adipisicing elit.`,
     size: 'lg',
     src: 'https://picsum.photos/200',
-    seen: false,
   },
 };
