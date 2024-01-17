@@ -13,10 +13,13 @@ import { IconPhoto, IconX } from '@tabler/icons-react';
 import ResponseStatusType from '~/types/api/status';
 
 export interface FeedListInputPropsType {
-  createStatus: ResponseStatusType;
   userId: string;
   profileImage: string;
   onHandleCreatePost: (newPost: CustomPostContentType, file?: File) => void;
+}
+
+export interface CustomFeedListInputPropsType extends FeedListInputPropsType {
+  createStatus: ResponseStatusType;
 }
 
 const FeedListInput = ({
@@ -24,7 +27,7 @@ const FeedListInput = ({
   userId,
   profileImage,
   onHandleCreatePost,
-}: FeedListInputPropsType) => {
+}: CustomFeedListInputPropsType) => {
   const formRef = useRef<HTMLFormElement | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   useGetPosts();
