@@ -97,7 +97,7 @@ const StyledUl = styled.ul`
   flex-direction: column;
   align-items: center;
 
-  padding: 1rem;
+  padding: var(--padding-lg);
 `;
 
 const StyledFeedItemContainer = styled(FeedItemContainer)`

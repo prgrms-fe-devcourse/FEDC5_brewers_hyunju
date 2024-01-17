@@ -156,13 +156,13 @@ const WrapperFlex = styled(Flex)`
 `;
 
 const Box = styled.div`
-  padding: 1rem;
+  padding: var(--padding-lg);
 `;
 const SearchContainer = styled(Container)`
   display: flex;
   flex-direction: column;
 
-  padding: 2rem;
+  padding: var(--padding-xl);
   border-radius: var(--radius-lg);
   box-shadow: 0 0 1.5rem var(--adaptiveOpacity50);
 

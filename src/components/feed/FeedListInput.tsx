@@ -37,7 +37,7 @@ const FeedListInputContainer = styled(Container)`
 const FeedListTextarea = styled.textarea`
   width: 100%;
   height: 4.875rem;
-  padding: 0.625rem 0.9375rem;
+  padding: var(--padding-lg);
   outline: none;
   border: solid 0.0938rem var(--transparent);
 

@@ -49,6 +49,6 @@ const Container = styled(StyledContainer)`
 `;
 
 const Code = styled.div`
-  padding: 1rem;
+  padding: var(--padding-lg);
   background-color: var(--adaptive200);
 `;

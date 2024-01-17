@@ -51,7 +51,7 @@ const InputField = styled.input<InputFieldPropsType>`
 
 const Border = styled.div<BorderPropsType>`
   height: fit-content;
-  padding: 0.75rem;
+  padding: var(--padding-md);
   border: 0.0625rem solid
     ${(props) => `var(${props.isError ? '--red600' : '--adaptive900'})`};
   border-radius: var(--radius-lg);
@@ -142,7 +142,7 @@ const Input = ({
           <Container
             maxWidth='md'
             style={{
-              padding: ' 0 0 0 0.75rem',
+              padding: ' 0 0 0 var(--padding-md)',
               margin: 0,
               width: 'fit-content',
             }}

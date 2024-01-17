@@ -24,31 +24,6 @@ export interface FeedListItemPropsType {
   onFeedClick: (feedId: string) => void;
 }
 
-export const Divider = styled.div`
-  width: 100%;
-  height: 1px;
-  margin: 1rem 0;
-
-  background-color: var(--adaptive400);
-`;
-
-export const FeedItemContainer = styled(Container)`
-  flex-shrink: 0;
-
-  padding: 1rem 1.5rem;
-  border: 1px solid var(--adaptive200);
-
-  background-color: var(-adaptive50);
-
-  box-sizing: border-box;
-
-  transition: 0.2s background-color ease-in;
-
-  &:hover {
-    background-color: var(--adaptive200);
-  }
-`;
-
 const FeedListItem = ({
   id,
   userId,
@@ -164,3 +139,29 @@ const FeedListItem = ({
 };
 
 export default FeedListItem;
+
+export const FeedItemContainer = styled(Container)`
+  flex-shrink: 0;
+
+  padding: var(--padding-xl);
+  border: 1px solid var(--adaptive200);
+  border-radius: var(--radius-lg);
+
+  background-color: var(-adaptive50);
+
+  box-sizing: border-box;
+
+  transition: 0.2s background-color ease-in;
+
+  &:hover {
+    background-color: var(--adaptive200);
+  }
+`;
+
+export const Divider = styled.div`
+  width: 100%;
+  height: 1px;
+  margin: 1rem 0;
+
+  background-color: var(--adaptive400);
+`;

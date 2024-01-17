@@ -33,7 +33,7 @@ export default Logo;
 const LogoWrapper = styled.div`
   width: fit-content;
   height: fit-content;
-  padding: 0.625rem;
+  padding: var(--padding-sm);
   border-radius: var(--radius-xs);
 
   cursor: pointer;

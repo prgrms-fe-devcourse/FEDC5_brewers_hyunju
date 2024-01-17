@@ -85,7 +85,7 @@ const Signup = styled(Container)`
   display: flex;
   flex-direction: column;
 
-  padding: 2rem;
+  padding: var(--padding-xl);
   border-radius: var(--radius-lg);
   box-shadow: 0 0 1.5rem var(--adaptiveOpacity50);
 

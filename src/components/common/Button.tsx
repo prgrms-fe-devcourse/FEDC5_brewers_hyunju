@@ -20,7 +20,7 @@ const StyledButton = styled.button<ButtonPropsType>`
   align-items: center;
   justify-content: center;
 
-  padding: 0.5em 1em;
+  padding: var(--padding-sm) var(--padding-lg);
   border: 0.125rem solid;
   border-radius: var(--radius-xs);
 

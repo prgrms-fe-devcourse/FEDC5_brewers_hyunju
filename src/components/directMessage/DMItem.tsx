@@ -42,7 +42,7 @@ const TextContainer = styled.div`
   width: 40rem;
   height: fit-content;
   margin: 1rem auto;
-  padding: 1rem;
+  padding: var(--padding-lg);
   border: 1px solid var(--secondaryColor);
 `;
 

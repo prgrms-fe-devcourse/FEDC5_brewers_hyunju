@@ -128,7 +128,7 @@ const DropDownLi = styled.li`
   display: block;
 
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: var(--padding-md) var(--padding-lg);
 
   box-sizing: border-box;
   cursor: pointer;

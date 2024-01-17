@@ -37,22 +37,13 @@ export const Divider = styled.div`
 export const PostContainer = styled(Container)`
   flex-shrink: 0;
 
-  padding: 1rem 1.5rem;
+  padding: var(--padding-lg);
   border: 1px solid var(--adaptive200);
-
-  /* border-radius: var(--radius-md); */
-
-  /* box-shadow: 0 4px 4px 0 var(--adaptiveOpacity100); */
+  border-radius: var(--radius-lg);
 
   background-color: var(-adaptive50);
 
   box-sizing: border-box;
-
-  /* transition: 0.2s background-color ease-in; */
-
-  /* &:hover {
-    background-color: var(--adaptive200);
-  } */
 `;
 
 const Post = ({

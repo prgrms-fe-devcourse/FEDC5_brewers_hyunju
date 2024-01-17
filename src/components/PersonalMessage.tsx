@@ -17,7 +17,7 @@ interface MessageDivPropsType {
 }
 
 const MessageDiv = styled(Text)<MessageDivPropsType>`
-  padding: 0.5rem;
+  padding: var(--padding-sm);
   border: 1px solid var(--secondaryColor);
   border-radius: ${({ sideBorder, subject }) =>
     !sideBorder

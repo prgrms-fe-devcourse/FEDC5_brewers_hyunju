@@ -3,4 +3,11 @@
   --radius-sm: 0.5rem;
   --radius-md: 0.75rem;
   --radius-lg: 1rem;
+
+  --padding-2xs: 0.125rem;
+  --padding-xs: 0.25rem;
+  --padding-sm: 0.5rem;
+  --padding-md: 0.75rem;
+  --padding-lg: 1rem;
+  --padding-xl: 2rem;
 }

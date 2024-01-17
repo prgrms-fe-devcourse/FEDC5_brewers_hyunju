@@ -124,7 +124,7 @@ const UserStateListTemplate = ({
           alignItems='center'
           justifyContent='center'
           style={{
-            padding: '0.75rem',
+            padding: 'var(--padding-md)',
             backgroundColor: 'var(--adaptive100)',
           }}
         >
@@ -173,14 +173,14 @@ const UserStateListTemplate = ({
 export default UserStateListTemplate;
 
 const StyledContainer = styled(Container)`
-  padding: 1rem;
+  padding: var(--padding-lg);
   border-radius: var(--radius-lg);
   box-shadow: 0 0 1.5rem var(--adaptiveOpacity50);
 
   box-sizing: border-box;
 
   @media screen and (width <= ${CONTAINER_SIZE['lg']}) {
-    padding: 2rem;
+    padding: var(--padding-xl);
     overflow-x: auto;
   }
 `;
