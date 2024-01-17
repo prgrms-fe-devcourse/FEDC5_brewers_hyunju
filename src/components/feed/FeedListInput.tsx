@@ -17,46 +17,6 @@ export interface FeedListInputPropsType {
   onHandleCreatePost: (newPost: CustomPostContentType, file?: File) => void;
 }
 
-const FeedListInputContainer = styled(Container)`
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-
-  margin-bottom: 3.25rem;
-  padding: 34px 40px;
-  border: 1px solid var(--adaptive200);
-  border-radius: 0.75rem;
-  box-shadow: 0 4px 4px 0 var(--adaptiveOpacity100);
-
-  background-color: var(-adaptive50);
-
-  box-sizing: border-box;
-  gap: 10px;
-`;
-
-const FeedListTextarea = styled.textarea`
-  width: 100%;
-  height: 4.875rem;
-  padding: 0.625rem 0.9375rem;
-  outline: none;
-  border: solid 0.0938rem var(--transparent);
-
-  /* border: none; */
-  border-radius: 0.4375rem;
-
-  background-color: var(--adaptive200);
-
-  color: var(--adaptive950);
-  font-size: ${FONT_SIZE['md']};
-
-  box-sizing: border-box;
-  resize: none;
-
-  :focus {
-    border-color: var(--secondaryColor);
-  }
-`;
-
 const FeedListInput = ({
   userId,
   profileImage,
@@ -206,6 +166,45 @@ const FeedListInput = ({
 };
 
 export default FeedListInput;
+
+const FeedListInputContainer = styled(Container)`
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+
+  /* padding: 34px 40px; */
+
+  /* border: 1px solid var(--adaptive200); */
+
+  /* border-radius: var(--radius-md); */
+  background-color: var(-adaptive50);
+
+  box-sizing: border-box;
+  gap: 10px;
+`;
+
+const FeedListTextarea = styled.textarea`
+  width: 100%;
+  height: 4.875rem;
+  padding: var(--padding-lg);
+  outline: none;
+  border: solid 0.0938rem var(--transparent);
+
+  /* border: none; */
+  border-radius: var(--radius-sm);
+
+  background-color: var(--adaptive200);
+
+  color: var(--adaptive950);
+  font-size: ${FONT_SIZE['md']};
+
+  box-sizing: border-box;
+  resize: none;
+
+  :focus {
+    border-color: var(--secondaryColor);
+  }
+`;
 
 const ImageWrapper = styled.div`
   position: relative;

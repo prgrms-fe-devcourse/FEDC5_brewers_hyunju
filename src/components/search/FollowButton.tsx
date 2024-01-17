@@ -1,13 +1,15 @@
 import { useCallback, useState } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import Button from '~/components/common/Button';
 import Text from '~/components/common/Text';
 import ColorType from '~/types/design/color';
 import useCreateFollow from '~/hooks/api/follow/useCreateFollow';
 import useDeleteFollow from '~/hooks/api/follow/useDeleteFollow';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { userState } from '~/recoil/login/atoms';
 import { isLoginModalOpenState } from '~/recoil/loginModal/atoms';
+
 
 export interface FollowButtonPropsType {
   userId: string;
@@ -96,12 +98,12 @@ interface RoundButtonPropsType {
   hoverColor?: ColorType;
 }
 const RoundButton = styled(Button)(
-  (props: RoundButtonPropsType) => `
-  height: 2rem;
-  border-radius: 1.25rem;
-  
-  color: var(--adaptive50);
+  (props: RoundButtonPropsType) => css`
+    height: 2rem;
+    border-radius: var(--radius-lg);
 
-  border-color: ${props.hoverColor ? `var(${props.hoverColor})` : undefined};
-`
+    color: var(--adaptive50);
+
+    border-color: ${props.hoverColor ? `var(${props.hoverColor})` : undefined};
+  `
 );

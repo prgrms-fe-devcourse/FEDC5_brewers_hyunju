@@ -60,7 +60,7 @@ const ReactiveBox = styled(Box)`
   justify-content: center;
 
   width: 100%;
-  padding: 1rem;
+  padding: var(--padding-lg);
 
   /* border: solid 1px var(--blue500); */
   border-bottom: 1px solid var(--primaryColor);
@@ -75,7 +75,7 @@ const ReactiveBox = styled(Box)`
   @media screen and (width <= ${CONTAINER_SIZE['lg']}) {
     width: 5rem;
     height: 5rem;
-    padding: 0.5rem;
+    padding: var(--padding-sm);
   }
 `;
 const ReactiveFlex = styled(Flex)`

@@ -80,9 +80,9 @@ const Label = styled.label`
 
 const StyledSelect = styled.select(
   (props: { invalid: boolean }) => `
-  padding: 4px 8px;
+  padding: var(--padding-xs) var(--padding-sm);
   border: 1px solid ${props.invalid ? 'var(--red600)' : 'var(--adaptive400)'};
-  border-radius: 4px;
+  border-radius: var(--radius-xs);
 
   box-sizing: border-box;
   outline: none;

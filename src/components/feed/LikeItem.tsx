@@ -98,6 +98,7 @@ const LikeItem = ({ postId, userId, likes }: LikeItemPropsType) => {
           <IconHeartFilled
             width='1.4rem'
             height='1.4rem'
+            fill={'currentColor'}
           ></IconHeartFilled>
         )}
       </IconWrapper>

@@ -60,7 +60,7 @@ const DropDownButton = styled.button`
   width: 2.75rem;
   height: 2.75rem;
   border: none;
-  border-radius: 0.25rem;
+  border-radius: var(--radius-xs);
 
   background-color: var(--transparent);
 
@@ -84,8 +84,8 @@ const DropDownContent = styled.div<DropDownMenuProps>`
   z-index: 9;
 
   width: 10.625rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 0.25rem 0.875rem 0 var(--adaptiveOpacity200);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
 
   background-color: var(--adaptive50);
 
@@ -116,11 +116,11 @@ const DropDownUl = styled.ul`
   }
 
   :first-child {
-    border-radius: 0.5rem 0.5rem 0 0;
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
   }
 
   :last-child {
-    border-radius: 0 0 0.5rem 0.5rem;
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
   }
 `;
 
@@ -128,7 +128,7 @@ const DropDownLi = styled.li`
   display: block;
 
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: var(--padding-md) var(--padding-lg);
 
   box-sizing: border-box;
   cursor: pointer;

@@ -107,7 +107,7 @@ const ThemeItem = styled.li`
   display: flex;
   align-items: center;
 
-  padding: 0.5rem;
+  padding: var(--padding-sm);
 
   color: var(--adaptive500);
 

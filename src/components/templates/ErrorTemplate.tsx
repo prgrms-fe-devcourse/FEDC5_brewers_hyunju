@@ -43,12 +43,12 @@ const Container = styled(StyledContainer)`
   flex-direction: column;
   align-items: flex-start;
 
-  border-radius: 1rem;
+  border-radius: var(--radius-lg);
 
   gap: 1rem;
 `;
 
 const Code = styled.div`
-  padding: 1rem;
+  padding: var(--padding-lg);
   background-color: var(--adaptive200);
 `;

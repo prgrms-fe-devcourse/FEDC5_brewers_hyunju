@@ -72,7 +72,7 @@ const TabItemStyle = styled.button(
   flex-grow: ${isFull ? '1' : '0'};
 
   min-width: 2.5rem;
-  padding: 0.125rem;
+  padding: var(--padding-2xs);
   padding-bottom: 0.3125rem;
   border: none;
   border-bottom: ${

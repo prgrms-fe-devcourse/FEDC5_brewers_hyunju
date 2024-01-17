@@ -45,7 +45,7 @@ const WorkingSpotIcon = ({ workingSpot }: WorkingSpotIconPropsType) => {
 export default WorkingSpotIcon;
 
 const Wrapper = styled.div`
-  padding: 1rem;
+  padding: var(--padding-lg);
 `;
 
 const StyledSpan = styled.span`

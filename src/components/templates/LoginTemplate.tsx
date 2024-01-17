@@ -32,20 +32,18 @@ const LoginTemplate = ({
   userLoginInfoIsError,
 }: LoginTemplateProps) => {
   return (
-    <LoginContainer maxWidth='md'>
-      <Login maxWidth='md'>
+    <LoginContainer maxWidth='sm'>
+      <Text
+        size='3xl'
+        weight={800}
+      >
+        로그인
+      </Text>
+      <Login maxWidth='sm'>
         <Flex
           direction='column'
-          gap={1}
+          gap={2}
         >
-          <Container maxWidth='sm'>
-            <Text
-              size='3xl'
-              weight={800}
-            >
-              로그인
-            </Text>
-          </Container>
           <LoginForm
             onSubmit={onSubmit}
             onChange={onChange}
@@ -54,21 +52,19 @@ const LoginTemplate = ({
             userLoginInfo={userLoginInfo}
             userLoginInfoIsError={userLoginInfoIsError}
           >
-            <Box
-              width='sm'
-              style={{ width: '40rem', margin: 'auto' }}
-            >
-              {formErrorMessage ? (
+            {formErrorMessage && (
+              <Box
+                width='sm'
+                style={{ width: '40rem', margin: 'auto' }}
+              >
                 <Text
                   color='--red600'
-                  style={{ paddingLeft: '0.75rem' }}
+                  style={{ paddingLeft: 'var(--padding-md)' }}
                 >
                   {formErrorMessage}
                 </Text>
-              ) : (
-                <Box style={{ height: '1rem' }} />
-              )}
-            </Box>
+              </Box>
+            )}
           </LoginForm>
         </Flex>
       </Login>
@@ -82,9 +78,6 @@ const LoginContainer = styled(Container)`
   display: flex;
   flex-direction: column;
 
-  border-radius: 1rem;
-  box-shadow: 0 0 1.5rem var(--adaptiveOpacity50);
-
   background-color: var(--transparent);
 
   box-sizing: border-box;
@@ -95,9 +88,9 @@ const Login = styled(Container)`
   display: flex;
   flex-direction: column;
 
-  padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 0 1.5rem var(--adaptiveOpacity50);
+  padding: var(--padding-2xl);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
 
   box-sizing: border-box;
   gap: 1.5rem;

@@ -19,31 +19,6 @@ export interface PostTemplatePropsType {
   };
 }
 
-const PostContainer = styled(Container)`
-  display: flex;
-  flex-direction: column;
-
-  border-radius: 1rem;
-  box-shadow: 0 0 1.5rem var(--adaptiveOpacity50);
-
-  background-color: var(--transparent);
-
-  box-sizing: border-box;
-  gap: 1.5rem;
-`;
-
-const PostInnerContainer = styled(Container)`
-  display: flex;
-  flex-direction: column;
-
-  padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 0 1.5rem var(--adaptiveOpacity50);
-
-  box-sizing: border-box;
-  gap: 1.5rem;
-`;
-
 const PostTemplate = ({ post, user, actions }: PostTemplatePropsType) => {
   const navigator = useNavigate();
 
@@ -96,13 +71,13 @@ const PostTemplate = ({ post, user, actions }: PostTemplatePropsType) => {
 
   return (
     <PostContainer maxWidth='md'>
+      <Text
+        size='3xl'
+        weight={800}
+      >
+        포스트
+      </Text>
       <PostInnerContainer maxWidth='md'>
-        <Text
-          size='3xl'
-          weight={800}
-        >
-          포스트
-        </Text>
         {post && (
           <Post
             id={post._id}
@@ -143,3 +118,27 @@ const PostTemplate = ({ post, user, actions }: PostTemplatePropsType) => {
 };
 
 export default PostTemplate;
+
+const PostContainer = styled(Container)`
+  display: flex;
+  flex-direction: column;
+
+  border-radius: var(--radius-lg);
+
+  background-color: var(--transparent);
+
+  box-sizing: border-box;
+  gap: 1.5rem;
+`;
+
+const PostInnerContainer = styled(Container)`
+  display: flex;
+  flex-direction: column;
+
+  padding: var(--padding-xl);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+
+  box-sizing: border-box;
+  gap: 1.5rem;
+`;

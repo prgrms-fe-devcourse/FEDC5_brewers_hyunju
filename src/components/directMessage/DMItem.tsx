@@ -6,73 +6,6 @@ import Flex from '~/components/common/Flex';
 import Image from '~/components/common/Image';
 import useMessageSeen from '~/hooks/api/conversation/useMessageSeen';
 
-interface DMItemPropsType {
-  userName: string;
-  message: string;
-  size?: 'md' | 'lg';
-  src?: string;
-  seen: boolean;
-  userId: string;
-}
-
-interface ClampTextPropsType {
-  size?: string;
-}
-
-const ClampText = styled(Text)<ClampTextPropsType>`
-  display: -webkit-box;
-  overflow: hidden;
-
-  width: 100%;
-
-  line-height: 1.2;
-  text-align: left;
-
-  -webkit-box-orient: vertical;
-
-  -webkit-line-clamp: 2;
-
-  text-overflow: ellipsis;
-  word-wrap: break-word;
-`;
-
-const TextContainer = styled.div`
-  overflow: hidden;
-
-  width: 40rem;
-  height: fit-content;
-  margin: 1rem auto;
-  padding: 1rem;
-`;
-
-const AvatarContainer = styled.div`
-  flex-shrink: 0;
-  overflow: hidden;
-
-  width: 3.5rem;
-  height: 3.5rem;
-  border: 0.125rem solid var(--adaptive600);
-  border-radius: 50%;
-
-  cursor: pointer;
-  transition: border-color 0.2s ease-out;
-
-  &:hover {
-    border-color: var(--secondaryColor);
-  }
-`;
-
-const Badge = styled.div`
-  top: 1.75rem;
-  left: 2rem;
-
-  width: 0.75rem;
-  height: 0.75rem;
-  border-radius: 100%;
-
-  background-color: var(--secondaryColor);
-`;
-
 const DMItem = ({
   src,
   userName,
@@ -148,13 +81,78 @@ const MessageContainer = styled(Flex)`
   flex-direction: column;
 
   border-radius: 1rem;
-  box-shadow: 0 0 1.5rem var(--adaptiveOpacity100);
+  box-shadow: var(--shadow-lg);
 
-  background-color: var(--transparent);
+  background-color: var(--adaptive50);
 
   box-sizing: border-box;
 
   &:hover {
     background-color: var(--adaptiveOpacity100);
   }
+`;
+
+interface DMItemPropsType {
+  userName: string;
+  message: string;
+  size?: 'md' | 'lg';
+  src?: string;
+  seen: boolean;
+  userId: string;
+}
+
+interface ClampTextPropsType {
+  size?: string;
+}
+
+const ClampText = styled(Text)<ClampTextPropsType>`
+  display: -webkit-box;
+  overflow: hidden;
+
+  width: 100%;
+
+  line-height: 1.2;
+  text-align: left;
+
+  -webkit-box-orient: vertical;
+
+  -webkit-line-clamp: 2;
+
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+`;
+
+const TextContainer = styled.div`
+  overflow: hidden;
+
+  height: fit-content;
+  padding: var(--padding-xl);
+`;
+
+const AvatarContainer = styled.div`
+  flex-shrink: 0;
+  overflow: hidden;
+
+  width: 3.5rem;
+  height: 3.5rem;
+  border: 0.125rem solid var(--adaptive600);
+  border-radius: 50%;
+
+  cursor: pointer;
+  transition: border-color 0.2s ease-out;
+
+  &:hover {
+    border-color: var(--secondaryColor);
+  }
+`;
+
+const Badge = styled.div`
+  top: 1.75rem;
+  left: 2rem;
+
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 100%;
+
+  background-color: var(--secondaryColor);
 `;
