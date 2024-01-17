@@ -19,6 +19,27 @@ export interface UserType {
   updatedAt: string;
 }
 
+export interface UserSimpleType {
+  coverImage: string; // 커버 이미지
+  image: string; // 프로필 이미지
+  role: string;
+  emailVerified: boolean; // 사용되지 않음
+  banned: boolean; // 사용되지 않음
+  isOnline: boolean;
+  posts: string[];
+  likes: string[];
+  comments: string[];
+  followers: FollowInfoType[];
+  following: FollowInfoType[];
+  notifications: NotificationType[];
+  messages: MessageType[];
+  _id: string;
+  fullName: string;
+  email: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface FollowInfoType {
   _id: string;
   user: string;
@@ -39,16 +60,85 @@ export interface ChannelType {
 }
 
 export interface PostType {
-  likes: LikeType[];
+  likes: LikeType[]; // 확인 필요
   comments: CommentType[];
   _id: string;
   image?: string;
   imagePublicId?: string;
   title: string;
+  // title: {
+  //   type: PostVariantType;
+  //   title: string;
+  //   workingSpot: WorkingSpotType;
+  //   body:
+  //     | BasicPostBodyType
+  //     | MogakPostBodyType
+  //     | ReviewPostBodyType
+  //     | SpotPostBodyType;
+  // };
   channel: ChannelType;
   author: UserType;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface PostSimpleType {
+  likes: LikeType[]; // 확인 필요
+  comments: string[]; // 확인 필요
+  _id: string;
+  image?: string;
+  title: string;
+  channel: string;
+  author: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface BasicPostContentType {
+  type: 'common';
+  title: string;
+  workingSpot: WorkingSpotType;
+  body: BasicPostBodyType;
+}
+
+export interface ReviewPostContentType {
+  type: 'review';
+  title: string;
+  workingSpot: WorkingSpotType;
+  body: ReviewPostBodyType;
+}
+
+export interface MogakPostContentType {
+  type: 'mogak';
+  title: string;
+  workingSpot: WorkingSpotType;
+  body: MogakPostBodyType;
+}
+
+export interface SpotPostContentType {
+  type: 'spot';
+  title: string;
+  workingSpot: WorkingSpotType;
+  body: SpotPostBodyType;
+}
+
+export type CustomPostContentType =
+  | BasicPostContentType
+  | ReviewPostContentType
+  | MogakPostContentType
+  | SpotPostContentType;
+
+export interface BasicPostType {
+  title: BasicPostContentType;
+}
+export interface ReviewPostType {
+  title: ReviewPostContentType;
+}
+export interface MogakPostType {
+  title: MogakPostContentType;
+}
+export interface SpotPostType {
+  title: SpotPostContentType;
 }
 
 export interface LikeType {
@@ -106,4 +196,37 @@ export interface MessageType {
   seen: boolean;
   createdAt: string;
   updatedAt: string;
+}
+
+export type PostVariantType = 'review' | 'common' | 'mogak' | 'spot';
+export type WorkingSpotType = 'cafe' | 'home' | 'etc';
+
+export interface BasicPostBodyType {
+  text: string;
+}
+export interface MogakPostBodyType {
+  text: string;
+  date: string;
+  startTime: string;
+  endTime: string;
+  placeName: string;
+  address: string;
+  maxCount: string;
+}
+export interface ReviewPostBodyType {
+  text: string;
+  placeName: string;
+  address: string;
+  plugs?: string;
+  crowded?: {
+    day?: string;
+    value?: string;
+  };
+  quiet?: string;
+  comfortable?: string;
+  bathroom?: string;
+}
+export interface SpotPostBodyType {
+  spot: WorkingSpotType;
+  text: '';
 }

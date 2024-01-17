@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import Flex from '~/components/common/Flex';
 import Text from '~/components/common/Text';
 
@@ -74,7 +74,12 @@ const Radio = ({
         checked={checked}
         onChange={onChange}
       ></RadioButtonInput>
-      <Text as='label'>{children}</Text>
+      <Text
+        as='label'
+        size='xs'
+      >
+        {children}
+      </Text>
     </Flex>
   );
 };

@@ -1,152 +1,96 @@
 import React from 'react';
-import styled from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
-import Container from '~/components/common/Container';
+import styled from '@emotion/styled';
+import { Link, useLocation } from 'react-router-dom';
 import Flex from '~/components/common/Flex';
 import Button from '~/components/common/Button';
-import Tabs from '~/components/common/Tabs';
 import Logo from '~/components/common/Logo';
-
-export interface NavBarPropsType {
-  isLoggedIn: boolean;
-  userName: string;
-  onLogout: () => void;
-}
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { userState } from '~/recoil/login/atoms';
+import useLogout from '~/hooks/api/auth/useLogout';
+import { removeItem } from '~/utils/localStorage';
+import { postModalState } from '~/recoil/postModal/atoms';
+import BasicPostModal from '~/components/postModal/BasicPostModal';
 
 export interface NavItemPropsType {
   to: string;
   children: React.ReactNode;
 }
 
-const Box = styled.div`
-  width: 15rem;
-  padding-bottom: 0.375rem;
-`;
+const NavItem = ({ to, children }: NavItemPropsType) => {
+  const location = useLocation();
+  const isActive = location.pathname === to;
 
-const NavBarItem = styled.li`
-  flex-shrink: 0;
+  const NavBarItemWithUnderline = styled(NavBarItem)`
+    height: 2rem;
+    border-bottom: ${isActive ? '2px solid var(--primaryColor)' : 'none'};
 
-  padding: 0.625rem 1.25rem;
+    color: ${isActive ? 'var(--adaptive950)' : 'none'};
 
-  color: var(--adaptive400);
-  font-weight: 400;
-  font-size: 1rem;
-
-  cursor: pointer;
-  list-style: none;
-  text-decoration: none;
-
-  &:has(button) {
-    padding: 0;
-  }
-
-  &:hover {
-    color: var(--adaptive950);
-  }
-`;
-
-const NavItem = ({ to, children }: NavItemPropsType) => (
-  <Link
-    to={to}
-    style={{
-      textDecoration: 'none',
-      marginLeft: '1rem',
-    }}
-  >
-    <NavBarItem>{children}</NavBarItem>
-  </Link>
-);
-
-const AuthNavItem = ({ isLoggedIn, userName, onLogout }: NavBarPropsType) => (
-  <>
-    {isLoggedIn ? (
-      <>
-        <NavItem to={`/user/${userName}`}>{userName}</NavItem>
-        <NavBarItem
-          onClick={onLogout}
-          style={{ marginLeft: '1rem' }}
-        >
-          로그아웃
-        </NavBarItem>
-      </>
-    ) : (
-      <NavItem to='/login'>로그인</NavItem>
-    )}
-  </>
-);
-
-const NavBar = ({ isLoggedIn, userName, onLogout }: NavBarPropsType) => {
-  const navigate = useNavigate();
-
-  const handleTabClick = (link: string) => {
-    navigate(link);
-  };
+    box-sizing: border-box;
+  `;
 
   return (
-    <Container
-      maxWidth='xl'
+    <Link
+      to={to}
       style={{
-        maxWidth: '100%',
-        overflow: 'scroll',
-        margin: '0',
-        width: '100%',
-        height: '5rem',
-        display: 'flex',
-        justifyContent: 'space-between',
         textDecoration: 'none',
-        padding: '0 3.75rem',
+        marginLeft: '1rem',
         boxSizing: 'border-box',
       }}
     >
+      <NavBarItemWithUnderline>{children}</NavBarItemWithUnderline>
+    </Link>
+  );
+};
+
+const AuthNavItem = () => {
+  const [user, setUser] = useRecoilState(userState);
+  const { request: requestLogout } = useLogout();
+
+  const handleLogout = async () => {
+    await requestLogout();
+    await removeItem('accessToken');
+    await setUser(null);
+  };
+
+  return (
+    <>
+      {user ? (
+        <>
+          <NavItem to={`/profile/${user._id}`}>{user.fullName} 님</NavItem>
+          <NavBarItem
+            onClick={handleLogout}
+            style={{ marginLeft: '1rem' }}
+          >
+            로그아웃
+          </NavBarItem>
+        </>
+      ) : (
+        <NavItem to='/login'>로그인</NavItem>
+      )}
+    </>
+  );
+};
+
+const NavBar = () => {
+  const setPostModalOpen = useSetRecoilState(postModalState);
+
+  return (
+    <NavWrapper>
       {/* Nav 왼쪽 부분 (로고, 홈. 그룹, 채팅) */}
       <Flex
         alignItems='center'
         justifyContent='flex-start'
-        style={{ flexShrink: '0' }}
+        style={{ flexShrink: '0', boxSizing: 'border-box' }}
       >
-        {/* brewers 로고 */}
         <Logo
           type='normal'
           size='sm'
         ></Logo>
-        <Flex
-          justifyContent='flex-start'
-          ml={1}
-          style={{ flexShrink: '0' }}
-        >
-          <Box>
-            <Tabs
-              isFull={false}
-              gap={2.5}
-              fontSize='md'
-              fontWeight={400}
-            >
-              <Tabs.Header>
-                <Tabs.Item
-                  text='홈'
-                  id={0}
-                  handleClick={() => {
-                    handleTabClick('/home');
-                  }}
-                />
-                <Tabs.Item
-                  text='그룹'
-                  id={1}
-                  handleClick={() => {
-                    handleTabClick('/group');
-                  }}
-                />
-                <Tabs.Item
-                  text='채팅'
-                  id={2}
-                  handleClick={() => {
-                    handleTabClick('/chat');
-                  }}
-                />
-              </Tabs.Header>
-            </Tabs>
-          </Box>
-        </Flex>
+
+        <NavItem to='/'>홈</NavItem>
+        <NavItem to='/message'>채팅</NavItem>
+        <NavItem to='/notification'>알림</NavItem>
       </Flex>
       {/* Nav 오른쪽 부분 (포스트작성, 검색, 로그인)*/}
       <Flex
@@ -154,25 +98,68 @@ const NavBar = ({ isLoggedIn, userName, onLogout }: NavBarPropsType) => {
         justifyContent='flex-end'
         style={{ flexShrink: '0' }}
       >
-        <NavItem to='/post'>
-          <Button
-            variant='outlined'
-            size='md'
-            color='--primaryColor'
-            style={{ width: '7.5rem', height: '3.125rem' }}
-          >
-            포스트 작성
-          </Button>
-        </NavItem>
+        <Button
+          variant='outlined'
+          size='md'
+          color='--primaryColor'
+          style={{ width: '7.5rem', height: '3.125rem' }}
+          onClick={() =>
+            setPostModalOpen((prev) => ({
+              ...prev,
+              isOpen: true,
+            }))
+          }
+        >
+          포스트 작성
+        </Button>
         <NavItem to='/search'>검색</NavItem>
-        <AuthNavItem
-          isLoggedIn={isLoggedIn}
-          userName={userName}
-          onLogout={onLogout}
-        ></AuthNavItem>
+        <AuthNavItem />
       </Flex>
-    </Container>
+      <BasicPostModal />
+    </NavWrapper>
   );
 };
 
 export default NavBar;
+
+const NavWrapper = styled(Flex)`
+  display: flex;
+  justify-content: space-between;
+  overflow: auto;
+
+  width: 100%;
+  height: 5rem;
+  max-width: 100%;
+  margin-bottom: 2rem;
+  padding: 0 3.75rem;
+
+  background-color: var(--adaptive50);
+
+  text-decoration: none;
+`;
+
+const NavBarItem = styled.li`
+  flex-shrink: 0;
+
+  margin: 0 0.85rem;
+  padding: 0.425rem 0.45rem;
+
+  color: var(--adaptive400);
+  font-weight: 400;
+  font-size: 1rem;
+
+  box-sizing: border-box;
+
+  cursor: pointer;
+  list-style: none;
+  text-decoration: none;
+
+  &:has(button) {
+    margin: 0;
+    padding: 0;
+  }
+
+  &:hover {
+    color: var(--adaptive950);
+  }
+`;

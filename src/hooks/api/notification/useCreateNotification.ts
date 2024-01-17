@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { request } from '~/api/axios';
+import request from '~/api/axios';
 import { handleError } from '~/utils/handleError';
 import {
   CreateNotificationRequestType,
@@ -22,7 +22,7 @@ export const useCreateNotification = () => {
   }: CreateNotificationRequestType) => {
     setStatus('loading');
     try {
-      const response = await request({
+      const response = await request<CreateNotificationResponseType>({
         method: 'post',
         url: CREATE_NOTIFICATION_URL,
         data: {
@@ -40,7 +40,7 @@ export const useCreateNotification = () => {
     }
   };
 
-  return { status, notification, createNotification };
+  return { status, data: notification, request: createNotification };
 };
 
 export default useCreateNotification;

@@ -1,14 +1,14 @@
 import { ReactNode } from 'react';
+import styled from '@emotion/styled';
 import { IconX } from '@tabler/icons-react';
-import styled from 'styled-components';
 import Flex from '~/components/common/Flex';
 import Button from '~/components/common/Button';
 
-interface ModalHeaderProps {
+interface ModalHeaderPropsType {
   children: ReactNode;
   handleClose: () => void;
 }
-const ModalHeader = ({ children, handleClose }: ModalHeaderProps) => {
+const ModalHeader = ({ children, handleClose }: ModalHeaderPropsType) => {
   return (
     <StyledFlex
       justifyContent='space-between'
@@ -39,6 +39,7 @@ export default ModalHeader;
 
 const StyledFlex = styled(Flex)`
   width: 100%;
+  height: 3.125rem;
   border-bottom: 0.125rem solid var(--adaptive200);
 
   box-sizing: border-box;

@@ -1,10 +1,13 @@
+import styled from '@emotion/styled';
 import Container from '~/components/common/Container';
 import Flex from '~/components/common/Flex';
 import Text from '~/components/common/Text';
 import Image from '~/components/common/Image';
 import Avatar from '~/components/common/Avatar';
-import styled from 'styled-components';
 import FeedFooterItem from './FeedFooterItem';
+import { handleDate } from '~/utils/handleDate';
+import WorkingSpotIcon from '~/components/WorkingSpotIcon';
+import { CommentType, LikeType, WorkingSpotType } from '~/types/common';
 
 export interface FeedListItemPropsType {
   id: string;
@@ -14,14 +17,14 @@ export interface FeedListItemPropsType {
   createdAt: string;
   updatedAt?: string;
   content: string;
+  workingSpot: WorkingSpotType;
   imageUrl?: string;
-  likesCount: number;
-  commentsCount: number;
+  likes: LikeType[];
+  comments: CommentType[] | string[];
   onFeedClick: (feedId: string) => void;
-  onUserClick: (userId: string) => void;
 }
 
-const Divider = styled.div`
+export const Divider = styled.div`
   width: 100%;
   height: 1px;
   margin: 1rem 0;
@@ -29,20 +32,20 @@ const Divider = styled.div`
   background-color: var(--adaptive400);
 `;
 
-const FeedItemContainer = styled(Container)`
+export const FeedItemContainer = styled(Container)`
   flex-shrink: 0;
 
-  padding: 34px 40px;
+  padding: 1rem 1.5rem;
   border: 1px solid var(--adaptive200);
-  border-radius: 0.75rem;
-  box-shadow: 0 4px 4px 0 var(--adaptiveOpacity100);
 
   background-color: var(-adaptive50);
 
-  cursor: pointer;
+  box-sizing: border-box;
+
+  transition: 0.2s background-color ease-in;
 
   &:hover {
-    background-color: var(--adaptive100);
+    background-color: var(--adaptive200);
   }
 `;
 
@@ -52,13 +55,13 @@ const FeedListItem = ({
   profileImage,
   userName,
   createdAt,
-  updatedAt,
+  // updatedAt,
   content,
+  workingSpot,
   imageUrl,
-  likesCount,
-  commentsCount,
+  likes,
+  comments,
   onFeedClick,
-  onUserClick,
 }: FeedListItemPropsType) => {
   // 피드 클릭 시
   const handleFeedClick = (feedId: string) => {
@@ -68,50 +71,68 @@ const FeedListItem = ({
   };
 
   // 사용자 이미지 클릭 시
-  const handleUserClick = () => {
-    if (onUserClick) {
-      onUserClick(userId);
-    }
-  };
+  // const handleUserClick = () => {
+  //   if (onUserClick) {
+  //     onUserClick(userId);
+  //   }
+  // };
 
   return (
     <FeedItemContainer
       maxWidth='md'
-      onClick={() => handleFeedClick(id)}
+      onClick={(e) => {
+        e.preventDefault();
+        handleFeedClick(id);
+      }}
     >
       <Flex
         justifyContent='space-between'
         alignItems='flex-start'
+        gap={1}
       >
-        <div style={{ flex: '1' }}>
+        <div>
           <Avatar
+            userId={userId}
             src={profileImage}
             size='sm'
-            handleClick={handleUserClick}
             alt='user image'
           ></Avatar>
         </div>
         <Flex
           direction='column'
-          ml={1}
           style={{
-            width: '43rem',
+            width: '44rem',
           }}
         >
-          <Text
-            size='lg'
-            weight={600}
-            style={{ marginTop: '0.2rem', marginBottom: '1rem' }}
+          <Flex
+            alignItems='center'
+            style={{ flexGrow: 1 }}
           >
-            {userName}
+            <div style={{ flexGrow: 1 }}>
+              <Text
+                size='lg'
+                weight={600}
+                style={{ marginTop: '0.2rem', marginBottom: '0.2rem' }}
+              >
+                {userName}
+              </Text>
+              <Text
+                size='xs'
+                color='--adaptive500'
+                style={{ marginBottom: '1rem' }}
+              >
+                {/* {isUpdated(createdAt, updatedAt)
+                  ? `${handleDate(updatedAt)} · 수정됨`
+                  : handleDate(createdAt)} */}
+                {handleDate(createdAt)}
+              </Text>
+            </div>
+            <WorkingSpotIcon workingSpot={workingSpot} />
+          </Flex>
+
+          <Text style={{ marginBottom: '1rem', lineHeight: '1.4' }}>
+            {content}
           </Text>
-          <Text
-            color='--adaptive500'
-            style={{ marginBottom: '0.5rem' }}
-          >
-            {updatedAt ? `${updatedAt} · 수정됨` : createdAt}
-          </Text>
-          <Text height={175}>{content}</Text>
           {imageUrl && (
             <Image
               src={imageUrl}
@@ -122,16 +143,18 @@ const FeedListItem = ({
             ></Image>
           )}
           <Divider></Divider>
-          <Flex>
+          <Flex gap={1.5}>
             <FeedFooterItem
+              postId={id}
+              userId={userId}
               iconType={'like'}
-              title='좋아요'
-              count={likesCount}
+              likes={likes}
             ></FeedFooterItem>
             <FeedFooterItem
-              iconType={''}
-              title='댓글'
-              count={commentsCount}
+              postId={id}
+              userId={userId}
+              iconType={'comment'}
+              comments={comments}
             ></FeedFooterItem>
           </Flex>
         </Flex>

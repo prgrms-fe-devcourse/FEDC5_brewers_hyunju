@@ -28,7 +28,7 @@ const Image = ({
   width,
   height,
   ratio,
-  placeholder = `https://via.placeholder.com/200X200?text=brewers`,
+  placeholder = '/img/default_profile.svg',
   src = placeholder,
   block,
   alt,

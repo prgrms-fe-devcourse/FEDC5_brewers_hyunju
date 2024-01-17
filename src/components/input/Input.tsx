@@ -1,10 +1,13 @@
-import { useCallback, useRef, useState } from 'react';
 import styled from '@emotion/styled';
+
+import Box from '~/components/common/Box';
 import Container from '~/components/common/Container';
-import Text from '~/components/common/Text';
 import Flex from '~/components/common/Flex';
+import Text from '~/components/common/Text';
+
 import ColorType from '~/types/design/color';
 import { FontSizeType } from '~/types/design/font';
+
 import { FONT_SIZE } from '~/constants/design';
 
 export interface InputPropsType {
@@ -14,12 +17,15 @@ export interface InputPropsType {
   placeholder?: string;
   message?: string;
   messageColor?: ColorType;
-  onBlur?: (text: string) => boolean;
+  isValidate?: (text: string) => boolean;
   onChange:
-    | ((text: string, InputName: string) => void)
+    | ((text: string, inputName: string) => void)
     | ((text: string) => void);
   children?: React.ReactNode;
-  InputName?: string;
+  inputName?: string;
+  inputText?: string;
+  disabled?: boolean;
+  maxLength?: number;
 }
 
 interface BorderPropsType {
@@ -37,6 +43,9 @@ const InputField = styled.input<InputFieldPropsType>`
   outline: none;
   border: 0;
 
+  background-color: transparent;
+
+  color: var(--adaptive900);
   font-size: ${(props) => FONT_SIZE[props.inputFontSize || 'sm']};
 `;
 
@@ -46,14 +55,10 @@ const Border = styled.div<BorderPropsType>`
   border: 0.0625rem solid
     ${(props) => `var(${props.isError ? '--red600' : '--adaptive900'})`};
   border-radius: 1rem;
-`;
 
-interface PaddingPropsType {
-  height: FontSizeType;
-}
-
-const Padding = styled.div<PaddingPropsType>`
-  height: ${(props) => FONT_SIZE[props.height]};
+  &:has(input:disabled) {
+    background-color: var(--adaptiveOpacity200);
+  }
 `;
 
 const Input = ({
@@ -63,15 +68,13 @@ const Input = ({
   placeholder,
   message,
   messageColor,
-  onBlur,
   onChange,
   children,
-  InputName,
+  inputName,
+  disabled,
+  inputText,
+  maxLength = 0,
 }: InputPropsType) => {
-  const [isError, setIsError] = useState(false);
-  const ref = useRef<HTMLInputElement | null>(null);
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
   const labelFontSize = 'sm' as FontSizeType;
   const inputFontSize = 'lg' as FontSizeType;
   const messageFontSize = 'sm' as FontSizeType;
@@ -79,39 +82,25 @@ const Input = ({
   const iconSize = children ? 1 : 0;
   const gap = 0.75;
 
-  const handleBlur = useCallback(() => {
-    if (onBlur === undefined) {
-      return;
-    }
-    if (ref.current === null) {
-      return;
-    }
-    const isAvailable = onBlur(ref.current.value);
-
-    setIsError(!isAvailable);
-  }, [onBlur]);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    debouncing(value, name);
-  };
-
-  const debouncing = (inputValue: string, name: string) => {
-    if (timer.current) {
-      clearTimeout(timer.current);
+    if (maxLength && value.length > maxLength) {
+      return;
     }
-    timer.current = setTimeout(() => {
-      if (onChange !== undefined) {
-        onChange(inputValue, name);
-      }
-    }, 500);
+
+    if (onChange !== undefined) {
+      onChange(value, name);
+    }
   };
 
   return (
-    <Container maxWidth='sm'>
+    <Container
+      maxWidth='sm'
+      style={{ padding: 0 }}
+    >
       <Flex direction='column'>
-        <Border isError={isError}>
+        <Border isError={!!message}>
           <Flex
             direction='column'
             gap={0.25}
@@ -136,34 +125,38 @@ const Input = ({
                 </Container>
               ) : null}
               <InputField
-                name={InputName}
+                name={inputName}
                 width={width}
                 iconSize={iconSize}
                 type={type}
                 placeholder={placeholder}
-                onBlur={handleBlur}
                 inputFontSize={inputFontSize}
                 onChange={handleChange}
-                ref={ref}
+                disabled={disabled}
+                value={inputText}
               />
             </Flex>
           </Flex>
         </Border>
-        <Container
-          maxWidth='md'
-          style={{ padding: ' 0 0 0 0.75rem', margin: 0, width: 'fit-content' }}
-        >
-          {isError ? (
+        {message ? (
+          <Container
+            maxWidth='md'
+            style={{
+              padding: ' 0 0 0 0.75rem',
+              margin: 0,
+              width: 'fit-content',
+            }}
+          >
             <Text
               size={messageFontSize}
               color={messageColor}
             >
               {message}
             </Text>
-          ) : (
-            <Padding height={messageFontSize} />
-          )}
-        </Container>
+          </Container>
+        ) : (
+          <Box height={0.875}></Box>
+        )}
       </Flex>
     </Container>
   );

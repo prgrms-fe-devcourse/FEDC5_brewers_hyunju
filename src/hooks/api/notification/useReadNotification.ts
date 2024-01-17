@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { request } from '~/api/axios';
+import request from '~/api/axios';
 import { handleError } from '~/utils/handleError';
 
 export const useReadNotification = () => {
@@ -22,7 +22,7 @@ export const useReadNotification = () => {
       setStatus('error');
     }
   };
-  return { status, readNotification };
+  return { status, request: readNotification };
 };
 
 export default useReadNotification;

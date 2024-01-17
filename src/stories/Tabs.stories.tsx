@@ -1,5 +1,5 @@
 import { IconUser } from '@tabler/icons-react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import Tabs, { TabsPropsType } from '~/components/common/Tabs';
 import { FONT_SIZE_UNIT, FONT_WEIGHT_UNIT } from '~/constants/design';
 

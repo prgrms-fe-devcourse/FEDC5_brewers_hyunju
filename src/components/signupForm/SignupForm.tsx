@@ -1,88 +1,137 @@
-import { useState } from 'react';
+import React from 'react';
+
+import Box from '../common/Box';
 import Button from '../common/Button';
 import Container from '../common/Container';
+import CircleLoading from '../loading/CircleLoading';
 import Flex from '../common/Flex';
 import Input from '../input/Input';
-import Text from '../common/Text';
 
-const SignupForm = () => {
-  const [userSignupInfo, setUserSignupInfo] = useState({
-    userName: '',
-    email: '',
-    password: '',
-    checkPassword: '',
-  });
+import { testRegex } from '~/utils/regex';
 
-  const onChange = (text: string, InputName: string) => {
-    setUserSignupInfo({ ...userSignupInfo, [InputName]: text });
+import { INPUT } from '~/constants/regex';
+
+interface SignupFormPropsType {
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  onChange: (text: string, inputName: string) => void;
+  userSignupInfo: {
+    [key: string]: string;
+  };
+  status: 'stale' | 'loading' | 'error' | 'success';
+  children: React.ReactNode;
+
+  userSignupInfoIsError: {
+    [key: string]: boolean;
+  };
+}
+const SignupForm = ({
+  onSubmit,
+  onChange,
+  userSignupInfo,
+  status,
+  children,
+  userSignupInfoIsError,
+}: SignupFormPropsType) => {
+  const isValidate = (text: string, inputName: 'email' | 'checkPassword') => {
+    const inputValue = userSignupInfo[inputName];
+
+    if (!inputValue) return '';
+    return validateInput(inputValue) ? '' : text;
   };
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    alert('onSubmit');
+  const validateInput = (text: string) => {
+    return testRegex(text, INPUT.EMAIL);
   };
 
-  const onEmailCheck = (text: string) => {
-    return text === 'example';
+  const emailErrorMessage = () => {
+    return userSignupInfoIsError.email
+      ? '이메일을 입력해주세요'
+      : isValidate('올바르지 않은 이메일 형식이에요', 'email');
   };
 
-  const onPasswordCheck = (text: string) => {
-    return text === userSignupInfo.password;
+  const passwordErrorMessage = () => {
+    return userSignupInfoIsError.checkPassword
+      ? '비밀번호 확인란을 입력해주세요'
+      : userSignupInfo.checkPassword !== userSignupInfo.password &&
+          userSignupInfo.checkPassword
+        ? '비밀번호가 일치하지 않아요'
+        : '';
   };
 
   return (
     <Container maxWidth='md'>
       <form onSubmit={onSubmit}>
-        <Flex direction='column'>
+        <Flex
+          direction='column'
+          gap={1}
+        >
+          <Box>
+            <Input
+              label='사용자 이름'
+              placeholder='프롱이'
+              maxLength={10}
+              message={
+                userSignupInfoIsError.fullName
+                  ? '사용자 이름을 입력해 주세요'
+                  : ''
+              }
+              messageColor='--red600'
+              onChange={onChange}
+              inputName='fullName'
+              inputText={userSignupInfo.fullName}
+            />
+          </Box>
+          <Box>
+            <Input
+              label='이메일'
+              placeholder='example@gmail.com'
+              message={emailErrorMessage()}
+              messageColor='--red600'
+              onChange={onChange}
+              inputName='email'
+              inputText={userSignupInfo.email}
+            />
+          </Box>
+          <Box>
+            <Input
+              label='비밀번호'
+              placeholder='비밀번호를 입력해주세요'
+              messageColor='--red600'
+              message={
+                userSignupInfoIsError.password ? '비밀번호를 입력해주세요' : ''
+              }
+              onChange={onChange}
+              inputName='password'
+              inputText={userSignupInfo.password}
+            />
+          </Box>
+          <Box>
+            <Input
+              label='비밀번호 확인'
+              placeholder='비밀번호를 입력해주세요'
+              message={passwordErrorMessage()}
+              messageColor='--red600'
+              onChange={onChange}
+              inputName='checkPassword'
+              inputText={userSignupInfo.checkPassword}
+            />
+          </Box>
           <Container maxWidth='sm'>
-            <Text
-              size='lg'
-              color='--adaptive900'
+            <Flex
+              direction='column'
+              gap={1}
             >
-              가입하기
-            </Text>
-          </Container>
-          <Input
-            label='사용자 이름'
-            onChange={onChange}
-            InputName='userName'
-          />
-          <Input
-            label='이메일'
-            type='email'
-            placeholder='example@gmail.com'
-            message='올바르지 않은 이메일 형식이에요'
-            messageColor='--red600'
-            onChange={onChange}
-            onBlur={onEmailCheck}
-            InputName='email'
-          />
-          <Input
-            label='비밀번호'
-            placeholder='비밀번호를 입력해주세요'
-            onChange={onChange}
-            InputName='password'
-          />
-          <Input
-            label='비밀번호 확인'
-            message='입력하신 비밀번호와 다릅니다'
-            messageColor='--red600'
-            onChange={onChange}
-            InputName='checkPassword'
-            onBlur={onPasswordCheck}
-          />
-          <Container
-            maxWidth='md'
-            style={{ width: 'fit-content' }}
-          >
-            <Button
-              type='submit'
-              size='lg'
-              variant='filled'
-              color='--primaryColor'
-            >
-              가입하기
-            </Button>
+              <Flex direction='column'>{children}</Flex>
+              <Button
+                type='submit'
+                size='lg'
+                variant='filled'
+                color='--primaryColor'
+                style={{ height: '3rem' }}
+              >
+                {status === 'loading' ? <CircleLoading /> : '가입하기'}
+              </Button>
+            </Flex>
           </Container>
         </Flex>
       </form>

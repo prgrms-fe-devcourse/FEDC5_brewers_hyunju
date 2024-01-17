@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { CommonStyle, CommonStylePropsType } from './CommonStyle';
 
 export interface BoxPropsType extends CommonStylePropsType {}
