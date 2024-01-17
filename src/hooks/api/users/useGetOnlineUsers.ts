@@ -1,11 +1,11 @@
-import { useRequestFn } from '~/hooks/api';
+import { useRequestUsersFn } from '~/hooks/api';
 
 import { OnlineUsersResponseType } from '~/types/api/users';
 import { handleError } from '~/utils/handleError';
 
 export const useGetOnlineUsers = () => {
   const { request, status, data, error } =
-    useRequestFn<OnlineUsersResponseType>({
+    useRequestUsersFn<OnlineUsersResponseType>({
       method: 'get',
       url: '/users/online-users',
     });
