@@ -10,14 +10,17 @@ import { CustomPostContentType, WorkingSpotType } from '~/types/common';
 import useGetPosts from '~/hooks/api/post/useGetPosts';
 import WorkSpotSelector from '../WorkSpotSelector';
 import { IconPhoto, IconX } from '@tabler/icons-react';
+import ResponseStatusType from '~/types/api/status';
 
 export interface FeedListInputPropsType {
+  createStatus: ResponseStatusType;
   userId: string;
   profileImage: string;
   onHandleCreatePost: (newPost: CustomPostContentType, file?: File) => void;
 }
 
 const FeedListInput = ({
+  createStatus,
   userId,
   profileImage,
   onHandleCreatePost,
@@ -96,9 +99,14 @@ const FeedListInput = ({
           }}
         >
           <FeedListTextarea
-            placeholder='무엇을 하고 계신가요?'
+            placeholder={
+              createStatus === 'loading'
+                ? '업로드 중입니다...'
+                : '무엇을 하고 계신가요?'
+            }
             value={content}
             onChange={(e) => setContent(e.target.value)}
+            disabled={createStatus === 'loading' ? true : false}
           />
           {selectedFile && (
             <ImageWrapper
@@ -146,6 +154,7 @@ const FeedListInput = ({
               color='--primaryColor'
               onClick={handleImageBtnClick}
               style={{ height: '100%', width: '4.5rem' }}
+              disabled={createStatus === 'loading' ? true : false}
             >
               <IconPhoto size='32' />
             </Button>
@@ -155,6 +164,7 @@ const FeedListInput = ({
               color='--primaryColor'
               onClick={handleSubmitBtnClick}
               style={{ height: '100%', width: '4.5rem', marginLeft: 'auto' }}
+              disabled={createStatus === 'loading' ? true : false}
             >
               작성
             </Button>

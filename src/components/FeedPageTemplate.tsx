@@ -6,8 +6,10 @@ import FeedListInput from '~/components/feed/FeedListInput';
 import { GetChannelPostsResponseType } from '~/types/api/posts';
 import { useNavigate } from 'react-router-dom';
 import { CustomPostContentType, WorkingSpotType } from '~/types/common';
+import ResponseStatusType from '~/types/api/status';
 
 export interface FeedPageTemplatePropsType {
+  createStatus: ResponseStatusType;
   posts?: GetChannelPostsResponseType;
   userId: string | null;
   profileImage: string;
@@ -15,6 +17,7 @@ export interface FeedPageTemplatePropsType {
 }
 
 const FeedPageTemplate = ({
+  createStatus,
   posts,
   userId,
   profileImage,
@@ -32,6 +35,7 @@ const FeedPageTemplate = ({
       {userId && (
         <FeedInputContainer>
           <FeedListInput
+            createStatus={createStatus}
             userId={userId}
             profileImage={profileImage}
             onHandleCreatePost={onHandleCreatePost}
