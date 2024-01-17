@@ -2,7 +2,6 @@ import { useRecoilValue } from 'recoil';
 import styled from '@emotion/styled';
 
 import Container from '~/components/common/Container';
-import CircleLoading from '~/components/loading/CircleLoading';
 import DMItem from '~/components/directMessage/DMItem';
 import Flex from '~/components/common/Flex';
 import Text from '~/components/common/Text';
@@ -36,43 +35,25 @@ const DMListTemplate = ({ conversations, status }: DMListTemplatePropsType) => {
           >
             채팅 목록
           </Text>
-          <Flex direction='column'>
-            <Text style={{ textAlign: 'right' }}>상대방 메시지 확인 상태</Text>
-            <Flex
-              alignItems='center'
-              gap={0.25}
-              style={{ marginLeft: 'auto' }}
-            >
-              <Badge />
-              <Text>읽지 않음</Text>
-            </Flex>
-          </Flex>
+
           <Flex
             direction='column'
             gap={1.25}
           >
-            {status === 'loading' && <CircleLoading size={'sm'} />}
             {status === 'success' && conversations.length ? (
-              conversations?.map(
-                ({ message, sender, receiver, seen }, index) => (
-                  <DMItem
-                    key={index}
-                    userName={
-                      sender._id === user?._id
-                        ? receiver.fullName
-                        : sender.fullName
-                    }
-                    message={message}
-                    seen={seen}
-                    src={
-                      sender._id === user?._id ? receiver.image : sender.image
-                    }
-                    userId={
-                      sender._id === user?._id ? receiver._id : sender._id
-                    }
-                  />
-                )
-              )
+              conversations?.map(({ message, sender, receiver }, index) => (
+                <DMItem
+                  key={index}
+                  userName={
+                    sender._id === user?._id
+                      ? receiver.fullName
+                      : sender.fullName
+                  }
+                  message={message}
+                  src={sender._id === user?._id ? receiver.image : sender.image}
+                  userId={sender._id === user?._id ? receiver._id : sender._id}
+                />
+              ))
             ) : (
               <Flex
                 justifyContent='center'
@@ -89,17 +70,6 @@ const DMListTemplate = ({ conversations, status }: DMListTemplatePropsType) => {
   );
 };
 export default DMListTemplate;
-
-const Badge = styled.div`
-  top: 1.75rem;
-  left: 2rem;
-
-  width: 0.75rem;
-  height: 0.75rem;
-  border-radius: 100%;
-
-  background-color: var(--secondaryColor);
-`;
 
 const MessageListContainer = styled(Container)`
   display: flex;

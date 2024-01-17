@@ -11,7 +11,6 @@ interface DMItemPropsType {
   message: string;
   size?: 'md' | 'lg';
   src?: string;
-  seen: boolean;
   userId: string;
 }
 
@@ -62,23 +61,11 @@ const AvatarContainer = styled.div`
   }
 `;
 
-const Badge = styled.div`
-  top: 1.75rem;
-  left: 2rem;
-
-  width: 0.75rem;
-  height: 0.75rem;
-  border-radius: 100%;
-
-  background-color: var(--secondaryColor);
-`;
-
 const DMItem = ({
   src,
   userName,
   message = '',
   size = 'md',
-  seen,
   userId,
 }: DMItemPropsType) => {
   const { handleMessageSeen } = useMessageSeen();
@@ -125,7 +112,6 @@ const DMItem = ({
                 grow={1}
               >
                 <Text size={size}>{userName}</Text>
-                {!seen && <Badge />}
               </Flex>
               <ClampText
                 size={messageSize}
