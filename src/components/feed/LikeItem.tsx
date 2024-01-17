@@ -62,11 +62,11 @@ const LikeItem = ({ postId, userId, likes }: LikeItemPropsType) => {
     [isLikeFilled]
   );
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
     if (!auth) {
       setIsLoginModalOpen(true);
       return;
     }
-    e.stopPropagation();
     if (deleteStatus === 'loading' || createStatus === 'loading') return;
     if (isLikeFilled) {
       // delete api 연결
