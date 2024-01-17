@@ -5,8 +5,6 @@ import styled from '@emotion/styled';
 import { useMediaQuery } from 'react-responsive';
 import Flex from '~/components/common/Flex';
 import Logo from '~/components/common/Logo';
-// import { useRecoilState, useSetRecoilState } from 'recoil';
-// import { postModalState } from '~/recoil/postModal/atoms';
 import BasicPostModal from '~/components/postModal/BasicPostModal';
 import ThemeSelectModal from './ThemeSelectModal';
 import ThemeSelectButton from './ThemeSelectButton';
@@ -44,7 +42,6 @@ const NavItem = ({ to, children }: NavItemPropsType) => {
       to={to}
       style={{
         textDecoration: 'none',
-        // marginLeft: '0.8rem',
         boxSizing: 'border-box',
       }}
     >
@@ -83,10 +80,7 @@ const AuthNavItem = () => {
 };
 
 const NavBar = () => {
-  // const user = useRecoilValue(userState);
-  // const setPostModalOpen = useSetRecoilState(postModalState);
   const [isShowThemeSelector, setIsShowThemeSelector] = useState(false);
-  // const isSmall = useMediaQuery({ maxWidth: 56 * 16 });
   const isSmall = useMediaQuery({ maxWidth: CONTAINER_SIZE['lg'] });
 
   const NavBarLarge = () => {
@@ -113,23 +107,7 @@ const NavBar = () => {
         >
           <ThemeSelectButton onClick={() => setIsShowThemeSelector(true)} />
           <ModalPostButton />
-          {/* <Button
-            disabled={user ? false : true}
-            variant='outlined'
-            size='md'
-            color='--primaryColor'
-            ml={0.85}
-            mr={0.85}
-            style={{ width: '7.5rem', height: '3.125rem' }}
-            onClick={() =>
-              setPostModalOpen((prev) => ({
-                ...prev,
-                isOpen: true,
-              }))
-            }
-          >
-            포스트 작성
-          </Button> */}
+
           <NavItem to='/search'>검색</NavItem>
           <AuthNavItem />
         </Flex>
@@ -171,8 +149,6 @@ const NavWrapper = styled(Flex)`
   display: flex;
   justify-content: space-between;
   overflow: hidden;
-
-  /* overflow: auto; */
   position: relative;
   z-index: 0;
 
