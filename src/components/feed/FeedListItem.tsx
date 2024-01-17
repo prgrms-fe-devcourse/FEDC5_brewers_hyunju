@@ -146,6 +146,7 @@ export const FeedItemContainer = styled(Container)`
   padding: var(--padding-xl);
   border: 1px solid var(--adaptive200);
   border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
 
   background-color: var(-adaptive50);
 

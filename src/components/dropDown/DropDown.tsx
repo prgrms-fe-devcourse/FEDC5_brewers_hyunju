@@ -85,7 +85,7 @@ const DropDownContent = styled.div<DropDownMenuProps>`
 
   width: 10.625rem;
   border-radius: var(--radius-sm);
-  box-shadow: 0 0.25rem 0.875rem 0 var(--adaptiveOpacity200);
+  box-shadow: var(--shadow-md);
 
   background-color: var(--adaptive50);
 

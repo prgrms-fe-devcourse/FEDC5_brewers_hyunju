@@ -32,8 +32,6 @@ const ContentDiv = styled.div`
 
   /* border: 1px solid var(--primaryColor); */
 
-  /* box-shadow: 3px 3px 5px var(--primaryColor); */
-
   /* background-color: var(--primaryColor); */
 
   box-sizing: border-box;
@@ -175,7 +173,7 @@ export default UserStateListTemplate;
 const StyledContainer = styled(Container)`
   padding: var(--padding-lg);
   border-radius: var(--radius-lg);
-  box-shadow: 0 0 1.5rem var(--adaptiveOpacity50);
+  box-shadow: var(--shadow-lg);
 
   box-sizing: border-box;
 

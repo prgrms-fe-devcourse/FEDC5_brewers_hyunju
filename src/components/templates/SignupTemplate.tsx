@@ -73,7 +73,7 @@ const SignupContainer = styled(Container)`
   flex-direction: column;
 
   border-radius: var(--radius-lg);
-  box-shadow: 0 0 1.5rem var(--adaptiveOpacity50);
+  box-shadow: var(--shadow-lg);
 
   background-color: var(--transparent);
 
@@ -87,7 +87,7 @@ const Signup = styled(Container)`
 
   padding: var(--padding-xl);
   border-radius: var(--radius-lg);
-  box-shadow: 0 0 1.5rem var(--adaptiveOpacity50);
+  box-shadow: var(--shadow-lg);
 
   box-sizing: border-box;
   gap: 1.5rem;
