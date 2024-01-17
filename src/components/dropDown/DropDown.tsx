@@ -1,5 +1,7 @@
-import styled, { css } from 'styled-components';
-import Text from '~/components/common/Text';
+import styled from '@emotion/styled';
+import { ReactNode } from 'react';
+import { IconDots } from '@tabler/icons-react';
+import Text from '../common/Text';
 import useDetectClose from '~/hooks/useDetectClose';
 
 export interface DropDownListItemType {
@@ -8,6 +10,7 @@ export interface DropDownListItemType {
 }
 
 export interface DropDownPropsType {
+  icon?: ReactNode;
   list: DropDownListItemType[];
   handleClick: (action: string) => void;
 }
@@ -16,7 +19,7 @@ interface DropDownMenuProps {
   isDropped: boolean;
 }
 
-const DropDown = ({ list, handleClick }: DropDownPropsType) => {
+const DropDown = ({ icon, list, handleClick }: DropDownPropsType) => {
   const [moreIsOpen, moreRef, moreHandler] = useDetectClose(false);
 
   return (
@@ -25,7 +28,12 @@ const DropDown = ({ list, handleClick }: DropDownPropsType) => {
         onClick={moreHandler}
         ref={moreRef}
       >
-        <Text size='md'>···</Text>
+        <Text
+          size='md'
+          color='--adaptive600'
+        >
+          {icon ? icon : <IconDots />}
+        </Text>
       </DropDownButton>
       <DropDownContent isDropped={moreIsOpen}>
         <DropDownUl>
@@ -49,63 +57,81 @@ const DropDownContainer = styled.div`
 `;
 
 const DropDownButton = styled.button`
-  cursor: pointer;
   width: 2.75rem;
   height: 2.75rem;
-  border-radius: 0.25rem;
   border: none;
+  border-radius: 0.25rem;
+
+  background-color: var(--transparent);
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--adaptive200);
+    transition: 125ms;
+  }
 `;
 
 const DropDownContent = styled.div<DropDownMenuProps>`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  visibility: hidden;
   position: absolute;
   top: 3.25rem;
   left: 50%;
-  display: flex;
+  z-index: 9;
+
   width: 10.625rem;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  background-color: var(--adaptive50);
-  gap: 1px;
   border-radius: 0.5rem;
   box-shadow: 0 0.25rem 0.875rem 0 var(--adaptiveOpacity200);
-  visibility: hidden;
+
+  background-color: var(--adaptive50);
+
+  gap: 1px;
+
   transform: translate(-50%, -20px);
   transition:
     opacity 0.4s ease,
     transform 0.4s ease,
     visibility 0.4s;
-  z-index: 9;
 
   ${({ isDropped }) =>
     isDropped &&
-    css`
-      opacity: 1;
+    `
       visibility: visible;
-      transform: translate(-50%, 0);
       left: 50%;
-    `};
+
+      opacity: 1;
+      transform: translate(-50%, 0);
+  `}
 `;
 
 const DropDownUl = styled.ul`
   width: 100%;
+
   :not(:last-child) {
     border-bottom: 1px solid var(--adaptive300);
   }
+
   :first-child {
     border-radius: 0.5rem 0.5rem 0 0;
   }
+
   :last-child {
     border-radius: 0 0 0.5rem 0.5rem;
   }
 `;
 
 const DropDownLi = styled.li`
-  cursor: pointer;
   display: block;
-  padding: 0.75rem 1rem;
+
   width: 100%;
+  padding: 0.75rem 1rem;
+
   box-sizing: border-box;
+  cursor: pointer;
 
   &:hover {
     background-color: var(--adaptive300);
