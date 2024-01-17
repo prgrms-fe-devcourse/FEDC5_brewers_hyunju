@@ -36,7 +36,7 @@ const LoginTemplate = ({
       <Login maxWidth='md'>
         <Flex
           direction='column'
-          gap={1}
+          gap={2}
         >
           <Container maxWidth='sm'>
             <Text
@@ -54,21 +54,19 @@ const LoginTemplate = ({
             userLoginInfo={userLoginInfo}
             userLoginInfoIsError={userLoginInfoIsError}
           >
-            <Box
-              width='sm'
-              style={{ width: '40rem', margin: 'auto' }}
-            >
-              {formErrorMessage ? (
+            {formErrorMessage && (
+              <Box
+                width='sm'
+                style={{ width: '40rem', margin: 'auto' }}
+              >
                 <Text
                   color='--red600'
                   style={{ paddingLeft: 'var(--padding-md)' }}
                 >
                   {formErrorMessage}
                 </Text>
-              ) : (
-                <Box style={{ height: '1rem' }} />
-              )}
-            </Box>
+              </Box>
+            )}
           </LoginForm>
         </Flex>
       </Login>
@@ -79,16 +77,12 @@ const LoginTemplate = ({
 export default LoginTemplate;
 
 const LoginContainer = styled(Container)`
-  display: flex;
-  flex-direction: column;
-
   border-radius: var(--radius-lg);
   box-shadow: 0 0 1.5rem var(--adaptiveOpacity50);
 
   background-color: var(--transparent);
 
   box-sizing: border-box;
-  gap: 1.5rem;
 `;
 
 const Login = styled(Container)`

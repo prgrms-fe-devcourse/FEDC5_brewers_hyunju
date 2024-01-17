@@ -99,13 +99,13 @@ const LoginForm = ({
               variant='filled'
               color='--primaryColor'
               type='submit'
-              style={{ height: '3rem' }}
+              height={4}
             >
               {status === 'loading' ? <CircleLoading size='sm' /> : '로그인'}
             </Button>
             <Button
               size='lg'
-              variant='outlined'
+              variant='text'
               color='--primaryColor'
               type='button'
               style={{ height: '3rem' }}
