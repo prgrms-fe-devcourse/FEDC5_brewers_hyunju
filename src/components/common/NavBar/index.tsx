@@ -13,6 +13,7 @@ import BasicPostModal from '~/components/postModal/BasicPostModal';
 import ThemeSelectModal from './ThemeSelectModal';
 import ThemeSelectButton from './ThemeSelectButton';
 import { useMediaQuery } from 'react-responsive';
+import RequiredLoginModal from '~/components/RequiredLoginModal';
 
 export interface NavItemPropsType {
   to: string;
@@ -130,6 +131,7 @@ const NavBar = () => {
           visible={isShowThemeSelector}
           handleClose={() => setIsShowThemeSelector(false)}
         />
+        <RequiredLoginModal />
       </>
     );
   };

@@ -1,16 +1,14 @@
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import styled from '@emotion/styled';
-import Container from '../common/Container';
-import Text from '../common/Text';
-import SearchBar from '../search/SearchBar';
-import UserList from '../search/UserList';
-import Tabs from '../common/Tabs';
-import FeedListItem from '../feed/FeedListItem';
-import FeedListSkeleton from '../FeedListSkeleton';
-import UserListSkeleton from '../UserListSkeleton';
+import Container from '~/components/common/Container';
+import Text from '~/components/common/Text';
+import SearchBar from '~/components/search/SearchBar';
+import UserList from '~/components/search/UserList';
+import Tabs from '~/components/common/Tabs';
+import FeedListItem from '~/components/feed/FeedListItem';
 import { PostSearchData, UserSearchData } from '~/pages/SearchPage';
-import Flex from '../common/Flex';
-import UsersLink from '../UsersLink';
+import Flex from '~/components/common/Flex';
+import UsersLink from '~/components/UsersLink';
 
 type StatusType = 'stale' | 'loading' | 'error' | 'success';
 export interface SearchTemplatePropsType {
@@ -30,6 +28,7 @@ const SearchTemplate = ({
   userStatus,
 }: SearchTemplatePropsType) => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
   return (
     <SearchContainer maxWidth='md'>
       <Text
@@ -73,76 +72,68 @@ const SearchTemplate = ({
           />
         </Tabs.Header>
         <Tabs.Body id={0}>
-          {allStatus === 'success' ? (
-            all && (
-              <>
-                <WrapperFlex direction='column'>
-                  <Box>
-                    <Text
-                      size='xl'
-                      weight={800}
-                    >
-                      사용자
-                    </Text>
-                  </Box>
+          {allStatus === 'success' && all && (
+            <>
+              <WrapperFlex direction='column'>
+                <Box>
+                  <Text
+                    size='xl'
+                    weight={800}
+                  >
+                    사용자
+                  </Text>
+                </Box>
 
-                  <UserList users={all.users.slice(0, 3)} />
-                  <UsersLink />
-                </WrapperFlex>
-                <WrapperFlex direction='column'>
+                <UserList users={all.users.slice(0, 3)} />
+                <UsersLink />
+              </WrapperFlex>
+              <WrapperFlex direction='column'>
+                <Box>
+                  <Text
+                    size='xl'
+                    weight={800}
+                  >
+                    포스트
+                  </Text>
+                </Box>
+                {all.postList.length ? (
+                  all.postList.map((post) => (
+                    <FeedListItem
+                      workingSpot={post.workingSpot}
+                      key={post.id}
+                      id={post.id}
+                      userId={post.userId}
+                      profileImage={post.profileImage}
+                      userName={post.userName}
+                      createdAt={post.createdAt}
+                      updatedAt={post.updatedAt}
+                      content={post.content}
+                      likes={post.likes}
+                      comments={post.comments}
+                      onFeedClick={() => {
+                        navigate(`/post/${post.id}`);
+                      }}
+                      imageUrl={post.imageUrl}
+                    />
+                  ))
+                ) : (
                   <Box>
                     <Text
-                      size='xl'
-                      weight={800}
+                      size='lg'
+                      weight={600}
                     >
-                      포스트
+                      검색 결과가 없습니다
                     </Text>
                   </Box>
-                  {all.postList.length ? (
-                    all.postList.map((post) => (
-                      <FeedListItem
-                        workingSpot={post.workingSpot}
-                        key={post.id}
-                        id={post.id}
-                        userId={post.userId}
-                        profileImage={post.profileImage}
-                        userName={post.userName}
-                        createdAt={post.createdAt}
-                        updatedAt={post.updatedAt}
-                        content={post.content}
-                        likes={post.likes}
-                        comments={post.comments}
-                        onFeedClick={() => {}}
-                        imageUrl={post.imageUrl}
-                      />
-                    ))
-                  ) : (
-                    <Box>
-                      <Text
-                        size='lg'
-                        weight={600}
-                      >
-                        검색 결과가 없습니다
-                      </Text>
-                    </Box>
-                  )}
-                </WrapperFlex>
-              </>
-            )
-          ) : allStatus === 'loading' ? (
-            <FeedListSkeleton />
-          ) : (
-            allStatus === 'error' && <Text>Error</Text>
+                )}
+              </WrapperFlex>
+            </>
           )}
+          {allStatus === 'error' && <Text>Error</Text>}
         </Tabs.Body>
         <Tabs.Body id={1}>
-          {userStatus === 'success' ? (
-            <UserList users={users} />
-          ) : userStatus === 'loading' ? (
-            <UserListSkeleton />
-          ) : (
-            userStatus === 'error' && <Text>Error</Text>
-          )}
+          {userStatus === 'success' && <UserList users={users} />}
+          {userStatus === 'error' && <Text>Error</Text>}
         </Tabs.Body>
       </Tabs>
     </SearchContainer>

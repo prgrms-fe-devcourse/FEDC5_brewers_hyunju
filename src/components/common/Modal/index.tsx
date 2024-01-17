@@ -63,6 +63,7 @@ const ModalContainer = styled(Container)`
   box-shadow: 0 0.1875rem 0.375rem var(--adaptive300);
 
   box-sizing: border-box;
+  overflow-x: hidden;
   overflow-y: auto;
   transform: translate(-50%, -50%);
 `;

@@ -80,7 +80,7 @@ const parseSearchData = (
 };
 
 const SearchPage = () => {
-  const loginData = useRecoilValue(userState);
+  const auth = useRecoilValue(userState);
   const { status: searchAllStatus, data: searchAllData } = useSearchAll();
   const { status: searchUserStatus, data: searchUserData } = useSearchUsers();
   // const { users, postList } = parseSearchData(searchData);
@@ -92,14 +92,14 @@ const SearchPage = () => {
     }
   }, []);
 
-  useEffect(() => {}, [searchParams]);
+  // useEffect(() => {}, [searchParams]);
 
   return (
     <SearchTemplate
       allStatus={searchAllStatus}
       userStatus={searchUserStatus}
-      users={parseSearchData(searchUserData, loginData?._id).users}
-      all={parseSearchData(searchAllData, loginData?._id)}
+      users={parseSearchData(searchUserData, auth?._id).users}
+      all={parseSearchData(searchAllData, auth?._id)}
     />
   );
 };
