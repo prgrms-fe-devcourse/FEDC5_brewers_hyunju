@@ -10,7 +10,6 @@ import useDeleteFollow from '~/hooks/api/follow/useDeleteFollow';
 import { userState } from '~/recoil/login/atoms';
 import { isLoginModalOpenState } from '~/recoil/loginModal/atoms';
 
-
 export interface FollowButtonPropsType {
   userId: string;
   followId?: string;

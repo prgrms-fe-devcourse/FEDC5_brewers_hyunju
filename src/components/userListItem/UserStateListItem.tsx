@@ -72,8 +72,14 @@ const ReactiveBox = styled(Box)`
     background-color: var(--adaptive400);
   }
 
+  @media screen and (width <= ${CONTAINER_SIZE['xl']}) {
+    width: min-content;
+    height: min-content;
+    padding: 0.5rem;
+  }
+
   @media screen and (width <= ${CONTAINER_SIZE['lg']}) {
-    width: 5rem;
+    width: 7rem;
     height: 5rem;
     padding: var(--padding-sm);
   }
