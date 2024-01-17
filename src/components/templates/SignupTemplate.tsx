@@ -1,6 +1,4 @@
 import styled from '@emotion/styled';
-
-import Box from '../common/Box';
 import Container from '../common/Container';
 import Flex from '../common/Flex';
 import Text from '../common/Text';
@@ -28,20 +26,18 @@ const SignupTemplate = ({
   formErrorMessage,
 }: SignupTemplatePropsType) => {
   return (
-    <SignupContainer maxWidth='md'>
+    <SignupContainer maxWidth='sm'>
+      <Text
+        size='3xl'
+        weight={800}
+      >
+        회원가입
+      </Text>
       <Signup maxWidth='md'>
         <Flex
           direction='column'
           gap={1}
         >
-          <Container maxWidth='sm'>
-            <Text
-              size='3xl'
-              weight={800}
-            >
-              회원가입
-            </Text>
-          </Container>
           <SignupForm
             onChange={onChange}
             onSubmit={onSubmit}
@@ -49,15 +45,13 @@ const SignupTemplate = ({
             userSignupInfoIsError={userSignupInfoIsError}
             status={status}
           >
-            {formErrorMessage ? (
+            {formErrorMessage && (
               <Text
                 size='sm'
                 color='--red600'
               >
                 {formErrorMessage}
               </Text>
-            ) : (
-              <Box style={{ height: '0.875rem' }} />
             )}
           </SignupForm>
         </Flex>
@@ -72,9 +66,6 @@ const SignupContainer = styled(Container)`
   display: flex;
   flex-direction: column;
 
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-
   background-color: var(--transparent);
 
   box-sizing: border-box;
@@ -85,7 +76,7 @@ const Signup = styled(Container)`
   display: flex;
   flex-direction: column;
 
-  padding: var(--padding-xl);
+  padding: var(--padding-2xl);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
 

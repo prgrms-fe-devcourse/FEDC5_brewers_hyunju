@@ -120,13 +120,13 @@ const ProfileTemplate = ({ user, actions }: ProfileTemplatePropsType) => {
 
   return (
     <ProfileContainer maxWidth='md'>
+      <Text
+        size='3xl'
+        weight={800}
+      >
+        프로필
+      </Text>
       <Profile maxWidth='md'>
-        <Text
-          size='3xl'
-          weight={800}
-        >
-          프로필
-        </Text>
         <Cover onClick={handleClickCover}>
           <Image
             width='100%'

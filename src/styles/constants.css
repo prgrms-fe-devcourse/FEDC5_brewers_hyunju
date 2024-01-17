@@ -10,6 +10,7 @@
   --padding-md: 0.75rem;
   --padding-lg: 1rem;
   --padding-xl: 2rem;
+  --padding-2xl: 3rem;
 
   --shadow-sm: 0 0 0.5rem var(--adaptiveOpacity50);
   --shadow-md: 0 0 0.875rem 0 var(--adaptiveOpacity200);

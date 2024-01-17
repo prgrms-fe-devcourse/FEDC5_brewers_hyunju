@@ -32,20 +32,18 @@ const LoginTemplate = ({
   userLoginInfoIsError,
 }: LoginTemplateProps) => {
   return (
-    <LoginContainer maxWidth='md'>
-      <Login maxWidth='md'>
+    <LoginContainer maxWidth='sm'>
+      <Text
+        size='3xl'
+        weight={800}
+      >
+        로그인
+      </Text>
+      <Login maxWidth='sm'>
         <Flex
           direction='column'
           gap={2}
         >
-          <Container maxWidth='sm'>
-            <Text
-              size='3xl'
-              weight={800}
-            >
-              로그인
-            </Text>
-          </Container>
           <LoginForm
             onSubmit={onSubmit}
             onChange={onChange}
@@ -77,19 +75,20 @@ const LoginTemplate = ({
 export default LoginTemplate;
 
 const LoginContainer = styled(Container)`
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
 
   background-color: var(--transparent);
 
   box-sizing: border-box;
+  gap: 1.5rem;
 `;
 
 const Login = styled(Container)`
   display: flex;
   flex-direction: column;
 
-  padding: var(--padding-xl);
+  padding: var(--padding-2xl);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
 
