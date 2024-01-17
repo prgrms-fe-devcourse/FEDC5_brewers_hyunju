@@ -66,6 +66,7 @@ const ChangePasswordForm = (props: ChangePasswordFromPropsType) => {
         placeholder='새로운 비밀번호'
         value={formData.new_password}
         disabled={!auth || isLoading}
+        minLength={1}
       />
       <Input
         type='password'
@@ -74,11 +75,14 @@ const ChangePasswordForm = (props: ChangePasswordFromPropsType) => {
         placeholder='비밀번호 확인'
         value={formData.new_password_repeat}
         disabled={!auth || isLoading}
+        minLength={1}
       />
       <Button
+        type='submit'
         variant='filled'
         size='lg'
         color='--primaryColor'
+        height={3.5}
         disabled={
           !auth ||
           isLoading ||
@@ -98,11 +102,18 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
 
-  padding: 2rem 0;
+  padding: var(--padding-xl) 0;
 
   gap: 0.5rem;
 `;
 
 const Input = styled.input`
-  height: 2.875rem;
+  height: 3.5rem;
+  padding: var(--padding-xs) var(--padding-md);
+  border: none;
+  border-radius: var(--radius-xs);
+
+  font-size: 1rem;
+
+  box-sizing: border-box;
 `;

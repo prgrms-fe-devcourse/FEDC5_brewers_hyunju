@@ -49,10 +49,10 @@ const StyledUl = styled.ul`
   flex-direction: column;
   align-items: center;
 
-  padding: 1rem;
+  padding: var(--padding-lg);
 `;
 
 const RoundSkeleton = styled(Skeleton)`
   justify-self: flex-end;
-  border-radius: 1.25rem;
+  border-radius: var(--radius-lg);
 `;

@@ -26,35 +26,6 @@ export interface PostPropsType {
   isMine: boolean;
 }
 
-export const Divider = styled.div`
-  width: 100%;
-  height: 1px;
-  margin: 1rem 0;
-
-  background-color: var(--adaptive400);
-`;
-
-export const PostContainer = styled(Container)`
-  flex-shrink: 0;
-
-  padding: 1rem 1.5rem;
-  border: 1px solid var(--adaptive200);
-
-  /* border-radius: 0.75rem; */
-
-  /* box-shadow: 0 4px 4px 0 var(--adaptiveOpacity100); */
-
-  background-color: var(-adaptive50);
-
-  box-sizing: border-box;
-
-  /* transition: 0.2s background-color ease-in; */
-
-  /* &:hover {
-    background-color: var(--adaptive200);
-  } */
-`;
-
 const Post = ({
   id,
   author,
@@ -175,3 +146,22 @@ const Post = ({
 };
 
 export default Post;
+
+export const PostContainer = styled(Container)`
+  flex-shrink: 0;
+
+  padding: var(--padding-lg);
+  border-radius: var(--radius-lg);
+
+  background-color: var(-adaptive50);
+
+  box-sizing: border-box;
+`;
+
+export const Divider = styled.div`
+  width: 100%;
+  height: 1px;
+  margin: 1rem 0;
+
+  background-color: var(--adaptive400);
+`;

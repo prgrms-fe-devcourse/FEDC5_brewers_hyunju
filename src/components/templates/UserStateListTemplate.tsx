@@ -1,26 +1,22 @@
-import { useState } from 'react';
-
 import styled from '@emotion/styled';
-
 import Flex from '~/components/common/Flex';
 import UserStateListItem from '~/components/userListItem/UserStateListItem';
 import Text from '~/components/common/Text';
 import { UserType } from '~/types/common';
-import Modal from '../common/Modal';
 import { useNavigate } from 'react-router-dom';
 import { CONTAINER_SIZE } from '~/constants/design';
 import Container from '../common/Container';
 import { IconPlus } from '@tabler/icons-react';
+import Tooltip from '../common/Tooltip';
 
 export interface UserStateListTemplatePropsType {
   onlineUserList: UserType[];
-  allUsers: UserType[];
 }
 
 const ContentDiv = styled.div`
   display: flex;
   flex-direction: column;
-  overflow: auto;
+  align-items: center;
 
   /* position: sticky;
   top: 0;
@@ -32,71 +28,49 @@ const ContentDiv = styled.div`
 
   /* border: 1px solid var(--primaryColor); */
 
-  /* box-shadow: 3px 3px 5px var(--primaryColor); */
-
   /* background-color: var(--primaryColor); */
 
   box-sizing: border-box;
 
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 
   @media screen and (width <= ${CONTAINER_SIZE['lg']}) {
     flex-direction: row;
   }
-
-  &::-webkit-scrollbar {
-    width: 0.25rem;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: var(--primaryColor);
-  }
-
-  &::-webkit-scrollbar-track {
-    background: var(--red100);
-  }
 `;
 
-const UserContainerDiv = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+// const UserContainerDiv = styled.div`
+//   display: flex;
+//   flex-wrap: wrap;
 
-  width: 35rem;
-  height: 10rem;
-  margin: auto;
-  border: solid 1px var(--green500);
+//   width: 35rem;
+//   height: 10rem;
+//   margin: auto;
 
-  background-color: var(--adaptive100);
+//   background-color: var(--adaptive100);
 
-  gap: 0.75rem;
+//   gap: 0.75rem;
 
-  overflow-y: scroll;
+//   overflow-y: scroll;
 
-  &::-webkit-scrollbar {
-    width: 0.25rem;
-  }
+//   &::-webkit-scrollbar {
+//     width: 0.25rem;
+//   }
 
-  &::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: var(--primaryColor);
-  }
+//   &::-webkit-scrollbar-thumb {
+//     border-radius: 10px;
+//     background: var(--primaryColor);
+//   }
 
-  &::-webkit-scrollbar-track {
-    background: var(--red100);
-  }
-`;
+//   &::-webkit-scrollbar-track {
+//     background: var(--red100);
+//   }
+// `;
 
 const UserStateListTemplate = ({
   onlineUserList,
-  allUsers,
 }: UserStateListTemplatePropsType) => {
-  const [more, setMore] = useState(false);
   const navigate = useNavigate();
-
-  const onClick = () => {
-    setMore(!more);
-  };
 
   const Flex1 = styled(Flex)`
     flex-direction: column;
@@ -129,6 +103,7 @@ const UserStateListTemplate = ({
           온라인
         </Text>
       </div>
+
       <ContentDiv>
         <Flex1
           // minHeight={4}
@@ -141,34 +116,41 @@ const UserStateListTemplate = ({
               src={image}
               handleClick={() => {
                 navigate(`/profile/${_id}`);
-                setMore(false);
               }}
             />
           ))}
         </Flex1>
-        <Flex
-          alignItems='center'
-          justifyContent='center'
-          style={{
-            padding: '0.75rem',
-            backgroundColor: 'var(--adaptive100)',
-          }}
+        <Tooltip
+          content='전체 사용자 보기'
+          eventType='hover'
+          position='right'
+          width={110}
         >
-          <IconPlus
-            size={'2rem'}
-            color='var(--primaryColor)'
-            onClick={() => setMore(true)}
-            style={{ cursor: 'pointer' }}
-          />
+          <Flex
+            alignItems='center'
+            justifyContent='center'
+            style={{
+              padding: '0.75rem',
+              backgroundColor: 'var(--adaptive100)',
+            }}
+          >
+            <IconPlus
+              size={'2rem'}
+              color='var(--primaryColor)'
+              onClick={() => navigate(`/search?type=users&q=%40all`)}
+              style={{ cursor: 'pointer' }}
+            />
 
-          {/* <CircleButton
+            {/* <CircleButton
             variant='filled'
             size='md'
             color='--primaryColor'
             onClick={() => setMore(true)}
           ></CircleButton> */}
-        </Flex>
-        <Modal
+          </Flex>
+        </Tooltip>
+
+        {/* <Modal
           visible={more}
           handleClose={onClick}
         >
@@ -190,7 +172,7 @@ const UserStateListTemplate = ({
               ))}
             </UserContainerDiv>
           </Modal.Body>
-        </Modal>
+        </Modal> */}
       </ContentDiv>
     </StyledContainer>
   );
@@ -199,14 +181,14 @@ const UserStateListTemplate = ({
 export default UserStateListTemplate;
 
 const StyledContainer = styled(Container)`
-  padding: 1rem;
-  border-radius: 1rem;
-  box-shadow: 0 0 1.5rem var(--adaptiveOpacity50);
+  padding: var(--padding-lg);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
 
   box-sizing: border-box;
 
   @media screen and (width <= ${CONTAINER_SIZE['lg']}) {
-    padding: 2rem;
+    padding: var(--padding-xl);
     overflow-x: auto;
   }
 `;

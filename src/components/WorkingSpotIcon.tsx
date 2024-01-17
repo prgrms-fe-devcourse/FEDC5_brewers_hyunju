@@ -24,7 +24,7 @@ const WorkingSpotIcon = ({ workingSpot }: WorkingSpotIconPropsType) => {
           size='sm'
           style={{ display: 'inline' }}
         >
-          오늘의 워킹스팟은{' '}
+          오늘의 카공 장소는{' '}
           <StyledSpan>{WORKING_SPOT_HOVER[workingSpot]}</StyledSpan>
           입니다
         </Text>
@@ -45,7 +45,7 @@ const WorkingSpotIcon = ({ workingSpot }: WorkingSpotIconPropsType) => {
 export default WorkingSpotIcon;
 
 const Wrapper = styled.div`
-  padding: 1rem;
+  padding: var(--padding-lg);
 `;
 
 const StyledSpan = styled.span`

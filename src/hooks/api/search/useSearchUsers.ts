@@ -12,7 +12,7 @@ export const useSearchUsers = () => {
   const { request, status, data, error } = useRequestFn<SearchUserResponseType>(
     {
       method: 'get',
-      url: `/search/users/${query}`,
+      url: query === '@all' ? `/users/get-users` : `/search/users/${query}`,
     }
   );
 

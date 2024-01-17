@@ -49,9 +49,9 @@ const Wrapper = styled.div`
   position: relative;
 
   max-width: 60%;
-  padding: 0.625rem 0.9375rem;
+  padding: var(--padding-md) var(--padding-lg);
   border: solid 0.0938rem var(--transparent);
-  border-radius: 0.4375rem;
+  border-radius: var(--radius-sm);
 
   background-color: var(--adaptive200);
 
@@ -87,8 +87,6 @@ const CloseButton = styled.button`
   width: 12px;
   height: 12px;
   padding: 0;
-  padding-top: 0.5px;
-  padding-left: 0.6px;
   border: none;
   border-radius: 50%;
 

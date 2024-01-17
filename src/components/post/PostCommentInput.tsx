@@ -5,6 +5,7 @@ import Avatar from '~/components/common/Avatar';
 import Button from '~/components/common/Button';
 import Flex from '~/components/common/Flex';
 import Container from '~/components/common/Container';
+import Image from '../common/Image';
 
 export interface PostCommentInputPropsType {
   userId: string | null;
@@ -16,7 +17,7 @@ const PostCommentInputContainer = styled(Container)`
   flex-shrink: 0;
 
   width: 100%;
-  padding: 1rem 1.5rem;
+  padding: var(--padding-lg);
 
   background-color: var(-adaptive50);
 
@@ -26,10 +27,10 @@ const PostCommentInputContainer = styled(Container)`
 const PostCommentTextarea = styled.textarea`
   width: calc(100% - 3.7rem);
   height: 3rem;
-  padding: 0.625rem 0.9375rem;
+  padding: var(--padding-md) var(--padding-lg);
   outline: none;
   border: solid 0.0938rem var(--transparent);
-  border-radius: 0.4375rem;
+  border-radius: var(--radius-sm);
 
   background-color: var(--adaptive200);
 
@@ -82,18 +83,39 @@ const PostCommentInput = ({
           }}
         >
           <div style={{ marginRight: '1rem' }}>
-            <Avatar
-              userId={userId ? userId : ''}
-              src={profileImage ? profileImage : ''}
-              size='sm'
-              alt='user image'
-            ></Avatar>
+            {userId ? (
+              <Avatar
+                userId={userId ? userId : ''}
+                src={profileImage ? profileImage : ''}
+                size='sm'
+                alt='user image'
+              ></Avatar>
+            ) : (
+              <div
+                style={{
+                  borderRadius: '50%',
+                  overflow: 'hidden',
+                  width: '2.5rem',
+                  height: '2.5rem',
+                  border: '0.125rem solid var(--adaptive400)',
+                }}
+              >
+                <Image
+                  alt='default image'
+                  width={'100%'}
+                  height={'100%'}
+                ></Image>
+              </div>
+            )}
           </div>
 
           <PostCommentTextarea
-            placeholder='댓글을 남겨주세요'
+            placeholder={
+              userId ? '댓글을 남겨주세요' : '댓글을 남기려면 로그인을 해주세요'
+            }
             value={content}
             onChange={(e) => setContent(e.target.value)}
+            disabled={userId ? false : true}
           />
         </Flex>
         <Flex
@@ -113,6 +135,7 @@ const PostCommentInput = ({
               width: '4.5rem',
               marginLeft: 'auto',
             }}
+            disabled={userId ? false : true}
           >
             작성
           </Button>

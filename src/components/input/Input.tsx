@@ -28,39 +28,6 @@ export interface InputPropsType {
   maxLength?: number;
 }
 
-interface BorderPropsType {
-  isError?: boolean;
-}
-
-interface InputFieldPropsType {
-  iconSize: number;
-  inputFontSize: FontSizeType;
-}
-
-const InputField = styled.input<InputFieldPropsType>`
-  width: calc(100% - ${(props) => props.iconSize}rem - 0.25rem);
-  padding: 0;
-  outline: none;
-  border: 0;
-
-  background-color: transparent;
-
-  color: var(--adaptive900);
-  font-size: ${(props) => FONT_SIZE[props.inputFontSize || 'sm']};
-`;
-
-const Border = styled.div<BorderPropsType>`
-  height: fit-content;
-  padding: 0.75rem;
-  border: 0.0625rem solid
-    ${(props) => `var(${props.isError ? '--red600' : '--adaptive900'})`};
-  border-radius: 1rem;
-
-  &:has(input:disabled) {
-    background-color: var(--adaptiveOpacity200);
-  }
-`;
-
 const Input = ({
   width,
   label,
@@ -142,7 +109,7 @@ const Input = ({
           <Container
             maxWidth='md'
             style={{
-              padding: ' 0 0 0 0.75rem',
+              padding: ' 0 0 0 var(--padding-md)',
               margin: 0,
               width: 'fit-content',
             }}
@@ -162,3 +129,36 @@ const Input = ({
   );
 };
 export default Input;
+
+interface BorderPropsType {
+  isError?: boolean;
+}
+
+interface InputFieldPropsType {
+  iconSize: number;
+  inputFontSize: FontSizeType;
+}
+
+const InputField = styled.input<InputFieldPropsType>`
+  width: calc(100% - ${(props) => props.iconSize}rem - 0.25rem);
+  padding: 0;
+  outline: none;
+  border: 0;
+
+  background-color: transparent;
+
+  color: var(--adaptive900);
+  font-size: ${(props) => FONT_SIZE[props.inputFontSize || 'sm']};
+`;
+
+const Border = styled.div<BorderPropsType>`
+  height: fit-content;
+  padding: var(--padding-md);
+  border: 0.125rem solid
+    ${(props) => `var(${props.isError ? '--red600' : '--adaptive300'})`};
+  border-radius: var(--radius-xs);
+
+  &:has(input:disabled) {
+    background-color: var(--adaptiveOpacity200);
+  }
+`;

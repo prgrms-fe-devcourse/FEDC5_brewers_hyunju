@@ -33,7 +33,7 @@ const UsersLink = () => {
 export default UsersLink;
 
 const StyledFlex = styled(Flex)`
-  padding: 1rem;
+  padding: var(--padding-lg);
 
   cursor: pointer;
   transition: background-color 0.2s ease-in;

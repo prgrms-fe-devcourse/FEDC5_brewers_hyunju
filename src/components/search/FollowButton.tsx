@@ -1,13 +1,15 @@
 import { useCallback, useState } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import Button from '~/components/common/Button';
 import Text from '~/components/common/Text';
 import ColorType from '~/types/design/color';
 import useCreateFollow from '~/hooks/api/follow/useCreateFollow';
 import useDeleteFollow from '~/hooks/api/follow/useDeleteFollow';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { userState } from '~/recoil/login/atoms';
 import { isLoginModalOpenState } from '~/recoil/loginModal/atoms';
+import useCreateNotification from '~/hooks/api/notification/useCreateNotification';
 
 export interface FollowButtonPropsType {
   userId: string;
@@ -28,6 +30,7 @@ const FollowButton = ({
     useCreateFollow();
   const { status: deleteFollowStatus, request: deleteFollow } =
     useDeleteFollow(followId);
+  const { request: createNoti } = useCreateNotification();
 
   const handleClick = useCallback(async () => {
     if (!auth) {
@@ -46,8 +49,15 @@ const FollowButton = ({
     } else {
       setIsFollow(true);
       // TODO: follow api
-      await createFollow(userId);
+      const createdFollow = await createFollow(userId);
       //actions.searchUserRequest();
+      createdFollow &&
+        createNoti({
+          notificationType: 'FOLLOW',
+          notificationTypeId: createdFollow._id,
+          userId: createdFollow.user,
+          postId: null,
+        });
     }
   }, [
     auth,
@@ -55,6 +65,7 @@ const FollowButton = ({
     createFollowStatus,
     deleteFollow,
     deleteFollowStatus,
+    createNoti,
     followId,
     isFollow,
     setIsLoginModalOpen,
@@ -96,12 +107,12 @@ interface RoundButtonPropsType {
   hoverColor?: ColorType;
 }
 const RoundButton = styled(Button)(
-  (props: RoundButtonPropsType) => `
-  height: 2rem;
-  border-radius: 1.25rem;
-  
-  color: var(--adaptive50);
+  (props: RoundButtonPropsType) => css`
+    height: 2rem;
+    border-radius: var(--radius-lg);
 
-  border-color: ${props.hoverColor ? `var(${props.hoverColor})` : undefined};
-`
+    color: var(--adaptive50);
+
+    border-color: ${props.hoverColor ? `var(${props.hoverColor})` : undefined};
+  `
 );

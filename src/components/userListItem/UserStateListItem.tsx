@@ -42,6 +42,7 @@ const UserStateListItem = ({
         <TextFlex style={{ flex: 1, maxWidth: '108px' }}>
           <Text
             size={'sm'}
+            weight={600}
             style={{ wordWrap: 'break-word', maxWidth: '100%' }}
           >
             {fullName}
@@ -60,7 +61,7 @@ const ReactiveBox = styled(Box)`
   justify-content: center;
 
   width: 100%;
-  padding: 1rem;
+  padding: var(--padding-lg);
 
   /* border: solid 1px var(--blue500); */
   border-bottom: 1px solid var(--primaryColor);
@@ -72,10 +73,16 @@ const ReactiveBox = styled(Box)`
     background-color: var(--adaptive400);
   }
 
-  @media screen and (width <= ${CONTAINER_SIZE['lg']}) {
-    width: 5rem;
-    height: 5rem;
+  @media screen and (width <= ${CONTAINER_SIZE['xl']}) {
+    width: min-content;
+    height: min-content;
     padding: 0.5rem;
+  }
+
+  @media screen and (width <= ${CONTAINER_SIZE['lg']}) {
+    width: 7rem;
+    height: 5rem;
+    padding: var(--padding-sm);
   }
 `;
 const ReactiveFlex = styled(Flex)`

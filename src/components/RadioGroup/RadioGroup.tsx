@@ -34,7 +34,7 @@ const RadioGroup: React.FC<RadioGroupPropsType> = ({
       <Flex
         justifyContent='space-between'
         alignItems='flex-start'
-        style={{ padding: '0  0.25rem' }}
+        style={{ padding: '0  var(--padding-xs)' }}
       >
         {options.map((option) => (
           <Radio

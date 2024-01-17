@@ -98,7 +98,7 @@ const LikeItem = ({ postId, userId, likes }: LikeItemPropsType) => {
           <IconHeartFilled
             width='1.4rem'
             height='1.4rem'
-          ></IconHeartFilled>
+          />
         )}
       </IconWrapper>
 
@@ -129,6 +129,8 @@ const IconWrapper = styled(Flex)<{ isFilled: boolean }>`
 
   background-color: ${(props) =>
     props.isFilled ? 'var(--red600)' : 'inherit'};
+
+  color: ${(props) => (props.isFilled ? 'var(--whiteOpacity950)' : 'inherit')};
 
   transition: background-color 0.2s ease-in;
 `;

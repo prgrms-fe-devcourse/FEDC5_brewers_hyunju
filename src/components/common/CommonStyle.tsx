@@ -66,6 +66,8 @@ export const CommonStyle = (props: CommonStylePropsType) => css`
 
   color: ${handleVariable(props.color, 'base')};
 
+  box-sizing: border-box;
+
   opacity: ${handleValue(props.opacity, 'base')};
 
   @media screen and (width <= ${CONTAINER_SIZE['sm']}) {

@@ -49,8 +49,13 @@ const NotificationItem = ({ data }: NotificationItemPropsType) => {
         direction='column'
         gap={0.25}
       >
-        <Text size='md'>{type}</Text>
-        <Text size='sm'>
+        <NotiType
+          size='md'
+          weight={800}
+        >
+          {type.toLocaleLowerCase()}
+        </NotiType>
+        <Text size='md'>
           {data.author.fullName}님께서 {message[type]}
         </Text>
       </Flex>
@@ -84,10 +89,20 @@ export const NotificationItemSkeleton = () => {
 export default NotificationItem;
 
 const StyledFlex = styled(Flex)`
+  padding: var(--padding-xl);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shawdow-lg);
+
+  background-color: var(--adaptive50);
+
   &:hover {
     background-color: var(--adaptive200);
 
     cursor: pointer;
     transition: 125ms;
   }
+`;
+
+const NotiType = styled(Text)`
+  text-transform: capitalize;
 `;

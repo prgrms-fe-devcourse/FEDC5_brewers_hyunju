@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import Button from '../common/Button';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { userState } from '~/recoil/login/atoms';
 import useUpdateName from '~/hooks/api/settings/useUpdateName';
 
@@ -12,7 +12,7 @@ export interface NameChangeFormPropsType {
 }
 
 const NameChangeForm = (props: NameChangeFormPropsType) => {
-  const auth = useRecoilValue(userState);
+  const [auth, setAuth] = useRecoilState(userState);
 
   const { request: updateName } = useUpdateName();
 
@@ -39,9 +39,14 @@ const NameChangeForm = (props: NameChangeFormPropsType) => {
       return alert('이름을 입력해주세요.');
     }
 
+    if (formData.fullName.length > 11) {
+      return alert('이름은 최대 10글자입니다.');
+    }
+
     try {
       setIsLoading(true);
-      await updateName(formData.fullName);
+      const res = await updateName(formData.fullName);
+      res && setAuth(res);
       alert('이름 변경 완료');
       props.onSuccess && props.onSuccess();
     } catch {
@@ -62,11 +67,14 @@ const NameChangeForm = (props: NameChangeFormPropsType) => {
         placeholder='이름'
         disabled={!auth || isLoading}
         value={formData.fullName}
+        maxLength={10}
       />
       <Button
+        type='submit'
         variant='filled'
         size='lg'
         color='--primaryColor'
+        height={3.5}
         disabled={
           !auth ||
           isLoading ||
@@ -86,11 +94,18 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
 
-  padding: 2rem 0;
+  padding: var(--padding-xl) 0;
 
   gap: 0.5rem;
 `;
 
 const Input = styled.input`
-  height: 2.875rem;
+  height: 3.5rem;
+  padding: var(--padding-xs) var(--padding-md);
+  border: none;
+  border-radius: var(--radius-xs);
+
+  font-size: 1rem;
+
+  box-sizing: border-box;
 `;

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
+import { Helmet } from 'react-helmet';
 import NavBar from './components/common/NavBar';
 import { useRecoilState } from 'recoil';
 import { userState } from './recoil/login/atoms';
@@ -28,6 +29,9 @@ function App() {
 
   return (
     <>
+      <Helmet>
+        <title>Brewers</title>
+      </Helmet>
       <NavBar />
       <PageGrid>
         <BorderBox>
