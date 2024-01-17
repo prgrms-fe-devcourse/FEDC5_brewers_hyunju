@@ -1,13 +1,12 @@
 import { useRef } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from '@emotion/styled';
-import { useNavigate } from 'react-router-dom';
 
 import Container from '../common/Container';
 import Flex from '../common/Flex';
 import MessageSending from '../MessageSending';
 import PersonalConversation from '../PersonalConversation';
-import Button from '../common/Button';
+import RequiredLoginTemplate from './RequiredLoginTemplate';
 
 import useCreateMessage from '~/hooks/api/conversation/useCreateMessage';
 
@@ -28,7 +27,6 @@ const MessageSendingTemplate = ({
   fetch,
 }: MessageSendingTemplatePropsType) => {
   const user = useRecoilValue(userState);
-  const navigate = useNavigate();
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -60,40 +58,8 @@ const MessageSendingTemplate = ({
     });
   };
 
-  const handleLoginClick = () => {
-    navigate('/login');
-  };
-
   if (!user) {
-    return (
-      <MessageSendContainer maxWidth='md'>
-        <MessageSend maxWidth='md'>
-          <Flex
-            direction='column'
-            gap={1}
-          >
-            <Flex
-              direction='column'
-              gap={0.25}
-            >
-              <Flex
-                justifyContent='center'
-                my={10}
-              >
-                <Button
-                  color='--adaptive400'
-                  variant='text'
-                  size='md'
-                  onClick={handleLoginClick}
-                >
-                  로그인해 주세요
-                </Button>
-              </Flex>
-            </Flex>
-          </Flex>
-        </MessageSend>
-      </MessageSendContainer>
-    );
+    return <RequiredLoginTemplate />;
   }
 
   return (
