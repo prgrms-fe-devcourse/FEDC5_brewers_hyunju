@@ -1,5 +1,6 @@
+import styled from '@emotion/styled';
 import { NotificationType } from '~/types/common';
-import Container from '../common/Container';
+import StyledContainer from '../common/Container';
 import Text from '../common/Text';
 import NotificationItem from '../notification/NotificationItem';
 import Flex from '../common/Flex';
@@ -36,7 +37,7 @@ const NotificationTemplate = ({ data, action }: ProfileTemplatePropsType) => {
         gap={2}
       >
         <Text
-          size='2xl'
+          size='3xl'
           weight={800}
         >
           알림
@@ -67,3 +68,8 @@ const NotificationTemplate = ({ data, action }: ProfileTemplatePropsType) => {
 };
 
 export default NotificationTemplate;
+
+const Container = styled(StyledContainer)`
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+`;
