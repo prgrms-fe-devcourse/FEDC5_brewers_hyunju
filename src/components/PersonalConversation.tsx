@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useRef, useEffect } from 'react';
 import styled from '@emotion/styled';
 
 import PersonalMessage from './PersonalMessage';
@@ -17,9 +17,24 @@ const PersonalConversation = ({
   userId,
   children,
 }: PersonalConversationPropsType) => {
+  const rootElementRef = useRef<HTMLDivElement>(null);
+  const messagesLengthRef = useRef(0);
+
   const convertTime = (createdAt: string) => {
     return new Date(createdAt).toLocaleTimeString('ko-KR').slice(0, -3);
   };
+
+  useEffect(() => {
+    if (!messages) return;
+    if (messagesLengthRef.current === messages.length) return;
+    messagesLengthRef.current = messages.length;
+
+    if (rootElementRef.current) {
+      rootElementRef.current.scrollTop =
+        rootElementRef.current.scrollHeight -
+        rootElementRef.current.clientHeight;
+    }
+  }, [messages]);
 
   if (children) {
     return (
@@ -42,6 +57,7 @@ const PersonalConversation = ({
       gap={0.25}
       px={1}
       style={{ height: '66vh', overflowY: 'auto' }}
+      ref={rootElementRef}
     >
       {messages
         ? messages.map((message, index) => (
