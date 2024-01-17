@@ -13,6 +13,7 @@ import ModalPostButton from '~/components/ModalPostButton';
 import { userState } from '~/recoil/login/atoms';
 import useLogout from '~/hooks/api/auth/useLogout';
 import { removeItem } from '~/utils/localStorage';
+import { CONTAINER_SIZE } from '~/constants/design';
 
 export interface NavItemPropsType {
   to: string;
@@ -41,7 +42,6 @@ const NavItem = ({ to, children }: NavItemPropsType) => {
       to={to}
       style={{
         textDecoration: 'none',
-        marginLeft: '1rem',
         boxSizing: 'border-box',
       }}
     >
@@ -67,7 +67,7 @@ const AuthNavItem = () => {
           <NavItem to={`/profile/${user._id}`}>{user.fullName} 님</NavItem>
           <NavBarItem
             onClick={handleLogout}
-            style={{ marginBottom: '2px' }}
+            style={{ marginBottom: '2px', marginRight: '0' }}
           >
             로그아웃
           </NavBarItem>
@@ -81,7 +81,7 @@ const AuthNavItem = () => {
 
 const NavBar = () => {
   const [isShowThemeSelector, setIsShowThemeSelector] = useState(false);
-  const isSmall = useMediaQuery({ maxWidth: 56 * 16 });
+  const isSmall = useMediaQuery({ maxWidth: CONTAINER_SIZE['lg'] });
 
   const NavBarLarge = () => {
     return (
@@ -107,6 +107,7 @@ const NavBar = () => {
         >
           <ThemeSelectButton onClick={() => setIsShowThemeSelector(true)} />
           <ModalPostButton />
+
           <NavItem to='/search'>검색</NavItem>
           <AuthNavItem />
         </Flex>
@@ -147,17 +148,15 @@ export default NavBar;
 const NavWrapper = styled(Flex)`
   display: flex;
   justify-content: space-between;
-  overflow: auto;
+  overflow: hidden;
   position: relative;
   z-index: 0;
-
-  /* overflow: hidden; */
 
   width: 100%;
   height: 5rem;
   max-width: 100%;
   margin-bottom: 2rem;
-  padding: 0 3.5rem;
+  padding: 0 3.8rem;
 
   background-color: var(--adaptive50);
 
@@ -181,6 +180,7 @@ const NavBarItem = styled.li`
   cursor: pointer;
   list-style: none;
   text-decoration: none;
+  word-break: keep-all;
 
   &:has(button) {
     margin: 0;
