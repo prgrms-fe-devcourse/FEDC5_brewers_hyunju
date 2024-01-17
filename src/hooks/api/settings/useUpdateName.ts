@@ -1,13 +1,9 @@
 import { useState } from 'react';
-import { useSetRecoilState } from 'recoil';
 import request from '~/api/axios';
-import { userState } from '~/recoil/login/atoms';
 import { UserType } from '~/types/common';
 import { handleError } from '~/utils/handleError';
 
 export const useUpdateName = () => {
-  const setAuth = useSetRecoilState(userState);
-
   const [status, setStatus] = useState<
     'stale' | 'loading' | 'error' | 'success'
   >('stale');
@@ -27,8 +23,9 @@ export const useUpdateName = () => {
         },
       });
       setData(response.data);
-      setAuth(response.data);
       setStatus('success');
+
+      return response.data;
     } catch (e: unknown) {
       handleError(e, 'UpdateName');
       setStatus('error');

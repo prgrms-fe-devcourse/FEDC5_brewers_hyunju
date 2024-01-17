@@ -78,6 +78,7 @@ const ChangePasswordForm = (props: ChangePasswordFromPropsType) => {
         minLength={1}
       />
       <Button
+        type='submit'
         variant='filled'
         size='lg'
         color='--primaryColor'
