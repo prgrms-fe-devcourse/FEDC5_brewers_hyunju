@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, ReactNode } from 'react';
 import styled from '@emotion/styled';
 import { Link, useLocation } from 'react-router-dom';
 import Flex from '~/components/common/Flex';
@@ -10,10 +10,12 @@ import useLogout from '~/hooks/api/auth/useLogout';
 import { removeItem } from '~/utils/localStorage';
 import { postModalState } from '~/recoil/postModal/atoms';
 import BasicPostModal from '~/components/postModal/BasicPostModal';
+import ThemeSelectModal from './ThemeSelectModal';
+import ThemeSelectButton from './ThemeSelectButton';
 
 export interface NavItemPropsType {
   to: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const NavItem = ({ to, children }: NavItemPropsType) => {
@@ -74,49 +76,57 @@ const AuthNavItem = () => {
 
 const NavBar = () => {
   const setPostModalOpen = useSetRecoilState(postModalState);
+  const [isShowThemeSelector, setIsShowThemeSelector] = useState(false);
 
   return (
-    <NavWrapper>
-      {/* Nav 왼쪽 부분 (로고, 홈. 그룹, 채팅) */}
-      <Flex
-        alignItems='center'
-        justifyContent='flex-start'
-        style={{ flexShrink: '0', boxSizing: 'border-box' }}
-      >
-        <Logo
-          type='normal'
-          size='sm'
-        ></Logo>
-
-        <NavItem to='/'>홈</NavItem>
-        <NavItem to='/message'>채팅</NavItem>
-        <NavItem to='/notification'>알림</NavItem>
-      </Flex>
-      {/* Nav 오른쪽 부분 (포스트작성, 검색, 로그인)*/}
-      <Flex
-        alignItems='center'
-        justifyContent='flex-end'
-        style={{ flexShrink: '0' }}
-      >
-        <Button
-          variant='outlined'
-          size='md'
-          color='--primaryColor'
-          style={{ width: '7.5rem', height: '3.125rem' }}
-          onClick={() =>
-            setPostModalOpen((prev) => ({
-              ...prev,
-              isOpen: true,
-            }))
-          }
+    <>
+      <NavWrapper>
+        {/* Nav 왼쪽 부분 (로고, 홈. 그룹, 채팅) */}
+        <Flex
+          alignItems='center'
+          justifyContent='flex-start'
+          style={{ flexShrink: '0', boxSizing: 'border-box' }}
         >
-          포스트 작성
-        </Button>
-        <NavItem to='/search'>검색</NavItem>
-        <AuthNavItem />
-      </Flex>
-      <BasicPostModal />
-    </NavWrapper>
+          <Logo
+            type='normal'
+            size='sm'
+          ></Logo>
+
+          <NavItem to='/'>홈</NavItem>
+          <NavItem to='/message'>채팅</NavItem>
+          <NavItem to='/notification'>알림</NavItem>
+        </Flex>
+        {/* Nav 오른쪽 부분 (포스트작성, 검색, 로그인)*/}
+        <Flex
+          alignItems='center'
+          justifyContent='flex-end'
+          style={{ flexShrink: '0' }}
+        >
+          <ThemeSelectButton onClick={() => setIsShowThemeSelector(true)} />
+          <Button
+            variant='outlined'
+            size='md'
+            color='--primaryColor'
+            style={{ width: '7.5rem', height: '3.125rem' }}
+            onClick={() =>
+              setPostModalOpen((prev) => ({
+                ...prev,
+                isOpen: true,
+              }))
+            }
+          >
+            포스트 작성
+          </Button>
+          <NavItem to='/search'>검색</NavItem>
+          <AuthNavItem />
+        </Flex>
+        <BasicPostModal />
+      </NavWrapper>
+      <ThemeSelectModal
+        visible={isShowThemeSelector}
+        handleClose={() => setIsShowThemeSelector(false)}
+      />
+    </>
   );
 };
 
@@ -126,6 +136,8 @@ const NavWrapper = styled(Flex)`
   display: flex;
   justify-content: space-between;
   overflow: auto;
+  position: relative;
+  z-index: 0;
 
   width: 100%;
   height: 5rem;
