@@ -5,11 +5,12 @@ import styled from '@emotion/styled';
 import Flex from '~/components/common/Flex';
 import UserStateListItem from '~/components/userListItem/UserStateListItem';
 import Text from '~/components/common/Text';
-import Button from '~/components/common/Button';
-
 import { UserType } from '~/types/common';
 import Modal from '../common/Modal';
 import { useNavigate } from 'react-router-dom';
+import { CONTAINER_SIZE } from '~/constants/design';
+import Container from '../common/Container';
+import { IconPlus } from '@tabler/icons-react';
 
 export interface UserStateListTemplatePropsType {
   onlineUserList: UserType[];
@@ -17,19 +18,31 @@ export interface UserStateListTemplatePropsType {
 }
 
 const ContentDiv = styled.div`
+  display: flex;
+  flex-direction: column;
   overflow: auto;
-  position: fixed;
-  top: 10rem;
-  left: 4rem;
 
-  width: 12rem;
-  height: 35.75rem;
-  border: 1px solid var(--primaryColor);
-  box-shadow: 3px 3px 5px var(--primaryColor);
+  /* position: sticky;
+  top: 0;
+  left: 0; */
 
-  background-color: var(--adaptive100);
+  height: 100%;
+
+  /* min-height: 28rem; */
+
+  /* border: 1px solid var(--primaryColor); */
+
+  /* box-shadow: 3px 3px 5px var(--primaryColor); */
+
+  /* background-color: var(--primaryColor); */
+
+  box-sizing: border-box;
 
   overflow-x: hidden;
+
+  @media screen and (width <= ${CONTAINER_SIZE['lg']}) {
+    flex-direction: row;
+  }
 
   &::-webkit-scrollbar {
     width: 0.25rem;
@@ -50,16 +63,15 @@ const UserContainerDiv = styled.div`
   flex-wrap: wrap;
 
   width: 35rem;
-  height: 28rem;
+  height: 10rem;
   margin: auto;
+  border: solid 1px var(--green500);
 
   background-color: var(--adaptive100);
 
   gap: 0.75rem;
-  overflow-x: 'hidden';
 
-  overflow-x: hidden;
-  overflow-y: 'scroll';
+  overflow-y: scroll;
 
   &::-webkit-scrollbar {
     width: 0.25rem;
@@ -86,112 +98,115 @@ const UserStateListTemplate = ({
     setMore(!more);
   };
 
+  const Flex1 = styled(Flex)`
+    flex-direction: column;
+
+    min-height: 30rem;
+
+    @media screen and (width <= ${CONTAINER_SIZE['lg']}) {
+      flex-direction: row;
+      min-height: 0;
+    }
+
+    box-sizing: border-box;
+  `;
+
   return (
-    <ContentDiv>
-      <Flex
-        direction='column'
-        alignItems='center'
+    <StyledContainer maxWidth='md'>
+      <div
         style={{
-          position: 'sticky',
-          top: 0,
-          backgroundColor: 'var(--adaptive100)',
-          flexGrow: 1,
-          padding: '1rem',
+          width: '100%',
+          marginBottom: '1rem',
+          padding: '0',
+          boxSizing: 'border-box',
         }}
       >
-        <div
-          style={{
-            backgroundColor: 'var(--adaptive100)',
-            width: '100%',
-          }}
+        <Text
+          size='md'
+          weight={600}
+          color='--primaryColor'
         >
-          <Text
-            size='md'
-            color='--primaryColor'
-          >
-            온라인
-          </Text>
-        </div>
-      </Flex>
-      <Flex
-        direction='column'
-        gap={0.5}
-        minHeight={28.5}
-        style={{ backgroundColor: 'var(--adaptive100)' }}
-      >
-        <Flex
-          direction='column'
-          gap={0.5}
-          minHeight={4}
+          온라인
+        </Text>
+      </div>
+      <ContentDiv>
+        <Flex1
+          // minHeight={4}
           alignItems='center'
         >
           {onlineUserList?.map(({ _id, fullName, image }) => (
-            <div
-              onClick={() => {
+            <UserStateListItem
+              userId={_id}
+              fullName={fullName}
+              src={image}
+              handleClick={() => {
                 navigate(`/profile/${_id}`);
                 setMore(false);
               }}
-              style={{ cursor: 'pointer' }}
-              key={_id}
-            >
-              <UserStateListItem
-                fullName={fullName}
-                src={image}
-              />
-            </div>
+            />
           ))}
-        </Flex>
-      </Flex>
-      <Flex
-        direction='column'
-        alignItems='center'
-        gap={0.5}
-        style={{
-          position: 'sticky',
-          bottom: 0,
-          padding: '0.75rem',
-          backgroundColor: 'var(--adaptive100)',
-        }}
-      >
-        <Button
-          variant='filled'
-          size='md'
-          color='--primaryColor'
-          style={{ width: '7.5rem', height: '2.75rem' }}
-          onClick={() => setMore(true)}
+        </Flex1>
+        <Flex
+          alignItems='center'
+          justifyContent='center'
+          style={{
+            padding: '0.75rem',
+            backgroundColor: 'var(--adaptive100)',
+          }}
         >
-          전체 사용자
-        </Button>
-      </Flex>
-      <Modal
-        visible={more}
-        handleClose={onClick}
-      >
-        <Modal.Header handleClose={() => setMore(false)}>
-          <Text weight={600}>전체 사용자</Text>
-        </Modal.Header>
-        <Modal.Body>
-          <UserContainerDiv>
-            {allUsers?.map(({ _id, fullName, image }) => (
-              <div
-                onClick={() => {
-                  navigate(`/profile/${_id}`);
-                  setMore(false);
-                }}
-                style={{ cursor: 'pointer' }}
-                key={_id}
-              >
+          <IconPlus
+            size={'2rem'}
+            color='var(--primaryColor)'
+            onClick={() => setMore(true)}
+            style={{ cursor: 'pointer' }}
+          />
+
+          {/* <CircleButton
+            variant='filled'
+            size='md'
+            color='--primaryColor'
+            onClick={() => setMore(true)}
+          ></CircleButton> */}
+        </Flex>
+        <Modal
+          visible={more}
+          handleClose={onClick}
+        >
+          <Modal.Header handleClose={() => setMore(false)}>
+            <Text weight={600}>전체 사용자</Text>
+          </Modal.Header>
+          <Modal.Body>
+            <UserContainerDiv>
+              {allUsers?.map(({ _id, fullName, image }) => (
                 <UserStateListItem
+                  userId={_id}
                   fullName={fullName}
                   src={image}
+                  handleClick={() => {
+                    navigate(`/profile/${_id}`);
+                    setMore(false);
+                  }}
                 />
-              </div>
-            ))}
-          </UserContainerDiv>
-        </Modal.Body>
-      </Modal>
-    </ContentDiv>
+              ))}
+            </UserContainerDiv>
+          </Modal.Body>
+        </Modal>
+      </ContentDiv>
+    </StyledContainer>
   );
 };
 
 export default UserStateListTemplate;
+
+const StyledContainer = styled(Container)`
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 1.5rem var(--adaptiveOpacity50);
+
+  box-sizing: border-box;
+
+  @media screen and (width <= ${CONTAINER_SIZE['lg']}) {
+    padding: 2rem;
+    overflow-x: auto;
+  }
+`;
