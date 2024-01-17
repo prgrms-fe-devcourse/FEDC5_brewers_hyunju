@@ -1,18 +1,18 @@
 import { useState, ReactNode } from 'react';
-import styled from '@emotion/styled';
+import { useRecoilState } from 'recoil';
 import { Link, useLocation } from 'react-router-dom';
+import styled from '@emotion/styled';
+import { useMediaQuery } from 'react-responsive';
 import Flex from '~/components/common/Flex';
-import Button from '~/components/common/Button';
 import Logo from '~/components/common/Logo';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { userState } from '~/recoil/login/atoms';
-import useLogout from '~/hooks/api/auth/useLogout';
-import { removeItem } from '~/utils/localStorage';
-import { postModalState } from '~/recoil/postModal/atoms';
 import BasicPostModal from '~/components/postModal/BasicPostModal';
 import ThemeSelectModal from './ThemeSelectModal';
 import ThemeSelectButton from './ThemeSelectButton';
-import { useMediaQuery } from 'react-responsive';
+import RequiredLoginModal from '~/components/RequiredLoginModal';
+import ModalPostButton from '~/components/ModalPostButton';
+import { userState } from '~/recoil/login/atoms';
+import useLogout from '~/hooks/api/auth/useLogout';
+import { removeItem } from '~/utils/localStorage';
 
 export interface NavItemPropsType {
   to: string;
@@ -80,7 +80,6 @@ const AuthNavItem = () => {
 };
 
 const NavBar = () => {
-  const setPostModalOpen = useSetRecoilState(postModalState);
   const [isShowThemeSelector, setIsShowThemeSelector] = useState(false);
   const isSmall = useMediaQuery({ maxWidth: 56 * 16 });
 
@@ -107,21 +106,7 @@ const NavBar = () => {
           style={{ flexShrink: '0' }}
         >
           <ThemeSelectButton onClick={() => setIsShowThemeSelector(true)} />
-          <Button
-            variant='outlined'
-            size='md'
-            color='--primaryColor'
-            ml={1}
-            style={{ width: '7.5rem', height: '3.125rem' }}
-            onClick={() =>
-              setPostModalOpen((prev) => ({
-                ...prev,
-                isOpen: true,
-              }))
-            }
-          >
-            포스트 작성
-          </Button>
+          <ModalPostButton />
           <NavItem to='/search'>검색</NavItem>
           <AuthNavItem />
         </Flex>
@@ -130,6 +115,7 @@ const NavBar = () => {
           visible={isShowThemeSelector}
           handleClose={() => setIsShowThemeSelector(false)}
         />
+        <RequiredLoginModal />
       </>
     );
   };
