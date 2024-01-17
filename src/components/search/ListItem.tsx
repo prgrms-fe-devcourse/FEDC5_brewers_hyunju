@@ -37,7 +37,7 @@ ListItem.FollowButton = FollowButton;
 export default ListItem;
 
 const StyledFlex = styled(Flex)`
-  padding: 1rem;
+  padding: var(--padding-lg);
 
   cursor: pointer;
   transition: background-color 0.2s ease-in;

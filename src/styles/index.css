@@ -1,5 +1,7 @@
 @import './reset.css';
+@import './constants.css';
 @import './colors.css';
+@import './scroll.css';
 
 html {
   background-color: var(--adaptive100);
@@ -24,14 +26,20 @@ body {
     sans-serif;
 }
 
+input,
+select {
+  background-color: var(--adaptive200);
+  color: var(--adaptive900);
+}
+
 input[type='date'] {
   position: relative;
   width: 80px;
   height: 48px;
-  padding: 0 8px 0 8px;
+  padding: 0 var(--padding-sm);
   /* background: url(assets/calendar.svg) no-repeat right 8px center / 20px auto; */
   border: 1px solid var(--adaptive400);
-  border-radius: 12px;
+  border-radius: var(--radius-md);
 
   font-family:
     'SUIT Variable',
@@ -75,10 +83,10 @@ input[type='time'] {
   position: relative;
   width: 80px;
   height: 48px;
-  padding: 0 8px 0 8px;
+  padding: 0 var(--padding-sm);
   /* background: url(assets/clock.svg) no-repeat right 8px center / 20px auto; */
   border: 1px solid var(--adaptive400);
-  border-radius: 12px;
+  border-radius: var(--radius-md);
 
   font-family:
     'SUIT Variable',

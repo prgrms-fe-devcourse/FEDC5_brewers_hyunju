@@ -86,7 +86,7 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
 
-  padding: 2rem 0;
+  padding: var(--padding-xl) 0;
 
   gap: 0.5rem;
 `;

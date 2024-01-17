@@ -53,7 +53,7 @@ const PostCommentListItem = ({
     <Container
       maxWidth={width}
       style={{
-        padding: '1rem 1.5rem',
+        padding: 'var(--padding-lg)',
         boxSizing: 'border-box',
       }}
     >

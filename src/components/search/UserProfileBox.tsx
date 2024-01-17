@@ -29,5 +29,5 @@ export default UserProfileBox;
 
 const StyledFlex = styled(Flex)`
   flex-grow: 1;
-  padding: 1rem;
+  padding: var(--padding-lg);
 `;

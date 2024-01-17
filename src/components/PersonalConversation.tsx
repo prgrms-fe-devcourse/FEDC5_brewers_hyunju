@@ -69,17 +69,4 @@ export default PersonalConversation;
 
 const Div = styled(Flex)`
   overflow-x: hidden;
-
-  &::-webkit-scrollbar {
-    width: 0.25rem;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: var(--secondaryColor);
-  }
-
-  &::-webkit-scrollbar-track {
-    background: var(--blue100);
-  }
 `;

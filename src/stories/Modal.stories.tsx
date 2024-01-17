@@ -109,7 +109,7 @@ export const Default = () => {
               variant='filled'
               size='md'
               color='--primaryColor'
-              style={{ width: '100%', padding: '0.75rem' }}
+              style={{ width: '100%', padding: 'var(--padding-md)' }}
               onClick={() => setIsOpen(false)}
             >
               확인

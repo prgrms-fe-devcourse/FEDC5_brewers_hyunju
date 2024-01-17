@@ -158,10 +158,10 @@ const Wrapper = styled.div`
 `;
 
 const DateInput = styled.input`
-  padding: 15px 5px;
+  padding: var(--padding-lg) var(--padding-xs);
   outline: none;
   border: none;
-  border-radius: 7px;
+  border-radius: var(--radius-sm);
 
   color: var(--adaptive950);
 

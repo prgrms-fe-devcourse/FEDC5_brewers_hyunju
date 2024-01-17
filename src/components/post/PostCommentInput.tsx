@@ -16,7 +16,7 @@ const PostCommentInputContainer = styled(Container)`
   flex-shrink: 0;
 
   width: 100%;
-  padding: 1rem 1.5rem;
+  padding: var(--padding-lg);
 
   background-color: var(-adaptive50);
 
@@ -26,10 +26,10 @@ const PostCommentInputContainer = styled(Container)`
 const PostCommentTextarea = styled.textarea`
   width: calc(100% - 3.7rem);
   height: 3rem;
-  padding: 0.625rem 0.9375rem;
+  padding: var(--padding-md) var(--padding-lg);
   outline: none;
   border: solid 0.0938rem var(--transparent);
-  border-radius: 0.4375rem;
+  border-radius: var(--radius-sm);
 
   background-color: var(--adaptive200);
 

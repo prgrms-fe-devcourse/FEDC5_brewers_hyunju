@@ -25,7 +25,8 @@ const ModalPostButton = () => {
       variant='outlined'
       size='md'
       color='--primaryColor'
-      ml={1}
+      ml={0.85}
+      mr={0.85}
       style={{ width: '7.5rem', height: '3.125rem' }}
       onClick={handleClick}
     >

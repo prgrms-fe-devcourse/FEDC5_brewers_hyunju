@@ -193,7 +193,7 @@ const Form = styled.form`
 
 const Select = styled.select`
   height: 2rem;
-  padding: 0.25rem 0.5rem;
+  padding: var(--padding-xs) var(--padding-sm);
 `;
 
 const Textarea = styled.textarea`

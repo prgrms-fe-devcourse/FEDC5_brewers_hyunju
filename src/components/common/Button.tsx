@@ -20,9 +20,9 @@ const StyledButton = styled.button<ButtonPropsType>`
   align-items: center;
   justify-content: center;
 
-  padding: 0.5em 1em;
+  padding: var(--padding-sm) var(--padding-lg);
   border: 0.125rem solid;
-  border-radius: 0.25rem;
+  border-radius: var(--radius-xs);
 
   background-color: ${({ variant, color }) =>
     variant === 'filled' ? `var(${color})` : 'var(--transparent)'};

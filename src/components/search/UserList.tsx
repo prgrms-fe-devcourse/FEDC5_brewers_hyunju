@@ -37,7 +37,7 @@ const UserList = ({ users }: UserListPropsType) => {
 export default UserList;
 
 const Box = styled.div`
-  padding: 1rem;
+  padding: var(--padding-lg);
 `;
 const StyledUl = styled.ul`
   flex-direction: column;
