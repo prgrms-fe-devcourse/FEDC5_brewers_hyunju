@@ -5,6 +5,7 @@ import Text from '~/components/common/Text';
 import ColorType from '~/types/design/color';
 import useCreateFollow from '~/hooks/api/follow/useCreateFollow';
 import useDeleteFollow from '~/hooks/api/follow/useDeleteFollow';
+import { css } from '@emotion/react';
 
 export interface FollowButtonPropsType {
   userId: string;
@@ -84,12 +85,12 @@ interface RoundButtonPropsType {
   hoverColor?: ColorType;
 }
 const RoundButton = styled(Button)(
-  (props: RoundButtonPropsType) => `
-  height: 2rem;
-  border-radius: 1.25rem;
-  
-  color: var(--adaptive50);
+  (props: RoundButtonPropsType) => css`
+    height: 2rem;
+    border-radius: var(--radius-lg);
 
-  border-color: ${props.hoverColor ? `var(${props.hoverColor})` : undefined};
-`
+    color: var(--adaptive50);
+
+    border-color: ${props.hoverColor ? `var(${props.hoverColor})` : undefined};
+  `
 );

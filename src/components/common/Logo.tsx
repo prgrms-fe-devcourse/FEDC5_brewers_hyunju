@@ -34,7 +34,7 @@ const LogoWrapper = styled.div`
   width: fit-content;
   height: fit-content;
   padding: 0.625rem;
-  border-radius: 0.25rem;
+  border-radius: var(--radius-xs);
 
   cursor: pointer;
 

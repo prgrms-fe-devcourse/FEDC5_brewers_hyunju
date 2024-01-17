@@ -40,7 +40,7 @@ export const PostContainer = styled(Container)`
   padding: 1rem 1.5rem;
   border: 1px solid var(--adaptive200);
 
-  /* border-radius: 0.75rem; */
+  /* border-radius: var(--radius-md); */
 
   /* box-shadow: 0 4px 4px 0 var(--adaptiveOpacity100); */
 

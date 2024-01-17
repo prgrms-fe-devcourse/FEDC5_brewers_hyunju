@@ -130,7 +130,7 @@ const MessageListContainer = styled(Container)`
   display: flex;
   flex-direction: column;
 
-  border-radius: 1rem;
+  border-radius: var(--radius-lg);
   box-shadow: 0 0 1.5rem var(--adaptiveOpacity50);
 
   background-color: var(--transparent);
@@ -144,7 +144,7 @@ const MessageList = styled(Container)`
   flex-direction: column;
 
   padding: 2rem;
-  border-radius: 1rem;
+  border-radius: var(--radius-lg);
   box-shadow: 0 0 1.5rem var(--adaptiveOpacity50);
 
   box-sizing: border-box;

@@ -74,7 +74,7 @@ const Tip = styled.div`
   justify-content: center;
   position: absolute;
 
-  border-radius: 5px;
+  border-radius: var(--radius-xs);
 
   font-size: ${FONT_SIZE['sm']};
 

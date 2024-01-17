@@ -3,7 +3,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--adaptive50);
+  background: var(--adaptiveOpacity50);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -11,5 +11,5 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--adaptive500);
+  background: var(--adaptive400);
 }

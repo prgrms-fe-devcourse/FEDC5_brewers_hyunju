@@ -22,7 +22,7 @@ const StyledButton = styled.button<ButtonPropsType>`
 
   padding: 0.5em 1em;
   border: 0.125rem solid;
-  border-radius: 0.25rem;
+  border-radius: var(--radius-xs);
 
   background-color: ${({ variant, color }) =>
     variant === 'filled' ? `var(${color})` : 'var(--transparent)'};

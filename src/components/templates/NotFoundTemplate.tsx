@@ -42,7 +42,7 @@ const Container = styled(StyledContainer)`
   flex-direction: column;
   align-items: flex-start;
 
-  border-radius: 1rem;
+  border-radius: var(--radius-lg);
 
   gap: 1rem;
 `;

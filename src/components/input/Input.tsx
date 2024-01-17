@@ -54,7 +54,7 @@ const Border = styled.div<BorderPropsType>`
   padding: 0.75rem;
   border: 0.0625rem solid
     ${(props) => `var(${props.isError ? '--red600' : '--adaptive900'})`};
-  border-radius: 1rem;
+  border-radius: var(--radius-lg);
 
   &:has(input:disabled) {
     background-color: var(--adaptiveOpacity200);

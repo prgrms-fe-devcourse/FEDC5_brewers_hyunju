@@ -54,5 +54,5 @@ const StyledUl = styled.ul`
 
 const RoundSkeleton = styled(Skeleton)`
   justify-self: flex-end;
-  border-radius: 1.25rem;
+  border-radius: var(--radius-lg);
 `;

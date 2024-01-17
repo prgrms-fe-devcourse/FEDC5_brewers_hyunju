@@ -25,7 +25,7 @@ const FeedListInputContainer = styled(Container)`
   margin-bottom: 3.25rem;
   padding: 34px 40px;
   border: 1px solid var(--adaptive200);
-  border-radius: 0.75rem;
+  border-radius: var(--radius-md);
   box-shadow: 0 4px 4px 0 var(--adaptiveOpacity100);
 
   background-color: var(-adaptive50);
@@ -42,7 +42,7 @@ const FeedListTextarea = styled.textarea`
   border: solid 0.0938rem var(--transparent);
 
   /* border: none; */
-  border-radius: 0.4375rem;
+  border-radius: var(--radius-sm);
 
   background-color: var(--adaptive200);
 

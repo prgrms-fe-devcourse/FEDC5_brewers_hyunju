@@ -43,19 +43,6 @@ const ContentDiv = styled.div`
   @media screen and (width <= ${CONTAINER_SIZE['lg']}) {
     flex-direction: row;
   }
-
-  &::-webkit-scrollbar {
-    width: 0.25rem;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: var(--primaryColor);
-  }
-
-  &::-webkit-scrollbar-track {
-    background: var(--red100);
-  }
 `;
 
 const UserContainerDiv = styled.div`
@@ -72,19 +59,6 @@ const UserContainerDiv = styled.div`
   gap: 0.75rem;
 
   overflow-y: scroll;
-
-  &::-webkit-scrollbar {
-    width: 0.25rem;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: var(--primaryColor);
-  }
-
-  &::-webkit-scrollbar-track {
-    background: var(--red100);
-  }
 `;
 
 const UserStateListTemplate = ({
@@ -200,7 +174,7 @@ export default UserStateListTemplate;
 
 const StyledContainer = styled(Container)`
   padding: 1rem;
-  border-radius: 1rem;
+  border-radius: var(--radius-lg);
   box-shadow: 0 0 1.5rem var(--adaptiveOpacity50);
 
   box-sizing: border-box;

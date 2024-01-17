@@ -59,7 +59,7 @@ const ModalContainer = styled(Container)`
 
   /* min-height: 15.625rem; */
   max-height: 37.5rem;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-sm);
   box-shadow: 0 0.1875rem 0.375rem var(--adaptive300);
 
   box-sizing: border-box;

@@ -1,4 +1,5 @@
 @import './reset.css';
+@import './constants.css';
 @import './colors.css';
 @import './scroll.css';
 
@@ -38,7 +39,7 @@ input[type='date'] {
   padding: 0 8px 0 8px;
   /* background: url(assets/calendar.svg) no-repeat right 8px center / 20px auto; */
   border: 1px solid var(--adaptive400);
-  border-radius: 12px;
+  border-radius: var(--radius-md);
 
   font-family:
     'SUIT Variable',
@@ -85,7 +86,7 @@ input[type='time'] {
   padding: 0 8px 0 8px;
   /* background: url(assets/clock.svg) no-repeat right 8px center / 20px auto; */
   border: 1px solid var(--adaptive400);
-  border-radius: 12px;
+  border-radius: var(--radius-md);
 
   font-family:
     'SUIT Variable',

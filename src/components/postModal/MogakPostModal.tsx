@@ -161,7 +161,7 @@ const DateInput = styled.input`
   padding: 15px 5px;
   outline: none;
   border: none;
-  border-radius: 7px;
+  border-radius: var(--radius-sm);
 
   color: var(--adaptive950);
 
