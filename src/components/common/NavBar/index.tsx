@@ -10,17 +10,22 @@ import useLogout from '~/hooks/api/auth/useLogout';
 import { removeItem } from '~/utils/localStorage';
 import { postModalState } from '~/recoil/postModal/atoms';
 import BasicPostModal from '~/components/postModal/BasicPostModal';
+import { useMediaQuery } from 'react-responsive';
 
 export interface NavItemPropsType {
   to: string;
   children: React.ReactNode;
 }
 
+// nav 아이템
 const NavItem = ({ to, children }: NavItemPropsType) => {
   const location = useLocation();
   const isActive = location.pathname === to;
 
+  // active시 밑줄 & 색 변경
   const NavBarItemWithUnderline = styled(NavBarItem)`
+    flex-shrink: 0;
+
     height: 2rem;
     border-bottom: ${isActive ? '2px solid var(--primaryColor)' : 'none'};
 
@@ -60,7 +65,7 @@ const AuthNavItem = () => {
           <NavItem to={`/profile/${user._id}`}>{user.fullName} 님</NavItem>
           <NavBarItem
             onClick={handleLogout}
-            style={{ marginLeft: '1rem' }}
+            style={{ marginBottom: '2px' }}
           >
             로그아웃
           </NavBarItem>
@@ -74,50 +79,73 @@ const AuthNavItem = () => {
 
 const NavBar = () => {
   const setPostModalOpen = useSetRecoilState(postModalState);
+  const isSmall = useMediaQuery({ maxWidth: 56 * 16 });
 
-  return (
-    <NavWrapper>
-      {/* Nav 왼쪽 부분 (로고, 홈. 그룹, 채팅) */}
+  const NavBarLarge = () => {
+    return (
+      <>
+        <Flex
+          alignItems='center'
+          justifyContent='flex-start'
+          style={{ flexShrink: '0', boxSizing: 'border-box', height: '100%' }}
+        >
+          <Logo
+            type='normal'
+            size='sm'
+          ></Logo>
+
+          <NavItem to='/'>홈</NavItem>
+          <NavItem to='/message'>채팅</NavItem>
+          <NavItem to='/notification'>알림</NavItem>
+        </Flex>
+        <Flex
+          alignItems='center'
+          justifyContent='flex-end'
+          style={{ flexShrink: '0' }}
+        >
+          <Button
+            variant='outlined'
+            size='md'
+            color='--primaryColor'
+            ml={1}
+            style={{ width: '7.5rem', height: '3.125rem' }}
+            onClick={() =>
+              setPostModalOpen((prev) => ({
+                ...prev,
+                isOpen: true,
+              }))
+            }
+          >
+            포스트 작성
+          </Button>
+          <NavItem to='/search'>검색</NavItem>
+          <AuthNavItem />
+        </Flex>
+        <BasicPostModal />
+      </>
+    );
+  };
+
+  const NavBarSmall = () => {
+    return (
       <Flex
         alignItems='center'
-        justifyContent='flex-start'
-        style={{ flexShrink: '0', boxSizing: 'border-box' }}
+        justifyContent='space-between'
+        style={{ flexShrink: '0', width: '100%' }}
       >
         <Logo
-          type='normal'
+          type='simple'
           size='sm'
         ></Logo>
-
-        <NavItem to='/'>홈</NavItem>
         <NavItem to='/message'>채팅</NavItem>
         <NavItem to='/notification'>알림</NavItem>
-      </Flex>
-      {/* Nav 오른쪽 부분 (포스트작성, 검색, 로그인)*/}
-      <Flex
-        alignItems='center'
-        justifyContent='flex-end'
-        style={{ flexShrink: '0' }}
-      >
-        <Button
-          variant='outlined'
-          size='md'
-          color='--primaryColor'
-          style={{ width: '7.5rem', height: '3.125rem' }}
-          onClick={() =>
-            setPostModalOpen((prev) => ({
-              ...prev,
-              isOpen: true,
-            }))
-          }
-        >
-          포스트 작성
-        </Button>
         <NavItem to='/search'>검색</NavItem>
         <AuthNavItem />
       </Flex>
-      <BasicPostModal />
-    </NavWrapper>
-  );
+    );
+  };
+
+  return <NavWrapper>{isSmall ? <NavBarSmall /> : <NavBarLarge />}</NavWrapper>;
 };
 
 export default NavBar;
@@ -125,15 +153,17 @@ export default NavBar;
 const NavWrapper = styled(Flex)`
   display: flex;
   justify-content: space-between;
-  overflow: auto;
+  overflow: hidden;
 
   width: 100%;
   height: 5rem;
   max-width: 100%;
   margin-bottom: 2rem;
-  padding: 0 3.75rem;
+  padding: 0 3.5rem;
 
   background-color: var(--adaptive50);
+
+  box-sizing: border-box;
 
   text-decoration: none;
 `;
