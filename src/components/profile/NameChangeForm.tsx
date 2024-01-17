@@ -39,6 +39,10 @@ const NameChangeForm = (props: NameChangeFormPropsType) => {
       return alert('이름을 입력해주세요.');
     }
 
+    if (formData.fullName.length > 11) {
+      return alert('이름은 최대 10글자입니다.');
+    }
+
     try {
       setIsLoading(true);
       await updateName(formData.fullName);
@@ -62,11 +66,13 @@ const NameChangeForm = (props: NameChangeFormPropsType) => {
         placeholder='이름'
         disabled={!auth || isLoading}
         value={formData.fullName}
+        maxLength={10}
       />
       <Button
         variant='filled'
         size='lg'
         color='--primaryColor'
+        height={3.5}
         disabled={
           !auth ||
           isLoading ||
@@ -92,5 +98,12 @@ const Form = styled.form`
 `;
 
 const Input = styled.input`
-  height: 2.875rem;
+  height: 3.5rem;
+  padding: var(--padding-xs) var(--padding-md);
+  border: none;
+  border-radius: var(--radius-xs);
+
+  font-size: 1rem;
+
+  box-sizing: border-box;
 `;
