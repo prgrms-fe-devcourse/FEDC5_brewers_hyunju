@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import { useRecoilValue } from 'recoil';
 import NotificationSkeleton from '~/components/templates/NotificationSkeleton';
 import NotificationTemplate from '~/components/templates/NotificationTemplate';
@@ -17,10 +18,15 @@ const NotificationPage = () => {
   if (!auth) return <RequiredLoginTemplate />;
   if (!data) return <NotificationSkeleton />;
   return (
-    <NotificationTemplate
-      data={data}
-      action={{ getNotification }}
-    />
+    <>
+      <Helmet>
+        <title>알림</title>
+      </Helmet>
+      <NotificationTemplate
+        data={data}
+        action={{ getNotification }}
+      />
+    </>
   );
 };
 

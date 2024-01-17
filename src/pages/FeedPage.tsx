@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { userState } from '~/recoil/login/atoms';
 import FeedPageTemplate from '~/components/FeedPageTemplate';
-import Text from '~/components/common/Text';
 import useCreatePost from '~/hooks/api/post/useCreatePost';
 import useGetPosts from '~/hooks/api/post/useGetPosts';
 import { CustomPostContentType } from '~/types/common';
 import { postModalOpenState } from '~/recoil/postModal/selectors';
+import { Helmet } from 'react-helmet';
 
 const FeedPage = () => {
   const { request: createPost } = useCreatePost();
@@ -40,6 +40,9 @@ const FeedPage = () => {
   if (postsStatus === 'success' && postsData) {
     return (
       <>
+        <Helmet>
+          <title>피드</title>
+        </Helmet>
         <FeedPageTemplate
           posts={postsData}
           userId={user ? user._id : null}
@@ -48,11 +51,6 @@ const FeedPage = () => {
         />
       </>
     );
-  } else if (postsStatus === 'error') {
-    return <Text>Error</Text>;
-  } else {
-    return;
-    // skeleton return
   }
 };
 

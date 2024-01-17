@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
 
 import LoginTemplate from '~/components/templates/LoginTemplate';
@@ -73,15 +74,20 @@ const LoginPage = () => {
   }, [status, navigate]);
 
   return (
-    <LoginTemplate
-      onChange={onChange}
-      onSubmit={onSubmit}
-      status={status}
-      error={error}
-      userLoginInfo={userLoginInfo}
-      formErrorMessage={formErrorMessage}
-      userLoginInfoIsError={userLoginInfoIsError}
-    />
+    <>
+      <Helmet>
+        <title>로그인</title>
+      </Helmet>
+      <LoginTemplate
+        onChange={onChange}
+        onSubmit={onSubmit}
+        status={status}
+        error={error}
+        userLoginInfo={userLoginInfo}
+        formErrorMessage={formErrorMessage}
+        userLoginInfoIsError={userLoginInfoIsError}
+      />
+    </>
   );
 };
 

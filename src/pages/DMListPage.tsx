@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import { useRecoilValue } from 'recoil';
 
 import DMListTemplate from '~/components/templates/DMListTemplate';
@@ -18,10 +19,15 @@ const DMListPage = () => {
   }, [user]);
 
   return (
-    <DMListTemplate
-      conversations={data}
-      status={status}
-    />
+    <>
+      <Helmet>
+        <title>채팅 목록</title>
+      </Helmet>
+      <DMListTemplate
+        conversations={data}
+        status={status}
+      />
+    </>
   );
 };
 export default DMListPage;

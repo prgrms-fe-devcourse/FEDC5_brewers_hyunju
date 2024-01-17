@@ -5,6 +5,7 @@ import { userState } from '~/recoil/login/atoms';
 import Text from '~/components/common/Text';
 import PostTemplate from '~/components/templates/PostTemplate';
 import useGetPost from '~/hooks/api/post/useGetPost';
+import { Helmet } from 'react-helmet';
 
 const PostPage = () => {
   const { postId } = useParams();
@@ -22,13 +23,18 @@ const PostPage = () => {
 
   if (postStatus === 'success' && postData) {
     return (
-      <PostTemplate
-        post={postData}
-        user={user}
-        actions={{
-          requestPost,
-        }}
-      />
+      <>
+        <Helmet>
+          <title>포스트</title>
+        </Helmet>
+        <PostTemplate
+          post={postData}
+          user={user}
+          actions={{
+            requestPost,
+          }}
+        />
+      </>
     );
   } else if (postStatus === 'error') {
     return <Text>Error</Text>;

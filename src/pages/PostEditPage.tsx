@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import PostEditTemplate from '~/components/templates/PostEditTemplate';
@@ -22,7 +23,15 @@ const PostEditPage = () => {
 
   if (!auth) return <RequiredLoginTemplate />;
   else if (data) {
-    if (data.author._id === auth._id) return <PostEditTemplate data={data} />;
+    if (data.author._id === auth._id)
+      return (
+        <>
+          <Helmet>
+            <title>포스트 수정</title>
+          </Helmet>
+          <PostEditTemplate data={data} />
+        </>
+      );
     else return <UnauthorizedTemplate />;
   } else return <></>;
 };
