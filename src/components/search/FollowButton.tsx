@@ -9,6 +9,7 @@ import useCreateFollow from '~/hooks/api/follow/useCreateFollow';
 import useDeleteFollow from '~/hooks/api/follow/useDeleteFollow';
 import { userState } from '~/recoil/login/atoms';
 import { isLoginModalOpenState } from '~/recoil/loginModal/atoms';
+import useCreateNotification from '~/hooks/api/notification/useCreateNotification';
 
 export interface FollowButtonPropsType {
   userId: string;
@@ -29,6 +30,7 @@ const FollowButton = ({
     useCreateFollow();
   const { status: deleteFollowStatus, request: deleteFollow } =
     useDeleteFollow(followId);
+  const { request: createNoti } = useCreateNotification();
 
   const handleClick = useCallback(async () => {
     if (!auth) {
@@ -47,8 +49,15 @@ const FollowButton = ({
     } else {
       setIsFollow(true);
       // TODO: follow api
-      await createFollow(userId);
+      const createdFollow = await createFollow(userId);
       //actions.searchUserRequest();
+      createdFollow &&
+        createNoti({
+          notificationType: 'FOLLOW',
+          notificationTypeId: createdFollow._id,
+          userId: createdFollow.user,
+          postId: null,
+        });
     }
   }, [
     auth,
@@ -56,6 +65,7 @@ const FollowButton = ({
     createFollowStatus,
     deleteFollow,
     deleteFollowStatus,
+    createNoti,
     followId,
     isFollow,
     setIsLoginModalOpen,
