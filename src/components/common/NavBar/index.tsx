@@ -14,6 +14,7 @@ import ThemeSelectModal from './ThemeSelectModal';
 import ThemeSelectButton from './ThemeSelectButton';
 import { useMediaQuery } from 'react-responsive';
 import RequiredLoginModal from '~/components/RequiredLoginModal';
+import { CONTAINER_SIZE } from '~/constants/design';
 
 export interface NavItemPropsType {
   to: string;
@@ -42,7 +43,7 @@ const NavItem = ({ to, children }: NavItemPropsType) => {
       to={to}
       style={{
         textDecoration: 'none',
-        marginLeft: '1rem',
+        // marginLeft: '0.8rem',
         boxSizing: 'border-box',
       }}
     >
@@ -68,7 +69,7 @@ const AuthNavItem = () => {
           <NavItem to={`/profile/${user._id}`}>{user.fullName} 님</NavItem>
           <NavBarItem
             onClick={handleLogout}
-            style={{ marginBottom: '2px' }}
+            style={{ marginBottom: '2px', marginRight: '0' }}
           >
             로그아웃
           </NavBarItem>
@@ -83,7 +84,8 @@ const AuthNavItem = () => {
 const NavBar = () => {
   const setPostModalOpen = useSetRecoilState(postModalState);
   const [isShowThemeSelector, setIsShowThemeSelector] = useState(false);
-  const isSmall = useMediaQuery({ maxWidth: 56 * 16 });
+  // const isSmall = useMediaQuery({ maxWidth: 56 * 16 });
+  const isSmall = useMediaQuery({ maxWidth: CONTAINER_SIZE['lg'] });
 
   const NavBarLarge = () => {
     return (
@@ -112,7 +114,8 @@ const NavBar = () => {
             variant='outlined'
             size='md'
             color='--primaryColor'
-            ml={1}
+            ml={0.85}
+            mr={0.85}
             style={{ width: '7.5rem', height: '3.125rem' }}
             onClick={() =>
               setPostModalOpen((prev) => ({
@@ -163,17 +166,17 @@ export default NavBar;
 const NavWrapper = styled(Flex)`
   display: flex;
   justify-content: space-between;
-  overflow: auto;
+  overflow: hidden;
+
+  /* overflow: auto; */
   position: relative;
   z-index: 0;
-
-  /* overflow: hidden; */
 
   width: 100%;
   height: 5rem;
   max-width: 100%;
   margin-bottom: 2rem;
-  padding: 0 3.5rem;
+  padding: 0 3.8rem;
 
   background-color: var(--adaptive50);
 
@@ -197,6 +200,7 @@ const NavBarItem = styled.li`
   cursor: pointer;
   list-style: none;
   text-decoration: none;
+  word-break: keep-all;
 
   &:has(button) {
     margin: 0;
