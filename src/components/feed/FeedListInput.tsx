@@ -172,11 +172,6 @@ const FeedListInputContainer = styled(Container)`
   flex-direction: column;
   flex-shrink: 0;
 
-  /* padding: 34px 40px; */
-
-  /* border: 1px solid var(--adaptive200); */
-
-  /* border-radius: var(--radius-md); */
   background-color: var(-adaptive50);
 
   box-sizing: border-box;
