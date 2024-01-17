@@ -34,9 +34,9 @@ const NotificationItem = ({ data }: NotificationItemPropsType) => {
       gap={1}
       p={0.5}
       onClick={() => {
-        if (data.post) {
-          navigator(`/post/${data.post}`);
-        }
+        if (type === 'FOLLOW') return navigator(`/profile/${data.author._id}`);
+        if (type === 'MESSAGE') return navigator(`/message/${data.author._id}`);
+        return navigator(`/post/${data.post}`);
       }}
     >
       <Avatar

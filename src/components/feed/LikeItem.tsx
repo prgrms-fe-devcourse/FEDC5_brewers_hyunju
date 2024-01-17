@@ -19,6 +19,7 @@ interface LikeItemPropsType {
 }
 const LikeItem = ({ postId, userId, likes }: LikeItemPropsType) => {
   const auth = useRecoilValue(userState);
+
   const [likeCount, setLikeCount] = useState(likes.length);
   const [isLikeFilled, setIsLikeFilled] = useState(
     likes && likes.some((like) => (like as LikeType).user === auth?._id)
@@ -37,6 +38,7 @@ const LikeItem = ({ postId, userId, likes }: LikeItemPropsType) => {
         // create api 연결
         createRequest(postId).then((createdLike) => {
           createdLike &&
+            userId !== auth?._id &&
             createNoti({
               notificationType: 'LIKE',
               notificationTypeId: createdLike._id,

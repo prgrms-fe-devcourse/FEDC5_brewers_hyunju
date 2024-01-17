@@ -47,6 +47,7 @@ const NotificationTemplate = ({ data, action }: ProfileTemplatePropsType) => {
           size='lg'
           color='--primaryColor'
           onClick={handleReadAll}
+          disabled={noties.length === 0}
         >
           전체 읽음 처리
         </Button>

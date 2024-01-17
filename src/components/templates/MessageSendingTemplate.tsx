@@ -50,12 +50,13 @@ const MessageSendingTemplate = ({
       receiver: userId,
     }).then(fetch);
 
-    createNoti({
-      notificationType: 'MESSAGE',
-      notificationTypeId: messageData._id,
-      userId: userId,
-      postId: null,
-    });
+    userId !== user?._id &&
+      createNoti({
+        notificationType: 'MESSAGE',
+        notificationTypeId: messageData._id,
+        userId: userId,
+        postId: null,
+      });
   };
 
   if (!user) {
