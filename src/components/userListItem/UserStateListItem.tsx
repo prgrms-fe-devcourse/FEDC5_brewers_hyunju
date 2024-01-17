@@ -1,66 +1,108 @@
 import styled from '@emotion/styled';
 
-import Container from '~/components/common/Container';
-import Image from '~/components/common/Image';
 import Text from '~/components/common/Text';
 import Flex from '~/components/common/Flex';
+import Avatar from '../common/Avatar';
+import { CONTAINER_SIZE } from '~/constants/design';
+import Box from '~/components/common/Box';
 
 export interface UserStateListItemPropsType {
+  userId: string;
   src: string;
   fullName: string;
+  handleClick: () => void;
 }
 
 const ImageBadgeDiv = styled.div`
   position: relative;
 `;
 
-const ProfileImage = styled.div`
-  display: flex;
-  flex-shrink: 0;
-  align-items: end;
-  overflow: hidden;
-  position: relative;
-
-  border-radius: 100%;
-`;
-
-const UserStateListItem = ({ src, fullName }: UserStateListItemPropsType) => {
+const UserStateListItem = ({
+  userId,
+  src,
+  fullName,
+  handleClick,
+}: UserStateListItemPropsType) => {
   return (
-    <Container
-      maxWidth='sm'
-      p={0.5}
-      style={{
-        backgroundColor: 'var(--adaptive100)',
-        width: '10rem',
-        borderBottom: '1px solid var(--primaryColor) ',
-      }}
-    >
-      <Flex
+    <ReactiveBox>
+      <ReactiveFlex
         style={{ position: 'relative' }}
         gap={0.75}
         alignItems='center'
+        justifyContent='center'
       >
         <ImageBadgeDiv>
-          <ProfileImage>
+          {/* <ProfileImage>
             <Image
               width={2.5}
               height={2.5}
               alt={`${fullName} 프로필 사진`}
               src={src}
             />
-          </ProfileImage>
+          </ProfileImage> */}
+          <Avatar
+            src={src}
+            userId={userId}
+            size='sm'
+            handleClick={handleClick}
+          />
         </ImageBadgeDiv>
-        <Flex style={{ flex: 1, maxWidth: '108px' }}>
+        <TextFlex style={{ flex: 1, maxWidth: '108px' }}>
           <Text
             size={'sm'}
             style={{ wordWrap: 'break-word', maxWidth: '100%' }}
           >
             {fullName}
           </Text>
-        </Flex>
-      </Flex>
-    </Container>
+        </TextFlex>
+      </ReactiveFlex>
+    </ReactiveBox>
   );
 };
 
 export default UserStateListItem;
+
+const ReactiveBox = styled(Box)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  padding: 1rem;
+
+  /* border: solid 1px var(--blue500); */
+  border-bottom: 1px solid var(--primaryColor);
+
+  /* background-color: var(--adaptive100); */
+  transition: background-color 0.2s ease-in;
+
+  &:hover {
+    background-color: var(--adaptive400);
+  }
+
+  @media screen and (width <= ${CONTAINER_SIZE['lg']}) {
+    width: 5rem;
+    height: 5rem;
+    padding: 0.5rem;
+  }
+`;
+const ReactiveFlex = styled(Flex)`
+  flex-direction: row;
+  width: 100%;
+
+  @media screen and (width <= ${CONTAINER_SIZE['lg']}) {
+    flex-direction: column;
+  }
+`;
+
+const TextFlex = styled(Flex)`
+  display: block;
+
+  @media screen and (width <= ${CONTAINER_SIZE['xl']}) {
+    display: none;
+  }
+
+  @media screen and (width <= ${CONTAINER_SIZE['lg']}) {
+    display: block;
+  }
+`;
