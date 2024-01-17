@@ -43,7 +43,6 @@ const TextContainer = styled.div`
   height: fit-content;
   margin: 1rem auto;
   padding: 1rem;
-  border: 1px solid var(--secondaryColor);
 `;
 
 const AvatarContainer = styled.div`
@@ -88,11 +87,7 @@ const DMItem = ({
   const messageSize = size === 'md' ? 'sm' : 'md';
 
   return (
-    <Flex
-      direction='row'
-      alignItems='center'
-      gap={0.75}
-    >
+    <MessageContainer>
       <TextContainer>
         <Flex
           alignItems='center'
@@ -142,8 +137,24 @@ const DMItem = ({
           </div>
         </Flex>
       </TextContainer>
-    </Flex>
+    </MessageContainer>
   );
 };
 
 export default DMItem;
+
+const MessageContainer = styled(Flex)`
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 1rem;
+  box-shadow: 0 0 1.5rem var(--adaptiveOpacity100);
+
+  background-color: var(--transparent);
+
+  box-sizing: border-box;
+
+  &:hover {
+    background-color: var(--adaptiveOpacity100);
+  }
+`;
