@@ -25,7 +25,6 @@ const ProfileImage = styled.div`
   border-radius: 50%;
 
   cursor: pointer;
-  transition: border-color 0.2s ease-out;
 `;
 
 const UserStateListItem = ({ src, fullName }: UserStateListItemPropsType) => {
