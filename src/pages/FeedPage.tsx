@@ -9,7 +9,7 @@ import { postModalOpenState } from '~/recoil/postModal/selectors';
 import { Helmet } from 'react-helmet';
 
 const FeedPage = () => {
-  const { request: createPost } = useCreatePost();
+  const { status: createPostStatus, request: createPost } = useCreatePost();
   const user = useRecoilValue(userState);
   const isOpen = useRecoilValue(postModalOpenState);
   const {
@@ -44,6 +44,7 @@ const FeedPage = () => {
           <title>피드</title>
         </Helmet>
         <FeedPageTemplate
+          createStatus={createPostStatus}
           posts={postsData}
           userId={user ? user._id : null}
           profileImage={user ? user.image : ''}

@@ -13,7 +13,7 @@ const BasicPostModal = () => {
   const user = useRecoilValue(userState);
   const setPostModal = useSetRecoilState(postModalState);
   const isOpen = useRecoilValue(basicPostOpenState);
-  const { request: createPost } = useCreatePost();
+  const { status: createPostStatus, request: createPost } = useCreatePost();
   const handleClose = useCallback(() => {
     setPostModal({
       type: 'basic',
@@ -52,6 +52,7 @@ const BasicPostModal = () => {
         <Modal.Body>
           {user && (
             <FeedListInput
+              createStatus={createPostStatus}
               userId={user._id}
               profileImage={user.image}
               onHandleCreatePost={handleCreatePost}
