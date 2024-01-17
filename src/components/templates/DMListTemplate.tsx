@@ -77,7 +77,7 @@ const DMListTemplate = ({ conversations, status }: DMListTemplatePropsType) => {
             direction='column'
             gap={0.25}
           >
-            {status === 'loading' && <CircleLoading size={1} />}
+            {status === 'loading' && <CircleLoading size={'sm'} />}
             {status === 'success' && conversations.length ? (
               conversations?.map(
                 ({ message, sender, receiver, seen }, index) => (

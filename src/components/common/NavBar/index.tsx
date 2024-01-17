@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, ReactNode } from 'react';
 import styled from '@emotion/styled';
 import { Link, useLocation } from 'react-router-dom';
 import Flex from '~/components/common/Flex';
@@ -10,11 +10,13 @@ import useLogout from '~/hooks/api/auth/useLogout';
 import { removeItem } from '~/utils/localStorage';
 import { postModalState } from '~/recoil/postModal/atoms';
 import BasicPostModal from '~/components/postModal/BasicPostModal';
+import ThemeSelectModal from './ThemeSelectModal';
+import ThemeSelectButton from './ThemeSelectButton';
 import { useMediaQuery } from 'react-responsive';
 
 export interface NavItemPropsType {
   to: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 // nav 아이템
@@ -79,6 +81,7 @@ const AuthNavItem = () => {
 
 const NavBar = () => {
   const setPostModalOpen = useSetRecoilState(postModalState);
+  const [isShowThemeSelector, setIsShowThemeSelector] = useState(false);
   const isSmall = useMediaQuery({ maxWidth: 56 * 16 });
 
   const NavBarLarge = () => {
@@ -103,6 +106,7 @@ const NavBar = () => {
           justifyContent='flex-end'
           style={{ flexShrink: '0' }}
         >
+          <ThemeSelectButton onClick={() => setIsShowThemeSelector(true)} />
           <Button
             variant='outlined'
             size='md'
@@ -122,6 +126,10 @@ const NavBar = () => {
           <AuthNavItem />
         </Flex>
         <BasicPostModal />
+        <ThemeSelectModal
+          visible={isShowThemeSelector}
+          handleClose={() => setIsShowThemeSelector(false)}
+        />
       </>
     );
   };
@@ -153,7 +161,11 @@ export default NavBar;
 const NavWrapper = styled(Flex)`
   display: flex;
   justify-content: space-between;
-  overflow: hidden;
+  overflow: auto;
+  position: relative;
+  z-index: 0;
+
+  /* overflow: hidden; */
 
   width: 100%;
   height: 5rem;

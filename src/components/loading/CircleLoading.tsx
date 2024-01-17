@@ -1,12 +1,12 @@
-import Container from '../common/Container';
-import ColorType from '~/types/design/color';
-import styled from '@emotion/styled';
 import { keyframes, css } from '@emotion/react';
+import styled from '@emotion/styled';
+
+import Container from '../common/Container';
+
+import ColorType from '~/types/design/color';
 
 interface CircleLoadingPropsType {
-  size?: number;
-  time?: number;
-  stroke?: number;
+  size?: 'sm' | 'md';
   color?: ColorType;
   backgroundColor?: ColorType;
 }
@@ -37,17 +37,16 @@ const Animation = styled.div(
 );
 
 const CircleLoading = ({
-  size = 1,
-  time = 2,
-  stroke = 0.25,
+  size = 'sm',
   color = '--primaryColor' as ColorType,
   backgroundColor = '--adaptive300' as ColorType,
 }: CircleLoadingPropsType) => {
-  const newSize = size < 0 ? 0.01 : size;
-  const convertedSize = newSize * 16;
+  const convertedSize = size === 'sm' ? 16 : 64;
   const colorBarRatio = (convertedSize * 2 * Math.PI) / 5;
   const backgroundColorBarRatio = ((convertedSize * 2 * Math.PI) / 5) * 4;
-  const newStrokeWidth = stroke < 0 ? 0 : stroke * 16;
+  const newStrokeWidth = size === 'sm' ? 4 : 12;
+
+  const time = size === 'sm' ? 1 : 2;
 
   return (
     <Container
