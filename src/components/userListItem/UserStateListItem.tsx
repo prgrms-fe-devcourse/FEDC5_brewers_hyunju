@@ -42,6 +42,7 @@ const UserStateListItem = ({
         <TextFlex style={{ flex: 1, maxWidth: '108px' }}>
           <Text
             size={'sm'}
+            weight={600}
             style={{ wordWrap: 'break-word', maxWidth: '100%' }}
           >
             {fullName}
