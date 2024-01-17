@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import Flex from '~/components/common/Flex';
 import Button from '~/components/common/Button';
 import Logo from '~/components/common/Logo';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { userState } from '~/recoil/login/atoms';
 import useLogout from '~/hooks/api/auth/useLogout';
 import { removeItem } from '~/utils/localStorage';
@@ -82,6 +82,7 @@ const AuthNavItem = () => {
 };
 
 const NavBar = () => {
+  const user = useRecoilValue(userState);
   const setPostModalOpen = useSetRecoilState(postModalState);
   const [isShowThemeSelector, setIsShowThemeSelector] = useState(false);
   // const isSmall = useMediaQuery({ maxWidth: 56 * 16 });
@@ -111,6 +112,7 @@ const NavBar = () => {
         >
           <ThemeSelectButton onClick={() => setIsShowThemeSelector(true)} />
           <Button
+            disabled={user ? false : true}
             variant='outlined'
             size='md'
             color='--primaryColor'
