@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 
 import MessageSendingTemplate from '~/components/templates/MessageSendingTemplate';
@@ -35,11 +36,16 @@ const PersonalMessagePage = () => {
   }, []);
 
   return (
-    <MessageSendingTemplate
-      messageListData={data}
-      userId={userId}
-      fetch={fetch}
-    />
+    <>
+      <Helmet>
+        <title>채팅</title>
+      </Helmet>
+      <MessageSendingTemplate
+        messageListData={data}
+        userId={userId}
+        fetch={fetch}
+      />
+    </>
   );
 };
 

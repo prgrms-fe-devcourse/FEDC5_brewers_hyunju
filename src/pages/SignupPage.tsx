@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
 
 import SignupTemplate from '~/components/templates/SignupTemplate';
@@ -109,14 +110,19 @@ const SignupPage = () => {
   }, [status, navigate]);
 
   return (
-    <SignupTemplate
-      onChange={onChange}
-      onSubmit={onSubmit}
-      userSignupInfo={userSignupInfo}
-      status={status}
-      formErrorMessage={formErrorMessage}
-      userSignupInfoIsError={userSignupInfoIsError}
-    />
+    <>
+      <Helmet>
+        <title>회원가입</title>
+      </Helmet>
+      <SignupTemplate
+        onChange={onChange}
+        onSubmit={onSubmit}
+        userSignupInfo={userSignupInfo}
+        status={status}
+        formErrorMessage={formErrorMessage}
+        userSignupInfoIsError={userSignupInfoIsError}
+      />
+    </>
   );
 };
 

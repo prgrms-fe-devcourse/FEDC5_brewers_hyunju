@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import { useSearchParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import SearchTemplate from '~/components/templates/SearchTemplate';
@@ -95,12 +96,17 @@ const SearchPage = () => {
   // useEffect(() => {}, [searchParams]);
 
   return (
-    <SearchTemplate
-      allStatus={searchAllStatus}
-      userStatus={searchUserStatus}
-      users={parseSearchData(searchUserData, auth?._id).users}
-      all={parseSearchData(searchAllData, auth?._id)}
-    />
+    <>
+      <Helmet>
+        <title>검색</title>
+      </Helmet>
+      <SearchTemplate
+        allStatus={searchAllStatus}
+        userStatus={searchUserStatus}
+        users={parseSearchData(searchUserData, auth?._id).users}
+        all={parseSearchData(searchAllData, auth?._id)}
+      />
+    </>
   );
 };
 

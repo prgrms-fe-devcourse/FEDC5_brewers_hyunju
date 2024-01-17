@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router';
 import ProfileSkeleton from '~/components/templates/ProfileSkeleton';
 import ProfileTemplate from '~/components/templates/ProfileTemplate';
@@ -20,10 +21,15 @@ const ProfilePage = () => {
 
   if (userStatus === 'success' && userData) {
     return (
-      <ProfileTemplate
-        user={userData}
-        actions={{ requestUser }}
-      />
+      <>
+        <Helmet>
+          <title>프로필</title>
+        </Helmet>
+        <ProfileTemplate
+          user={userData}
+          actions={{ requestUser }}
+        />
+      </>
     );
   } else {
     return <ProfileSkeleton />;
