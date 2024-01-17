@@ -32,14 +32,6 @@ const UserStateListItem = ({
         justifyContent='center'
       >
         <ImageBadgeDiv>
-          {/* <ProfileImage>
-            <Image
-              width={2.5}
-              height={2.5}
-              alt={`${fullName} 프로필 사진`}
-              src={src}
-            />
-          </ProfileImage> */}
           <Avatar
             src={src}
             userId={userId}
