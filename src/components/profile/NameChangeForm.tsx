@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import Button from '../common/Button';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { userState } from '~/recoil/login/atoms';
 import useUpdateName from '~/hooks/api/settings/useUpdateName';
 
@@ -12,7 +12,7 @@ export interface NameChangeFormPropsType {
 }
 
 const NameChangeForm = (props: NameChangeFormPropsType) => {
-  const auth = useRecoilValue(userState);
+  const [auth, setAuth] = useRecoilState(userState);
 
   const { request: updateName } = useUpdateName();
 
@@ -45,7 +45,8 @@ const NameChangeForm = (props: NameChangeFormPropsType) => {
 
     try {
       setIsLoading(true);
-      await updateName(formData.fullName);
+      const res = await updateName(formData.fullName);
+      res && setAuth(res);
       alert('이름 변경 완료');
       props.onSuccess && props.onSuccess();
     } catch {
@@ -69,6 +70,7 @@ const NameChangeForm = (props: NameChangeFormPropsType) => {
         maxLength={10}
       />
       <Button
+        type='submit'
         variant='filled'
         size='lg'
         color='--primaryColor'

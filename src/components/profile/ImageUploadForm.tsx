@@ -5,6 +5,8 @@ import Flex from '~/components/common/Flex';
 import Image from '~/components/common/Image';
 import Button from '~/components/common/Button';
 import useUploadPhoto from '~/hooks/api/users/useUploadPhoto';
+import { useSetRecoilState } from 'recoil';
+import { userState } from '~/recoil/login/atoms';
 
 export interface ImageUploadFormPropsType {
   isCover?: boolean;
@@ -24,6 +26,8 @@ const ImageUploadForm = ({
   const formRef = useRef<HTMLFormElement | null>(null);
 
   const { request: uploadPhoto } = useUploadPhoto();
+
+  const setAuth = useSetRecoilState(userState);
 
   const [isLoading, setIsLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -77,12 +81,9 @@ const ImageUploadForm = ({
       form.append('isCover', (isCover ?? false).toString());
       form.append('image', selectedFile);
 
-      await uploadPhoto({
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        data: form,
-      });
+      const res = await uploadPhoto(form);
+
+      res && setAuth(res);
 
       setIsLoading(false);
 
