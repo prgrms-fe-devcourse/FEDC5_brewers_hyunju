@@ -43,7 +43,7 @@ const NotificationTemplate = ({ data, action }: ProfileTemplatePropsType) => {
           알림
         </Text>
         <Button
-          variant='filled'
+          variant='text'
           size='lg'
           color='--primaryColor'
           onClick={handleReadAll}
@@ -70,6 +70,10 @@ const NotificationTemplate = ({ data, action }: ProfileTemplatePropsType) => {
 export default NotificationTemplate;
 
 const Container = styled(StyledContainer)`
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+
+  padding: 0;
+
+  background-color: var(--transparent);
 `;
