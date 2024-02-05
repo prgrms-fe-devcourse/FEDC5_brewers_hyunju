@@ -1,30 +1,158 @@
-# React + TypeScript + Vite
+# Brewers
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[Brewers](https://fedc-5-brewers-hyunju.vercel.app/)는 모각코를 하기 좋은 카페를
+공유하고, 모각코 인원을 모집할 수 있는 커뮤니티 서비스입니다.
 
-Currently, two official plugins are available:
+"Brew"는 "오랜 시간동안 맛이 우러나게 하다"라는 뜻을 가지고 있습니다.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+사용자들이 직접 개발하기 좋은 카페 네트워크를 만들어 나간다는 의미에서 brew하는
+사람들, Brewers입니다.
 
-## Expanding the ESLint configuration
+## 진행 기간
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+2023년 12월 22일(금) ~ 2024년 1월 17일(수)
 
-- Configure the top-level `parserOptions` property like this:
+## 실행 방법
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```
+git clone https://github.com/prgrms-fe-devcourse/FEDC5_brewers_hyunju.git
+npm install
+npm run dev
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+# 팀 소개
+
+<table >
+  <thead>
+    <tr>
+      <th>팀원</th>
+      <th>역할</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+          <img  src="https://avatars.githubusercontent.com/u/88219703?v=4"  width="100px;"  alt="yjc2021"/>
+      </td>
+      <td rowspan='2'>
+          팀장
+      </td>
+    </tr>
+    <tr>
+        <td align="center">
+            <a href="https://github.com/yjc2021">
+                <div>최용재</div>
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img  src="https://avatars.githubusercontent.com/u/86847564?v=4"  width="100px;"  alt="yeon-kk"/>
+        </td>
+        <td rowspan='2'>
+          팀원
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            <a href="https://github.com/yeon-kk">
+                <div>곽연경</div>
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+           <img  src="https://avatars.githubusercontent.com/u/129164551?v=4"  width="100px;"  alt="nnahyunn"/>
+        </td>
+        <td rowspan='2'>
+          팀원
+      </td>
+    </tr>
+    <tr>
+        <td align="center">
+            <a href="https://github.com/nnahyunn">
+                <div>김나현</div>
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+           <img  src="https://avatars.githubusercontent.com/u/86952779?v=4"  width="100px;"  alt="bel1c10ud"/>
+        </td>
+        <td rowspan='2'>
+          팀원
+      </td>
+    </tr>
+    <tr>
+        <td align="center">
+            <a href="https://github.com/bel1c10ud">
+                <div>박종운</div>
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+           <img  src="https://avatars.githubusercontent.com/u/62047243?v=4"  width="100px;"  alt="jiheeshin27"/>
+        </td>
+        <td rowspan='2'>
+          팀원
+      </td>
+    </tr>
+    <tr>
+        <td align="center">
+            <a href="https://github.com/jiheeshin27">
+                <div>신지희</div>
+            </a>
+        </td>
+    </tr>
+  </tbody>
+</table>
+
+# 핵심 기능
+
+피드 타임라인 / 포스트
+
+- 좋아요, 댓글
+- 수정, 삭제
+
+검색
+
+- 통합 검색
+- 사용자 검색
+
+채팅
+
+- 1:1 채팅
+- 읽지 않은 채팅
+
+알림
+
+- 좋아요, 댓글, 팔로우
+
+프로필
+
+- 팔로우
+- 채팅
+- 포스트
+- 온라인/오프라인
+
+다크/라이트 모드
+
+사용자 목록
+
+- 온라인
+- 전체
+
+## 기술 스택
+
+### 개발
+
+NPM Vite React Typescript Axios Styled-Components Vercel Recoil Storybook
+
+### 린트
+
+Stylelint Husky Lint-staged
+
+### 협업
+
+GitHub Projects Notion Slack Discord Figma
