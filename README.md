@@ -1,5 +1,7 @@
 # Brewers
 
+<div align="center"><img alt='Brewers로고' src="./public/favicon.svg" width="100px;"/></div>
+
 [Brewers](https://fedc-5-brewers-hyunju.vercel.app/)는 모각코를 하기 좋은 카페를
 공유하고, 모각코 인원을 모집할 수 있는 커뮤니티 서비스입니다.
 
