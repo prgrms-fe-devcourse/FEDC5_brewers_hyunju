@@ -148,32 +148,32 @@ npm run dev
 ### 개발
 
 <div>
-<img alt="Static Badge" src="https://img.shields.io/badge/react-white.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB">
-<img alt="Static Badge" src="https://img.shields.io/badge/typescript-white.svg?style=for-the-badge&logo=typescript&logoColor=%233178C6">
-<img alt="Static Badge" src="https://img.shields.io/badge/axios-white.svg?style=for-the-badge&logo=axios&logoColor=%235A29E4">
-<img alt="Static Badge" src="https://img.shields.io/badge/styledcomponents-white.svg?style=for-the-badge&logo=styledcomponents&logoColor=%23DB7093">
+<img alt="React" src="https://img.shields.io/badge/react-white.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB">
+<img alt="TypeScript" src="https://img.shields.io/badge/typescript-white.svg?style=for-the-badge&logo=typescript&logoColor=%233178C6">
+<img alt="Axios" src="https://img.shields.io/badge/axios-white.svg?style=for-the-badge&logo=axios&logoColor=%235A29E4">
+<img alt="StyledComponents" src="https://img.shields.io/badge/styledcomponents-white.svg?style=for-the-badge&logo=styledcomponents&logoColor=%23DB7093">
 </div>
 <div>
-<img alt="Static Badge" src="https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white">
-<img alt="Static Badge" src="https://img.shields.io/badge/Vite-%23646CFF.svg?style=for-the-badge&logo=Vite&logoColor=white&labelColor=%23646CFF">
-<img alt="Static Badge" src="https://img.shields.io/badge/recoil-%233578E5.svg?style=for-the-badge&logo=recoil&logoColor=white">
-<img alt="Static Badge" src="https://img.shields.io/badge/npm-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white&labelColor=%23CB3837">
-<img alt="Static Badge" src="https://img.shields.io/badge/storybook-%23FF4785.svg?style=for-the-badge&logo=storybook&logoColor=white">
+<img alt="Vercel" src="https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white">
+<img alt="Vite" src="https://img.shields.io/badge/Vite-%23646CFF.svg?style=for-the-badge&logo=Vite&logoColor=white&labelColor=%23646CFF">
+<img alt="Recoil" src="https://img.shields.io/badge/recoil-%233578E5.svg?style=for-the-badge&logo=recoil&logoColor=white">
+<img alt="NPM" src="https://img.shields.io/badge/npm-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white&labelColor=%23CB3837">
+<img alt="Storybook" src="https://img.shields.io/badge/storybook-%23FF4785.svg?style=for-the-badge&logo=storybook&logoColor=white">
 </div>
 
 ### 린트
 
 <div>
-<img alt="Static Badge" src="https://img.shields.io/badge/Stylelint-%23263238.svg?style=for-the-badge&logo=Stylelint&logoColor=white">
+<img alt="Stylelint" src="https://img.shields.io/badge/Stylelint-%23263238.svg?style=for-the-badge&logo=Stylelint&logoColor=white">
 </div>
 Husky Lint-staged
 
 ### 협업
 
 <div>
-<img alt="Static Badge" src="https://img.shields.io/badge/github-%23181717.svg?style=for-the-badge&logo=github&logoColor=white">
-<img alt="Static Badge" src="https://img.shields.io/badge/slack-%234A154B.svg?style=for-the-badge&logo=slack">
-<img alt="Static Badge" src="https://img.shields.io/badge/discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white">
-<img alt="Static Badge" src="https://img.shields.io/badge/figma-white.svg?style=for-the-badge&logo=figma">
-<img alt="Static Badge" src="https://img.shields.io/badge/notion-white.svg?style=for-the-badge&logo=notion&logoColor=%23000000">
+<img alt="GitHub" src="https://img.shields.io/badge/github-%23181717.svg?style=for-the-badge&logo=github&logoColor=white">
+<img alt="Slack" src="https://img.shields.io/badge/slack-%234A154B.svg?style=for-the-badge&logo=slack">
+<img alt="Discord" src="https://img.shields.io/badge/discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white">
+<img alt="Figma" src="https://img.shields.io/badge/figma-white.svg?style=for-the-badge&logo=figma">
+<img alt="Notion" src="https://img.shields.io/badge/notion-white.svg?style=for-the-badge&logo=notion&logoColor=%23000000">
 </div>
