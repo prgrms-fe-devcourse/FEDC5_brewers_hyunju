@@ -1,13 +1,54 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/favicon.svg"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/variable/woff2/SUIT-Variable.css"
+      rel="stylesheet"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <meta
+      name="color-scheme"
+      content="light dark"
+    />
+    <script>
+      const mql = window.matchMedia('(prefers-color-scheme: dark)');
+
+      const handleTheme = (e) => {
+        try {
+          const currentTheme = JSON.parse(
+            localStorage.getItem('BREWERS_THEME') ?? '""'
+          );
+
+          if (currentTheme !== '') {
+            document.documentElement.className = currentTheme;
+          } else {
+            document.documentElement.className = e.matches ? 'dark' : 'light';
+          }
+        } catch (e) {
+          console.error(e, 'ThemeInit');
+        }
+      };
+
+      handleTheme(mql);
+
+      mql.addEventListener('change', handleTheme);
+    </script>
     <title>Vite + React + TS</title>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <script
+      type="module"
+      src="/src/main.tsx"
+    ></script>
   </body>
 </html>
